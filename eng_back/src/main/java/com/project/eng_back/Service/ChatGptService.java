@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 public class ChatGptService {
 
     private static RestTemplate restTemplate = new RestTemplate();
-
+    private String conversationHistory = "";
     public HttpEntity<ChatGptRequestDto> buildHttpEntity(ChatGptRequestDto requestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(ChatGptConfig.MEDIA_TYPE));
@@ -33,16 +33,22 @@ public class ChatGptService {
     }
 
     public ChatGptResponseDto askQuestion(QuestionRequestDto requestDto) {
-        return this.getResponse(
-                this.buildHttpEntity(
-                        new ChatGptRequestDto(
-                                ChatGptConfig.MODEL,
-                                requestDto.getQuestion(),
-                                ChatGptConfig.MAX_TOKEN,
-                                ChatGptConfig.TEMPERATURE,
-                                ChatGptConfig.TOP_P
-                        )
-                )
-        );
+        // 대화 히스토리에 현재 사용자 입력 추가
+        conversationHistory += "\nUser: " + requestDto.getQuestion();
+
+        // 이전 대화 히스토리를 고려한 프롬프트 생성
+        String contextualPrompt = "User: " + requestDto.getQuestion() + "\n" +
+                "Context: " + conversationHistory;
+
+        // GPT에게 고려된 프롬프트로 요청 보내고 응답 받기
+        ChatGptRequestDto chatGptRequestDto = ChatGptRequestDto.builder()
+                .model(ChatGptConfig.MODEL)
+                .prompt(contextualPrompt)
+                .maxTokens(ChatGptConfig.MAX_TOKEN)
+                .temperature(ChatGptConfig.TEMPERATURE)
+                .topP(ChatGptConfig.TOP_P)
+                .build();
+
+        return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
     }
 }
