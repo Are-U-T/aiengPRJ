@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
+import java.util.*;
 
 // @CrossOrigin(origins = "http://localhost:8800")
 @RestController
@@ -56,7 +56,10 @@ public class UserController {
             session.setAttribute("userNo", userNo);
             return ResponseEntity.ok(foundUser);
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀 번호 틀렸습니다.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호가 올바르지 않습니다.");
         }
     }
+
+
+
 }
