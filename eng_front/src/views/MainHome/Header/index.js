@@ -1,8 +1,52 @@
-import React, { } from 'react';
+import React, {useState} from 'react';
 import logo from './images/logo.png';
 import { Link } from 'react-router-dom';
 
+
+// 모달 컴포넌트 정의
+function Modal({ isOpen, onClose, children }) {
+    if (!isOpen) return null;
+
+    return (
+        <div style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000
+        }}>
+            <div style={{
+                background: '#fff',
+                padding: 20,
+                borderRadius: 10,
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                width: '60%', // 모달창의 가로 너비를 화면의 60%로 설정
+                height: '90%', // 모달창의 세로 높이를 화면의 90%로 설정
+                maxWidth: '800px', // 최대 가로 너비 제한
+                maxHeight: '95vh', // 최대 세로 높이를 뷰포트 높이의 95%로 설정
+                overflow: 'auto', // 내용이 넘칠 경우 스크롤 가능하도록 설정
+                position: 'relative' // 상대적 위치 설정
+            }}>
+                {children}
+                <button onClick={onClose} style={{
+                    position: 'absolute',
+                    bottom: 10,
+                    right: 10
+                }}>닫기</button>
+            </div>
+        </div>
+
+
+    );
+}
+
 function Header(){
+    const [isModalOpen, setModalOpen] = useState(false);
     return (
         <>
   {/* Masthead*/}
@@ -32,41 +76,43 @@ function Header(){
             <div style={{ maxWidth: '1200px', margin: 'auto', padding: '0 40px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', padding: '20px', gap: '20px' }}>
                     {/* 첫 번째 행 */}
-                    <Link to="#" style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <div style={{ border: '2px solid #dcdcdc', borderRadius: '10px', boxShadow: '0 6px 10px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
+                    <div onClick={() => setModalOpen(true)} style={{ border: '2px solid #dcdcdc', borderRadius: '10px',
+                        boxShadow: '0 6px 10px rgba(0,0,0,0.1)', overflow: 'hidden', cursor: 'pointer' }}>
                             <div style={{ padding: '15px', textAlign: 'center' }}>
                                 <h3 style={{ marginBottom: '10px' }}>레벨 테스트</h3>
                                 <img src={logo} alt="Speech" style={{ width: '120px', height: '120px', objectFit: 'cover', margin: '0 auto' }} />
                                 <p style={{ marginTop: '10px', color: '#4A90E2', fontSize: '14px' }}>당신의 레벨을 테스트 할 수 있습니다!</p>
                             </div>
                         </div>
-                    </Link>
 
                     {/* 두 번째 행 */}
-                    <Link to="#" style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <div style={{ border: '2px solid #dcdcdc', borderRadius: '10px', boxShadow: '0 6px 10px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
+                    <div onClick={() => setModalOpen(true)} style={{ border: '2px solid #dcdcdc', borderRadius: '10px',
+                        boxShadow: '0 6px 10px rgba(0,0,0,0.1)', overflow: 'hidden', cursor: 'pointer' }}>
                             <div style={{ padding: '15px', textAlign: 'center' }}>
                                 <h3 style={{ marginBottom: '10px' }}>Speach</h3>
                                 <img src={logo} alt="Speech" style={{ width: '120px', height: '120px', objectFit: 'cover', margin: '0 auto' }} />
                                 <p style={{ marginTop: '10px', color: '#4A90E2', fontSize: '14px' }}>스피킹을 합니다!</p>
                             </div>
                         </div>
-                    </Link>
 
                     {/* 세 번째 행 */}
-                    <Link to="#" style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <div style={{ border: '2px solid #dcdcdc', borderRadius: '10px', boxShadow: '0 6px 10px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
+                    <div onClick={() => setModalOpen(true)} style={{ border: '2px solid #dcdcdc', borderRadius: '10px',
+                        boxShadow: '0 6px 10px rgba(0,0,0,0.1)', overflow: 'hidden', cursor: 'pointer' }}>
                             <div style={{ padding: '15px', textAlign: 'center' }}>
                                 <h3 style={{ marginBottom: '10px' }}>Keyword</h3>
                                 <img src={logo} alt="Speech" style={{ width: '120px', height: '120px', objectFit: 'cover', margin: '0 auto' }} />
                                 <p style={{ marginTop: '10px', color: '#4A90E2', fontSize: '14px' }}>키워드 시험을 봅니다!</p>
                             </div>
                         </div>
-                    </Link>
                 </div>
+
+                {/* 모달 컴포넌트 */}
+                <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+
+                    보안학회 시상 결과 추후에 나온다는데,<br/>
+                    언제 발표 될까? tlqkf..
+                </Modal>
             </div>
-
-
 
             {/*밑에*/}
             <div style={{marginTop : '100px'}}/>

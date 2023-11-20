@@ -78,6 +78,16 @@ export default function Mainarea(){
         </div>
       </div>
     </div>
+
+
+
+
+
+
+
+
+
+
   </section>
 
           <Box

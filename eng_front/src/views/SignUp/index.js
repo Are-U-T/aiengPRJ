@@ -4,8 +4,8 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+//import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -13,62 +13,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navigation from "../Navigation";
-import {useColorScheme} from "@mui/joy/styles";
-import {useEffect, useState} from "react";
-import IconButton from "@mui/joy/IconButton";
-import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
-import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import RadioGroup from '@mui/material/RadioGroup';
+import Radio from '@mui/material/Radio';
 
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://www.naver.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
-
-function ColorSchemeToggle(props) {
-    const { mode, setMode } = useColorScheme();
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    if (!mounted) {
-        return <IconButton size="sm" variant="outlined" color="neutral" disabled />;
-    }
-
-    return (
-
-        <IconButton
-            id="toggle-mode"
-            size="sm"
-            variant="outlined"
-            color="neutral"
-            aria-label="toggle light/dark mode"
-            {...props}
-            onClick={(event) => {
-                if (mode === 'light') {
-                    setMode('dark');
-                } else {
-                    setMode('light');
-                }
-                if (props.onClick) props.onClick(event);
-            }}
-        >
-            {mode === 'light' ? <DarkModeRoundedIcon /> : <LightModeRoundedIcon />}
-        </IconButton>
-    );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
@@ -79,6 +28,8 @@ export default function SignInSide() {
         console.log({
             email: data.get('email'),
             password: data.get('password'),
+            name: data.get('name'),
+            gender: data.get('gender'),
         });
     };
 
@@ -140,8 +91,29 @@ export default function SignInSide() {
                                 id="password"
                                 autoComplete="current-password"
                             />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="name"
+                                label="Name"
+                                name="name"
+                                autoComplete="name"
+                                autoFocus
+                            />
 
-
+                            <FormControl component="fieldset" sx={{ mt: 2, mb: 2 }}>
+                                <FormLabel component="legend">Gender</FormLabel>
+                                <RadioGroup
+                                    row
+                                    aria-label="gender"
+                                    name="gender"
+                                    defaultValue="man"
+                                >
+                                    <FormControlLabel value="man" control={<Radio />} label="man" />
+                                    <FormControlLabel value="woman" control={<Radio />} label="woman" />
+                                </RadioGroup>
+                            </FormControl>
 
 
 
@@ -156,12 +128,11 @@ export default function SignInSide() {
                             <Grid container>
                                 <Grid item xs/>
                                 <Grid item>
-                                    <Link href="#" variant="body2">
+                                    <Link to="/login" variant="body2">
                                         {"Already have an account? Sign in"}
                                     </Link>
                                 </Grid>
                             </Grid>
-                            <Copyright sx={{ mt: 5 }} />
                         </Box>
                     </Box>
                 </Grid>

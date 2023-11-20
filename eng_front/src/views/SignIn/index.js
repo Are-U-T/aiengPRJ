@@ -9,7 +9,8 @@ import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel, { formLabelClasses } from '@mui/joy/FormLabel';
 import IconButton from '@mui/joy/IconButton';
-import Link from '@mui/joy/Link';
+//import Link from '@mui/joy/Link';
+import { Link } from 'react-router-dom';
 import Input from '@mui/joy/Input';
 import Typography from '@mui/joy/Typography';
 import Stack from '@mui/joy/Stack';
@@ -17,6 +18,8 @@ import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
 import Navigation from "../Navigation";
+import logo from './images/logo.png';
+import Avatar from "@mui/material/Avatar";
 
 function ColorSchemeToggle(props) {
     const { mode, setMode } = useColorScheme();
@@ -113,9 +116,9 @@ export default function JoySignInSideTemplate() {
                             }}
                         >
                             <IconButton variant="soft" color="primary" size="sm">
-                                <BadgeRoundedIcon />
+                                <img src={logo} alt="Logo" style={{ width: 50, height: 50 }} />
                             </IconButton>
-                            <Typography level="title-lg">Company logo</Typography>
+                            <Typography level="title-lg">너 T야?</Typography>
                         </Box>
                         <ColorSchemeToggle />
                     </Box>
@@ -147,7 +150,7 @@ export default function JoySignInSideTemplate() {
                                 <Typography level="h3">Sign in</Typography>
                                 <Typography level="body-sm">
                                     New to company?{' '}
-                                    <Link href="#" level="title-sm">
+                                    <Link to="/signup" level="title-sm">
                                         Sign up!
                                     </Link>
                                 </Typography>
@@ -183,10 +186,10 @@ export default function JoySignInSideTemplate() {
                                             alignItems: 'center',
                                         }}
                                     >
-                                        <Checkbox size="sm" label="Remember me" name="persistent" />
-                                        <Link level="title-sm" href="#replace-with-a-link">
-                                            Forgot your password?
-                                        </Link>
+                                        {/*<Checkbox size="sm" label="Remember me" name="persistent" />*/}
+                                        {/*<Link level="title-sm" href="#replace-with-a-link">*/}
+                                        {/*    Forgot your password?*/}
+                                        {/*</Link>*/}
                                     </Box>
                                     <Button type="submit" fullWidth>
                                         Sign in
@@ -197,7 +200,7 @@ export default function JoySignInSideTemplate() {
                     </Box>
                     <Box component="footer" sx={{ py: 3 }}>
                         <Typography level="body-xs" textAlign="center">
-                            © Your company {new Date().getFullYear()}
+                            © 너랑 나 {new Date().getFullYear()}
                         </Typography>
                     </Box>
                 </Box>
