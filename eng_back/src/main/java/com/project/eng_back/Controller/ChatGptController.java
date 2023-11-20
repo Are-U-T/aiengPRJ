@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChatGptController {
 
     private final ChatGptService chatGptService;
-    // 최대 응답 길이를 위한 상수 추가
-    private static final int MAX_RESPONSE_LENGTH = 500;
 
     public ChatGptController(ChatGptService chatGptService) {
         this.chatGptService = chatGptService;
