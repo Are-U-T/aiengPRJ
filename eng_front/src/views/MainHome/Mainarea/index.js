@@ -41,12 +41,10 @@ export default function Mainarea(){
       <h2 className="page-section-heading text-center"
           style={{ marginTop: '40px', fontWeight: 'bold', fontSize: '40px', color: '#333' }}>학습 효과</h2>
 
-      {/* Icon Divider*/}
-      <div className="divider-custom">
-        <div className="divider-custom-line" />
-        <div className="divider-custom-icon"><i className="fas fa-star" /></div>
-        <div className="divider-custom-line" />
-      </div>
+      <div className="divider-custom"/>
+      {/*밑에 띄어쓰기*/}
+
+
       {/* Portfolio Grid Items*/}
       <div className="row justify-content-center">
         {/* Portfolio Item 1*/}
@@ -78,15 +76,6 @@ export default function Mainarea(){
         </div>
       </div>
     </div>
-
-
-
-
-
-
-
-
-
 
   </section>
 
