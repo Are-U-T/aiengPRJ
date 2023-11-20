@@ -16,6 +16,7 @@ public class ChatGptService {
 
     private static RestTemplate restTemplate = new RestTemplate();
     private String conversationHistory = "";
+
     public HttpEntity<ChatGptRequestDto> buildHttpEntity(ChatGptRequestDto requestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(ChatGptConfig.MEDIA_TYPE));
