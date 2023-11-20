@@ -3,7 +3,9 @@ package com.project.eng_back.Service;
 import com.project.eng_back.Config.ChatGptConfig;
 import com.project.eng_back.Dto.ChatGptRequestDto;
 import com.project.eng_back.Dto.ChatGptResponseDto;
+import com.project.eng_back.Dto.Choice;
 import com.project.eng_back.Dto.QuestionRequestDto;
+import com.project.eng_back.Mapper.ChatGPTMapper;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -16,6 +18,21 @@ public class ChatGptService {
 
     private static RestTemplate restTemplate = new RestTemplate();
     private String conversationHistory = "";
+
+    private final ChatGPTMapper chatGPTMapper;
+
+    public ChatGptService(ChatGPTMapper chatGPTMapper) {
+        this.chatGPTMapper = chatGPTMapper;
+    }
+
+    public void saveToDatabase(Choice choice) {
+        chatGPTMapper.save(choice);
+    }
+
+    public void saveToDatabase2(QuestionRequestDto question) {
+        chatGPTMapper.save2(question);
+    }
+
     public HttpEntity<ChatGptRequestDto> buildHttpEntity(ChatGptRequestDto requestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(ChatGptConfig.MEDIA_TYPE));

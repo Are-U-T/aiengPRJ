@@ -16,6 +16,12 @@ public class Choice implements Serializable {
     @JsonProperty("finish_reason")
     private String finishReason;
 
+    private int sequence;
+
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
+    }
+
     @Builder
     public Choice(String text, Integer index, String finishReason) {
         this.text = text;
