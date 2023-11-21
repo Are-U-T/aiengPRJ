@@ -16,10 +16,11 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ChatGptService {
 
-    private static RestTemplate restTemplate = new RestTemplate();
-    private String conversationHistory = "";
+    private static final RestTemplate restTemplate = new RestTemplate();
 
     private final ChatGPTMapper chatGPTMapper;
+
+    private final StringBuilder conversationHistory = new StringBuilder();
 
     public ChatGptService(ChatGPTMapper chatGPTMapper) {
         this.chatGPTMapper = chatGPTMapper;
@@ -28,6 +29,8 @@ public class ChatGptService {
     public void saveToDatabase(Choice choice) {
         chatGPTMapper.save(choice);
     }
+
+    public String getGptContent() { return chatGPTMapper.getGptContent(); }
 
     public void saveToDatabase2(QuestionRequestDto question) {
         chatGPTMapper.save2(question);
@@ -50,17 +53,14 @@ public class ChatGptService {
     }
 
     public ChatGptResponseDto askQuestion(QuestionRequestDto requestDto) {
-        // 대화 히스토리에 현재 사용자 입력 추가
-        conversationHistory += "\nUser: " + requestDto.getQuestion();
-
-        // 이전 대화 히스토리를 고려한 프롬프트 생성
-        String contextualPrompt = "User: " + requestDto.getQuestion() + "\n" +
-                "Context: " + conversationHistory;
+        // 이전 대화 히스토리에 현재 대화를 추가
+//        conversationHistory.append("User: ").append(requestDto.getQuestion()).append("\n");
+        conversationHistory.append(requestDto.getQuestion()).append("\n");
 
         // GPT에게 고려된 프롬프트로 요청 보내고 응답 받기
         ChatGptRequestDto chatGptRequestDto = ChatGptRequestDto.builder()
                 .model(ChatGptConfig.MODEL)
-                .prompt(contextualPrompt)
+                .prompt(conversationHistory.toString())
                 .maxTokens(ChatGptConfig.MAX_TOKEN)
                 .temperature(ChatGptConfig.TEMPERATURE)
                 .topP(ChatGptConfig.TOP_P)

@@ -1,16 +1,38 @@
 package com.project.eng_back.Dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 import java.io.Serializable;
 
 @Getter
 public class QuestionRequestDto implements Serializable {
+
     private String question;
 
     private int sequence;
 
-    private String role;
+    private String GPTRole;
+
+    private String UserRole;
+
+    private String situation;
+
+    public QuestionRequestDto() {
+    }
+
+    @JsonCreator
+    public QuestionRequestDto(@JsonProperty("question") String question) {
+        this.question = question;
+    }
+
+    public QuestionRequestDto(String question, String GPTRole, String userRole, String situation) {
+        this.question = question;
+        this.GPTRole = GPTRole;
+        this.UserRole = userRole;
+        this.situation = situation;
+    }
 
     public void setSequence(int sequence) {
         this.sequence = sequence;
@@ -20,5 +42,11 @@ public class QuestionRequestDto implements Serializable {
         this.question = question;
     }
 
-    public void setRole(String role) { this.role = role; }
+    public void setGPTRole(String GPTRole) { this.GPTRole = GPTRole; }
+
+    public void setUserRole(String UserRole)
+    { this.UserRole = UserRole ;}
+    public void setTopic(String situation) {
+        this.situation = situation;
+    }
 }

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Streaming</title>
+</head>
+<body>
+
+<button id="startRecording">Start Recording</button>
+<button id="stopRecording">Stop Recording</button>
+
+<script>
+    const startRecordingButton = document.getElementById('startRecording');
+    const stopRecordingButton = document.getElementById('stopRecording');
+    let mediaStream;
+    let mediaRecorder;
+    let socket;
+
+    startRecordingButton.addEventListener('click', startRecording);
+    stopRecordingButton.addEventListener('click', stopRecording);
+
+    async function startRecording() {
+        try {
+            mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+            mediaRecorder = new MediaRecorder(mediaStream);
+
+            mediaRecorder.ondataavailable = event => {
+                if (event.data.size > 0) {
+                    sendAudioToServer(event.data);
+                }
+            };
+
+            mediaRecorder.onstop = () => {
+                mediaStream.getTracks().forEach(track => track.stop());
+            };
+
+            mediaRecorder.start();
+        } catch (error) {
+            console.error('Error accessing microphone:', error);
+        }
+    }
+
+    function stopRecording() {
+        if (mediaRecorder && mediaRecorder.state === 'recording') {
+            mediaRecorder.stop();
+        }
+    }
+
+    function sendAudioToServer(audioData) {
+        socket = new WebSocket('ws://localhost/audio');
+        socket.onopen = function (event) {
+            console.log('WebSocket opened:', event);
+
+            // 在这里发送音频数据
+            socket.send(audioData);
+        };
+        socket.onopen = function (event) {
+            console.log('WebSocket opened:', event);
+            socket.send(audioData);
+        };
+        socket.onmessage = function (event) {
+            console.log('WebSocket message received:', event.data);
+            // 处理收到的消息
+        };
+        socket.onclose = function(event) {
+            console.log('websocket 断开: ' + event.code + ' ' + event.reason + ' ' + event.wasClean)
+            console.log(event)
+        };
+        socket.onerror = function (error) {
+            console.error('WebSocket error:', error);
+            // 处理WebSocket错误
+        };
+
+        // socket.addEventListener('open', () => {
+        //     console.log('WebSocket connection opened.');
+        //     socket.send(audioData);
+        // });
+
+        socket.addEventListener('message', event => {
+            // 在这里处理从后端返回的文本数据
+            const transcribedText = event.data;<!DOCTYPE html>
+            <html lang="en">
+                <head>
+                <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Audio Streaming</title>
+        </head>
+            <body>
+
+            <button id="startRecording">Start Recording</button>
+            <button id="stopRecording">Stop Recording</button>
+
+            <script>
+                const startRecordingButton = document.getElementById('startRecording');
+                const stopRecordingButton = document.getElementById('stopRecording');
+                let mediaStream;
+                let mediaRecorder;
+                let socket;
+
+                startRecordingButton.addEventListener('click', startRecording);
+                stopRecordingButton.addEventListener('click', stopRecording);
+
+                async function startRecording() {
+                try {
+                mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+                mediaRecorder = new MediaRecorder(mediaStream);
+
+                mediaRecorder.ondataavailable = event => {
+                if (event.data.size > 0) {
+                sendAudioToServer(event.data);
+            }
+            };
+
+                mediaRecorder.onstop = () => {
+                mediaStream.getTracks().forEach(track => track.stop());
+            };
+
+                mediaRecorder.start();
+            } catch (error) {
+                console.error('Error accessing microphone:', error);
+            }
+            }
+
+                function stopRecording() {
+                if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+            }
+            }
+
+                function sendAudioToServer(audioData) {
+                socket = new WebSocket('ws://localhost/audio');
+                socket.onopen = function (event) {
+                console.log('WebSocket opened:', event);
+
+                // 在这里发送音频数据
+                socket.send(audioData);
+            };
+                socket.onopen = function (event) {
+                console.log('WebSocket opened:', event);
+                socket.send(audioData);
+            };
+                socket.onmessage = function (event) {
+                console.log('WebSocket message received:', event.data);
+                // 处理收到的消息
+            };
+                socket.onclose = function(event) {
+                console.log('websocket 断开: ' + event.code + ' ' + event.reason + ' ' + event.wasClean)
+                console.log(event)
+            };
+                socket.onerror = function (error) {
+                console.error('WebSocket error:', error);
+                // 处理WebSocket错误
+            };
+
+                // socket.addEventListener('open', () => {
+                //     console.log('WebSocket connection opened.');
+                //     socket.send(audioData);
+                // });
+
+                socket.addEventListener('message', event => {
+                // 在这里处理从后端返回的文本数据
+                const transcribedText = event.data;
+                console.log('Transcribed Text:', transcribedText);
+            });
+            }
+</script>
+
+</body>
+</html>
+
+console.log('Transcribed Text:', transcribedText);
+        });
+    }
+</script>
+
+</body>
+</html>
