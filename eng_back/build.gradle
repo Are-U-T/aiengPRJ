@@ -32,6 +32,14 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.3.1'
+
+	// STT & TTS
+	implementation("com.google.cloud:google-cloud-speech")
+	implementation 'com.google.cloud:google-cloud-speech:4.24.0'
+	implementation 'com.google.cloud:google-cloud-texttospeech:2.30.0'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+	implementation platform("com.google.cloud:libraries-bom:25.1.0")
 }
 
 tasks.named('bootBuildImage') {
