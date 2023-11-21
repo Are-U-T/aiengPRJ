@@ -11,11 +11,6 @@ public class TalkingRoomServiceImp implements TalkingRoomService {
     @Autowired
     private TalkingRoomDao talkingRoomDao;
 
-//    @Override
-//    public List<TalkingRoomDto> findAll() {
-//        return talkingRoomDao.findAll();
-//    }
-
     @Override
     public int insert(TalkingRoomDto talkingRoomDto) {
         return talkingRoomDao.insert(talkingRoomDto);
@@ -23,7 +18,8 @@ public class TalkingRoomServiceImp implements TalkingRoomService {
 
     @Override
     public void createTalkingRoom(String crid) {
-        TalkingRoomDto talkingRoomDto = new TalkingRoomDto();
-        talkingRoomDao.insert(new TalkingRoomDto());
+//        TalkingRoomDto talkingRoomDto = new TalkingRoomDto();
+//        talkingRoomDao.insert(new TalkingRoomDto());
+        talkingRoomDao.createTalkingRoom(crid);
     }
 }

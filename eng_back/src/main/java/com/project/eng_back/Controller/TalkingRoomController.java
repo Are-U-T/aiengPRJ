@@ -20,10 +20,10 @@ public class TalkingRoomController {
     @PostMapping("/newTalkingRoom")
     public String createTalkRoom() {
 
-        String crid = UUID.randomUUID().toString().replaceAll("-", "");;
+        String crid = UUID.randomUUID().toString().replaceAll("-", "");
         logger.info("Create Room ID: {}", crid);
 
-//        talkingRoomService.createTalkingRoom(crid);
+        talkingRoomService.createTalkingRoom(crid);
 
         return crid;
     }
