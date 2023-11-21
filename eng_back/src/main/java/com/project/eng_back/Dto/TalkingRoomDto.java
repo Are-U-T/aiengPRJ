@@ -14,6 +14,8 @@ public class TalkingRoomDto {
     private int lv;
     private String time;
     private int score;
+    private String role;
+    private String situation;
 
     public void setCrid(String crid) {
         this.crid = crid;
@@ -42,4 +44,8 @@ public class TalkingRoomDto {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public void setRole(String role) { this.role = role; }
+
+    public void setSituation(String situation) { this.situation = situation; }
 }

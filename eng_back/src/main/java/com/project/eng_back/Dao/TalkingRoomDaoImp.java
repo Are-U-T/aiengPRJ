@@ -16,14 +16,11 @@ public class TalkingRoomDaoImp implements TalkingRoomDao {
     @Autowired
     private TalkingRoomMapper talkingRoomMapper;
 
-    public Logger logger = LoggerFactory.getLogger(TalkingRoomController.class);
-
-    public void createTalkingRoom(String crid) {
-//        talkingRoomMapper.insert(crid);
-        logger.info("createTalkingRoom(): {}", crid);
-
+    public void createTalkingRoom(String crid, String role, String situation) {
         TalkingRoomDto talkingRoomDto = new TalkingRoomDto();
         talkingRoomDto.setCrid(crid);
+        talkingRoomDto.setRole(role);
+        talkingRoomDto.setSituation(situation);
 
         talkingRoomMapper.insert(talkingRoomDto);
     }

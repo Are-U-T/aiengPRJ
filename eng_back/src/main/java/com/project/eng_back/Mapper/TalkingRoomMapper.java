@@ -6,9 +6,6 @@ import org.apache.ibatis.annotations.*;
 @Mapper
 public interface TalkingRoomMapper {
 
-//    @Select("SELECT * FROM CHAT_ROOM")
-//    public List<TalkingRoomDto> findAll();
-
-    @Insert("insert into CHAT2 (crid) values (#{crid})")
+    @Insert("insert into CHAT_ROOM2 (crid, role, situation) values (#{crid}, #{role}, #{situation})")
     public int insert(TalkingRoomDto talkingRoomDto);
 }

@@ -18,13 +18,13 @@ public class TalkingRoomController {
     private TalkingRoomService talkingRoomService;
 
     @PostMapping("/newTalkingRoom")
-    public String createTalkRoom() {
+    public String createTalkRoom(@RequestParam String role, String situation) {
 
         String crid = UUID.randomUUID().toString().replaceAll("-", "");
         logger.info("Create Room ID: {}", crid);
 
-        talkingRoomService.createTalkingRoom(crid);
+        talkingRoomService.createTalkingRoom(crid, role, situation);
 
-        return crid;
+        return situation;
     }
 }

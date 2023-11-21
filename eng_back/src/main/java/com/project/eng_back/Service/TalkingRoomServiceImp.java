@@ -17,9 +17,7 @@ public class TalkingRoomServiceImp implements TalkingRoomService {
     }
 
     @Override
-    public void createTalkingRoom(String crid) {
-//        TalkingRoomDto talkingRoomDto = new TalkingRoomDto();
-//        talkingRoomDao.insert(new TalkingRoomDto());
-        talkingRoomDao.createTalkingRoom(crid);
+    public void createTalkingRoom(String crid, String role, String situation) {
+        talkingRoomDao.createTalkingRoom(crid, role, situation);
     }
 }
