@@ -2,10 +2,9 @@ package com.project.eng_back.Controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.project.eng_back.Service.TalkingRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -21,19 +20,11 @@ public class TalkingRoomController {
     @PostMapping("/newTalkingRoom")
     public String createTalkRoom() {
 
-        String roomID = "";
+        String crid = UUID.randomUUID().toString().replaceAll("-", "");;
+        logger.info("Create Room ID: {}", crid);
 
-        roomID = UUID.randomUUID().toString();
+//        talkingRoomService.createTalkingRoom(crid);
 
-        talkingRoomService.createTlakRoomID(roomID);
-
-        logger.info("Create Room ID: {}" + roomID);
-
-        return "redirect:/button";
+        return crid;
     }
-
-//    private void createTalkRoom(String roomID) {
-//        logger.info("Create Room ID: {}" + roomID);
-//        talkingRoomService.createTlakRoomID(roomID);
-//    }
 }

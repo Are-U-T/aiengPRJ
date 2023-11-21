@@ -5,7 +5,11 @@ import com.project.eng_back.Dto.TalkingRoomDto;
 
 public interface TalkingRoomDao {
 
-    public List<TalkingRoomDto> findAll();
+//    public List<TalkingRoomDto> findAll();
+//
+//    public int insert(TalkingRoomDto talkingRoomDto);
 
-    public int insert(TalkingRoomDto talkingRoomDto);
+    public void createTalkingRoom(String crid);
+
+    int insert(TalkingRoomDto talkingRoomDto);
 }
