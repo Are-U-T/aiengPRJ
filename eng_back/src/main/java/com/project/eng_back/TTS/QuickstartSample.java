@@ -1,13 +1,11 @@
 package com.project.eng_back.TTS;
+
 // Imports the Google Cloud client library
-import com.google.cloud.texttospeech.v1.AudioConfig;
-import com.google.cloud.texttospeech.v1.AudioEncoding;
-import com.google.cloud.texttospeech.v1.SsmlVoiceGender;
-import com.google.cloud.texttospeech.v1.SynthesisInput;
-import com.google.cloud.texttospeech.v1.SynthesizeSpeechResponse;
-import com.google.cloud.texttospeech.v1.TextToSpeechClient;
-import com.google.cloud.texttospeech.v1.VoiceSelectionParams;
+import com.google.cloud.texttospeech.v1.*;
 import com.google.protobuf.ByteString;
+import com.project.eng_back.Dto.Choice;
+import org.springframework.stereotype.Component;
+
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
@@ -15,15 +13,25 @@ import java.io.OutputStream;
  * Google Cloud TextToSpeech API sample application. Example usage: mvn package exec:java
  * -Dexec.mainClass='com.example.texttospeech.QuickstartSample'
  */
+
+@Component
 public class QuickstartSample {
 
+    static String num = "1";
+
     /** Demonstrates using the Text-to-Speech API. */
-    public static void main(String... args) throws Exception {
+    public static void run(Choice content) {
 
         // Instantiates a client
         try (TextToSpeechClient textToSpeechClient = TextToSpeechClient.create()) {
+
+            // db 에서 select 한 content 가져오기
+            String gptText = content.getText();
+
+            System.out.println("gpt 대답 : " + gptText);
+
             // Set the text input to be synthesized
-            SynthesisInput input = SynthesisInput.newBuilder().setText("hey buddy what are you fucking doing?").build();
+            SynthesisInput input = SynthesisInput.newBuilder().setText(gptText).build();
 
             // Build the voice request, select the language code ("en-US") and the ssml voice gender
             // ("neutral")
@@ -45,11 +53,21 @@ public class QuickstartSample {
             // Get the audio contents from the response
             ByteString audioContents = response.getAudioContent();
 
+
+
             // Write the response to the output file.
-            try (OutputStream out = new FileOutputStream("output.mp3")) {
+            try (OutputStream out = new FileOutputStream(num + "seoyun.mp3")) {
                 out.write(audioContents.toByteArray());
-                System.out.println("Audio content written to file \"output.mp3\"");
+                System.out.println("Audio content written to file \"seoyun.mp3\"");
+
+            } catch (Exception e) {
+                System.out.println("1 에러 출력: " + e);
             }
+            int num1 = Integer.valueOf(num);
+            num1++;
+            num = String.valueOf(num1);
+        } catch (Exception e) {
+            System.out.println("2 에러 출력: " + e);
         }
     }
 }
