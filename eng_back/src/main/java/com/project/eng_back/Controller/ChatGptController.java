@@ -30,6 +30,9 @@ public class ChatGptController {
 
     private boolean isFirstQuestion = true;
 
+    // 대화 기록을 저장할 변수
+    private StringBuilder conversationHistory = new StringBuilder();
+
     public ChatGptController(ChatGptService chatGptService, QuickstartSample quickstartSample) {
         this.chatGptService = chatGptService;
         this.quickstartSample = quickstartSample;
@@ -41,7 +44,6 @@ public class ChatGptController {
             String userRole = initiationRequestDto.getUserRole();
             String gptRole = initiationRequestDto.getGPTRole();
             String situation = initiationRequestDto.getSituation();
-            System.out.println("1");
 
             if (isFirstQuestion) {
                 String initialQuestion = String.format(
@@ -51,34 +53,35 @@ public class ChatGptController {
                                 "You just have to play the role of the %s. " +
                                 "So, starting now, as your %s, " +
                                 "I'll be asking and answering questions, and you, as the %s, can start by asking a question in English."
-                                + "And don't give roles when answering.",
+                                + "Answer naturally as if you were talking to me.",
                         gptRole, userRole, situation, gptRole, userRole, gptRole);
 
-                System.out.println("2");
                 ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(new QuestionRequestDto(initialQuestion));
-                System.out.println("3");
-//                sendRoleAndSituationToChatGptPy(userRole, gptRole, situation);
-                System.out.println("4");
+
                 Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
-                System.out.println("5");
                 if (gptResponseChoice == null) {
                     gptResponseDto = chatGptService.askQuestion(initiationRequestDto);
                     gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
                 }
 
                 quickstartSample.run(gptResponseChoice);
-                System.out.println("6");
                 chatGptService.saveToDatabase2(new QuestionRequestDto(initialQuestion, initiationRequestDto.getGPTRole(), initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
                 chatGptService.saveToDatabase(gptResponseChoice);
-                System.out.println("7");
                 isFirstQuestion = false;
+
+                // 대화 기록 업데이트
+                conversationHistory.append(initiationRequestDto.getQuestion()).append("\n");
+                conversationHistory.append(gptResponseChoice.getText()).append("\n");
+
 
                 return new ResponseEntity<>("Initiation question and GPT response saved successfully.", HttpStatus.OK);
             }
 
 //            sendRoleAndSituationToChatGptPy(userRole, gptRole, situation);
 
-            ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(initiationRequestDto);
+//            ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(initiationRequestDto);
+
+            ChatGptResponseDto gptResponseDto = sendRoleAndSituationToChatGptPy(userRole, gptRole, situation);
 
             Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initiationRequestDto.getQuestion());
 
@@ -108,9 +111,7 @@ public class ChatGptController {
 
     private void sendRoleAndSituationToChatGptPy(String userRole, String gptRole, String situation) {
         String chatGptPyUrl = "http://10.20.100.136:8889/update-model";
-        System.out.println("p1");
         HttpClient httpClient = HttpClient.newHttpClient();
-        System.out.println("p2");
 
         try {
             // 데이터를 JSON 형식으로 변환
@@ -138,8 +139,8 @@ public class ChatGptController {
     // 데이터를 JSON 형식으로 변환하는 메서드
     private String buildJsonBody(String userRole, String gptRole, String situation) {
         Map<String, String> data = new HashMap<>();
-        data.put("userRole", userRole);
-        data.put("gptRole", gptRole);
+        data.put("user_role", userRole);
+        data.put("gpt_role", gptRole);
         data.put("situation", situation);
 
         // JSON 문자열 생성
