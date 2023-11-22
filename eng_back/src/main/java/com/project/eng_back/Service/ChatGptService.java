@@ -30,7 +30,9 @@ public class ChatGptService {
         chatGPTMapper.save(choice);
     }
 
-    public String getGptContent() { return chatGPTMapper.getGptContent(); }
+    public String getGptContent() {
+        return chatGPTMapper.getGptContent();
+    }
 
     public void saveToDatabase2(QuestionRequestDto question) {
         chatGPTMapper.save2(question);

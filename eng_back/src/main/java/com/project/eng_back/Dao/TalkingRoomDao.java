@@ -4,7 +4,8 @@ import com.project.eng_back.Dto.TalkingRoomDto;
 
 public interface TalkingRoomDao {
 
-    public void createTalkingRoom(String crid, String role, String situation);
+    public void createTalkingRoom(TalkingRoomDto talkingRoomDto);
 
     int insert(TalkingRoomDto talkingRoomDto);
+
 }

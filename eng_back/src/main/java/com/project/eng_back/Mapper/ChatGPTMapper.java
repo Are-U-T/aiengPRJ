@@ -10,11 +10,11 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface ChatGPTMapper {
 
-    @Insert("INSERT INTO CHAT_TEST ( SEQUENCE, CONTENT, SPEAKER) VALUES (chat_sequence.NEXTVAL, #{text}, 0)")
+    @Insert("INSERT INTO CHAT_TEST (CRID, SEQUENCE, CONTENT, SPEAKER) VALUES (#{crid}, chat_sequence.NEXTVAL, #{text}, 0)")
     @Options(useGeneratedKeys = true, keyProperty = "sequence", keyColumn = "SEQUENCE")
     int save(Choice choice);
 
-    @Insert("INSERT INTO CHAT_TEST ( SEQUENCE, CONTENT, SPEAKER) VALUES (chat_sequence.NEXTVAL, #{question}, 1)")
+    @Insert("INSERT INTO CHAT_TEST (CRID, SEQUENCE, CONTENT, SPEAKER) VALUES (#{crid}, chat_sequence.NEXTVAL, #{question}, 1)")
     @Options(useGeneratedKeys = true, keyProperty = "sequence", keyColumn = "SEQUENCE")
     int save2(QuestionRequestDto question);
 

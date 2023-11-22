@@ -19,19 +19,20 @@ public class QuestionRequestDto implements Serializable {
 
     private String situation;
 
-    public QuestionRequestDto() {
-    }
+    private String crid;
+    public QuestionRequestDto() { }
 
     @JsonCreator
     public QuestionRequestDto(@JsonProperty("question") String question) {
         this.question = question;
     }
 
-    public QuestionRequestDto(String question, String GPTRole, String userRole, String situation) {
+    public QuestionRequestDto(String question, String GPTRole, String userRole, String situation, String crid) {
         this.question = question;
         this.GPTRole = GPTRole;
         this.UserRole = userRole;
         this.situation = situation;
+        this.crid = crid;
     }
 
     public void setSequence(int sequence) {
@@ -44,9 +45,13 @@ public class QuestionRequestDto implements Serializable {
 
     public void setGPTRole(String GPTRole) { this.GPTRole = GPTRole; }
 
-    public void setUserRole(String UserRole)
-    { this.UserRole = UserRole ;}
-    public void setTopic(String situation) {
+    public void setUserRole(String UserRole) { this.UserRole = UserRole ;}
+
+    public void setSituation(String situation) {
         this.situation = situation;
+    }
+
+    public void setCrid(String crid) {
+        this.crid = crid;
     }
 }

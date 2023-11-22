@@ -5,12 +5,17 @@ import com.project.eng_back.Dto.Choice;
 import com.project.eng_back.Dto.QuestionRequestDto;
 import com.project.eng_back.Service.ChatGptService;
 import com.project.eng_back.TTS.QuickstartSample;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/chat-gpt")
 public class ChatGptController {
@@ -21,28 +26,56 @@ public class ChatGptController {
 
     private boolean isFirstQuestion = true; // 초기 질문 여부를 체크하기 위한 변수
 
+    private HttpSession session;
+
     public ChatGptController(ChatGptService chatGptService, QuickstartSample quickstartSample) {
         this.chatGptService = chatGptService;
         this.quickstartSample = quickstartSample;
     }
 
+    public Logger logger = LoggerFactory.getLogger(TalkingRoomController.class);
+
     @PostMapping("/question")
     public ResponseEntity<String> initiateConversation(@RequestBody QuestionRequestDto initiationRequestDto) {
         try {
 
-            if(isFirstQuestion){
+            if (isFirstQuestion) {
                 // 임의의 역할, 사용자 역할, 상황을 사용하여 초기 질문 생성
-                String initialQuestion = "To increase English conversation, we're going to take on roles and converse in English." +
-                        "You're my boyfriend, and I'm your girlfriend. " +
-                        "We're in a situation where we're planning a trip for our 1st anniversary." +
-                        "You just have to play the role of the boyfriend." +
-                        "So, starting now, as your girlfriend, " +
-                        "I'll be asking and answering questions, and you, as the boyfriend, can start by asking a question in English.";
+//                String initialQuestion = "To increase English conversation, we're going to take on roles and converse in English." +
+//                        "You're my boyfriend, and I'm your girlfriend. " +
+//                        "We're in a situation where we're planning a trip for our 1st anniversary." +
+//                        "You just have to play the role of the boyfriend." +
+//                        "So, starting now, as your girlfriend, " +
+//                        "I'll be asking and answering questions, and you, as the boyfriend, can start by asking a question in English.";
 
 //            // 프론트엔드에서 받은 역할과 주제를 이용하여 초기 질문 생성
-//            String initialQuestion = "너는 " + initiationRequestDto.getGPTRole() + "이고, 나의 역할은 " + initiationRequestDto.getUserRole()
-//                    + "(이)야. 그리고 우리의 상황은 " + initiationRequestDto.getSituation()
-//                    + "(이)야. 5분 이상 대화를 해야 하니 너의 역할에 집중해서 대화를 진행해줘. 그럼 시작해줘";
+
+//                String crid = initiationRequestDto.getCrid();
+//                String gptRole = initiationRequestDto.getGPTRole();
+//                String userRole = initiationRequestDto.getUserRole();
+//                String situation = initiationRequestDto.getSituation();
+
+//                String crid = (String) session.getAttribute("crid");
+//                String gptRole = (String) session.getAttribute("gptRole");
+//                String userRole = (String) session.getAttribute("userRole");
+//                String situation = (String) session.getAttribute("situation");
+
+                String crid = "123";
+                String gptRole = "123";
+                String userRole = "123";
+                String situation = "123";
+
+                logger.info("***** *****");
+                logger.info("gptController crid: {}", crid);
+                logger.info("gptController gptRole: {}", gptRole);
+                logger.info("gptController userRole: {}", userRole);
+                logger.info("gptController situation: {}", situation);
+                logger.info("***** *****\n");
+
+                String initialQuestion = "너는 " + gptRole + "이고, 나의 역할은 " + userRole
+                        + "(이)야. 그리고 우리의 상황은 " + situation
+                        + "(이)야. 5분 이상 대화를 해야 하니 너의 역할에 집중해서 대화를 진행해줘. 그럼 시작해줘";
+                logger.info("gptController Question: {}", initialQuestion);
 
                 // GPT에 초기 질문 보내기
                 ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(new QuestionRequestDto(initialQuestion));
@@ -54,7 +87,7 @@ public class ChatGptController {
                 quickstartSample.run(gptResponseChoice);
 
                 // 초기 질문과 GPT의 답변을 데이터베이스에 저장
-                chatGptService.saveToDatabase2(new QuestionRequestDto(initialQuestion, initiationRequestDto.getGPTRole(),initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
+                chatGptService.saveToDatabase2(new QuestionRequestDto(initiationRequestDto.getCrid(), initialQuestion, initiationRequestDto.getGPTRole(), initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
                 chatGptService.saveToDatabase(gptResponseChoice);
 
                 // 초기 질문 보내기 완료함

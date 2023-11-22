@@ -15,8 +15,8 @@ public class Choice implements Serializable {
     private Integer index;
     @JsonProperty("finish_reason")
     private String finishReason;
-
     private int sequence;
+    private String crid;
 
     public void setSequence(int sequence) {
         this.sequence = sequence;
@@ -27,5 +27,9 @@ public class Choice implements Serializable {
         this.text = text;
         this.index = index;
         this.finishReason = finishReason;
+    }
+
+    public void setCrid(String crid) {
+        this.crid = crid;
     }
 }

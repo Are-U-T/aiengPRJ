@@ -6,7 +6,9 @@ import java.util.*;
 
 public interface TalkingRoomService {
 
-    public void createTalkingRoom(String crid, String role, String situation);
+    public void createTalkingRoom(TalkingRoomDto talkingRoomDto);
 
     public int insert(TalkingRoomDto talkingRoomDto);
+
+
 }
