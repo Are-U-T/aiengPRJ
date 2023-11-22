@@ -50,6 +50,12 @@ public class ChatGptController {
                 // GPT 답변 중에서 첫 번째 Choice를 가져오거나 처리하는 로직을 추가할 수 있습니다.
                 Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
 
+                if(gptResponseChoice == null){
+                    // GPT에서 답변 다시 얻기
+                    gptResponseDto = chatGptService.askQuestion(initiationRequestDto);
+                    gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
+                }
+
                 // 음성 파일로 gpt 답 내보내기
                 quickstartSample.run(gptResponseChoice);
 
@@ -68,6 +74,12 @@ public class ChatGptController {
 
             // GPT 답변 중에서 첫 번째 Choice를 가져오거나 처리하는 로직을 추가할 수 있습니다.
             Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initiationRequestDto.getQuestion());
+
+            if(gptResponseChoice == null){
+                // GPT에서 답변 다시 얻기
+                gptResponseDto = chatGptService.askQuestion(initiationRequestDto);
+                gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initiationRequestDto.getQuestion());
+            }
 
             // 음성 파일로 gpt 답 내보내기
             quickstartSample.run(gptResponseChoice);

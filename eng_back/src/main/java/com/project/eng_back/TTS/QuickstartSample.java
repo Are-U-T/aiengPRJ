@@ -17,6 +17,8 @@ import java.io.OutputStream;
 @Component
 public class QuickstartSample {
 
+    static String num = "1";
+
     /** Demonstrates using the Text-to-Speech API. */
     public static void run(Choice content) {
 
@@ -51,7 +53,7 @@ public class QuickstartSample {
             // Get the audio contents from the response
             ByteString audioContents = response.getAudioContent();
 
-            String num = "1";
+
 
             // Write the response to the output file.
             try (OutputStream out = new FileOutputStream(num + "seoyun.mp3")) {
