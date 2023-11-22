@@ -42,11 +42,15 @@ public class QuestionRequestDto implements Serializable {
         this.question = question;
     }
 
-    public void setGPTRole(String GPTRole) { this.GPTRole = GPTRole; }
+    public void setGPTRole(String GPTRole) {
+        this.GPTRole = GPTRole;
+    }
 
-    public void setUserRole(String UserRole)
-    { this.UserRole = UserRole ;}
-    public void setTopic(String situation) {
+    public void setUserRole(String UserRole) {
+        this.UserRole = UserRole;
+    }
+
+    public void setSituation(String situation) {
         this.situation = situation;
     }
 }
