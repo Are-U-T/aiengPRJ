@@ -56,11 +56,11 @@ public class ChatGptController {
                                 + "Answer naturally as if you were talking to me.",
                         gptRole, userRole, situation, gptRole, userRole, gptRole);
 
-                ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(new QuestionRequestDto(initialQuestion));
+                ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(new QuestionRequestDto(initialQuestion), conversationHistory);
 
                 Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
                 if (gptResponseChoice == null) {
-                    gptResponseDto = chatGptService.askQuestion(initiationRequestDto);
+                    gptResponseDto = chatGptService.askQuestion(initiationRequestDto,conversationHistory);
                     gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
                 }
 
@@ -69,24 +69,21 @@ public class ChatGptController {
                 chatGptService.saveToDatabase(gptResponseChoice);
                 isFirstQuestion = false;
 
-                // 대화 기록 업데이트
-                conversationHistory.append(initiationRequestDto.getQuestion()).append("\n");
-                conversationHistory.append(gptResponseChoice.getText()).append("\n");
-
-
                 return new ResponseEntity<>("Initiation question and GPT response saved successfully.", HttpStatus.OK);
             }
 
 //            sendRoleAndSituationToChatGptPy(userRole, gptRole, situation);
 
-//            ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(initiationRequestDto);
+            ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(initiationRequestDto, conversationHistory);
 
-            ChatGptResponseDto gptResponseDto = sendRoleAndSituationToChatGptPy(userRole, gptRole, situation);
+//            ChatGptResponseDto gptResponseDto = sendRoleAndSituationToChatGptPy(userRole, gptRole, situation, conversationHistory);
+
+//            System.out.println("py 코드에서 리턴 받은 것임: " + sendRoleAndSituationToChatGptPy(userRole, gptRole, situation, conversationHistory));
 
             Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initiationRequestDto.getQuestion());
 
             if (gptResponseChoice == null) {
-                gptResponseDto = chatGptService.askQuestion(initiationRequestDto);
+                gptResponseDto = chatGptService.askQuestion(initiationRequestDto, conversationHistory);
                 gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initiationRequestDto.getQuestion());
             }
 
@@ -94,6 +91,10 @@ public class ChatGptController {
 
             chatGptService.saveToDatabase2(initiationRequestDto);
             chatGptService.saveToDatabase(gptResponseChoice);
+
+            // 대화 기록 업데이트
+            conversationHistory.append(initiationRequestDto.getQuestion()).append("\n");
+            conversationHistory.append(gptResponseChoice.getText()).append("\n");
 
             return new ResponseEntity<>("Question and GPT response saved successfully.", HttpStatus.OK);
         } catch (Exception e) {
@@ -109,13 +110,14 @@ public class ChatGptController {
         }
     }
 
-    private void sendRoleAndSituationToChatGptPy(String userRole, String gptRole, String situation) {
+    // 아래부터는 파이썬에 open ai 에 요청 보내는 코드들임 ,, 근데 실패함 ㅋ
+    private ChatGptResponseDto sendRoleAndSituationToChatGptPy(String userRole, String gptRole, String situation, StringBuilder conversationHistory) {
         String chatGptPyUrl = "http://10.20.100.136:8889/update-model";
         HttpClient httpClient = HttpClient.newHttpClient();
 
         try {
             // 데이터를 JSON 형식으로 변환
-            String jsonBody = buildJsonBody(userRole, gptRole, situation);
+            String jsonBody = buildJsonBody(userRole, gptRole, situation,conversationHistory );
 
             // HTTP 요청 구성
             HttpRequest request = HttpRequest.newBuilder()
@@ -124,24 +126,25 @@ public class ChatGptController {
                     .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                     .build();
 
-            System.out.println("p3");
-
             // HTTP 요청 보내기
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-            System.out.println("p4");
-            System.out.println("Response from ChatGPTPY.py: " + response.body());
+            // 응답을 ChatGptResponseDto 객체로 반환
+            Gson gson = new Gson();
+            return gson.fromJson(response.body(), ChatGptResponseDto.class);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+            return null;  // 오류 발생 시 null 반환
         }
     }
 
     // 데이터를 JSON 형식으로 변환하는 메서드
-    private String buildJsonBody(String userRole, String gptRole, String situation) {
+    private String buildJsonBody(String userRole, String gptRole, String situation, StringBuilder conversationHistory) {
         Map<String, String> data = new HashMap<>();
         data.put("user_role", userRole);
         data.put("gpt_role", gptRole);
         data.put("situation", situation);
+        data.put("conversationHistory", conversationHistory.toString());
 
         // JSON 문자열 생성
         return new Gson().toJson(data);

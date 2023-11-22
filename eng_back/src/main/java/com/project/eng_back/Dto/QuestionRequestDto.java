@@ -13,8 +13,10 @@ public class QuestionRequestDto implements Serializable {
 
     private int sequence;
 
+    @JsonProperty("gptRole")
     private String GPTRole;
 
+    @JsonProperty("userRole")
     private String UserRole;
 
     private String situation;
@@ -27,10 +29,10 @@ public class QuestionRequestDto implements Serializable {
         this.question = question;
     }
 
-    public QuestionRequestDto(String question, String GPTRole, String userRole, String situation) {
+    public QuestionRequestDto(String question, String GPTRole, String UserRole, String situation) {
         this.question = question;
         this.GPTRole = GPTRole;
-        this.UserRole = userRole;
+        this.UserRole = UserRole;
         this.situation = situation;
     }
 
