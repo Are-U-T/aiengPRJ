@@ -11,6 +11,8 @@ import java.io.Serializable;
 @Getter
 public class QuestionRequestDto implements Serializable {
 
+    private String crid;
+
     private String question;
 
     private int sequence;
@@ -57,4 +59,6 @@ public class QuestionRequestDto implements Serializable {
     public void setSituation(String situation) {
         this.situation = situation;
     }
+
+    public void setCrid(String crid){ this.crid = crid; }
 }
