@@ -24,9 +24,6 @@ public class TalkingRoomController {
     @Autowired
     private TalkingRoomService talkingRoomService;
 
-    @Autowired
-    private HttpSession session;
-
     @PostMapping("/newTalkingRoom")
     public int createTalkRoom(@RequestBody TalkingRoomDto talkingRoomDto) {
         return talkingRoomService.insert(talkingRoomDto);

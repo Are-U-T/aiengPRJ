@@ -1,6 +1,9 @@
 package com.project.eng_back.STT;
 
 import com.google.api.client.util.Value;
+import com.project.eng_back.Controller.ChatGptController;
+import com.project.eng_back.Dto.QuestionRequestDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +22,14 @@ import java.nio.file.StandardCopyOption;
 @RequestMapping("/api/audio")
 //@RequestMapping("/api/speech-to-text")
 public class AudioController {
+
+    private ChatGptController chatGptController;
+
+    @Autowired
+    public AudioController(ChatGptController chatGptController) {
+        this.chatGptController = chatGptController;
+    }
+
 //    @PostMapping("/start")
 //    public void startRecording() {
 //        // 開始錄音的相應邏輯
@@ -62,21 +73,20 @@ public class AudioController {
 //                System.out.println(filePath.toString());
                 String output = SpeechToTextService.syncRecognizeFile(audioFile.getBytes());
                 System.out.println("Speech Recognition Result: " + output);
+
+                ResponseEntity<String> response = chatGptController.conversation(output);
+
+                return new ResponseEntity<>(response.getBody(), response.getStatusCode());
             } catch (Exception e) {
                 e.printStackTrace(); // Handle the exception as needed
                 return new ResponseEntity<>("Failed to process audio", HttpStatus.INTERNAL_SERVER_ERROR);
             }
-
-
-
-            return new ResponseEntity<>("Audio uploaded successfully", HttpStatus.OK);
+//            return new ResponseEntity<>("Audio uploaded successfully", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>("Failed to upload audio", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
 }
 
 

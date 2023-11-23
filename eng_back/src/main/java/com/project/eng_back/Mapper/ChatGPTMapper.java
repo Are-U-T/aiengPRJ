@@ -10,14 +10,16 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface ChatGPTMapper {
 
-    @Insert("INSERT INTO CHAT_TEST ( SEQUENCE, CONTENT, SPEAKER) VALUES (chat_sequence.NEXTVAL, #{text}, 0)")
+    @Insert("INSERT INTO CHAT_TEST ( CIRD, CONTENT, SPEAKER) VALUES (#{cird}, #{text}, 0)")
     @Options(useGeneratedKeys = true, keyProperty = "sequence", keyColumn = "SEQUENCE")
     int save(Choice choice);
 
-    @Insert("INSERT INTO CHAT_TEST ( SEQUENCE, CONTENT, SPEAKER) VALUES (chat_sequence.NEXTVAL, #{question}, 1)")
-    @Options(useGeneratedKeys = true, keyProperty = "sequence", keyColumn = "SEQUENCE")
+    @Insert("INSERT INTO CHAT_TEST ( CIRD, CONTENT, SPEAKER) VALUES (#{cird}, #{question}, 1)")
     int save2(QuestionRequestDto question);
 
     @Select("SELECT CONTENT FROM CHAT_TEST WHERE SPEAKER = 0")
     public String getGptContent();
+
+    @Select("SELECT CONTENT FROM CHAT_TEST")
+    public String getAllContent();
 }
