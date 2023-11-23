@@ -1,10 +1,10 @@
 import React from 'react';
-import Navigation from "../Navigation";
+import Navigation2 from "../Navigation2";
 import logo from './images/logo.png';
 
 const ProjectIntro = () => (
     <>
-        <Navigation />
+        <Navigation2 />
         <div style={{textAlign: 'center', marginTop: '10px', padding: '20px'}}>
             <img src={logo} alt="로고" style={{width: '200px', marginBottom: '5px'}}/>
             <h1>AI 영어 회화 학습 사이트에 오신 것을 환영합니다</h1>

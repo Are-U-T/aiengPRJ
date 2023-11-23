@@ -34,12 +34,12 @@ import DropZone from './DropZone';
 import FileUpload from './FileUpload';
 import CountrySelector from './CountrySelector';
 import EditorToolbar from './EditorToolbar';
-import Navigation from "../Navigation";
+import Navigation2 from "../Navigation2";
 
 export default function MyProfile() {
     return (
         <>
-        <Navigation/>
+        <Navigation2/>
 
             <Box sx={{
                 display: 'flex',

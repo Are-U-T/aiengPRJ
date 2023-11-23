@@ -1,67 +1,26 @@
 import React, { useState } from 'react';
 import Navigation from "../Navigation";
+import Modal from "./Modal";
+import LevelInfo from "./LevelInfo";
+import SecondModal from "./SecondModal";
+import Navigation2 from "../Navigation2";
 
-// 모달 컴포넌트
-function Modal({ isOpen, onClose, children }) {
-    if (!isOpen) return null;
 
-    return (
-        <div style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 1000
-        }}>
-            <div style={{
-                background: '#fff',
-                padding: 20,
-                borderRadius: 10,
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                width: '60%', // 모달창의 가로 너비를 화면의 60%로 설정
-                height: '90%', // 모달창의 세로 높이를 화면의 90%로 설정
-                maxWidth: '800px', // 최대 가로 너비 제한
-                maxHeight: '95vh', // 최대 세로 높이를 뷰포트 높이의 95%로 설정
-                overflow: 'auto', // 내용이 넘칠 경우 스크롤 가능하도록 설정
-                position: 'relative' // 상대적 위치 설정
-            }}>
-                {children}
-                <button onClick={onClose} style={{
-                    position: 'absolute',
-                    bottom: 10,
-                    right: 10
-                }}>닫기</button>
-            </div>
-        </div>
 
-    );
-}
-
-function LevelInfo({ level }) {
-    switch (level) {
-        case 1:
-            return <p>레벨 1에 대한 설명과 정보입니다.</p>;
-        case 2:
-            return <p>레벨 2에 대한 설명과 정보입니다.</p>;
-        case 3:
-            return <p>레벨 3에 대한 설명과 정보입니다.</p>;
-        default:
-            return null;
-    }
-}
-
-// 레벨 테스트 페이지 컴포넌트
 function LevelTest() {
     const [selectedLevel, setSelectedLevel] = useState(null);
+    const [modalStage, setModalStage] = useState(1);
+    const [showSecondModal, setShowSecondModal] = useState(false);
+
+    // 첫 번째 모달창에서 확인 버튼 클릭 처리
+    const handleFirstModalConfirm = () => {
+        setShowSecondModal(true); // 두 번째 모달창 표시
+        // 필요한 경우 다른 로직 추가
+    };
 
     return (
         <>
-            <Navigation/>
+            <Navigation2/>
             <h2 style={{ textAlign: 'center', margin: '20px 0' }}>영어회화 레벨 테스트</h2>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
                 {[1, 2, 3].map(level => (
@@ -86,7 +45,10 @@ function LevelTest() {
             <Modal isOpen={selectedLevel != null} onClose={() => setSelectedLevel(null)}>
                 <h3>레벨 {selectedLevel} 정보</h3>
                 <LevelInfo level={selectedLevel} />
+                <button onClick={handleFirstModalConfirm}>확인</button>
             </Modal>
+
+            <SecondModal isOpen={showSecondModal} onClose={() => setShowSecondModal(false)} />
         </>
     );
 }

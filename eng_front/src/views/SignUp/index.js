@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Navigation from "../Navigation";
+import Navigation2 from "../Navigation2";
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -35,7 +35,7 @@ export default function SignInSide() {
 
     return (
         <>
-            <Navigation/>
+            <Navigation2/>
         <ThemeProvider theme={defaultTheme}>
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
@@ -71,16 +71,27 @@ export default function SignInSide() {
                         </Typography>
 
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                             <TextField
                                 margin="normal"
                                 required
-                                fullWidth
+                                fullWidth={false}
+                                style={{ flex: 9 }}
                                 id="email"
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
                                 autoFocus
                             />
+
+                            <Button
+                                variant="contained"
+                                style={{ flex: 1 , backgroundColor : 'black'}}
+                            >
+                              인증
+                            </Button>
+                            </div>
+
                             <TextField
                                 margin="normal"
                                 required
@@ -119,16 +130,25 @@ export default function SignInSide() {
 
                             <Button
                                 type="submit"
-                                fullWidth
                                 variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
+                                sx={{
+                                    mt: 3,
+                                    mb: 2,
+                                    padding: '6px 12px', // 패딩으로 크기 조정
+                                    backgroundColor: 'black', // 배경색을 검은색으로 설정
+                                    '&:hover': {
+                                        backgroundColor: 'black' // 마우스 오버 시 색상 변경 없음
+                                    }
+                                }}
                             >
                                 Sign Up
                             </Button>
+
+
                             <Grid container>
                                 <Grid item xs/>
                                 <Grid item>
-                                    <Link to="/login" variant="body2">
+                                    <Link to="/login" variant="body2" style={{ textDecoration: 'none' }}>
                                         {"Already have an account? Sign in"}
                                     </Link>
                                 </Grid>

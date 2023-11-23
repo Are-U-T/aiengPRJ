@@ -8,6 +8,7 @@ import HeroLeft09 from "./views/Start/HeroLeft09";
 import Change from "./views/InformationChange";
 import LevelTest from "./views/LevelTest";
 import Speach from "./views/Speach";
+import Speaking from "./views/Speaking";
 import Keyword from "./views/Keyword";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
          <Route path="/leveltest" element={<LevelTest/>}/>
          <Route path="/speach" element={<Speach/>}/>
          <Route path="/keyword" element={<Keyword/>}/>
+         <Route path="/speaking" element={<Speaking/>}/>
     </Routes>
   );
 }

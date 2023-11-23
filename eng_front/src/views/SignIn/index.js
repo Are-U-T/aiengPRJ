@@ -20,6 +20,7 @@ import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
 import Navigation from "../Navigation";
 import logo from './images/logo.png';
 import Avatar from "@mui/material/Avatar";
+import Navigation2 from "../Navigation2";
 
 function ColorSchemeToggle(props) {
     const { mode, setMode } = useColorScheme();
@@ -36,6 +37,16 @@ function ColorSchemeToggle(props) {
     return (
 
         <IconButton
+
+            style={{
+                width: '45px',
+                height: '45px',
+                padding: '8px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems : 'center'
+            }}
+
             id="toggle-mode"
             size="sm"
             variant="outlined"
@@ -58,7 +69,7 @@ function ColorSchemeToggle(props) {
 export default function JoySignInSideTemplate() {
     return (
         <>
-            <Navigation/>
+            <Navigation2/>
         <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
             <CssBaseline />
             <GlobalStyles
@@ -99,6 +110,9 @@ export default function JoySignInSideTemplate() {
                         px: 2,
                     }}
                 >
+
+
+
                     <Box
                         component="header"
                         sx={{
@@ -118,10 +132,12 @@ export default function JoySignInSideTemplate() {
                             <IconButton variant="soft" color="primary" size="sm">
                                 <img src={logo} alt="Logo" style={{ width: 50, height: 50 }} />
                             </IconButton>
-                            <Typography level="title-lg">너 T야?</Typography>
+                            <Typography level="title-lg" sx={{ whiteSpace: 'nowrap' }}>Are You T?</Typography>
                         </Box>
                         <ColorSchemeToggle />
                     </Box>
+
+
                     <Box
                         component="main"
                         sx={{
@@ -186,10 +202,6 @@ export default function JoySignInSideTemplate() {
                                             alignItems: 'center',
                                         }}
                                     >
-                                        {/*<Checkbox size="sm" label="Remember me" name="persistent" />*/}
-                                        {/*<Link level="title-sm" href="#replace-with-a-link">*/}
-                                        {/*    Forgot your password?*/}
-                                        {/*</Link>*/}
                                     </Box>
                                     <Button type="submit" fullWidth>
                                         Sign in

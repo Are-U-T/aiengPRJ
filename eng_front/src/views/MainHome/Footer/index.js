@@ -13,33 +13,28 @@ import Container from '@mui/material/Container';
 import aic from './images/AI대화.png';
 import eng from './images/영어학습.png';
 import success from './images/성공사례.png';
+import khImage from '../Images/kh.jpg';
+import logo from './images/logo.png';
 
 
 export default function Footer(){
 
-    const onInstaIconButtonClickHandler = () => {
-        window.open("https://www.instagram.com");
-    };
-
-    const onNaverBlogIconButtonClickHandler = () => {
-        window.open("https://blog.naver.com");
-    }
-
     return(
         <>
-            <h2 className="page-section-heading text-center text-uppercase mb-0"
+            <div style={{marginTop : '100px'}}></div>
+
+            <h2 id="team" className="page-section-heading text-center text-uppercase mb-0"
                 style={{paddingTop: '30px', color: 'black', fontWeight: 'bold'}}>
                 팀 소개
             </h2>
             {/* Icon Divider*/}
-            <div className="divider-custom" style={{marginRight: '-20px', marginTop: '-10px'}}>
-                <div className="divider-custom-line" />
-                <div className="divider-custom-icon"><i className="fas fa-star" /></div>
-                <div className="divider-custom-line" />
-            </div>
+            <div className="divider-custom"/>
 
 
-            <Container maxWidth="lg"> {/* maxWidth를 설정하여 최대 너비를 조절할 수 있습니다. */}
+
+
+
+            <Container maxWidth="lg" id="team"> {/* maxWidth를 설정하여 최대 너비를 조절할 수 있습니다. */}
                 <Box sx={{
                     display: 'flex',
                     flexDirection: 'row',
@@ -47,8 +42,24 @@ export default function Footer(){
                     justifyContent: 'space-around', // 여기서 간격을 균등하게 설정합니다.
                     margin: 'auto', // 이를 통해 Box를 가운데 정렬할 수 있습니다.
                 }}>
-        <Card sx={{ maxWidth: 345 }}>
-            <CardActionArea>
+
+        <Card sx={{ maxWidth: 345,
+            boxShadow: 'none', // 박스 쉐도우 제거
+            backgroundColor: 'white', // 현재 배경색으로 고정
+            '&:hover': {
+                backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
+                // 다른 마우스 오버 효과를 추가적으로 제거할 수 있습니다.
+                boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
+                transform: 'none' // 마우스 오버 시 변형 효과 제거
+            }}}>
+            <CardActionArea sx={{
+                border: 'none', // 테두리 제거
+                '&:hover': {
+                    backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
+                    boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
+                    transform: 'none' // 마우스 오버 시 변형 효과 제거
+                }
+            }}>
                 <CardMedia
                     component="img"
                     sx={{
@@ -73,8 +84,26 @@ export default function Footer(){
         </Card>
 
 
-            <Card sx={{ maxWidth: 345 }}>
-                <CardActionArea>
+
+
+
+                    <Card sx={{ maxWidth: 345,
+                        boxShadow: 'none', // 박스 쉐도우 제거
+                        backgroundColor: 'white', // 현재 배경색으로 고정
+                        '&:hover': {
+                            backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
+                            // 다른 마우스 오버 효과를 추가적으로 제거할 수 있습니다.
+                            boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
+                            transform: 'none' // 마우스 오버 시 변형 효과 제거
+                        }}}>
+                        <CardActionArea sx={{
+                            border: 'none', // 테두리 제거
+                            '&:hover': {
+                                backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
+                                boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
+                                transform: 'none' // 마우스 오버 시 변형 효과 제거
+                            }
+                        }}>
                     <CardMedia
                         component="img"
                         sx={{
@@ -83,7 +112,7 @@ export default function Footer(){
                             borderRadius: '50%',
                             margin: 'auto' // 이미지를 가운데로 정렬합니다.
                         }}
-                        image={jhImage}
+                        image={khImage}
                         alt="jh"
                     />
 
@@ -100,8 +129,23 @@ export default function Footer(){
 
 
 
-            <Card sx={{ maxWidth: 345 }}>
-                <CardActionArea>
+                    <Card sx={{ maxWidth: 345,
+                        boxShadow: 'none', // 박스 쉐도우 제거
+                        backgroundColor: 'white', // 현재 배경색으로 고정
+                        '&:hover': {
+                            backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
+                            // 다른 마우스 오버 효과를 추가적으로 제거할 수 있습니다.
+                            boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
+                            transform: 'none' // 마우스 오버 시 변형 효과 제거
+                        }}}>
+                        <CardActionArea sx={{
+                            border: 'none', // 테두리 제거
+                            '&:hover': {
+                                backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
+                                boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
+                                transform: 'none' // 마우스 오버 시 변형 효과 제거
+                            }
+                        }}>
                     <CardMedia
                         component="img"
                         sx={{
@@ -128,8 +172,23 @@ export default function Footer(){
 
 
 
-            <Card sx={{ maxWidth: 345 }}>
-                <CardActionArea>
+                    <Card sx={{ maxWidth: 345,
+                        boxShadow: 'none', // 박스 쉐도우 제거
+                        backgroundColor: 'white', // 현재 배경색으로 고정
+                        '&:hover': {
+                            backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
+                            // 다른 마우스 오버 효과를 추가적으로 제거할 수 있습니다.
+                            boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
+                            transform: 'none' // 마우스 오버 시 변형 효과 제거
+                        }}}>
+                        <CardActionArea sx={{
+                            border: 'none', // 테두리 제거
+                            '&:hover': {
+                                backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
+                                boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
+                                transform: 'none' // 마우스 오버 시 변형 효과 제거
+                            }
+                        }}>
                     <CardMedia
                         component="img"
                         sx={{
@@ -157,88 +216,52 @@ export default function Footer(){
 
 
 
-
-
-
-
-
-
-        {/*<div id="footer">*/}
-        {/*    <div className="footer-container">*/}
-        {/*        <div className="footer-top">*/}
-        {/*            <div className="footer-logo-box">*/}
-        {/*                <div className="icon-box">*/}
-        {/*                    <div className="icon logo-light-icon">*/}
-
-        {/*                    </div>*/}
-        {/*                </div>*/}
-        {/*                <div className="footer-logo-text">*/}
-        {/*                    {'Are you T?'}*/}
-        {/*                </div>*/}
-        {/*            </div>*/}
-        {/*            <div className="footer-link-box">*/}
-        {/*                <div className="footer-email-link">*/}
-        {/*                    {"smartkorea77@gmail.com"}*/}
-        {/*                </div>*/}
-        {/*                <div className="icon-button" onClick={onInstaIconButtonClickHandler}>*/}
-        {/*                    <div className="icon insta-icon"></div>*/}
-        {/*                </div>*/}
-        {/*                <div className="icon-button" onClick={onNaverBlogIconButtonClickHandler}>*/}
-        {/*                    <div className="icon naver-blog-con"></div>*/}
-        {/*                </div>*/}
-
-        {/*            </div>*/}
-        {/*        </div>*/}
-
-        {/*        <div className="footer-bottom">*/}
-        {/*            <div className="footer-copyright">*/}
-        {/*                {'왕가네 탕후루..'}*/}
-        {/*            </div>*/}
-        {/*        </div>*/}
-
-        {/*    </div>*/}
-        {/*</div>*/}
-
+            <div style={{marginTop : '100px'}}></div>
 
             <div>
-                {/* Footer*/}
-                <footer className="footer text-center">
+                <footer className="footer" style={{ backgroundColor: '#333333', color: 'white', padding: '10px 0' }}>
                     <div className="container">
                         <div className="row">
-                            {/* Footer Location*/}
-                            <div className="col-lg-4 mb-5 mb-lg-0">
-                                <h4 className="text-uppercase mb-4">Location</h4>
-                                <p className="lead mb-0">
-                                    2215 John Daniel Drive
-                                    <br />
-                                    Clark, MO 65243
-                                </p>
+
+                            <div className="col-lg-6 col-md-12 mb-2 d-flex align-items-center">
+                                <img src={logo} alt="logo" style={{ maxWidth: '80px', marginRight: '15px' }}/>
+                                <div>
+                                    <h5>Are You T?</h5>
+                                    <p>Discover our story, vision, and team.</p>
+                                </div>
                             </div>
-                            {/* Footer Social Icons*/}
-                            <div className="col-lg-4 mb-5 mb-lg-0">
-                                <h4 className="text-uppercase mb-4">Around the Web</h4>
-                                <a className="btn btn-outline-light btn-social mx-1" href="#!"><i className="fab fa-fw fa-facebook-f" /></a>
-                                <a className="btn btn-outline-light btn-social mx-1" href="#!"><i className="fab fa-fw fa-twitter" /></a>
-                                <a className="btn btn-outline-light btn-social mx-1" href="#!"><i className="fab fa-fw fa-linkedin-in" /></a>
-                                <a className="btn btn-outline-light btn-social mx-1" href="#!"><i className="fab fa-fw fa-dribbble" /></a>
+
+                            <div className="col-lg-3 col-md-6 mb-2">
+                                <h5>Follow Us</h5>
+                                <div className="social-links">
+                                    <a className="social-icon facebook-icon" href="#!"><i className="fab fa-facebook-f" /></a>
+                                    <a className="social-icon twitter-icon" href="#!"><i className="fab fa-twitter" /></a>
+                                    <a className="social-icon instagram-icon" href="#!"><i className="fab fa-instagram" /></a>
+                                    <a className="social-icon youtube-icon" href="#!"><i className="fab fa-youtube" /></a>
+                                </div>
                             </div>
-                            {/* Footer About Text*/}
-                            <div className="col-lg-4">
-                                <h4 className="text-uppercase mb-4">About Freelancer</h4>
-                                <p className="lead mb-0">
-                                    Freelance is a free to use, MIT licensed Bootstrap theme created by
-                                    <a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    .
-                                </p>
+
+                            <div className="col-lg-3 col-md-6 mb-2">
+                                <h5>Contact</h5>
+                                <ul className="contact-list contact-text-large">
+                                    <li><a href="mailto:smartkorea77@gmail.com">이메일</a></li>
+                                    <li><a href="https://maps.google.com">위치</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </footer>
-                {/* Copyright Section*/}
-                <div className="copyright py-4 text-center text-white">
-                    <div className="container"><small>Copyright © Your Website 2023</small></div>
+
+                <div className="text-center" style={{ backgroundColor: '#20232a', color: '#f8f9fa', padding: '5px 0' }}>
+                    <small>© 2023 너랑 나</small>
                 </div>
-                {/* Portfolio Modals*/}
+            </div>
+
+
+
+
+
+            {/* Portfolio Modals*/}
                 {/* Portfolio Modal 1*/}
                 <div className="portfolio-modal modal fade" id="portfolioModal1" tabIndex={-1} aria-labelledby="portfolioModal1" aria-hidden="true">
                     <div className="modal-dialog modal-xl">
@@ -335,7 +358,6 @@ export default function Footer(){
                         </div>
                     </div>
                 </div>
-            </div>
     </>
     )
 }
