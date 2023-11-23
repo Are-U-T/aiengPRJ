@@ -1,0 +1,145 @@
+/*!* 기본 스타일 *!*/
+/*body {*/
+/*    font-family: 'Arial', sans-serif;*/
+/*    background-color: #f4f4f4;*/
+/*    color: #333;*/
+/*    line-height: 1.6;*/
+/*}*/
+
+/* 네비게이션 스타일 */
+.navigation {
+    background-color: #333;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+}
+
+/* 컨테이너 */
+.speaking-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 콘텐츠 컨테이너 */
+.content-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+/* 이미지 컨테이너 */
+.image-container {
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+}
+
+/* 이미지 스타일 */
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* 자막 컨테이너 */
+.subtitles-container {
+    flex: 1;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 자막 리스트 스타일 */
+.subtitles-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.subtitles-container li {
+    background-color: #eee;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* 정보 및 질문 영역 */
+.time-spent, .role-info, .questions-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* 질문 목록 스타일 */
+.questions-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.questions-container li {
+    background-color: #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* 버튼 및 입력 필드 스타일 */
+button, input[type='text'] {
+    padding: 10px;
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+
+
+/* 역할 및 상황과 추천 질문을 가로로 배치하기 위한 컨테이너 스타일 */
+.info-question-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* 역할 및 상황 컨테이너 */
+.role-info {
+    flex: 1;
+    margin-right: 20px; /* 오른쪽 간격 조정 */
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 추천 질문 컨테이너 */
+.questions-container {
+    flex: 1;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.buttons-containerpp {
+    display: flex;
+    justify-content: center; /* 버튼들을 중앙 정렬 */
+    gap: 10px; /* 버튼 사이의 간격 */
+    margin-top: 10px; /* 위 요소와의 간격 */
+}
+
+.buttonpp {
+    padding: 10px 20px; /* 버튼 내부 패딩 */
+    border: 1px solid #ddd; /* 테두리 스타일 */
+    background-color: deepskyblue; /* 배경색 */
+
+}

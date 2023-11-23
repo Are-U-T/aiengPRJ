@@ -83,7 +83,8 @@ public class ChatGptService {
 
     public ChatGptResponseDto askQuestion(String question) {
 
-        String prompt = "My question is " + question;
+        String prompt = "My question is " + question + "And when answering, answer without your roles. " +
+                "And don't forget our role situation";
 
 //        String prompt = "Remember our situation and your role and communicate naturally.";
 

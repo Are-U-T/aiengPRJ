@@ -9,6 +9,7 @@ import com.project.eng_back.TTS.QuickstartSample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/chat-gpt")
 public class ChatGptController {
@@ -30,15 +31,19 @@ public class ChatGptController {
 
     private final QuestionRequestDto questionRequestDto;
 
+    private final Choice choice;
+
     private boolean isFirstQuestion = true;
 
     // 대화 기록을 저장할 변수
     private StringBuilder conversationHistory = new StringBuilder();
 
-    public ChatGptController(ChatGptService chatGptService, QuickstartSample quickstartSample, QuestionRequestDto questionRequestDto) {
+    @Autowired
+    public ChatGptController(ChatGptService chatGptService, QuickstartSample quickstartSample, QuestionRequestDto questionRequestDto, Choice choice) {
         this.chatGptService = chatGptService;
         this.quickstartSample = quickstartSample;
         this.questionRequestDto = questionRequestDto;
+        this.choice = choice;
     }
 
     public boolean initiateConversation(QuestionRequestDto initiationRequestDto){
@@ -46,7 +51,17 @@ public class ChatGptController {
         String userRole = initiationRequestDto.getUserRole();
         String gptRole = initiationRequestDto.getGPTRole();
         String situation = initiationRequestDto.getSituation();
+        questionRequestDto.setCrid(initiationRequestDto.getCrid());
+        choice.setCrid(initiationRequestDto.getCrid());
 
+        System.out.println("----------------------------------------------------------------");
+        System.out.println("questionRequestDto.getCrid(): " + questionRequestDto.getCrid());
+        System.out.println("----------------------------------------------------------------");
+
+        System.out.println("----------------------------------------------------------------");
+        System.out.println("initiationRequestDto.getCrid: " + initiationRequestDto.getCrid());
+        System.out.println("choice.getCrid: " + choice.getCrid());
+        System.out.println("----------------------------------------------------------------");
 
         System.out.println("userRole: " + userRole);
         System.out.println("gptRole: " + gptRole);
@@ -58,19 +73,22 @@ public class ChatGptController {
                         "You just have to play the role of the %s. " +
                         "So, starting now, as your %s, " +
                         "I'll be asking and answering questions, and you, as the %s, can start by asking a question in English."
-                        + "Answer naturally as if you were talking to me.",
+                        + "Answer naturally as if you were talking to me."
+                        + "And when answering, answer without your roles. ",
                 gptRole, userRole, situation, gptRole, userRole, gptRole);
 
         ChatGptResponseDto gptResponseDto = chatGptService.setSituation(new QuestionRequestDto(initialQuestion));
 
         Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
+        gptResponseChoice.setCrid(initiationRequestDto.getCrid());
+
         if (gptResponseChoice == null) {
             gptResponseDto = chatGptService.setSituation(initiationRequestDto);
             gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
         }
 
         quickstartSample.run(gptResponseChoice);
-        chatGptService.saveToDatabase2(new QuestionRequestDto(initialQuestion, initiationRequestDto.getGPTRole(), initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
+        chatGptService.saveToDatabase2(new QuestionRequestDto(initiationRequestDto.getCrid(),initialQuestion, initiationRequestDto.getGPTRole(), initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
         chatGptService.saveToDatabase(gptResponseChoice);
         isFirstQuestion = false;
 
@@ -79,6 +97,14 @@ public class ChatGptController {
 
     @PostMapping("/question")
     public ResponseEntity<String> conversation(String question) {
+
+        System.out.println("----------------------------------------------------------------");
+        System.out.println("111 questionRequestDto.getCrid(): " + questionRequestDto.getCrid());
+        System.out.println("----------------------------------------------------------------");
+
+        System.out.println("----------------------------------------------------------------");
+        System.out.println("111 choice.getCrid(): " + choice.getCrid());
+        System.out.println("----------------------------------------------------------------");
 
         System.out.println("question : " + question);
         try {
@@ -90,17 +116,15 @@ public class ChatGptController {
 
 //            sendRoleAndSituationToChatGptPy(userRole, gptRole, situation);
 
-            System.out.println("1");
 
             ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(question);
 
 //            ChatGptResponseDto gptResponseDto = sendRoleAndSituationToChatGptPy(userRole, gptRole, situation, conversationHistory);
 
 //            System.out.println("py 코드에서 리턴 받은 것임: " + sendRoleAndSituationToChatGptPy(userRole, gptRole, situation, conversationHistory));
-            System.out.println("1.5");
             Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, question);
+            gptResponseChoice.setCrid(choice.getCrid());
 
-            System.out.println("2");
             if (gptResponseChoice == null) {
                 gptResponseDto = chatGptService.askQuestion(question);
                 gptResponseChoice = extractChoiceFromResponse(gptResponseDto, question);
@@ -108,11 +132,10 @@ public class ChatGptController {
 
             quickstartSample.run(gptResponseChoice);
 
-            System.out.println("3");
             questionRequestDto.setQuestion(question);
             chatGptService.saveToDatabase2(questionRequestDto);
             chatGptService.saveToDatabase(gptResponseChoice);
-            System.out.println("4");
+
             // 대화 기록 업데이트
             conversationHistory.append(question).append("\n");
             conversationHistory.append(gptResponseChoice.getText()).append("\n");

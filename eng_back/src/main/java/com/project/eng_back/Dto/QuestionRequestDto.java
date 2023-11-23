@@ -33,7 +33,8 @@ public class QuestionRequestDto implements Serializable {
         this.question = question;
     }
 
-    public QuestionRequestDto(String question, String GPTRole, String UserRole, String situation) {
+    public QuestionRequestDto(String crid , String question, String GPTRole, String UserRole, String situation) {
+        this.crid = crid;
         this.question = question;
         this.GPTRole = GPTRole;
         this.UserRole = UserRole;
