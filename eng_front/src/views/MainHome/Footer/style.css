@@ -1,8 +1,10 @@
+
 .footer {
     font-size: 12px;
     line-height: 1.4;
     color: #f8f9fa;
-    padding: 20px; /* 모든 화면 크기에 대해 적당한 패딩 */
+    padding: 20px 50px; /* 너무 큰 패딩을 줄임 */
+    text-align: center; /* 텍스트 중앙 정렬 */
 }
 
 .footer .uu {
@@ -40,9 +42,8 @@
 
 .footer-container {
     display: flex;
-    flex-wrap: wrap; /* 내용이 넘치면 다음 줄로 넘김 */
-    justify-content: center; /* 가운데 정렬 */
-    align-items: center; /* 세로 중앙 정렬 */
+    flex-wrap: wrap; /* 반응형 레이아웃을 위한 설정 */
+    justify-content: space-around;
     max-width: 1200px;
     margin: 0 auto; /* 가운데 정렬 */
 }
@@ -88,7 +89,7 @@
     .footer-container,
     .footer .d-flex,
     .social-links {
-        flex-direction: row; /* 항목들이 가로로 유지되도록 함 */
+        flex-direction: column; /* 항목들이 가로로 유지되도록 함 */
         justify-content: center; /* 중앙 정렬 */
         align-items: center; /* 세로 중앙 정렬 */
     }
@@ -109,8 +110,8 @@
     }
 
     .team-card {
-        max-width: 100%; /* 모바일에서 카드 너비를 100%로 설정 */
-        margin-bottom: 20px;
+        width: 100%; /* 모든 카드가 전체 너비를 차지하도록 설정 */
+        margin-bottom: 20px; /* 아래쪽 마진 설정 */
     }
 }
 
@@ -131,8 +132,11 @@
     .footer .col-md-12 {
         width: 100%; /* 모바일 화면에서는 컬럼 너비를 100%로 설정 */
     }
+
+    .team-card {
+        /* 화면이 매우 작을 때도 카드의 너비를 100%로 설정하여 세로로 쌓이도록 합니다. */
+        width: 100%;
+        margin-bottom: 20px;
+    }
 }
-
-
-
 

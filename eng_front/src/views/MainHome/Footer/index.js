@@ -37,7 +37,7 @@ export default function Footer(){
             <Container maxWidth="lg" id="team"> {/* maxWidth를 설정하여 최대 너비를 조절할 수 있습니다. */}
                 <Box className="team-container" sx={{
                     display: 'flex',
-                    flexDirection: 'row',
+                    flexDirection: { xs: 'column', md: 'row' },
                     gap: 2,
                     justifyContent: 'space-around', // 여기서 간격을 균등하게 설정합니다.
                     margin: 'auto', // 이를 통해 Box를 가운데 정렬할 수 있습니다.
