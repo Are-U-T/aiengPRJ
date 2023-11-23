@@ -33,6 +33,20 @@ export default function SignInSide() {
         });
     };
 
+
+    const sendNumber = () => {
+        // 인증번호 전송 로직
+        console.log('인증번호 전송 로직 실행');
+        // 예시: 이메일 주소를 서버에 전송하여 인증번호를 요청하는 코드를 여기에 작성합니다.
+    };
+
+    const confirmNumber = () => {
+
+        console.log('ㅋㅋㅋ');
+
+    };
+
+
     return (
         <>
             <Navigation2/>
@@ -87,9 +101,36 @@ export default function SignInSide() {
                             <Button
                                 variant="contained"
                                 style={{ flex: 1 , backgroundColor : 'black'}}
+                                onclick={confirmNumber}
+                                name="confirmBtn"
+                                id="confirmBtn"
                             >
                               인증
                             </Button>
+                            </div>
+
+
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth={false}
+                                    style={{ flex: 8 }}
+                                    id="mail_number"
+                                    label="인증번호"
+                                    name="mail_number"
+                                />
+
+                                <Button
+                                    variant="contained"
+                                    style={{ flex: 2, backgroundColor: 'black' }}
+                                    onClick={sendNumber}  // 수정된 부분
+                                    id="sendBtn"
+                                    name="sendBtn"
+
+                                >
+                                    인증확인
+                                </Button>
                             </div>
 
                             <TextField

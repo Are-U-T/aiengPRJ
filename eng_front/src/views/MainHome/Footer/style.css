@@ -2,10 +2,10 @@
     font-size: 12px;
     line-height: 1.4;
     color: #f8f9fa;
-    padding: 10px 0; /* Further reduced padding */
+    padding: 20px; /* 모든 화면 크기에 대해 적당한 패딩 */
 }
 
-.footer h5 {
+.footer .uu {
     margin-bottom: 15px;
     font-weight: bold;
     color: #ffcc00;
@@ -36,36 +36,24 @@
     transition: color 0.3s;
 }
 
+
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap; /* 내용이 넘치면 다음 줄로 넘김 */
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    max-width: 1200px;
+    margin: 0 auto; /* 가운데 정렬 */
+}
+
+
+
 .social-icon:hover {
     color: #ffcc00;
 }
 
-@media (max-width: 992px) {
-    .footer .col-lg-4 {
-        margin-bottom: 20px;
-    }
-}
 
-@media (max-width: 768px) {
-    .footer {
-        text-align: center;
-    }
-    .footer .col-md-6 {
-        margin-bottom: 20px;
-    }
-}
-
-.footer .d-flex {
-    display: flex;
-    align-items: center;
-}
-
-@media (max-width: 768px) {
-    .footer .d-flex {
-        flex-direction: column;
-        align-items: start;
-    }
-}
 
 .facebook-icon {
     color: #4267B2; /* Facebook Blue */
@@ -83,4 +71,68 @@
 .youtube-icon {
     color: #FF0000; /* YouTube Red */
 }
+
+
+
+/* 화면 크기가 768px 이하일 때 적용되는 스타일 */
+@media only screen and (max-width: 768px) {
+    .footer {
+        padding: 20px; /* 화면이 작을 때 패딩 줄임 */
+    }
+
+    .footer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .footer-container,
+    .footer .d-flex,
+    .social-links {
+        flex-direction: row; /* 항목들이 가로로 유지되도록 함 */
+        justify-content: center; /* 중앙 정렬 */
+        align-items: center; /* 세로 중앙 정렬 */
+    }
+
+    .footer .col-lg-6,
+    .footer .col-lg-3,
+    .footer .col-md-6,
+    .footer .col-md-12 {
+        width: auto; /* 너비를 자동으로 설정 */
+        margin-bottom: 10px;
+        flex: 1; /* 유연한 아이템 크기 조정 */
+        min-width: 150px; /* 최소 너비 설정 */
+    }
+
+    .team-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .team-card {
+        max-width: 100%; /* 모바일에서 카드 너비를 100%로 설정 */
+        margin-bottom: 20px;
+    }
+}
+
+
+/* 작은 모바일 화면 */
+@media only screen and (max-width: 480px) {
+    .footer {
+        padding: 10px; /* 패딩 조정 */
+    }
+
+    .footer-container {
+        flex-direction: column; /* 모바일 화면에서는 컬럼으로 변경 */
+    }
+
+    .footer .col-lg-6,
+    .footer .col-lg-3,
+    .footer .col-md-6,
+    .footer .col-md-12 {
+        width: 100%; /* 모바일 화면에서는 컬럼 너비를 100%로 설정 */
+    }
+}
+
+
+
 

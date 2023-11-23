@@ -90,7 +90,7 @@ export default function Mainarea(){
 
   </section>
 
-          <div style={{marginTop : '100px'}}></div>
+          <div style={{marginTop : '50px'}}></div>
 
           <h2 id='user' className="page-section-heading text-center"
               style={{ marginTop: '40px', fontWeight: 'bold', fontSize: '40px', color: '#333' }}>사용 대상</h2>
@@ -170,7 +170,7 @@ export default function Mainarea(){
 
 
 
-          <div style={{marginTop : '100px'}}></div>
+          <div style={{marginTop : '50px'}}></div>
           <h2 id="reason" className="page-section-heading text-center" style={{ marginTop: '40px', fontWeight: 'bold', fontSize: '40px', color: '#333' }}>사용하는 이유</h2>
           <Container
               sx={{
@@ -269,7 +269,7 @@ export default function Mainarea(){
 
 
           {/* About Section*/}
-          <div style={{marginTop : '100px'}}></div>
+          <div style={{marginTop : '50px'}}></div>
           <section className="page-section" style={{ backgroundColor: 'white', color: 'black' }} id="about">
     <div className="container">
       {/* About Section Heading*/}

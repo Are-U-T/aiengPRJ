@@ -21,7 +21,7 @@ export default function Footer(){
 
     return(
         <>
-            <div style={{marginTop : '100px'}}></div>
+            <div style={{marginTop : '50px'}}></div>
 
             <h2 id="team" className="page-section-heading text-center text-uppercase mb-0"
                 style={{paddingTop: '30px', color: 'black', fontWeight: 'bold'}}>
@@ -35,7 +35,7 @@ export default function Footer(){
 
 
             <Container maxWidth="lg" id="team"> {/* maxWidth를 설정하여 최대 너비를 조절할 수 있습니다. */}
-                <Box sx={{
+                <Box className="team-container" sx={{
                     display: 'flex',
                     flexDirection: 'row',
                     gap: 2,
@@ -216,23 +216,26 @@ export default function Footer(){
 
 
 
-            <div style={{marginTop : '100px'}}></div>
+            <div style={{marginTop : '50px'}}></div>
+
+
+
 
             <div>
-                <footer className="footer" style={{ backgroundColor: '#333333', color: 'white', padding: '10px 0' }}>
-                    <div className="container">
+                <footer className="footer" style={{ backgroundColor: '#333333', color: 'white', padding: '10px 0', height: '130px'}}>
+                    <div className="footer-container">
                         <div className="row">
 
-                            <div className="col-lg-6 col-md-12 mb-2 d-flex align-items-center">
+                            <div className="col-lg-6 col-md-12 mb-2 d-flex">
                                 <img src={logo} alt="logo" style={{ maxWidth: '80px', marginRight: '15px' }}/>
                                 <div>
-                                    <h5>Are You T?</h5>
-                                    <p>Discover our story, vision, and team.</p>
+                                    <h5 className="uu">Are You T?</h5>
+                                    <p>여러분들의 성공을 기원합니다.</p>
                                 </div>
                             </div>
 
                             <div className="col-lg-3 col-md-6 mb-2">
-                                <h5>Follow Us</h5>
+                                <h5 className="uu">Follow Us</h5>
                                 <div className="social-links">
                                     <a className="social-icon facebook-icon" href="#!"><i className="fab fa-facebook-f" /></a>
                                     <a className="social-icon twitter-icon" href="#!"><i className="fab fa-twitter" /></a>
@@ -242,7 +245,7 @@ export default function Footer(){
                             </div>
 
                             <div className="col-lg-3 col-md-6 mb-2">
-                                <h5>Contact</h5>
+                                <h5 className="uu">Contact</h5>
                                 <ul className="contact-list contact-text-large">
                                     <li><a href="mailto:smartkorea77@gmail.com">이메일</a></li>
                                     <li><a href="https://maps.google.com">위치</a></li>
@@ -256,6 +259,7 @@ export default function Footer(){
                     <small>© 2023 너랑 나</small>
                 </div>
             </div>
+
 
 
 
