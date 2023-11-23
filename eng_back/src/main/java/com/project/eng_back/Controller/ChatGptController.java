@@ -1,5 +1,6 @@
 package com.project.eng_back.Controller;
 
+import com.google.gson.Gson;
 import com.project.eng_back.Dto.ChatGptResponseDto;
 import com.project.eng_back.Dto.Choice;
 import com.project.eng_back.Dto.QuestionRequestDto;
@@ -7,6 +8,7 @@ import com.project.eng_back.Service.ChatGptService;
 import com.project.eng_back.TTS.QuickstartSample;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,117 +16,151 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/chat-gpt")
 public class ChatGptController {
 
+    public Logger logger = LoggerFactory.getLogger(TalkingRoomController.class);
+
     private final ChatGptService chatGptService;
 
     private final QuickstartSample quickstartSample;
 
-    private boolean isFirstQuestion = true; // 초기 질문 여부를 체크하기 위한 변수
+    private boolean isFirstQuestion = true;
 
-    private HttpSession session;
+    // 대화 기록을 저장할 변수
+    private StringBuilder conversationHistory = new StringBuilder();
 
     public ChatGptController(ChatGptService chatGptService, QuickstartSample quickstartSample) {
         this.chatGptService = chatGptService;
         this.quickstartSample = quickstartSample;
     }
 
-    public Logger logger = LoggerFactory.getLogger(TalkingRoomController.class);
-
     @PostMapping("/question")
-    public ResponseEntity<String> initiateConversation(@RequestBody QuestionRequestDto initiationRequestDto) {
+    public ResponseEntity<String> initiateConversation(QuestionRequestDto initiationRequestDto) {
         try {
+            String crid = initiationRequestDto.getCrid();
+            String gptRole = initiationRequestDto.getGPTRole();
+            String userRole = initiationRequestDto.getUserRole();
+            String situation = initiationRequestDto.getSituation();
+
+            logger.info("***** ChatGptController *****");
+            logger.info("crid: {}", crid);
+            logger.info("gptRole: {}", gptRole);
+            logger.info("userRole: {}", userRole);
+            logger.info("situation: {}", situation);
+            logger.info("***** ChatGptController *****");
 
             if (isFirstQuestion) {
-                // 임의의 역할, 사용자 역할, 상황을 사용하여 초기 질문 생성
-//                String initialQuestion = "To increase English conversation, we're going to take on roles and converse in English." +
-//                        "You're my boyfriend, and I'm your girlfriend. " +
-//                        "We're in a situation where we're planning a trip for our 1st anniversary." +
-//                        "You just have to play the role of the boyfriend." +
-//                        "So, starting now, as your girlfriend, " +
-//                        "I'll be asking and answering questions, and you, as the boyfriend, can start by asking a question in English.";
+                String initialQuestion = String.format(
+                        "To increase English conversation, we're going to take on roles and converse in English. " +
+                                "You're my %s, and I'm your %s. " +
+                                "We're in a situation where %s. " +
+                                "You just have to play the role of the %s. " +
+                                "So, starting now, as your %s, " +
+                                "I'll be asking and answering questions, and you, as the %s, can start by asking a question in English."
+                                + "Answer naturally as if you were talking to me.",
+                        gptRole, userRole, situation, gptRole, userRole, gptRole);
 
-                // 프론트엔드에서 받은 역할과 주제를 이용하여 초기 질문 생성
-                String crid = initiationRequestDto.getCrid();
-                String gptRole = initiationRequestDto.getGPTRole();
-                String userRole = initiationRequestDto.getUserRole();
-                String situation = initiationRequestDto.getSituation();
+                ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(new QuestionRequestDto(initialQuestion), conversationHistory);
 
-//                String crid = (String) session.getAttribute("crid");
-//                String gptRole = (String) session.getAttribute("gptRole");
-//                String userRole = (String) session.getAttribute("userRole");
-//                String situation = (String) session.getAttribute("situation");
-
-//                String crid = "";
-//                String gptRole = "";
-//                String userRole = "";
-//                String situation = "";
-
-                logger.info("***** *****");
-                logger.info("gptController crid: {}", crid);
-                logger.info("gptController gptRole: {}", gptRole);
-                logger.info("gptController userRole: {}", userRole);
-                logger.info("gptController situation: {}", situation);
-                logger.info("***** *****\n");
-
-                String initialQuestion = "너는 " + gptRole + "이고, 나의 역할은 " + userRole
-                        + "(이)야. 그리고 우리의 상황은 " + situation
-                        + "(이)야. 5분 이상 대화를 해야 하니 너의 역할에 집중해서 대화를 진행해줘. 그럼 시작해줘";
-                logger.info("gptController Question: {}", initialQuestion);
-
-                // GPT에 초기 질문 보내기
-                ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(new QuestionRequestDto(initialQuestion));
-
-                // GPT 답변 중에서 첫 번째 Choice를 가져오거나 처리하는 로직을 추가할 수 있습니다.
                 Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
+                if (gptResponseChoice == null) {
+                    gptResponseDto = chatGptService.askQuestion(initiationRequestDto, conversationHistory);
+                    gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
+                }
 
-                // 음성 파일로 gpt 답 내보내기
                 quickstartSample.run(gptResponseChoice);
-
-                // 초기 질문과 GPT의 답변을 데이터베이스에 저장
-                chatGptService.saveToDatabase2(new QuestionRequestDto(initiationRequestDto.getCrid(), initialQuestion, initiationRequestDto.getGPTRole(), initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
+                chatGptService.saveToDatabase2(new QuestionRequestDto(initialQuestion, initiationRequestDto.getGPTRole(), initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
                 chatGptService.saveToDatabase(gptResponseChoice);
-
-                // 초기 질문 보내기 완료함
                 isFirstQuestion = false;
 
                 return new ResponseEntity<>("Initiation question and GPT response saved successfully.", HttpStatus.OK);
             }
 
-            // GPT에서 답변 얻기
-            ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(initiationRequestDto);
+//            sendRoleAndSituationToChatGptPy(userRole, gptRole, situation);
 
-            // GPT 답변 중에서 첫 번째 Choice를 가져오거나 처리하는 로직을 추가할 수 있습니다.
+            ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(initiationRequestDto, conversationHistory);
+
+//            ChatGptResponseDto gptResponseDto = sendRoleAndSituationToChatGptPy(userRole, gptRole, situation, conversationHistory);
+
+//            System.out.println("py 코드에서 리턴 받은 것임: " + sendRoleAndSituationToChatGptPy(userRole, gptRole, situation, conversationHistory));
+
             Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initiationRequestDto.getQuestion());
 
-            // 음성 파일로 gpt 답 내보내기
+            if (gptResponseChoice == null) {
+                gptResponseDto = chatGptService.askQuestion(initiationRequestDto, conversationHistory);
+                gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initiationRequestDto.getQuestion());
+            }
+
             quickstartSample.run(gptResponseChoice);
 
-            // 유저의 question과 역할을 데이터베이스에 저장
             chatGptService.saveToDatabase2(initiationRequestDto);
-
-            // GPT 답변을 데이터베이스에 저장
             chatGptService.saveToDatabase(gptResponseChoice);
+
+            // 대화 기록 업데이트
+            conversationHistory.append(initiationRequestDto.getQuestion()).append("\n");
+            conversationHistory.append(gptResponseChoice.getText()).append("\n");
 
             return new ResponseEntity<>("Question and GPT response saved successfully.", HttpStatus.OK);
         } catch (Exception e) {
-            // 에러가 발생하면 적절하게 처리
             return new ResponseEntity<>("Error processing the initiation question: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     private Choice extractChoiceFromResponse(ChatGptResponseDto responseDto, String question) {
-        // 여기에서 적절한 로직으로 responseDto에서 Choice를 추출하여 반환하는 코드를 작성하세요.
-        // 예시로, 단순히 첫 번째 Choice를 반환하는 코드를 작성했습니다.
         if (responseDto != null && responseDto.getChoices() != null && !responseDto.getChoices().isEmpty()) {
             return responseDto.getChoices().get(0);
         } else {
-            // 적절한 처리를 추가하세요 (예: 예외 던지기 또는 기본값 반환)
             return null;
         }
+    }
+
+    // 아래부터는 파이썬에 open ai 에 요청 보내는 코드들임 ,, 근데 실패함 ㅋ
+    private ChatGptResponseDto sendRoleAndSituationToChatGptPy(String userRole, String gptRole, String situation, StringBuilder conversationHistory) {
+        String chatGptPyUrl = "http://10.20.100.136:8889/update-model";
+        HttpClient httpClient = HttpClient.newHttpClient();
+
+        try {
+            // 데이터를 JSON 형식으로 변환
+            String jsonBody = buildJsonBody(userRole, gptRole, situation, conversationHistory);
+
+            // HTTP 요청 구성
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(chatGptPyUrl))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
+                    .build();
+
+            // HTTP 요청 보내기
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // 응답을 ChatGptResponseDto 객체로 반환
+            Gson gson = new Gson();
+            return gson.fromJson(response.body(), ChatGptResponseDto.class);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            return null;  // 오류 발생 시 null 반환
+        }
+    }
+
+    // 데이터를 JSON 형식으로 변환하는 메서드
+    private String buildJsonBody(String userRole, String gptRole, String situation, StringBuilder conversationHistory) {
+        Map<String, String> data = new HashMap<>();
+        data.put("user_role", userRole);
+        data.put("gpt_role", gptRole);
+        data.put("situation", situation);
+        data.put("conversationHistory", conversationHistory.toString());
+
+        // JSON 문자열 생성
+        return new Gson().toJson(data);
     }
 }

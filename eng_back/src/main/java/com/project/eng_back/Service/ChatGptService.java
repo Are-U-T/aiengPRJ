@@ -12,6 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @Service
 public class ChatGptService {
@@ -21,6 +24,8 @@ public class ChatGptService {
     private final ChatGPTMapper chatGPTMapper;
 
     private final StringBuilder conversationHistory = new StringBuilder();
+
+    private static final Logger logger = LoggerFactory.getLogger(ChatGptService.class);
 
     public ChatGptService(ChatGPTMapper chatGPTMapper) {
         this.chatGPTMapper = chatGPTMapper;
@@ -54,19 +59,24 @@ public class ChatGptService {
         return responseEntity.getBody();
     }
 
-    public ChatGptResponseDto askQuestion(QuestionRequestDto requestDto) {
-        // 이전 대화 히스토리에 현재 대화를 추가
-//        conversationHistory.append("User: ").append(requestDto.getQuestion()).append("\n");
-        conversationHistory.append(requestDto.getQuestion()).append("\n");
+    public ChatGptResponseDto askQuestion(QuestionRequestDto initiationRequestDto, StringBuilder conversationHistory) {
+
+        String prompt = initiationRequestDto.getQuestion();
+
+//        String prompt = "Remember our situation and your role and communicate naturally.";
 
         // GPT에게 고려된 프롬프트로 요청 보내고 응답 받기
         ChatGptRequestDto chatGptRequestDto = ChatGptRequestDto.builder()
                 .model(ChatGptConfig.MODEL)
-                .prompt(conversationHistory.toString())
+                .prompt(prompt)
                 .maxTokens(ChatGptConfig.MAX_TOKEN)
                 .temperature(ChatGptConfig.TEMPERATURE)
                 .topP(ChatGptConfig.TOP_P)
                 .build();
+
+        logger.info("Sent prompt to GPT: {}", chatGptRequestDto.getPrompt());
+
+        System.out.println("이전 대화임: " + conversationHistory.toString());
 
         return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
     }

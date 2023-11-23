@@ -16,7 +16,7 @@ public class TalkingRoomDto {
 //    private int lv;
 //    private String time;
 //    private int score;
-    @JsonProperty("GPTRole")
+    @JsonProperty("gptRole")
     private String GPTRole;
     @JsonProperty("userRole")
     private String userRole;
