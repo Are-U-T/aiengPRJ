@@ -20,7 +20,7 @@ const Recorder = () => {
             formData.append('audio', blob, 'recording.mp3');
 
             // 发送音频数据到后台
-            const response = await axios.post('http://localhost:8888/api/audio/upload', formData);
+            const response = await axios.post('http://localhost/api/audio/upload', formData);
             console.log('Audio sent successfully:', response.data);
         } catch (error) {
             console.error('Error sending audio:', error);

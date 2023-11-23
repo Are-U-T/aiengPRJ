@@ -6,7 +6,10 @@ import Introduction from "./views/Introduction";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import HeroLeft09 from "./views/Start/HeroLeft09";
 import Change from "./views/InformationChange";
-import STT from "./views/STT";
+import LevelTest from "./views/LevelTest";
+import Speach from "./views/Speach";
+import Speaking from "./views/Speaking";
+import Keyword from "./views/Keyword";
 
 function App() {
   return (
@@ -17,7 +20,10 @@ function App() {
          <Route path="/signup" element={<SignUp/>}/>
          <Route path="/introduction" element={<Introduction/>}/>
          <Route path="/Change" element={<Change/>}/>
-         <Route path="/stt" element={<STT/>}/>
+         <Route path="/leveltest" element={<LevelTest/>}/>
+         <Route path="/speach" element={<Speach/>}/>
+         <Route path="/keyword" element={<Keyword/>}/>
+         <Route path="/speaking" element={<Speaking/>}/>
     </Routes>
   );
 }
