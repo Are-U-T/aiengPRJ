@@ -6,6 +6,7 @@ import Introduction from "./views/Introduction";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import HeroLeft09 from "./views/Start/HeroLeft09";
 import Change from "./views/InformationChange";
+import STT from "./views/STT";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
          <Route path="/signup" element={<SignUp/>}/>
          <Route path="/introduction" element={<Introduction/>}/>
          <Route path="/Change" element={<Change/>}/>
+         <Route path="/stt" element={<STT/>}/>
     </Routes>
   );
 }
