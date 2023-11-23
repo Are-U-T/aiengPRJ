@@ -59,13 +59,11 @@ public class ChatGptService {
         return responseEntity.getBody();
     }
 
-    public ChatGptResponseDto askQuestion(QuestionRequestDto requestDto, StringBuilder conversationHistory) {
+    public ChatGptResponseDto askQuestion(QuestionRequestDto initiationRequestDto, StringBuilder conversationHistory) {
 
-        String prompt = "To increase English conversation, we're going to take on roles and converse in English. " +
-                "You're my " + requestDto.getGPTRole() + " , and I'm your " + requestDto.getUserRole() +
-                "We're in a situation where %s. " +
-                "You just have to play the role of the" + requestDto.getSituation()
-                + "Answer naturally as if you were talking to me.";
+        String prompt = initiationRequestDto.getQuestion();
+
+//        String prompt = "Remember our situation and your role and communicate naturally.";
 
         // GPT에게 고려된 프롬프트로 요청 보내고 응답 받기
         ChatGptRequestDto chatGptRequestDto = ChatGptRequestDto.builder()

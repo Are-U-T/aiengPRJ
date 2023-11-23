@@ -45,6 +45,11 @@ public class ChatGptController {
             String gptRole = initiationRequestDto.getGPTRole();
             String situation = initiationRequestDto.getSituation();
 
+
+            System.out.println("userRole: " + userRole);
+            System.out.println("gptRole: " + gptRole);
+            System.out.println("situation: " + situation);
+
             if (isFirstQuestion) {
                 String initialQuestion = String.format(
                         "To increase English conversation, we're going to take on roles and converse in English. " +
