@@ -48,22 +48,21 @@ public class ChatGptController {
 //                        "So, starting now, as your girlfriend, " +
 //                        "I'll be asking and answering questions, and you, as the boyfriend, can start by asking a question in English.";
 
-//            // 프론트엔드에서 받은 역할과 주제를 이용하여 초기 질문 생성
-
-//                String crid = initiationRequestDto.getCrid();
-//                String gptRole = initiationRequestDto.getGPTRole();
-//                String userRole = initiationRequestDto.getUserRole();
-//                String situation = initiationRequestDto.getSituation();
+                // 프론트엔드에서 받은 역할과 주제를 이용하여 초기 질문 생성
+                String crid = initiationRequestDto.getCrid();
+                String gptRole = initiationRequestDto.getGPTRole();
+                String userRole = initiationRequestDto.getUserRole();
+                String situation = initiationRequestDto.getSituation();
 
 //                String crid = (String) session.getAttribute("crid");
 //                String gptRole = (String) session.getAttribute("gptRole");
 //                String userRole = (String) session.getAttribute("userRole");
 //                String situation = (String) session.getAttribute("situation");
 
-                String crid = "123";
-                String gptRole = "123";
-                String userRole = "123";
-                String situation = "123";
+//                String crid = "";
+//                String gptRole = "";
+//                String userRole = "";
+//                String situation = "";
 
                 logger.info("***** *****");
                 logger.info("gptController crid: {}", crid);

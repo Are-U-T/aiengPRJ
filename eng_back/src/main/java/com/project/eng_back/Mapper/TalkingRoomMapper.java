@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.*;
 @Mapper
 public interface TalkingRoomMapper {
 
-    @Insert("INSERT INTO CHAT_ROOM2 (CRID, GPTROlE, userROlE, SITUATION) values (#{crid, jdbcType=VARCHAR}, #{GPTRole, jdbcType=VARCHAR}, #{userRole, jdbcType=VARCHAR}, #{situation, jdbcType=VARCHAR})")
+    @Insert("INSERT INTO CHAT_ROOM2 (CRID, GPTROlE, USERROlE, SITUATION) values (#{crid, jdbcType=VARCHAR}, #{GPTRole, jdbcType=VARCHAR}, #{userRole, jdbcType=VARCHAR}, #{situation, jdbcType=VARCHAR})")
     int insert(TalkingRoomDto talkingRoomDto);
 }

@@ -16,10 +16,12 @@ public class TalkingRoomDto {
 //    private int lv;
 //    private String time;
 //    private int score;
+    @JsonProperty("GPTRole")
     private String GPTRole;
+    @JsonProperty("userRole")
     private String userRole;
+    @JsonProperty("situation")
     private String situation;
-//    private String encodedCrid;
 
     public void setCrid(String crid) {
         this.crid = crid;
@@ -60,8 +62,4 @@ public class TalkingRoomDto {
     public void setSituation(String situation) {
         this.situation = situation;
     }
-
-//    public void setEncodedCrid(String encodedCrid) {
-//        this.encodedCrid = encodedCrid;
-//    }
 }

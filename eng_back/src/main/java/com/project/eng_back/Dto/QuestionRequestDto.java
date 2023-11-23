@@ -13,6 +13,7 @@ public class QuestionRequestDto implements Serializable {
 
     private int sequence;
 
+    @JsonProperty("gptRole")
     private String GPTRole;
 
     private String UserRole;
