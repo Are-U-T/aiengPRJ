@@ -44,6 +44,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
 	implementation platform("com.google.cloud:libraries-bom:25.1.0")
+
+	// Google SMTP
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 }
 
 tasks.named('bootBuildImage') {
