@@ -21,6 +21,7 @@ import Navigation from "../Navigation";
 import logo from './images/logo.png';
 import Avatar from "@mui/material/Avatar";
 import Navigation2 from "../Navigation2";
+import { useNavigate } from 'react-router-dom';
 
 function ColorSchemeToggle(props) {
     const { mode, setMode } = useColorScheme();
@@ -67,6 +68,40 @@ function ColorSchemeToggle(props) {
     );
 }
 export default function JoySignInSideTemplate() {
+
+    const navigate = useNavigate();
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        const data = {
+            email: form.email.value,
+            pw: form.password.value,
+        };
+
+        try {
+            const response = await fetch('http://localhost/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log('Login successful:', responseData);
+
+                navigate('/main');
+            } else {
+                const errorMessage = await response.text();
+                console.error('Login failed:', errorMessage);
+
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+        }
+    }
     return (
         <>
             <Navigation2/>
@@ -136,8 +171,6 @@ export default function JoySignInSideTemplate() {
                         </Box>
                         <ColorSchemeToggle />
                     </Box>
-
-
                     <Box
                         component="main"
                         sx={{
@@ -174,18 +207,7 @@ export default function JoySignInSideTemplate() {
                         </Stack>
 
                         <Stack gap={4} sx={{ mt: 2 }}>
-                            <form
-                                onSubmit={(event) => {
-                                    event.preventDefault();
-                                    const form = event.currentTarget;
-                                    const data = {
-                                        email: form.email.value,
-                                        password: form.password.value,
-                                        persistent: form.persistent.checked,
-                                    };
-                                    alert(JSON.stringify(data, null, 2));
-                                }}
-                            >
+                            <form onSubmit={handleSubmit}>
                                 <FormControl required>
                                     <FormLabel>Email</FormLabel>
                                     <Input type="email" name="email" />

@@ -4,13 +4,53 @@ import ai5 from './images/ai5.png';
 import Navigation from "../Navigation2";
 import Navigation2 from "../Navigation2";
 import Modal from "../Speach/Modal";
+import MicRecorder from "mic-recorder-to-mp3";
+import axios from "axios";
 
 function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
     const [timeSpent, setTimeSpent] = useState(0); // 페이지에 머문 시간
 
     const [liveSubtitles, setLiveSubtitles] = useState([]);  // 실시간 자막목록
     const [currentInput, setCurrentInput] = useState('');
+    const [isRecording, setIsRecording] = useState(false);
+    const [recorder, setRecorder] = useState(new MicRecorder({ bitRate: 128 }));
 
+    const startRecording = () => {
+        recorder.start().then(() => {
+            setIsRecording(true);
+        }).catch((e) => console.error(e));
+    };
+
+    const stopRecording = async () => {
+        try {
+            const [buffer, blob] = await recorder.stop().getMp3();
+
+            const formData = new FormData();
+            formData.append('audio', blob, 'recording.mp3');
+
+            // 发送音频数据到后台
+            const response = await axios.post('http://localhost/api/audio/upload', formData, {
+                responseType: 'arraybuffer', // 设置响应类型为二进制数组
+            });
+
+            if (response.status === 200) {
+                const audioBlob = new Blob([response.data], { type: 'audio/mp3' });
+                const url = URL.createObjectURL(audioBlob);
+                console.log('Audio sent successfully:', url);
+
+                // 直接播放音频
+                const audioElement = new Audio(url);
+                audioElement.play();
+            } else {
+                console.error('Failed to send audio. Status code:', response.status);
+            }
+        } catch (error) {
+            console.error('Error sending audio:', error);
+        }
+
+        setIsRecording(false);
+        console.log('Recording stopped');
+    };
 
 
     // const handleButtonClick = () => {
@@ -79,50 +119,50 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
 
     return (
         <>
-        <Navigation2/>
+            <Navigation2/>
 
-        <div className="speaking-container">
-            <div className="content-container">
-                <div className="image-container">
+            <div className="speaking-container">
+                <div className="content-container">
+                    <div className="image-container">
 
-                    <img src={ai5} alt="Example" width='70%' height='70%'/>
-                    <div className="time-spent">
-                        진행 시간: {formatTime(timeSpent)}
+                        <img src={ai5} alt="Example" width='70%' height='70%'/>
+                        <div className="time-spent">
+                            진행 시간: {formatTime(timeSpent)}
+                        </div>
+                        <div className="buttons-containerpp">
+                            <button onClick={startRecording} disabled={isRecording}>Start Recording</button>
+                            <button onClick={stopRecording} disabled={!isRecording}>Stop Recording</button>
+                        </div>
                     </div>
-                    <div className="buttons-containerpp">
-                        <button className="buttonpp">재생</button>
-                        <button className="buttonpp">정지</button>
+                    <div className="subtitles-container">
+                        <h3 style={{textAlign : 'center'}}>실시간 자막</h3>
+                        <ul>
+                            {liveSubtitles.map((subtitle, index) => (
+                                <li key={index}>
+                                    사용자: {subtitle.user}<br/>
+                                    AI: {subtitle.ai}
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 </div>
-                <div className="subtitles-container">
-                    <h3 style={{textAlign : 'center'}}>실시간 자막</h3>
-                    <ul>
-                        {liveSubtitles.map((subtitle, index) => (
-                            <li key={index}>
-                                사용자: {subtitle.user}<br/>
-                                AI: {subtitle.ai}
-                            </li>
-                        ))}
-                    </ul>
+
+                <div className="info-question-container">
+                    <div className="role-info">
+                        선택된 아이템: {selectedItem} <br />
+                        AI 역할: {selectedAiRole} <br />
+                        나의 역할: {selectedMyRole}
+                    </div>
+                    <div className="questions-container">
+                        <h3>추천 질문</h3>
+                        <ul>
+                            {recommendedQuestions.map((question, index) => (
+                                <li key={index}>{question}</li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             </div>
-
-            <div className="info-question-container">
-            <div className="role-info">
-                선택된 아이템: {selectedItem} <br />
-                AI 역할: {selectedAiRole} <br />
-                나의 역할: {selectedMyRole}
-            </div>
-            <div className="questions-container">
-                <h3>추천 질문</h3>
-                <ul>
-                    {recommendedQuestions.map((question, index) => (
-                        <li key={index}>{question}</li>
-                    ))}
-                </ul>
-            </div>
-        </div>
-        </div>
 
 
 
