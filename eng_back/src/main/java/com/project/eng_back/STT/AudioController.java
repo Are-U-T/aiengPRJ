@@ -4,7 +4,12 @@ import com.google.api.client.util.Value;
 import com.project.eng_back.Controller.ChatGptController;
 import com.project.eng_back.Dto.QuestionRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,7 +20,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+
+import static com.google.api.ResourceProto.resource;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -53,10 +61,11 @@ public class AudioController {
 //    private String uploadPath;  // 设置为文件上传路径
 
     @PostMapping("/upload")
-    public ResponseEntity<String> handleAudioUpload(@RequestPart("audio") MultipartFile audioFile) {
-        if (audioFile.isEmpty()) {
-            return ResponseEntity.badRequest().body("Audio file is empty");
-        }
+    public ResponseEntity<Resource> handleAudioUpload(@RequestPart("audio") MultipartFile audioFile) {
+//        if (audioFile.isEmpty()) {
+////            return ResponseEntity.badRequest().body("Audio file is empty");
+//            return ResponseEntity.badRequest().body("Audio file is empty".getBytes());
+//        }
 
         try {
 
@@ -74,21 +83,29 @@ public class AudioController {
                 String output = SpeechToTextService.syncRecognizeFile(audioFile.getBytes());
                 System.out.println("Speech Recognition Result: " + output);
 
-                ResponseEntity<String> response = chatGptController.conversation(output);
+                byte[] audioData = chatGptController.conversation(output);
 
-                return new ResponseEntity<>(response.getBody(), response.getStatusCode());
+                ByteArrayResource resource = new ByteArrayResource(audioData);
+
+
+//                String filePath = "/Users/wangjiangling/Documents/GitHub/aiengPRJ/1seoyun.mp3";
+//                Path path = Paths.get(filePath);
+//                Resource resource = new UrlResource(path.toUri());
+
+                return ResponseEntity.ok()
+                        .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"audio.mp3\"")
+                        .body(resource);
             } catch (Exception e) {
                 e.printStackTrace(); // Handle the exception as needed
-                return new ResponseEntity<>("Failed to process audio", HttpStatus.INTERNAL_SERVER_ERROR);
+//                return new ResponseEntity<>("Failed to process audio", HttpStatus.INTERNAL_SERVER_ERROR);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ByteArrayResource(new byte[0]));
             }
 //            return new ResponseEntity<>("Audio uploaded successfully", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>("Failed to upload audio", HttpStatus.INTERNAL_SERVER_ERROR);
+//            return new ResponseEntity<>("Failed to upload audio", HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ByteArrayResource(new byte[0]));
         }
     }
 }
-
-
-
-
