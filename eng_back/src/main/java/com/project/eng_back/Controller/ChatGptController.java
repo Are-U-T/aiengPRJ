@@ -95,16 +95,7 @@ public class ChatGptController {
         return isFirstQuestion;
     }
 
-    @PostMapping("/question")
-    public ResponseEntity<String> conversation(String question) {
-
-        System.out.println("----------------------------------------------------------------");
-        System.out.println("111 questionRequestDto.getCrid(): " + questionRequestDto.getCrid());
-        System.out.println("----------------------------------------------------------------");
-
-        System.out.println("----------------------------------------------------------------");
-        System.out.println("111 choice.getCrid(): " + choice.getCrid());
-        System.out.println("----------------------------------------------------------------");
+    public byte[] conversation(String question) {
 
         System.out.println("question : " + question);
         try {
@@ -116,35 +107,39 @@ public class ChatGptController {
 
 //            sendRoleAndSituationToChatGptPy(userRole, gptRole, situation);
 
-
             ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(question);
 
 //            ChatGptResponseDto gptResponseDto = sendRoleAndSituationToChatGptPy(userRole, gptRole, situation, conversationHistory);
 
 //            System.out.println("py 코드에서 리턴 받은 것임: " + sendRoleAndSituationToChatGptPy(userRole, gptRole, situation, conversationHistory));
             Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, question);
-            gptResponseChoice.setCrid(choice.getCrid());
 
             if (gptResponseChoice == null) {
                 gptResponseDto = chatGptService.askQuestion(question);
                 gptResponseChoice = extractChoiceFromResponse(gptResponseDto, question);
             }
 
-            quickstartSample.run(gptResponseChoice);
+            byte[] audioBytes = quickstartSample.run(gptResponseChoice).getBody();
+
+            // Add log to check if the audio data is generated and returned correctly
+            System.out.println("Received audio file. Size: " + audioBytes.length + " bytes");
 
             questionRequestDto.setQuestion(question);
-            chatGptService.saveToDatabase2(questionRequestDto);
-            chatGptService.saveToDatabase(gptResponseChoice);
+//            chatGptService.saveToDatabase2(questionRequestDto);
+//            chatGptService.saveToDatabase(gptResponseChoice);
 
             // 대화 기록 업데이트
             conversationHistory.append(question).append("\n");
             conversationHistory.append(gptResponseChoice.getText()).append("\n");
 
-            return new ResponseEntity<>("Question and GPT response saved successfully.", HttpStatus.OK);
+//            return new ResponseEntity<>("Question and GPT response saved successfully.", HttpStatus.OK);
+
+            return audioBytes;
         } catch (Exception e) {
             System.out.println("에러!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             e.printStackTrace();
-            return new ResponseEntity<>("Error processing the initiation question: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//            return new ResponseEntity<>("Error processing the initiation question: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new byte[0];
         }
     }
 
