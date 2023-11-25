@@ -3,7 +3,7 @@ import './Speaking.css';
 import ai5 from './images/ai5.png';
 import Navigation from "../Navigation2";
 import Navigation2 from "../Navigation2";
-import Modal from "../Speach/Modal";
+import Modal from "../Speech/Modal";
 import MicRecorder from "mic-recorder-to-mp3";
 import axios from "axios";
 

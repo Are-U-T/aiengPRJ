@@ -46,7 +46,7 @@ public class ChatGptController {
         this.choice = choice;
     }
 
-    public boolean initiateConversation(QuestionRequestDto initiationRequestDto) {
+    public byte[] initiateConversation(QuestionRequestDto initiationRequestDto) {
 
         String userRole = initiationRequestDto.getUserRole();
         String gptRole = initiationRequestDto.getGPTRole();
@@ -69,12 +69,13 @@ public class ChatGptController {
         String initialQuestion = String.format(
                 "To increase English conversation, we're going to take on roles and converse in English. " +
                         "You're my %s, and I'm your %s. " +
-                        "We're in a situation where %s. " +
+                        "We're in a situation is '%s'. " +
+                        "And when answering, answer without your roles. " +
                         "You just have to play the role of the %s. " +
-                        "So, starting now, as your %s, " +
-                        "I'll be asking and answering questions, and you, as the %s, can start by asking a question in English."
-                        + "And when answering, answer without your roles. ",
-                gptRole, userRole, situation, gptRole, userRole, gptRole);
+                        "So, starting now, as your %s, " ,
+                gptRole, userRole, situation, gptRole, userRole);
+
+
 
         ChatGptResponseDto gptResponseDto = chatGptService.setSituation(new QuestionRequestDto(initialQuestion));
 
@@ -85,8 +86,11 @@ public class ChatGptController {
             gptResponseDto = chatGptService.setSituation(initiationRequestDto);
             gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
         }
+        byte[] audioBytes = quickstartSample.run(gptResponseChoice).getBody();
+        // Add log to check if the audio data is generated and returned correctly
+        System.out.println("GPT audio file. Size: " + audioBytes.length + " bytes");
 
-        quickstartSample.run(gptResponseChoice);
+//        quickstartSample.run(gptResponseChoice);
         chatGptService.saveToDatabase2(new QuestionRequestDto(initiationRequestDto.getCrid(), initialQuestion, initiationRequestDto.getGPTRole(), initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
         chatGptService.saveToDatabase(gptResponseChoice);
         isFirstQuestion = false;
@@ -95,7 +99,7 @@ public class ChatGptController {
         questionRequestDto.setUserRole(initiationRequestDto.getUserRole());
         questionRequestDto.setSituation(initiationRequestDto.getSituation());
 
-        return isFirstQuestion;
+        return audioBytes;
     }
 
     public byte[] conversation(String question) {
@@ -105,12 +109,14 @@ public class ChatGptController {
             question = "The user's words were not entered correctly, so please repeat them.";
         }
 
+        questionRequestDto.setQuestion(question);
+
         System.out.println("question : " + question);
         try {
 
 //            sendRoleAndSituationToChatGptPy(userRole, gptRole, situation);
 
-            ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(question, conversationHistory);
+            ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(questionRequestDto, conversationHistory);
 
 //            ChatGptResponseDto gptResponseDto = sendRoleAndSituationToChatGptPy(userRole, gptRole, situation, conversationHistory);
 
@@ -121,7 +127,7 @@ public class ChatGptController {
             System.out.println("gptResponseChoice.getCrid: " + gptResponseChoice.getCrid());
 
             if (gptResponseChoice == null) {
-                gptResponseDto = chatGptService.askQuestion(question,conversationHistory);
+                gptResponseDto = chatGptService.askQuestion(questionRequestDto,conversationHistory);
                 gptResponseChoice = extractChoiceFromResponse(gptResponseDto, question);
             }
 

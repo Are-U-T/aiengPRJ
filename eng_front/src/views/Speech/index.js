@@ -7,7 +7,7 @@ import Navigation2 from "../Navigation2";
 import Speaking from "../Speaking";
 
 
-function Speach() {
+function Speech() {
     const [selectedItem, setSelectedItem] = useState(null);
     const [selectedAirole, setSelectedAirole] = useState(null);
     const [selectedMyrole, setSelectedMyrole] = useState(null);
@@ -15,21 +15,18 @@ function Speach() {
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 추가
 
     const navigate = useNavigate();
-    const handlePageChange = () => {
-        navigate('/speaking'); // 여기에 이동하고자 하는 경로를 입력
-    };
-
-    const handleButtonClick = async (event) => {
-
-        console.log(`Button clicked for item: ${selectedItem}, AI: ${selectedAirole} , ME : ${selectedMyrole}`);
-        setIsModalOpen(true); // 모달 열기
-
+    const handlePageChange = async(event) => {
         event.preventDefault();
+
+        navigate('/speaking'); // 여기에 이동하고자 하는 경로를 입력
+
         const data = {
             selectedItem,
             selectedAirole,
             selectedMyrole,
         };
+
+        console.log(`Button clicked for item: ${selectedItem}, AI: ${selectedAirole} , ME : ${selectedMyrole}`);
 
         try {
             const response = await fetch('http://localhost/talking/newTalkingRoom', {
@@ -51,6 +48,10 @@ function Speach() {
         } catch (error) {
             console.error('방 생성 중 Error:', error);
         }
+    };
+
+    const handleButtonClick =  () => {
+        setIsModalOpen(true); // 모달 열기
     }
 
     const items = [
@@ -120,7 +121,7 @@ function Speach() {
     return (
         <>
             <Navigation2 />
-            <h2 className="hi" style={{ textAlign: 'center', margin: '30px 0' }}>Speach</h2>
+            <h2 className="hi" style={{ textAlign: 'center', margin: '30px 0' }}>Speech</h2>
 
             <div style={{ marginTop: '30px' }}></div>
 
@@ -209,9 +210,9 @@ function Speach() {
 
                     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
                         <button
-                            onClick={() => {
+                            onClick={(event) => {
                                 setIsModalOpen(false);
-                                handlePageChange();
+                                handlePageChange(event);
                             }}
                             style={{
                                 padding: '12px 24px',
@@ -247,4 +248,4 @@ function Speach() {
     );
 }
 
-export default Speach;
+export default Speech;

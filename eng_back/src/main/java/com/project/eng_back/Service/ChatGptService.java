@@ -73,14 +73,17 @@ public class ChatGptService {
                 .temperature(ChatGptConfig.TEMPERATURE)
                 .topP(ChatGptConfig.TOP_P)
                 .build();
+        logger.info("Sent prompt to GPT, setSituation: {}", chatGptRequestDto.getPrompt());
 
         return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
     }
 
-    public ChatGptResponseDto askQuestion(String question, StringBuilder conversationHistory) {
+    public ChatGptResponseDto askQuestion(QuestionRequestDto questionRequestDto, StringBuilder conversationHistory) {
 
-        String prompt = "My question is " + question + "And when answering, answer without your roles. " +
-                "And don't forget our role situation. And our conversation history is '"+ conversationHistory + "'.";
+        String prompt = "My question is " + questionRequestDto.getQuestion() + "And when answering, answer without your roles. " +
+                "And don't forget our role situation. And our conversation history is '"+ conversationHistory + "'."
+                + "Don't forget that your role is " + questionRequestDto.getGPTRole() + "And my role is "+
+                questionRequestDto.getUserRole();
 
 //        String prompt = "Remember our situation and your role and communicate naturally.";
 
