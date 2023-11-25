@@ -60,31 +60,36 @@ export default function SignInSide() {
     // 이메일 인증
     const $ = require("jquery");
 
-    function sendNum() {
-        // $('#mail_number').css("display", "block");
-        console.log($("#mail").val());
+    async function sendNum() {
+        const emailData = {
+            email: $("#mail").val(),
+        };
 
-        axios.post("/mail", {
-            mail: $("#mail").val(),
-        })
-            .then((response) => {
+        try {
+            const response = await axios.post('http://localhost/mail', emailData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-                alert("인증번호 발송 완료");
-                $("#Confirm").val()(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            })
+            if (response.status === 200) {
+                console.log('Email sent successfully.');
+            } else {
+                console.error('Failed to send email.');
+            }
+        } catch (error) {
+            console.error('Error during email sending:', error);
+        }
     }
 
     // 사용자가 입력한 인증번호와 서버에서 받은 인증번호를 비교
     function confirmNum() {
         const num1 = $("#number").val();
-        const num2 = $("#Confirm").val();
+        // const num2 = $("#Confirm").val();
 
         axios.post("confirm", {
             num1: num1,
-            num2: num2
+            // num2: num2
         })
             .then((response) => {
                 if (response.data === "success") {
@@ -97,6 +102,7 @@ export default function SignInSide() {
                 console.log(error);
             });
     }
+
 
     return (
         <>
@@ -160,16 +166,6 @@ export default function SignInSide() {
                                     </Button>
                                 </div>
 
-                                {/*<script>*/}
-                                {/*    const div = document.createElement("div");*/}
-                                {/*    div.id = "mail_number";*/}
-                                {/*    div.name = "mail_number";*/}
-                                {/*    div.style.display = "none";*/}
-
-                                {/*    const container = document.getElementById("container");*/}
-                                {/*    container.appendChild(div);*/}
-                                {/*</script>*/}
-
                                 <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
                                     <TextField // 인증번호 입력
                                         margin="normal"
@@ -180,7 +176,6 @@ export default function SignInSide() {
                                         label="인증번호 입력"
                                         name="number"
                                     />
-                                    {/*<div id="mail_number" name="mail_number" style={{display: 'none'}} /> 인증번호 입력할 인풋*/}
 
                                     <Button // 인증확인 버튼 (인증번호 정확하게 입력했는지 확인)
                                         variant="contained"
@@ -191,19 +186,18 @@ export default function SignInSide() {
                                     >
                                         인증확인
                                     </Button>
-                                    {/*<input type="text" id="Confirm" name="Confirm" style={{display: 'none'}} value="" /> */}
 
-                                    <script>
-                                        const input = document.createElement("input");
-                                        input.type = "text";
-                                        input.id = "Confirm";
-                                        input.name = "Confirm";
-                                        input.style.display = "none";
-                                        input.value = "";
+                                    {/*<script>*/}
+                                    {/*    const input = document.createElement("input");*/}
+                                    {/*    input.type = "text";*/}
+                                    {/*    input.id = "Confirm";*/}
+                                    {/*    input.name = "Confirm";*/}
+                                    {/*    input.style.display = "none";*/}
+                                    {/*    input.value = "";*/}
 
-                                        const container = document.getElementById("container");
-                                        container.appendChild(input);
-                                    </script>
+                                    {/*    const container = document.getElementById("container");*/}
+                                    {/*    container.appendChild(input);*/}
+                                    {/*</script>*/}
                                 </div>
 
 
@@ -247,10 +241,10 @@ export default function SignInSide() {
                                     sx={{
                                         mt: 3,
                                         mb: 2,
-                                        padding: '6px 12px', // 패딩으로 크기 조정
-                                        backgroundColor: 'black', // 배경색을 검은색으로 설정
+                                        padding: '6px 12px',
+                                        backgroundColor: 'black',
                                         '&:hover': {
-                                            backgroundColor: 'black' // 마우스 오버 시 색상 변경 없음
+                                            backgroundColor: 'black'
                                         }
                                     }}
                                 >
