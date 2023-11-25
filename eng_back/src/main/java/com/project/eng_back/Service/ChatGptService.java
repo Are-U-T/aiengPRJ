@@ -74,17 +74,13 @@ public class ChatGptService {
                 .topP(ChatGptConfig.TOP_P)
                 .build();
 
-        logger.info("Sent prompt to GPT: {}", chatGptRequestDto.getPrompt());
-
-        System.out.println("이전 대화임: " + conversationHistory.toString());
-
         return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
     }
 
-    public ChatGptResponseDto askQuestion(String question) {
+    public ChatGptResponseDto askQuestion(String question, StringBuilder conversationHistory) {
 
         String prompt = "My question is " + question + "And when answering, answer without your roles. " +
-                "And don't forget our role situation";
+                "And don't forget our role situation. And our conversation history is '"+ conversationHistory + "'.";
 
 //        String prompt = "Remember our situation and your role and communicate naturally.";
 
@@ -98,8 +94,6 @@ public class ChatGptService {
                 .build();
 
         logger.info("Sent prompt to GPT: {}", chatGptRequestDto.getPrompt());
-
-//        System.out.println("이전 대화임: " + conversationHistory.toString());
 
         return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
     }

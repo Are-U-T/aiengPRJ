@@ -21,6 +21,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/chat-gpt")
@@ -29,7 +30,7 @@ public class ChatGptController {
     private final ChatGptService chatGptService;
     private final QuickstartSample quickstartSample;
 
-    private final QuestionRequestDto questionRequestDto;
+    private final QuestionRequestDto questionRequestDto = new QuestionRequestDto();
 
     private final Choice choice;
 
@@ -39,14 +40,13 @@ public class ChatGptController {
     private StringBuilder conversationHistory = new StringBuilder();
 
     @Autowired
-    public ChatGptController(ChatGptService chatGptService, QuickstartSample quickstartSample, QuestionRequestDto questionRequestDto, Choice choice) {
+    public ChatGptController(ChatGptService chatGptService, QuickstartSample quickstartSample, Choice choice) {
         this.chatGptService = chatGptService;
         this.quickstartSample = quickstartSample;
-        this.questionRequestDto = questionRequestDto;
         this.choice = choice;
     }
 
-    public boolean initiateConversation(QuestionRequestDto initiationRequestDto){
+    public boolean initiateConversation(QuestionRequestDto initiationRequestDto) {
 
         String userRole = initiationRequestDto.getUserRole();
         String gptRole = initiationRequestDto.getGPTRole();
@@ -73,7 +73,6 @@ public class ChatGptController {
                         "You just have to play the role of the %s. " +
                         "So, starting now, as your %s, " +
                         "I'll be asking and answering questions, and you, as the %s, can start by asking a question in English."
-                        + "Answer naturally as if you were talking to me."
                         + "And when answering, answer without your roles. ",
                 gptRole, userRole, situation, gptRole, userRole, gptRole);
 
@@ -88,34 +87,41 @@ public class ChatGptController {
         }
 
         quickstartSample.run(gptResponseChoice);
-        chatGptService.saveToDatabase2(new QuestionRequestDto(initiationRequestDto.getCrid(),initialQuestion, initiationRequestDto.getGPTRole(), initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
+        chatGptService.saveToDatabase2(new QuestionRequestDto(initiationRequestDto.getCrid(), initialQuestion, initiationRequestDto.getGPTRole(), initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
         chatGptService.saveToDatabase(gptResponseChoice);
         isFirstQuestion = false;
+
+        questionRequestDto.setGPTRole(initiationRequestDto.getGPTRole());
+        questionRequestDto.setUserRole(initiationRequestDto.getUserRole());
+        questionRequestDto.setSituation(initiationRequestDto.getSituation());
 
         return isFirstQuestion;
     }
 
     public byte[] conversation(String question) {
 
+        if(question==null)
+        {
+            question = "The user's words were not entered correctly, so please repeat them.";
+        }
+
         System.out.println("question : " + question);
         try {
 
-//            if (isFirstQuestion) {
-//                initiateConversation(initiationRequestDto);
-//                return new ResponseEntity<>("Initiation question and GPT response saved successfully.", HttpStatus.OK);
-//            }
-
 //            sendRoleAndSituationToChatGptPy(userRole, gptRole, situation);
 
-            ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(question);
+            ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(question, conversationHistory);
 
 //            ChatGptResponseDto gptResponseDto = sendRoleAndSituationToChatGptPy(userRole, gptRole, situation, conversationHistory);
 
 //            System.out.println("py 코드에서 리턴 받은 것임: " + sendRoleAndSituationToChatGptPy(userRole, gptRole, situation, conversationHistory));
             Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, question);
+            gptResponseChoice.setCrid(questionRequestDto.getCrid());
+
+            System.out.println("gptResponseChoice.getCrid: " + gptResponseChoice.getCrid());
 
             if (gptResponseChoice == null) {
-                gptResponseDto = chatGptService.askQuestion(question);
+                gptResponseDto = chatGptService.askQuestion(question,conversationHistory);
                 gptResponseChoice = extractChoiceFromResponse(gptResponseDto, question);
             }
 
@@ -125,8 +131,8 @@ public class ChatGptController {
             System.out.println("Received audio file. Size: " + audioBytes.length + " bytes");
 
             questionRequestDto.setQuestion(question);
-//            chatGptService.saveToDatabase2(questionRequestDto);
-//            chatGptService.saveToDatabase(gptResponseChoice);
+            chatGptService.saveToDatabase2(questionRequestDto);
+            chatGptService.saveToDatabase(gptResponseChoice);
 
             // 대화 기록 업데이트
             conversationHistory.append(question).append("\n");
@@ -158,7 +164,7 @@ public class ChatGptController {
 
         try {
             // 데이터를 JSON 형식으로 변환
-            String jsonBody = buildJsonBody(userRole, gptRole, situation,conversationHistory );
+            String jsonBody = buildJsonBody(userRole, gptRole, situation, conversationHistory);
 
             // HTTP 요청 구성
             HttpRequest request = HttpRequest.newBuilder()
