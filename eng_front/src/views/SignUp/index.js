@@ -354,7 +354,6 @@ export default function SignInSide() {
                                     label="Name"
                                     name="name"
                                     autoComplete="name"
-                                    autoFocus
                                 />
 
                                 <FormControl component="fieldset" sx={{ mt: 2, mb: 2 }}>

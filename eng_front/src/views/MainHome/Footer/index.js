@@ -227,7 +227,7 @@ export default function Footer(){
                         <div className="row">
 
                             <div className="col-lg-6 col-md-12 mb-2 d-flex">
-                                <img src={logo} alt="logo" style={{ maxWidth: '80px', marginRight: '15px' }}/>
+                                <img src={logo} alt="logo" style={{ maxWidth: '100px', marginRight: '15px' }}/>
                                 <div>
                                     <h5 className="uu">Are You T?</h5>
                                     <p>여러분들의 성공을 기원합니다.</p>

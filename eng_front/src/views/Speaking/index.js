@@ -3,17 +3,39 @@ import './Speaking.css';
 import ai5 from './images/ai5.png';
 import Navigation from "../Navigation2";
 import Navigation2 from "../Navigation2";
-import Modal from "../Speach/Modal";
+import Modal from "./Modal";
 import MicRecorder from "mic-recorder-to-mp3";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
     const [timeSpent, setTimeSpent] = useState(0); // 페이지에 머문 시간
 
-    const [liveSubtitles, setLiveSubtitles] = useState([]);  // 실시간 자막목록
+    // const [liveSubtitles, setLiveSubtitles] = useState([]);  // 실시간 자막목록
     const [currentInput, setCurrentInput] = useState('');
     const [isRecording, setIsRecording] = useState(false);
     const [recorder, setRecorder] = useState(new MicRecorder({ bitRate: 128 }));
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
+
+    const navigate = useNavigate(); // useNavigate 훅 사용
+
+
+
+
+    // 테스트용 자막 데이터
+    const initialSubtitles = [
+        { user: "사용자 대화 내용 1", ai: "AI 대답 1" },
+        { user: "사용자 대화 내용 2", ai: "AI 대답 2" },
+        // 추가적인 테스트 데이터...
+    ];
+
+    // json 형태
+
+    // useState를 사용하여 초기 자막 상태 설정
+    const [liveSubtitles, setLiveSubtitles] = useState(initialSubtitles);
+
+
+
 
     const startRecording = () => {
         recorder.start().then(() => {
@@ -51,6 +73,46 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
         setIsRecording(false);
         console.log('Recording stopped');
     };
+
+
+
+    // 시간이 300초에 도달했을 때 호출될 함수
+    const handleTimeLimitReached = () => {
+        // 모든 기능 종료 로직 (예: 녹음 중지, 타이머 정지 등)
+        if (isRecording) {
+            stopRecording(); // 녹음 중지
+        }
+
+        setIsModalOpen(true); // 모달 열기
+    };
+
+
+
+// 페이지에 머문 시간을 추적하는 useEffect
+    useEffect(() => {
+        let timer;
+        if (timeSpent < 300) {
+            timer = setInterval(() => {
+                setTimeSpent((time) => time + 1);
+            }, 1000);
+        } else if (timeSpent === 300) { // 시간이 정확히 300초에 도달했을 때만 호출
+            handleTimeLimitReached();
+        }
+        // 컴포넌트가 언마운트 되거나 timeSpent가 변경될 때 이전 타이머를 정리
+        return () => clearInterval(timer);
+    }, [timeSpent]);
+
+
+
+    useEffect(() => {
+        // 5분(300초)이 지나면 모달창을 띄우는 로직
+        if (timeSpent >= 300 && !isModalOpen) {
+            handleTimeLimitReached();
+        }
+    }, [timeSpent, isModalOpen]); // 의존성 배열에 isModalOpen을 추가
+
+
+
 
 
     // const handleButtonClick = () => {
@@ -122,104 +184,55 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
             <Navigation2/>
 
             <div className="speaking-container">
-                <div className="content-container">
-                    <div className="image-container">
-
-                        <img src={ai5} alt="Example" width='70%' height='70%'/>
-                        <div className="time-spent">
-                            진행 시간: {formatTime(timeSpent)}
-                        </div>
-                        <div className="buttons-containerpp">
-                            <button onClick={startRecording} disabled={isRecording}>Start Recording</button>
-                            <button onClick={stopRecording} disabled={!isRecording}>Stop Recording</button>
-                        </div>
-                    </div>
-                    <div className="subtitles-container">
-                        <h3 style={{textAlign : 'center'}}>실시간 자막</h3>
-                        <ul>
-                            {liveSubtitles.map((subtitle, index) => (
-                                <li key={index}>
-                                    사용자: {subtitle.user}<br/>
-                                    AI: {subtitle.ai}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                <div className="image-container">
+                    <img src={ai5} alt="Speaking Example" />
                 </div>
 
-                <div className="info-question-container">
-                    <div className="role-info">
-                        선택된 아이템: {selectedItem} <br />
-                        AI 역할: {selectedAiRole} <br />
-                        나의 역할: {selectedMyRole}
-                    </div>
-                    <div className="questions-container">
-                        <h3>추천 질문</h3>
-                        <ul>
-                            {recommendedQuestions.map((question, index) => (
-                                <li key={index}>{question}</li>
-                            ))}
-                        </ul>
-                    </div>
+
+                <div className="subtitles-container">
+                    <h3>실시간 자막</h3>
+                    <ul>
+                        {liveSubtitles.map((subtitle, index) => (
+                            <li key={index}>
+                                사용자: {subtitle.user}<br/>
+                                AI: {subtitle.ai}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div className="buttons-containerpp">
+                    <button onClick={startRecording} disabled={isRecording}>
+                        녹음 시작
+                    </button>
+                    <button onClick={stopRecording} disabled={!isRecording}>
+                        녹음 정지
+                    </button>
+                </div>
+                <div className="time-spent">
+                    진행 시간: {formatTime(timeSpent)}
                 </div>
             </div>
 
 
 
 
-            {/*<Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>*/}
-            {/*    <div style={{ textAlign: 'center', maxWidth: '500px', margin: 'auto' }}>*/}
-            {/*        <h3 style={{ color: 'red', fontWeight: 'bold', fontSize: '30px', margin: '40px 0' }}>유의사항</h3>*/}
+            {/*이 부분은 모달창*/}
+            {isModalOpen && (
+                <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                    {/* 모달의 전체 내용을 여기에 배치 */}
+                    <h2 className="modal-title">알림</h2>
+                    <div className="modal-body">
+                        <p>5분이 지났습니다. 메인 화면으로 돌아갑니다.</p>
+                        <p>지정된 시간이 초과되었습니다. 메인 화면으로 돌아가서 다시 시작하세요.</p>
+                        <p>현재 진행 시간: {formatTime(timeSpent)}</p>
+                    </div>
+                    <button className="modal-button" onClick={() => {
+                        setIsModalOpen(false); // 모달 상태를 false로 설정하여 닫음
+                        navigate('/main'); // 메인 화면으로 이동
+                    }}>확인</button>
+                </Modal>
+            )}
 
-            {/*        <ul style={{ listStyle: 'none', marginLeft: '100',marginTop : '20', textAlign: 'left'}}>*/}
-            {/*            <li style={{ fontWeight: 'bold', fontSize: '20px', margin: '10px 0' }}>1. 공부에 열심히 임할 것을 약속합니다.</li>*/}
-            {/*            <li style={{ fontWeight: 'bold', fontSize: '20px', margin: '10px 0' }}>2. 어려움에도 포기하지 않습니다.</li>*/}
-            {/*            <li style={{ fontWeight: 'bold', fontSize: '20px', margin: '10px 0' }}>3. 매일 꾸준히 학습합니다.</li>*/}
-            {/*            <li style={{ fontWeight: 'bold', fontSize: '20px', margin: '10px 0' }}>4. 긍정적인 태도를 유지합니다.</li>*/}
-            {/*            <li style={{ fontWeight: 'bold', fontSize: '20px', margin: '10px 0' }}>5. 시간 관리에 신경 씁니다.</li>*/}
-            {/*            <li style={{ fontWeight: 'bold', fontSize: '20px', margin: '10px 0' }}>6. 수업에 적극적으로 참여합니다.</li>*/}
-            {/*            <li style={{ fontWeight: 'bold', fontSize: '20px', margin: '10px 0' }}>7. 궁금한 점은 적극적으로 질문합니다.</li>*/}
-            {/*            <li style={{ fontWeight: 'bold', fontSize: '20px', margin: '10px 0' }}>8. 동료 학습자를 존중합니다.</li>*/}
-            {/*            <li style={{ fontWeight: 'bold', fontSize: '20px', margin: '10px 0' }}>9. 건강한 생활 습관을 유지합니다.</li>*/}
-            {/*            <li style={{ fontWeight: 'bold', fontSize: '20px', margin: '10px 0' }}>10. 목표를 세우고 이를 따릅니다.</li>*/}
-            {/*        </ul>*/}
-
-            {/*        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>*/}
-            {/*            <button*/}
-            {/*                onClick={() => {*/}
-            {/*                    setIsModalOpen(false);*/}
-            {/*                    handlePageChange();*/}
-            {/*                }}*/}
-            {/*                style={{*/}
-            {/*                    padding: '12px 24px',*/}
-            {/*                    marginRight: '80px',*/}
-            {/*                    backgroundColor: 'lightblue',*/}
-            {/*                    border: 'none',*/}
-            {/*                    borderRadius: '5px',*/}
-            {/*                    cursor: 'pointer',*/}
-            {/*                    fontWeight: 'bold',*/}
-            {/*                    fontSize: '16px',*/}
-            {/*                }}*/}
-            {/*            >*/}
-            {/*                확인*/}
-            {/*            </button>*/}
-            {/*            <button*/}
-            {/*                onClick={() => setIsModalOpen(false)}*/}
-            {/*                style={{*/}
-            {/*                    padding: '12px 24px',*/}
-            {/*                    backgroundColor: 'lightcoral',*/}
-            {/*                    border: 'none',*/}
-            {/*                    borderRadius: '5px',*/}
-            {/*                    cursor: 'pointer',*/}
-            {/*                    fontWeight: 'bold',*/}
-            {/*                    fontSize: '16px'*/}
-            {/*                }}*/}
-            {/*            >*/}
-            {/*                닫기*/}
-            {/*            </button>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</Modal>*/}
         </>
     );
 }
