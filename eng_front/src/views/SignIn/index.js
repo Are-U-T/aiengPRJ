@@ -20,7 +20,6 @@ import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
 import Navigation from "../Navigation";
 import logo from './images/logo.png';
 import Avatar from "@mui/material/Avatar";
-import Navigation2 from "../Navigation2";
 import { useNavigate } from 'react-router-dom';
 import {GoogleOAuthProvider} from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
@@ -107,7 +106,7 @@ export default function JoySignInSideTemplate() {
     }
     return (
         <>
-            <Navigation2/>
+            <Navigation/>
         <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
             <CssBaseline />
             <GlobalStyles

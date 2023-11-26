@@ -13,6 +13,12 @@
     animation: fadeInBackground 2s ease-out;
 }
 
+
+.make{
+    animation: fadeInBackground 5s ease-out;
+}
+
+
 @keyframes fadeInText {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }

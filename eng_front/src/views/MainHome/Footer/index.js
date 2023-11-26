@@ -21,7 +21,7 @@ export default function Footer(){
 
     return(
         <>
-            <div style={{marginTop : '50px'}}></div>
+            <div style={{marginTop : '150px'}}></div>
 
             <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '200px', marginBottom : '10px'}}>
                 <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />

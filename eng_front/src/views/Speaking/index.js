@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Speaking.css';
 import ai5 from './images/ai5.png';
-import Navigation from "../Navigation2";
-import Navigation2 from "../Navigation2";
+import Navigation from "../Navigation";
 import Modal from "../Speech/Modal";
 import MicRecorder from "mic-recorder-to-mp3";
 import axios from "axios";
@@ -196,7 +195,7 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
 
     return (
         <>
-            <Navigation2/>
+            <Navigation/>
 
             <div className="speaking-container">
                 <div className={imageContainerClass}>

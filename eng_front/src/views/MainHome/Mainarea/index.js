@@ -268,27 +268,25 @@ export default function Mainarea(){
 
 
 
-
-
           {/* About Section*/}
-          <div style={{marginTop : '200px'}}></div>
+  {/*        <div style={{marginTop : '200px'}}></div>*/}
 
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '200px', marginBottom : '10px'}}>
-            <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
-            <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>너랑 나</h5>
-          </div>
+  {/*        <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '200px', marginBottom : '10px'}}>*/}
+  {/*          <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />*/}
+  {/*          <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>너랑 나</h5>*/}
+  {/*        </div>*/}
 
-          <section className="page-section" style={{ backgroundColor: 'white', color: 'black' }} id="about">
-    <div className="container">
+  {/*        <section className="page-section" style={{ backgroundColor: 'white', color: 'black' }} id="about">*/}
+  {/*  <div className="container">*/}
 
-      <div className="divider-custom"/>
-      {/* About Section Content*/}
-      <div className="row">
-        <div className="col-lg-3 ms-auto"><p className="lead">너랑 나는 4명의 팀으로 구성되어 있습니다.</p></div>
-        <div className="col-lg-3 me-auto"><p className="lead">효율적인 운영을 위해 늘 최선을 다하고 있습니다.</p></div>
-      </div>
-    </div>
-  </section>
+  {/*    <div className="divider-custom"/>*/}
+  {/*    /!* About Section Content*!/*/}
+  {/*    <div className="row">*/}
+  {/*      <div className="col-lg-3 ms-auto"><p className="lead">너랑 나는 4명의 팀으로 구성되어 있습니다.</p></div>*/}
+  {/*      <div className="col-lg-3 me-auto"><p className="lead">효율적인 운영을 위해 늘 최선을 다하고 있습니다.</p></div>*/}
+  {/*    </div>*/}
+  {/*  </div>*/}
+  {/*</section>*/}
 </div>
         </>
     )
