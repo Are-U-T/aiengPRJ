@@ -2,7 +2,6 @@ package com.project.eng_back.STT;
 
 import com.google.api.client.util.Value;
 import com.project.eng_back.Controller.ChatGptController;
-import com.project.eng_back.Dto.QuestionRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
