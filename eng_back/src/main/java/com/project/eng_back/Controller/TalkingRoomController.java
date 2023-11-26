@@ -34,7 +34,7 @@ public class TalkingRoomController {
     QuestionRequestDto initiationRequestDto = new QuestionRequestDto();
 
     @PostMapping("/newTalkingRoom")
-    public ResponseEntity<String> createNewTalkingRoom(@RequestBody Map<String, String> data) {
+    public String createNewTalkingRoom(@RequestBody Map<String, String> data) {
         String situation = data.get("selectedItem");
         String gptRole = data.get("selectedAirole");
         String userRole = data.get("selectedMyrole");
@@ -66,6 +66,6 @@ public class TalkingRoomController {
         talkingRoomDto.setSituation(situation);
         talkingRoomService.insert(talkingRoomDto);
 
-        return ResponseEntity.ok("방 생성 성공");
+        return encodedCrid;
     }
 }

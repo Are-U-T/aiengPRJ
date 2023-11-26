@@ -91,7 +91,7 @@ public class ChatGptController {
         System.out.println("GPT audio file. Size: " + audioBytes.length + " bytes");
 
 //        quickstartSample.run(gptResponseChoice);
-        chatGptService.saveToDatabase2(new QuestionRequestDto(initiationRequestDto.getCrid(), initialQuestion, initiationRequestDto.getGPTRole(), initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
+//        chatGptService.saveToDatabase2(new QuestionRequestDto(initiationRequestDto.getCrid(), initialQuestion, initiationRequestDto.getGPTRole(), initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
         chatGptService.saveToDatabase(gptResponseChoice);
         isFirstQuestion = false;
 

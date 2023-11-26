@@ -3,87 +3,39 @@ import './Speaking.css';
 import ai5 from './images/ai5.png';
 import Navigation from "../Navigation2";
 import Navigation2 from "../Navigation2";
-import Modal from "../Speech/Modal";
+import Modal from "./Modal";
 import MicRecorder from "mic-recorder-to-mp3";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
     const [timeSpent, setTimeSpent] = useState(0); // 페이지에 머문 시간
 
-    // // 테스트용 자막 데이터
-    //     const initialSubtitles = [
-    //     { Speaker: "ai", Content: "Hi" },
-    //     { Speaker: "user", Content: "Nice to meet you" },
-    // ];
-
-    // useState를 사용하여 초기 자막 상태 설정
-    const [liveSubtitles, setLiveSubtitles] = useState([]);
+    // const [liveSubtitles, setLiveSubtitles] = useState([]);  // 실시간 자막목록
     const [currentInput, setCurrentInput] = useState('');
     const [isRecording, setIsRecording] = useState(false);
     const [recorder, setRecorder] = useState(new MicRecorder({ bitRate: 128 }));
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
-    const [recommendedQuestion, setRecommendedQusetion] = useState();
+
     const navigate = useNavigate(); // useNavigate 훅 사용
 
-    const location = useLocation();
-    const crid = location.state?.crid;
-
-    // 일정한 간격으로 서버에서 자막을 가져오는 함수
-    const fetchSubtitles = async () => {
-        try {
-            const response = await axios.post('http://localhost/chatting/content', { crid });
-            // console.log('자막 응답:', response.data); // 응답 로깅
-            setLiveSubtitles(response.data);
-        } catch (error) {
-            console.error('자막을 가져오는 중 오류 발생:', error);
-        }
-    };
-
-    // 컴포넌트 마운트 시와 일정한 간격으로 자막을 가져오기 위해 useEffect 사용
-    useEffect(() => {
-        fetchSubtitles(); // 컴포넌트 마운트 시 자막 가져오기
-
-        const subtitleInterval = setInterval(() => {
-            fetchSubtitles(); // 일정한 간격으로 자막 가져오기 (필요에 따라 간격 조절)
-        }, 1000); // 1초마다 가져오도록 설정. 필요에 따라 조절하세요.
-
-        // 컴포넌트 언마운트 시 간격 정리
-        return () => clearInterval(subtitleInterval);
-    }, [crid]);
-
-
-// 페이지에 머문 시간을 추적하는 useEffect
-    useEffect(() => {
-        let timer;
-        if (timeSpent < 300) {
-            timer = setInterval(() => {
-                setTimeSpent((time) => time + 1);
-            }, 1000);
-        } else if (timeSpent === 300) { // 시간이 정확히 300초에 도달했을 때만 호출
-            handleTimeLimitReached();
-        }
-        // 컴포넌트가 언마운트 되거나 timeSpent가 변경될 때 이전 타이머를 정리
-        return () => clearInterval(timer);
-    }, [timeSpent]);
 
 
 
-    useEffect(() => {
-        // 5분(300초)이 지나면 모달창을 띄우는 로직
-        if (timeSpent >= 300 && !isModalOpen) {
-            handleTimeLimitReached();
-        }
-    }, [timeSpent, isModalOpen]); // 의존성 배열에 isModalOpen을 추가
+    // 테스트용 자막 데이터
+    const initialSubtitles = [
+        { user: "사용자 대화 내용 1", ai: "AI 대답 1" },
+        { user: "사용자 대화 내용 2", ai: "AI 대답 2" },
+        // 추가적인 테스트 데이터...
+    ];
 
-    const handleTimeLimitReached = () => {
-        // 모든 기능 종료 로직 (예: 녹음 중지, 타이머 정지 등)
-        if (isRecording) {
-            stopRecording(); // 녹음 중지
-        }
+    // json 형태
 
-        setIsModalOpen(true); // 모달 열기
-    };
+    // useState를 사용하여 초기 자막 상태 설정
+    const [liveSubtitles, setLiveSubtitles] = useState(initialSubtitles);
+
+
+
 
     const startRecording = () => {
         recorder.start().then(() => {
@@ -123,6 +75,46 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
     };
 
 
+
+    // 시간이 300초에 도달했을 때 호출될 함수
+    const handleTimeLimitReached = () => {
+        // 모든 기능 종료 로직 (예: 녹음 중지, 타이머 정지 등)
+        if (isRecording) {
+            stopRecording(); // 녹음 중지
+        }
+
+        setIsModalOpen(true); // 모달 열기
+    };
+
+
+
+// 페이지에 머문 시간을 추적하는 useEffect
+    useEffect(() => {
+        let timer;
+        if (timeSpent < 300) {
+            timer = setInterval(() => {
+                setTimeSpent((time) => time + 1);
+            }, 1000);
+        } else if (timeSpent === 300) { // 시간이 정확히 300초에 도달했을 때만 호출
+            handleTimeLimitReached();
+        }
+        // 컴포넌트가 언마운트 되거나 timeSpent가 변경될 때 이전 타이머를 정리
+        return () => clearInterval(timer);
+    }, [timeSpent]);
+
+
+
+    useEffect(() => {
+        // 5분(300초)이 지나면 모달창을 띄우는 로직
+        if (timeSpent >= 300 && !isModalOpen) {
+            handleTimeLimitReached();
+        }
+    }, [timeSpent, isModalOpen]); // 의존성 배열에 isModalOpen을 추가
+
+
+
+
+
     // const handleButtonClick = () => {
     //     console.log(`Button clicked for item: ${selectedItem}, AI: ${selectedAirole} , ME : ${selectedMyrole}`);
     //     setIsModalOpen(true); // 모달 열기
@@ -140,10 +132,12 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
         // setRecommendedQuestions(newQuestions);
     };
 
-    // //대화 업데이트 시 추천 질문도 업데이트
-    // useEffect(() => {
-    //     updateRecommendedQuestions(liveSubtitles);
-    // }, [liveSubtitles]);
+    // 대화 업데이트 시 추천 질문도 업데이트
+    useEffect(() => {
+        updateRecommendedQuestions(liveSubtitles);
+    }, [liveSubtitles]);
+
+
 
 
 
@@ -200,7 +194,8 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
                     <ul>
                         {liveSubtitles.map((subtitle, index) => (
                             <li key={index}>
-                                {subtitle.SPEAKER}: {subtitle.CONTENT}
+                                사용자: {subtitle.user}<br/>
+                                AI: {subtitle.ai}
                             </li>
                         ))}
                     </ul>
@@ -241,4 +236,5 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
         </>
     );
 }
+
 export default Speaking;

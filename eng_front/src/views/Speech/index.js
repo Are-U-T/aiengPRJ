@@ -18,8 +18,6 @@ function Speech() {
     const handlePageChange = async(event) => {
         event.preventDefault();
 
-        navigate('/speaking'); // 여기에 이동하고자 하는 경로를 입력
-
         const data = {
             selectedItem,
             selectedAirole,
@@ -38,19 +36,24 @@ function Speech() {
             });
 
             if (response.ok) {
-                const responseData = await response.json();
+                const responseData = await response.text();
                 console.log('방 생성 successful:', responseData);
+
+                // 생성된 방의 crid를 상태로 저장
+                const crid = responseData;
+
+                // Speaking 컴포넌트로 이동하면서 crid를 전달
+                navigate('/speaking', {state: {crid}});
             } else {
                 const errorMessage = await response.text();
                 console.error('방 생성 failed:', errorMessage);
-
             }
         } catch (error) {
             console.error('방 생성 중 Error:', error);
         }
-    };
+    }
 
-    const handleButtonClick =  () => {
+        const handleButtonClick =  () => {
         setIsModalOpen(true); // 모달 열기
     }
 
