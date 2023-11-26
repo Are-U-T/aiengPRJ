@@ -3,7 +3,6 @@ import Navigation from "../Navigation";
 import Modal from "./Modal";
 import { useNavigate } from 'react-router-dom';
 import './Speach.css';
-import Navigation2 from "../Navigation2";
 import Speaking from "../Speaking";
 
 
@@ -19,9 +18,67 @@ function Speach() {
         navigate('/speaking'); // 여기에 이동하고자 하는 경로를 입력
     };
 
+    // const items = [
+    //     { ko : "진로고민을 들어주는 상황 ", en: "Listening to Career Concerns"},
+    //     { ko : "크리스마스 계획 세우는 상황", en : "Planning for Christmas" },
+    //     { ko : "돈을 빌렸는데 이자가 원금의 5배인 상황 ", en :"Situation Where the Interest on Borrowed Money is Five Times the Principal" },
+    //     { ko : "산책 중에 오랜만에 마주쳐서 대화 나누는 상황", en : "Having a Conversation after a Chance Encounter During a Walk" },
+    //     { ko : "수업 하는 상황", en : "During a Class"},
+    //     { ko :"면접보러 가는 상황", en : "Going for an Interview"},
+    //     { ko :"쇼핑하는 상황", en : "Shopping Situation"},
+    //     { ko :"생일파티 하는 상황", en :"Having a Birthday Party"},
+    //     { ko :"싸우는 상황", en : "Fighting Situation"},
+    //     { ko :"여행가는 상황", en : "Going on a Trip"},
+    //     { ko :"맛집 놀러간 상황", en : "Visiting a Popular Restaurant"}
+    // ];
+    //
+    // const airole = [
+    //     { ko: "아버지", en: "Father" },
+    //     { ko: "아들", en: "Son" },
+    //     { ko: "남자친구", en: "Boyfriend" },
+    //     { ko: "여자친구", en: "Girlfriend" },
+    //     { ko: "사채업자", en: "Loan Shark" },
+    //     { ko: "채무자", en: "Debtor" },
+    //     { ko: "마트 직원", en: "Supermarket Employee" },
+    //     { ko: "경찰", en: "Police Officer" },
+    //     { ko: "의사", en: "Doctor" },
+    //     { ko: "선생님", en: "Teacher" },
+    //     { ko: "어머니", en: "Mother" },
+    //     { ko: "딸", en: "Daughter" },
+    //     { ko: "형", en: "Older Brother" },
+    //     { ko: "오빠", en: "Brother" },
+    //     { ko: "남동생", en: "Younger Brother" },
+    //     { ko: "여동생", en: "Younger Sister" },
+    //     { ko: "동네친구", en: "Neighbor Friend" },
+    //     { ko: "동창", en: "Classmate" }
+    // ];
+    //
+    //
+    // const myrole = [
+    //     { ko: "아버지", en: "Father" },
+    //     { ko: "아들", en: "Son" },
+    //     { ko: "남자친구", en: "Boyfriend" },
+    //     { ko: "여자친구", en: "Girlfriend" },
+    //     { ko: "사채업자", en: "Loan Shark" },
+    //     { ko: "채무자", en: "Debtor" },
+    //     { ko: "마트 직원", en: "Supermarket Employee" },
+    //     { ko: "경찰", en: "Police Officer" },
+    //     { ko: "의사", en: "Doctor" },
+    //     { ko: "선생님", en: "Teacher" },
+    //     { ko: "어머니", en: "Mother" },
+    //     { ko: "딸", en: "Daughter" },
+    //     { ko: "형", en: "Older Brother" },
+    //     { ko: "오빠", en: "Brother" },
+    //     { ko: "남동생", en: "Younger Brother" },
+    //     { ko: "여동생", en: "Younger Sister" },
+    //     { ko: "동네친구", en: "Neighbor Friend" },
+    //     { ko: "동창", en: "Classmate" }
+    // ];
+
+
     const items = [
         "진로고민을 들어주는 상황 ",
-        " 크리스마스 계획 세우는 상황",
+        "크리스마스 계획 세우는 상황",
         "돈을 빌렸는데 이자가 원금의 5배인 상황 ",
         "산책 중에 오랜만에 마주쳐서 대화 나누는 상황",
         "수업 하는 상황",
@@ -76,6 +133,8 @@ function Speach() {
     ];
 
 
+
+
     const handleItemClick = (item) => {
         setSelectedItem(item);
     };
@@ -96,7 +155,7 @@ function Speach() {
 
     return (
         <>
-            <Navigation2 />
+            <Navigation />
             <h2 className="hi" style={{ textAlign: 'center', margin: '30px 0' }}>Speech</h2>
 
             <div style={{ marginTop: '30px' }}></div>

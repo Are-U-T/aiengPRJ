@@ -25,7 +25,7 @@ function Header(){
             </div>
 
 
-            <div className="d-flex justify-content-center align-items-center" style={{ marginTop: '200px', color: '#132650' }}>
+            <div className="d-flex justify-content-center align-items-center make" style={{ marginTop: '200px', color: '#132650' }}>
                 <div style={{ marginRight: '100px', marginBottom: '200px' }}>
                     <h2 style={{ fontWeight: 'bold' }}>실제 사람과 대화하듯</h2>
                     <h3 style={{ fontWeight: 'bold' }}>대화해보세요!</h3>

@@ -3,7 +3,6 @@ import Navigation from "../Navigation";
 import Modal from "./Modal";
 import LevelInfo from "./LevelInfo";
 import SecondModal from "./SecondModal";
-import Navigation2 from "../Navigation2";
 
 
 
@@ -20,7 +19,7 @@ function LevelTest() {
 
     return (
         <>
-            <Navigation2/>
+            <Navigation/>
             <h2 style={{ textAlign: 'center', margin: '20px 0' }}>영어회화 레벨 테스트</h2>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
                 {[1, 2, 3].map(level => (
