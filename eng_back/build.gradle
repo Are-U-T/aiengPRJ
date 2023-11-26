@@ -21,6 +21,12 @@ repositories {
 	mavenCentral()
 }
 
+//buildscript {
+//	repositories {
+//		mavenCentral()
+//	}
+//}
+
 dependencies {
 	// SpringBoot
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
@@ -47,6 +53,13 @@ dependencies {
 
 	// Google SMTP
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	// naver
+	implementation 'com.google.code.gson:gson:2.8.9'
+
+	// JSONParser, JSONObject
+	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+	implementation 'org.json:json:20230308'
 }
 
 tasks.named('bootBuildImage') {

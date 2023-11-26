@@ -153,7 +153,7 @@ export default function SignInSide() {
                                         name="mail"
                                         autoComplete="mail"
                                         autoFocus
-                                        value="kyeonghee_@naver.com"
+                                        value="smartkorea@gmail.com"
                                     />
 
                                     <Button // 인증 버튼 (인증번호 메일 요청)
