@@ -1,57 +1,147 @@
-#footer {
-    min-width: 1200px;
-    padding: 40px 0 50px 0;
-    background-color: rgba(55,55,55,1);
-    display : flex;
-    justify-content: center;
+
+.footer {
+    font-size: 12px;
+    line-height: 1.4;
+    color: #f8f9fa;
+    padding: 20px 50px; /* 너무 큰 패딩을 줄임 */
+    text-align: center; /* 텍스트 중앙 정렬 */
 }
+
+.footer .uu {
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #ffcc00;
+}
+
+
+.contact-text-large {
+    font-size: 16px; /* Increased font size */
+}
+
+
+.footer img {
+    margin-bottom: 10px; /* Reduced margin */
+}
+
+.social-links {
+    list-style-type: none;
+    padding: 0;
+    display: flex; /* Align icons horizontally */
+    justify-content: start;
+}
+
+.social-icon {
+    font-size: 20px;
+    margin-right: 10px; /* Spacing between icons */
+    color: #f8f9fa;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+
 
 .footer-container {
-    width : 1200px;
     display: flex;
-    flex-direction: column;
-    gap : 20px;
+    flex-wrap: wrap; /* 반응형 레이아웃을 위한 설정 */
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto; /* 가운데 정렬 */
 }
 
-.footer-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+
+.social-icon:hover {
+    color: #ffcc00;
 }
 
-.footer-logo-box {
-    display: flex;
-    align-items: center;
-    gap : 10px;
+
+
+.facebook-icon {
+    color: #4267B2; /* Facebook Blue */
 }
 
-.footer-logo-text{
-    color : rgba(255,255,255,1);
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 140%;
-    letter-spacing: -0.4px;
-
+.twitter-icon {
+    color: #1DA1F2; /* Twitter Blue */
 }
 
-.footer-link-box{
-    display : flex;
-    align-items: center;
-    gap : 20px;
+.instagram-icon {
+    color: #C13584; /* 대표적인 인스타그램 핑크 */
 }
 
-.footer-email-link{
-    color : rgba(255,255,255,1);
-    font-size : 12px;
-    font-weight: 400;
+
+.youtube-icon {
+    color: #FF0000; /* YouTube Red */
 }
 
-.footer-copyright{
-    color : rgba(255,255,255,1);
 
-    font-size: 12px;
-    font-weight: 400;
+
+/* 화면 크기가 768px 이하일 때 적용되는 스타일 */
+@media only screen and (max-width: 768px) {
+    .footer {
+        padding: 20px; /* 화면이 작을 때 패딩 줄임 */
+    }
+
+    .footer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .footer-container,
+    .footer .d-flex,
+    .social-links {
+        flex-direction: column; /* 항목들이 가로로 유지되도록 함 */
+        justify-content: center; /* 중앙 정렬 */
+        align-items: center; /* 세로 중앙 정렬 */
+    }
+
+    .footer .col-lg-6,
+    .footer .col-lg-3,
+    .footer .col-md-6,
+    .footer .col-md-12 {
+        width: auto; /* 너비를 자동으로 설정 */
+        margin-bottom: 10px;
+        flex: 1; /* 유연한 아이템 크기 조정 */
+        min-width: 150px; /* 최소 너비 설정 */
+    }
+
+    .team-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .team-card {
+        width: 100%; /* 모든 카드가 전체 너비를 차지하도록 설정 */
+        margin-bottom: 20px; /* 아래쪽 마진 설정 */
+    }
 }
+
+
+/* 작은 모바일 화면 */
+@media only screen and (max-width: 480px) {
+    .footer {
+        padding: 10px; /* 패딩 조정 */
+    }
+
+    .footer-container {
+        flex-direction: column; /* 모바일 화면에서는 컬럼으로 변경 */
+    }
+
+    .footer .col-lg-6,
+    .footer .col-lg-3,
+    .footer .col-md-6,
+    .footer .col-md-12 {
+        width: 100%; /* 모바일 화면에서는 컬럼 너비를 100%로 설정 */
+    }
+
+    .team-card {
+        /* 화면이 매우 작을 때도 카드의 너비를 100%로 설정하여 세로로 쌓이도록 합니다. */
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+
+
 
 
 

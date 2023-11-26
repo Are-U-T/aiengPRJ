@@ -6,8 +6,6 @@ import logo from './images/logo.png'
 import Dropdown from 'react-bootstrap/Dropdown';
 import './Navigation.css'
 
-
-
 const Navigation = () => {
 
     const handleLogout = () => {
@@ -39,27 +37,21 @@ const Navigation = () => {
 
 
     return (
-        <Navbar bg="dark" variant="dark" expand="lg" sticky="top" className={`mr-auto ${show ? 'visible' : 'hidden'}`}>
+        <Navbar expand="lg" sticky="top" className={`custom-navbar mr-auto ${show ? 'visible' : 'hidden'}`}>
                 <Navbar.Brand href="/">
-                    <img src={logo} alt="Logo"/>
+                    <img src={logo} alt="Logo" className="abc"/>
                 </Navbar.Brand>
                 <Navbar.Toggle />
-                <Navbar.Collapse >
-                    <Nav className="mr-auto">
-                        <Nav.Link href="/main">Home</Nav.Link>
-                        <Nav.Link href="/introduction">Introduction</Nav.Link>
-                        <Nav.Link href="/change">개인정보 수정</Nav.Link>
-                        <Nav.Link href="#study">학습 종류</Nav.Link>
-                        <Nav.Link href="#process">구현 과정</Nav.Link>
-                        <Nav.Link href="#effect">학습 효과</Nav.Link>
-                        <Nav.Link href="#user">사용 대상</Nav.Link>
-                        <Nav.Link href="#reason">사용 이유</Nav.Link>
-                        <Nav.Link href="#team">팀 소개</Nav.Link>
-                        <Nav.Link href="/login">Login</Nav.Link>
-                        <Nav.Link href="/signup">Sign Up</Nav.Link>
-                    </Nav>
+            <Navbar.Collapse className="justify-content-center">
+                <Nav>
+                    <Nav.Link href="/main" className="custom-nav-link" >Home</Nav.Link>
+                    <Nav.Link href="/leveltest" className="custom-nav-link">Level Test</Nav.Link>
+                    <Nav.Link href="/speech" className="custom-nav-link">Speech</Nav.Link>
+                    <Nav.Link href="/change" className="custom-nav-link">Developer</Nav.Link>
+                </Nav>
 
                     <Nav>
+                        <Nav.Link href="/login" className="custom-login-link" >Login</Nav.Link>
                         <Dropdown>
                             <Dropdown.Toggle as={Nav.Link}  id="dropdown-profile">
                                 <img
@@ -73,7 +65,6 @@ const Navigation = () => {
                             <Dropdown.Menu>
                                 <Dropdown.Item href="/profile-edit">개인정보 수정</Dropdown.Item>
                                 <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
-
                             </Dropdown.Menu>
                         </Dropdown>
                     </Nav>
