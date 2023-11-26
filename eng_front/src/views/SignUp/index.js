@@ -64,7 +64,7 @@ export default function SignInSide() {
         const num1 = $("#number").val();
         // const num2 = $("#Confirm").val();
 
-        axios.post("confirm", {
+        axios.post("http://localhost/confirm", {
             num1: num1,
             // num2: num2
         })
