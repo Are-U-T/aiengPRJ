@@ -17,7 +17,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
-
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
@@ -34,17 +34,51 @@ export default function SignInSide() {
     };
 
 
-    const sendNumber = () => {
-        // 인증번호 전송 로직
-        console.log('인증번호 전송 로직 실행');
-        // 예시: 이메일 주소를 서버에 전송하여 인증번호를 요청하는 코드를 여기에 작성합니다.
-    };
+    // 이메일 인증
+    const $ = require("jquery");
 
-    const confirmNumber = () => {
+    async function sendNum() {
+        const emailData = {
+            email: $("#mail").val(),
+        };
 
-        console.log('ㅋㅋㅋ');
+        try {
+            const response = await axios.post('http://localhost/mail', emailData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-    };
+            if (response.status === 200) {
+                console.log('Email sent successfully.');
+            } else {
+                console.error('Failed to send email.');
+            }
+        } catch (error) {
+            console.error('Error during email sending:', error);
+        }
+    }
+
+    // 사용자가 입력한 인증번호와 서버에서 받은 인증번호를 비교
+    function confirmNum() {
+        const num1 = $("#number").val();
+        // const num2 = $("#Confirm").val();
+
+        axios.post("confirm", {
+            num1: num1,
+            // num2: num2
+        })
+            .then((response) => {
+                if (response.data === "success") {
+                    alert("인증 성공");
+                } else {
+                    alert("인증 실패");
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
 
     return (
@@ -84,50 +118,49 @@ export default function SignInSide() {
                            회원가입
                         </Typography>
 
-                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth={false}
-                                style={{ flex: 9 }}
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                autoFocus
-                            />
-
-                            <Button
-                                variant="contained"
-                                style={{ flex: 1 , backgroundColor : 'black'}}
-                                onclick={confirmNumber}
-                                name="confirmBtn"
-                                id="confirmBtn"
-                            >
-                              인증
-                            </Button>
-                            </div>
-
-
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                <TextField
+                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 1}}>
+                            <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                                <TextField // 이메일 입력
                                     margin="normal"
                                     required
                                     fullWidth={false}
-                                    style={{ flex: 8 }}
-                                    id="mail_number"
-                                    label="인증번호"
-                                    name="mail_number"
+                                    style={{flex: 9}}
+                                    id="mail"
+                                    label="Email Address"
+                                    name="mail"
+                                    autoComplete="mail"
+                                    autoFocus
+                                    value="smartkorea@gmail.com"
                                 />
 
-                                <Button
+                                <Button // 인증 버튼 (인증번호 메일 요청)
                                     variant="contained"
-                                    style={{ flex: 2, backgroundColor: 'black' }}
-                                    onClick={sendNumber}  // 수정된 부분
-                                    id="sendBtn"
+                                    style={{flex: 1, backgroundColor: 'black'}}
+                                    onClick={sendNum}
                                     name="sendBtn"
+                                    id="sendBtn"
+                                >
+                                    인증
+                                </Button>
+                            </div>
 
+                            <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                                <TextField // 인증번호 입력
+                                    margin="normal"
+                                    required
+                                    fullWidth={false}
+                                    style={{flex: 8}}
+                                    id="number"
+                                    label="인증번호 입력"
+                                    name="number"
+                                />
+
+                                <Button // 인증확인 버튼 (인증번호 정확하게 입력했는지 확인)
+                                    variant="contained"
+                                    style={{flex: 2, backgroundColor: 'black'}}
+                                    onClick={confirmNum}
+                                    id="confirmBtn"
+                                    name="confirmBtn"
                                 >
                                     인증확인
                                 </Button>
