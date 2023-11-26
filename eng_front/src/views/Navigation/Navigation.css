@@ -1,89 +1,93 @@
-.navbar-brand {
-    margin-left: 80px; /* 왼쪽에서 멀어지게 조정 */
+.abc{
+    margin-left: 100px;
 }
 
-
-.navbar-brand img {
-    width: 60px; /* 로고 이미지 크기 증가 */
-    height: 60px;
+.navbar-nav:last-child, .dropdown {
+    margin-right: 100px;
 }
 
-/* 기본 네비게이션 바 스타일 */
-.navbar-dark {
-    background-color: #343a40; /* 어두운 배경 */
-    transition: all 0.3s; /* 부드러운 전환 효과 */
+.navbar-dark, .custom-navbar {
+    height: 80px;
+    transition: all 0.3s;
+    background-color: #132650;
 }
 
-/* 네비게이션 링크 스타일 */
 .navbar-nav {
-    margin-right: auto;
-    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
 }
 
-/* 로고 및 프로필 이미지 스타일 */
+/* 로고 및 프로필 이미지 스타일 통합 */
 .navbar-brand img, .dropdown img {
-    border: 2px solid #f8f9fa; /* 밝은 색상의 테두리 */
-    border-radius: 50%; /* 원형 모양 */
-    box-shadow: 0 0 10px #f8f9fa; /* 그림자 효과 */
-    transition: transform 0.3s ease; /* 확대 효과를 위한 전환 */
+    width: 45px; /* 통합 이미지 크기 */
+    height: 45px;
+    border: 2px solid #f8f9fa;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #f8f9fa;
+    transition: transform 0.3s ease;
 }
 
 .navbar-brand img:hover, .dropdown img:hover {
-    transform: scale(1.1); /* 이미지에 마우스를 올렸을 때 확대 */
+    transform: scale(1.1);
 }
 
-/* 링크 스타일 */
 .nav-link {
-    color: #f8f9fa; /* 밝은 색상의 텍스트 */
-    transition: color 0.3s ease; /* 색상 변경 효과 */
+    color: #f8f9fa;
+    transition: color 0.3s ease;
+    height: 50px;
 }
 
 .nav-link:hover {
-    color: #007bff; /* 호버 시 색상 변경 */
-    text-decoration: underline; /* 밑줄 효과 */
+    color: #007bff;
+    text-decoration: none;
 }
 
-/* 드롭다운 메뉴 스타일 */
 .dropdown-menu {
-    background-color: #343a40; /* 어두운 배경 */
-    border: none; /* 테두리 제거 */
+    background-color: #343a40;
+    border: none;
 }
 
 .dropdown-item {
-    color: #f8f9fa; /* 밝은 색상의 텍스트 */
+    color: #f8f9fa;
 }
 
 .dropdown-item:hover {
-    background-color: #007bff; /* 호버 시 배경 색상 변경 */
-    color: #f8f9fa; /* 밝은 텍스트 색상 유지 */
-}
-
-/* 프로필 이미지 스타일 */
-.navbar-collapse {
-    justify-content: space-between; /* 요소들을 양 끝으로 정렬 */
-}
-
-.dropdown {
-    margin-left: 80px;
+    background-color: #007bff;
+    color: #f8f9fa;
 }
 
 #dropdown-profile::after {
     display: none;
 }
 
-
-nav.visible {
+nav.visible, nav.hidden {
     position: fixed;
-    top: 0;
     transition: top 0.3s;
-    width: 100%; /* 화면 너비 전체를 차지 */
+    width: 100%;
 }
 
 nav.hidden {
-    position: fixed;
-    top: -100px; /* 네비게이션 바의 높이에 따라 조정 */
-    transition: top 0.3s;
-    width: 100%; /* 화면 너비 전체를 차지 */
+    top: -100px;
 }
 
+.custom-nav-link {
+    margin: 0 30px;
+    color: white !important;
+}
 
+.custom-nav-link:hover {
+    color: #ccc !important;
+}
+
+.custom-login-link {
+    color: white !important;
+}
+
+#dropdown-profile {
+    margin-left: 0;
+}
+
+.custom-login-link:hover {
+    color: #ccc !important;
+}

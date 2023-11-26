@@ -62,7 +62,6 @@
 
 .grid-container {
     display: grid;
-    gap: 20px;
     /* 기타 스타일 */
 }
 
@@ -142,6 +141,7 @@
         grid-template-columns: 1fr; /* 1열 그리드 */
     }
 }
+
 
 
 

@@ -22,6 +22,9 @@ import logo from './images/logo.png';
 import Avatar from "@mui/material/Avatar";
 import Navigation2 from "../Navigation2";
 import { useNavigate } from 'react-router-dom';
+import {GoogleOAuthProvider} from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
 
 function ColorSchemeToggle(props) {
     const { mode, setMode } = useColorScheme();
@@ -164,10 +167,13 @@ export default function JoySignInSideTemplate() {
                                 alignItems: 'center',
                             }}
                         >
-                            <IconButton variant="soft" color="primary" size="sm">
-                                <img src={logo} alt="Logo" style={{ width: 50, height: 50 }} />
+                            <IconButton variant="soft" color="primary" size="sm" sx={{ backgroundColor: 'transparent',
+                                width : '60px', height : '60px', transform: 'translateY(10px)' }}>
+                                <img src={logo} alt="Logo" style={{ width: '100%', height: '100%',  marginLeft : '50px' }}  />
                             </IconButton>
-                            <Typography level="title-lg" sx={{ whiteSpace: 'nowrap' }}>Are You T?</Typography>
+
+                            <Typography level="title-lg" sx={{ whiteSpace: 'nowrap',fontSize: '25px',
+                                transform: 'translateY(10px)'}} style={{marginLeft : '20px'}}>Are You T?</Typography>
                         </Box>
                         <ColorSchemeToggle />
                     </Box>
@@ -176,7 +182,7 @@ export default function JoySignInSideTemplate() {
                         sx={{
                             my: 'auto',
                             py: 2,
-                            pb: 5,
+                            pb: 18,
                             display: 'flex',
                             flexDirection: 'column',
                             gap: 2,
@@ -194,13 +200,15 @@ export default function JoySignInSideTemplate() {
                             },
                         }}
                     >
+
+
                         <Stack gap={4} sx={{ mb: 2 }}>
                             <Stack gap={1}>
-                                <Typography level="h3">Sign in</Typography>
+                                <Typography level="h3">로그인</Typography>
                                 <Typography level="body-sm">
-                                    New to company?{' '}
-                                    <Link to="/signup" level="title-sm">
-                                        Sign up!
+                                    아직 회원이 아닌가요?<span style={{ marginRight: '5px' }}></span>
+                                    <Link to="/signup" level="title-sm" style={{ textDecoration: 'none' }}>
+                                        회원가입 하러가기!
                                     </Link>
                                 </Typography>
                             </Stack>
@@ -209,14 +217,14 @@ export default function JoySignInSideTemplate() {
                         <Stack gap={4} sx={{ mt: 2 }}>
                             <form onSubmit={handleSubmit}>
                                 <FormControl required>
-                                    <FormLabel>Email</FormLabel>
+                                    <FormLabel>이메일</FormLabel>
                                     <Input type="email" name="email" />
                                 </FormControl>
                                 <FormControl required>
-                                    <FormLabel>Password</FormLabel>
+                                    <FormLabel>비밀번호</FormLabel>
                                     <Input type="password" name="password" />
                                 </FormControl>
-                                <Stack gap={4} sx={{ mt: 2 }}>
+                                <Stack gap={4} sx={{ mt: -2}}>
                                     <Box
                                         sx={{
                                             display: 'flex',
@@ -226,16 +234,44 @@ export default function JoySignInSideTemplate() {
                                     >
                                     </Box>
                                     <Button type="submit" fullWidth>
-                                        Sign in
+                                         로그인
                                     </Button>
+
+                                    <GoogleOAuthProvider clientId="868155967382-ubbhk0fdkoq93q63btkkmeats8h5p7o2.apps.googleusercontent.com">
+                                        <GoogleLogin
+                                            onSuccess={async credentialResponse => {
+                                                var decoded = jwtDecode(credentialResponse.credential);
+                                                try {
+                                                    const response = await fetch('http://localhost/user/google-login', {
+                                                        method: 'Put',
+                                                        headers: {
+                                                            'Content-Type': 'application/json',
+                                                        },
+                                                        body: JSON.stringify({
+                                                            name: decoded.name,
+                                                            email: decoded.email,}),
+                                                    });
+
+                                                    if (response.ok) {
+                                                        const data = await response.json();
+                                                        console.log('User data from backend:', data);
+                                                        navigate('/main');
+                                                    } else {
+                                                        console.error('Failed to log in with Google.');
+                                                    }
+                                                } catch (error) {
+                                                    console.error('Error during Google login:', error);
+                                                }
+                                            }}
+                                            onError={() => {
+                                                console.log('Login Failed');
+                                            }}
+                                        />
+                                    </GoogleOAuthProvider>
+
                                 </Stack>
                             </form>
                         </Stack>
-                    </Box>
-                    <Box component="footer" sx={{ py: 3 }}>
-                        <Typography level="body-xs" textAlign="center">
-                            © 너랑 나 {new Date().getFullYear()}
-                        </Typography>
                     </Box>
                 </Box>
             </Box>

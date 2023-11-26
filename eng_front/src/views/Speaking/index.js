@@ -17,9 +17,22 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
     const [recorder, setRecorder] = useState(new MicRecorder({ bitRate: 128 }));
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
+    const [showSubtitles, setShowSubtitles] = useState(true);
+
     const navigate = useNavigate(); // useNavigate 훅 사용
 
 
+
+    // 자막 토글 함수
+    const toggleSubtitles = () => {
+        setShowSubtitles(!showSubtitles);
+    };
+
+
+
+    // 사진과 자막 컨테이너의 동적 스타일을 위한 클래스
+    const imageContainerClass = showSubtitles ? "image-container" : "image-container expanded";
+    const subtitlesContainerClass = showSubtitles ? "subtitles-container" : "subtitles-container hidden";
 
 
     // 테스트용 자막 데이터
@@ -184,11 +197,13 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
             <Navigation2/>
 
             <div className="speaking-container">
+                <div className={imageContainerClass}>
                 <div className="image-container">
                     <img src={ai5} alt="Speaking Example" />
                 </div>
+                </div>
 
-
+                <div className={subtitlesContainerClass}>
                 <div className="subtitles-container">
                     <h3>실시간 자막</h3>
                     <ul>
@@ -200,12 +215,16 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
                         ))}
                     </ul>
                 </div>
+                </div>
                 <div className="buttons-containerpp">
                     <button onClick={startRecording} disabled={isRecording}>
                         녹음 시작
                     </button>
                     <button onClick={stopRecording} disabled={!isRecording}>
                         녹음 정지
+                    </button>
+                    <button onClick={toggleSubtitles}>
+                        {showSubtitles ? "자막 숨기기" : "자막 보이기"}
                     </button>
                 </div>
                 <div className="time-spent">

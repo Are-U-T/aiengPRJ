@@ -23,15 +23,10 @@ export default function Footer(){
         <>
             <div style={{marginTop : '50px'}}></div>
 
-            <h2 id="team" className="page-section-heading text-center text-uppercase mb-0"
-                style={{paddingTop: '30px', color: 'black', fontWeight: 'bold'}}>
-                팀 소개
-            </h2>
-            {/* Icon Divider*/}
-            <div className="divider-custom"/>
-
-
-
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '200px', marginBottom : '10px'}}>
+                <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
+                <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>팀 소개</h5>
+            </div>
 
 
             <Container maxWidth="lg" id="team"> {/* maxWidth를 설정하여 최대 너비를 조절할 수 있습니다. */}
@@ -259,109 +254,6 @@ export default function Footer(){
                     <small>© 2023 너랑 나</small>
                 </div>
             </div>
-
-
-
-
-
-
-            {/* Portfolio Modals*/}
-                {/* Portfolio Modal 1*/}
-                <div className="portfolio-modal modal fade" id="portfolioModal1" tabIndex={-1} aria-labelledby="portfolioModal1" aria-hidden="true">
-                    <div className="modal-dialog modal-xl">
-                        <div className="modal-content">
-                            <div className="modal-header border-0"><button className="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" /></div>
-                            <div className="modal-body text-center pb-5">
-                                <div className="container">
-                                    <div className="row justify-content-center">
-                                        <div className="col-lg-8">
-                                            {/* Portfolio Modal - Title*/}
-                                            <h2 className="portfolio-modal-title text-secondary text-uppercase mb-0">Ai 영어학습</h2>
-                                            {/* Icon Divider*/}
-                                            <div className="divider-custom">
-                                                <div className="divider-custom-line" />
-                                                <div className="divider-custom-icon"><i className="fas fa-star" /></div>
-                                                <div className="divider-custom-line" />
-                                            </div>
-                                            {/* Portfolio Modal - Image*/}
-                                            <img className="img-fluid rounded mb-5" src={aic} alt="..." />
-                                            {/* Portfolio Modal - Text*/}
-                                            <p className="mb-4">진짜 사람같은 AI와 자유롭게 대화해보세요!</p>
-                                            <button className="btn btn-primary" data-bs-dismiss="modal">
-                                                <i className="fas fa-xmark fa-fw" />
-                                                닫기
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {/* Portfolio Modal 2*/}
-                <div className="portfolio-modal modal fade" id="portfolioModal2" tabIndex={-1} aria-labelledby="portfolioModal2" aria-hidden="true">
-                    <div className="modal-dialog modal-xl">
-                        <div className="modal-content">
-                            <div className="modal-header border-0"><button className="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" /></div>
-                            <div className="modal-body text-center pb-5">
-                                <div className="container">
-                                    <div className="row justify-content-center">
-                                        <div className="col-lg-8">
-                                            {/* Portfolio Modal - Title*/}
-                                            <h2 className="portfolio-modal-title text-secondary text-uppercase mb-0">편리성</h2>
-                                            {/* Icon Divider*/}
-                                            <div className="divider-custom">
-                                                <div className="divider-custom-line" />
-                                                <div className="divider-custom-icon"><i className="fas fa-star" /></div>
-                                                <div className="divider-custom-line" />
-                                            </div>
-                                            {/* Portfolio Modal - Image*/}
-                                            <img className="img-fluid rounded mb-5" src={eng} alt="..." />
-                                            {/* Portfolio Modal - Text*/}
-                                            <p className="mb-4">언제 어디서든 시간과 장소를 구애 받지 않고, 편하게 이용할 수 있습니다.</p>
-                                            <button className="btn btn-primary" data-bs-dismiss="modal">
-                                                <i className="fas fa-xmark fa-fw" />
-                                                닫기
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {/* Portfolio Modal 3*/}
-                <div className="portfolio-modal modal fade" id="portfolioModal3" tabIndex={-1} aria-labelledby="portfolioModal3" aria-hidden="true">
-                    <div className="modal-dialog modal-xl">
-                        <div className="modal-content">
-                            <div className="modal-header border-0"><button className="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" /></div>
-                            <div className="modal-body text-center pb-5">
-                                <div className="container">
-                                    <div className="row justify-content-center">
-                                        <div className="col-lg-8">
-                                            {/* Portfolio Modal - Title*/}
-                                            <h2 className="portfolio-modal-title text-secondary text-uppercase mb-0">성공</h2>
-                                            {/* Icon Divider*/}
-                                            <div className="divider-custom">
-                                                <div className="divider-custom-line" />
-                                                <div className="divider-custom-icon"><i className="fas fa-star" /></div>
-                                                <div className="divider-custom-line" />
-                                            </div>
-                                            {/* Portfolio Modal - Image*/}
-                                            <img className="img-fluid rounded mb-5" src={success} alt="..." />
-                                            {/* Portfolio Modal - Text*/}
-                                            <p className="mb-4">T와 함께하며 영어분야에서 성공하세요!</p>
-                                            <button className="btn btn-primary" data-bs-dismiss="modal">
-                                                <i className="fas fa-xmark fa-fw" />
-                                                Close Window
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
     </>
     )
 }

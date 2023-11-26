@@ -97,7 +97,7 @@ function Speach() {
     return (
         <>
             <Navigation2 />
-            <h2 className="hi" style={{ textAlign: 'center', margin: '30px 0' }}>Speach</h2>
+            <h2 className="hi" style={{ textAlign: 'center', margin: '30px 0' }}>Speech</h2>
 
             <div style={{ marginTop: '30px' }}></div>
 

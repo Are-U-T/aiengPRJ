@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import HeroLeft09 from "./views/Start/HeroLeft09";
 import Change from "./views/InformationChange";
 import LevelTest from "./views/LevelTest";
-import Speach from "./views/Speach";
+import Speech from "./views/Speech";
 import Speaking from "./views/Speaking";
 import Keyword from "./views/Keyword";
 
@@ -21,7 +21,7 @@ function App() {
          <Route path="/introduction" element={<Introduction/>}/>
          <Route path="/Change" element={<Change/>}/>
          <Route path="/leveltest" element={<LevelTest/>}/>
-         <Route path="/speach" element={<Speach/>}/>
+         <Route path="/speech" element={<Speech/>}/>
          <Route path="/keyword" element={<Keyword/>}/>
          <Route path="/speaking" element={<Speaking/>}/>
     </Routes>
