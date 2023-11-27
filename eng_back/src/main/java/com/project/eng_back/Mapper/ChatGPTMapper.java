@@ -21,4 +21,7 @@ public interface ChatGPTMapper {
 
     @Select("SELECT CONTENT, SPEAKER FROM CHAT_TEST WHERE CRID = #{crid} AND CRID IN (SELECT CRID FROM CHAT_ROOM2 WHERE CRID = #{crid})")
     List<Map<String, String>> getGptContentList(@Param("crid") String crid);
+
+    @Insert("INSERT INTO RECOMMEND_QUESTION(CRID, RECOMMEND) VALUES(#{crid, jdbcType=VARCHAR}, #{text, jdbcType=VARCHAR})")
+    int save3(Choice choice);
 }

@@ -39,6 +39,11 @@ public class ChatGptService {
         chatGPTMapper.save2(question);
     }
 
+
+    public void saveToDatabase3(Choice choice) {
+        chatGPTMapper.save3(choice);
+    }
+
     public HttpEntity<ChatGptRequestDto> buildHttpEntity(ChatGptRequestDto requestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(ChatGptConfig.MEDIA_TYPE));
@@ -94,7 +99,7 @@ public class ChatGptService {
                 .topP(ChatGptConfig.TOP_P)
                 .build();
 
-        logger.info("Sent prompt to GPT: {}", chatGptRequestDto.getPrompt());
+        logger.info("Sent prompt to GPT: {}, askQuestion", chatGptRequestDto.getPrompt());
 
         return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
     }
@@ -117,8 +122,28 @@ public class ChatGptService {
                 .temperature(ChatGptConfig.TEMPERATURE)
                 .topP(ChatGptConfig.TOP_P)
                 .build();
-        logger.info("Sent prompt to GPT, setSituation: {}", chatGptRequestDto.getPrompt());
+        logger.info("Sent prompt to GPT, grading: {}", chatGptRequestDto.getPrompt());
 
         return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
     }
+
+    public ChatGptResponseDto recommendedQuestion(QuestionRequestDto questionRequestDto) {
+
+        String prompt = questionRequestDto.getQuestion();
+
+//        String prompt = "Remember our situation and your role and communicate naturally.";
+
+        // GPT에게 고려된 프롬프트로 요청 보내고 응답 받기
+        ChatGptRequestDto chatGptRequestDto = ChatGptRequestDto.builder()
+                .model(ChatGptConfig.MODEL)
+                .prompt(prompt)
+                .maxTokens(ChatGptConfig.MAX_TOKEN)
+                .temperature(ChatGptConfig.TEMPERATURE)
+                .topP(ChatGptConfig.TOP_P)
+                .build();
+        logger.info("Sent prompt to GPT, recommendedQuestion: {}", chatGptRequestDto.getPrompt());
+
+        return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
+    }
+
 }

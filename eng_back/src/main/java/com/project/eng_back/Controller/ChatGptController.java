@@ -74,7 +74,7 @@ public class ChatGptController {
             gptResponseDto = chatGptService.setSituation(initiationRequestDto);
             gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
         }
-        byte[] audioBytes = quickstartSample.run(gptResponseChoice).getBody();
+        byte[] audioBytes = quickstartSample.run(gptResponseChoice, 1).getBody();
         // Add log to check if the audio data is generated and returned correctly
         System.out.println("GPT audio file. Size: " + audioBytes.length + " bytes");
 
@@ -89,10 +89,24 @@ public class ChatGptController {
         questionRequestDto.setUserRole(initiationRequestDto.getUserRole());
         questionRequestDto.setSituation(initiationRequestDto.getSituation());
 
+        
+        // gpt 한테 질문 3개 추천 받기
+        String recommended = String.format(
+                        "You're my %s, and I'm your %s. " +
+                        "We're in a situation is '%s'. " +
+                        "Recommend three questions that fit the role and situation.",
+                gptRole, userRole, situation);
+
+        ChatGptResponseDto recommendedQuestion = chatGptService.recommendedQuestion(new QuestionRequestDto(recommended));
+        Choice recommend = extractChoiceFromResponse(recommendedQuestion, initialQuestion);
+        recommend.setCrid(initiationRequestDto.getCrid());
+        chatGptService.saveToDatabase3(recommend);
+        System.out.println("recommend.getText(): " + recommend.getText());
+
         return audioBytes;
     }
 
-    // 이후 대화 진행용
+    // 대화방 설정 이후 대화 진행용
     public byte[] conversation(String question) {
 
         if (question == null) {
@@ -121,7 +135,7 @@ public class ChatGptController {
                 gptResponseChoice = extractChoiceFromResponse(gptResponseDto, question);
             }
 
-            byte[] audioBytes = quickstartSample.run(gptResponseChoice).getBody();
+            byte[] audioBytes = quickstartSample.run(gptResponseChoice, 1).getBody();
 
             // Add log to check if the audio data is generated and returned correctly
             System.out.println("Received audio file. Size: " + audioBytes.length + " bytes");
@@ -161,6 +175,7 @@ public class ChatGptController {
         return answer;
     }
 
+    // gpt 한테 return 받은 값에서 text 를 뽑는 메서드
     private Choice extractChoiceFromResponse(ChatGptResponseDto responseDto, String question) {
         if (responseDto != null && responseDto.getChoices() != null && !responseDto.getChoices().isEmpty()) {
             return responseDto.getChoices().get(0);
