@@ -13,42 +13,48 @@ import Container from '@mui/material/Container';
 import aic from './images/AI대화.png';
 import eng from './images/영어학습.png';
 import success from './images/성공사례.png';
+import khImage from '../Images/kh.jpg';
+import logo from './images/logo.png';
 
 
 export default function Footer(){
 
-    const onInstaIconButtonClickHandler = () => {
-        window.open("https://www.instagram.com");
-    };
-
-    const onNaverBlogIconButtonClickHandler = () => {
-        window.open("https://blog.naver.com");
-    }
-
     return(
         <>
-            <h2 className="page-section-heading text-center text-uppercase mb-0"
-                style={{paddingTop: '30px', color: 'black', fontWeight: 'bold'}}>
-                팀 소개
-            </h2>
-            {/* Icon Divider*/}
-            <div className="divider-custom" style={{marginRight: '-20px', marginTop: '-10px'}}>
-                <div className="divider-custom-line" />
-                <div className="divider-custom-icon"><i className="fas fa-star" /></div>
-                <div className="divider-custom-line" />
+            <div style={{marginTop : '150px'}}></div>
+
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '200px', marginBottom : '10px'}}>
+                <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
+                <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>팀 소개</h5>
             </div>
 
 
-            <Container maxWidth="lg"> {/* maxWidth를 설정하여 최대 너비를 조절할 수 있습니다. */}
-                <Box sx={{
+            <Container maxWidth="lg" id="team"> {/* maxWidth를 설정하여 최대 너비를 조절할 수 있습니다. */}
+                <Box className="team-container" sx={{
                     display: 'flex',
-                    flexDirection: 'row',
+                    flexDirection: { xs: 'column', md: 'row' },
                     gap: 2,
                     justifyContent: 'space-around', // 여기서 간격을 균등하게 설정합니다.
                     margin: 'auto', // 이를 통해 Box를 가운데 정렬할 수 있습니다.
                 }}>
-        <Card sx={{ maxWidth: 345 }}>
-            <CardActionArea>
+
+        <Card sx={{ maxWidth: 345,
+            boxShadow: 'none', // 박스 쉐도우 제거
+            backgroundColor: 'white', // 현재 배경색으로 고정
+            '&:hover': {
+                backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
+                // 다른 마우스 오버 효과를 추가적으로 제거할 수 있습니다.
+                boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
+                transform: 'none' // 마우스 오버 시 변형 효과 제거
+            }}}>
+            <CardActionArea sx={{
+                border: 'none', // 테두리 제거
+                '&:hover': {
+                    backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
+                    boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
+                    transform: 'none' // 마우스 오버 시 변형 효과 제거
+                }
+            }}>
                 <CardMedia
                     component="img"
                     sx={{
@@ -73,8 +79,26 @@ export default function Footer(){
         </Card>
 
 
-            <Card sx={{ maxWidth: 345 }}>
-                <CardActionArea>
+
+
+
+                    <Card sx={{ maxWidth: 345,
+                        boxShadow: 'none', // 박스 쉐도우 제거
+                        backgroundColor: 'white', // 현재 배경색으로 고정
+                        '&:hover': {
+                            backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
+                            // 다른 마우스 오버 효과를 추가적으로 제거할 수 있습니다.
+                            boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
+                            transform: 'none' // 마우스 오버 시 변형 효과 제거
+                        }}}>
+                        <CardActionArea sx={{
+                            border: 'none', // 테두리 제거
+                            '&:hover': {
+                                backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
+                                boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
+                                transform: 'none' // 마우스 오버 시 변형 효과 제거
+                            }
+                        }}>
                     <CardMedia
                         component="img"
                         sx={{
@@ -83,7 +107,7 @@ export default function Footer(){
                             borderRadius: '50%',
                             margin: 'auto' // 이미지를 가운데로 정렬합니다.
                         }}
-                        image={jhImage}
+                        image={khImage}
                         alt="jh"
                     />
 
@@ -100,8 +124,23 @@ export default function Footer(){
 
 
 
-            <Card sx={{ maxWidth: 345 }}>
-                <CardActionArea>
+                    <Card sx={{ maxWidth: 345,
+                        boxShadow: 'none', // 박스 쉐도우 제거
+                        backgroundColor: 'white', // 현재 배경색으로 고정
+                        '&:hover': {
+                            backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
+                            // 다른 마우스 오버 효과를 추가적으로 제거할 수 있습니다.
+                            boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
+                            transform: 'none' // 마우스 오버 시 변형 효과 제거
+                        }}}>
+                        <CardActionArea sx={{
+                            border: 'none', // 테두리 제거
+                            '&:hover': {
+                                backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
+                                boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
+                                transform: 'none' // 마우스 오버 시 변형 효과 제거
+                            }
+                        }}>
                     <CardMedia
                         component="img"
                         sx={{
@@ -128,8 +167,23 @@ export default function Footer(){
 
 
 
-            <Card sx={{ maxWidth: 345 }}>
-                <CardActionArea>
+                    <Card sx={{ maxWidth: 345,
+                        boxShadow: 'none', // 박스 쉐도우 제거
+                        backgroundColor: 'white', // 현재 배경색으로 고정
+                        '&:hover': {
+                            backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
+                            // 다른 마우스 오버 효과를 추가적으로 제거할 수 있습니다.
+                            boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
+                            transform: 'none' // 마우스 오버 시 변형 효과 제거
+                        }}}>
+                        <CardActionArea sx={{
+                            border: 'none', // 테두리 제거
+                            '&:hover': {
+                                backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
+                                boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
+                                transform: 'none' // 마우스 오버 시 변형 효과 제거
+                            }
+                        }}>
                     <CardMedia
                         component="img"
                         sx={{
@@ -157,183 +211,47 @@ export default function Footer(){
 
 
 
+            <div style={{marginTop : '50px'}}></div>
 
 
-
-
-
-
-        {/*<div id="footer">*/}
-        {/*    <div className="footer-container">*/}
-        {/*        <div className="footer-top">*/}
-        {/*            <div className="footer-logo-box">*/}
-        {/*                <div className="icon-box">*/}
-        {/*                    <div className="icon logo-light-icon">*/}
-
-        {/*                    </div>*/}
-        {/*                </div>*/}
-        {/*                <div className="footer-logo-text">*/}
-        {/*                    {'Are you T?'}*/}
-        {/*                </div>*/}
-        {/*            </div>*/}
-        {/*            <div className="footer-link-box">*/}
-        {/*                <div className="footer-email-link">*/}
-        {/*                    {"smartkorea77@gmail.com"}*/}
-        {/*                </div>*/}
-        {/*                <div className="icon-button" onClick={onInstaIconButtonClickHandler}>*/}
-        {/*                    <div className="icon insta-icon"></div>*/}
-        {/*                </div>*/}
-        {/*                <div className="icon-button" onClick={onNaverBlogIconButtonClickHandler}>*/}
-        {/*                    <div className="icon naver-blog-con"></div>*/}
-        {/*                </div>*/}
-
-        {/*            </div>*/}
-        {/*        </div>*/}
-
-        {/*        <div className="footer-bottom">*/}
-        {/*            <div className="footer-copyright">*/}
-        {/*                {'왕가네 탕후루..'}*/}
-        {/*            </div>*/}
-        {/*        </div>*/}
-
-        {/*    </div>*/}
-        {/*</div>*/}
 
 
             <div>
-                {/* Footer*/}
-                <footer className="footer text-center">
-                    <div className="container">
+                <footer className="footer" style={{ backgroundColor: '#333333', color: 'white', padding: '10px 0', height: '130px'}}>
+                    <div className="footer-container">
                         <div className="row">
-                            {/* Footer Location*/}
-                            <div className="col-lg-4 mb-5 mb-lg-0">
-                                <h4 className="text-uppercase mb-4">Location</h4>
-                                <p className="lead mb-0">
-                                    2215 John Daniel Drive
-                                    <br />
-                                    Clark, MO 65243
-                                </p>
+
+                            <div className="col-lg-6 col-md-12 mb-2 d-flex">
+                                <img src={logo} alt="logo" style={{ maxWidth: '100px', marginRight: '15px' }}/>
+                                <div>
+                                    <h5 className="uu">Are You T?</h5>
+                                    <p>여러분들의 성공을 기원합니다.</p>
+                                </div>
                             </div>
-                            {/* Footer Social Icons*/}
-                            <div className="col-lg-4 mb-5 mb-lg-0">
-                                <h4 className="text-uppercase mb-4">Around the Web</h4>
-                                <a className="btn btn-outline-light btn-social mx-1" href="#!"><i className="fab fa-fw fa-facebook-f" /></a>
-                                <a className="btn btn-outline-light btn-social mx-1" href="#!"><i className="fab fa-fw fa-twitter" /></a>
-                                <a className="btn btn-outline-light btn-social mx-1" href="#!"><i className="fab fa-fw fa-linkedin-in" /></a>
-                                <a className="btn btn-outline-light btn-social mx-1" href="#!"><i className="fab fa-fw fa-dribbble" /></a>
+
+                            <div className="col-lg-3 col-md-6 mb-2">
+                                <h5 className="uu">Follow Us</h5>
+                                <div className="social-links">
+                                    <a className="social-icon facebook-icon" href="#!"><i className="fab fa-facebook-f" /></a>
+                                    <a className="social-icon twitter-icon" href="#!"><i className="fab fa-twitter" /></a>
+                                    <a className="social-icon instagram-icon" href="#!"><i className="fab fa-instagram" /></a>
+                                    <a className="social-icon youtube-icon" href="#!"><i className="fab fa-youtube" /></a>
+                                </div>
                             </div>
-                            {/* Footer About Text*/}
-                            <div className="col-lg-4">
-                                <h4 className="text-uppercase mb-4">About Freelancer</h4>
-                                <p className="lead mb-0">
-                                    Freelance is a free to use, MIT licensed Bootstrap theme created by
-                                    <a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    .
-                                </p>
+
+                            <div className="col-lg-3 col-md-6 mb-2">
+                                <h5 className="uu">Contact</h5>
+                                <ul className="contact-list contact-text-large">
+                                    <li><a href="mailto:smartkorea77@gmail.com">이메일</a></li>
+                                    <li><a href="https://maps.google.com">위치</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </footer>
-                {/* Copyright Section*/}
-                <div className="copyright py-4 text-center text-white">
-                    <div className="container"><small>Copyright © Your Website 2023</small></div>
-                </div>
-                {/* Portfolio Modals*/}
-                {/* Portfolio Modal 1*/}
-                <div className="portfolio-modal modal fade" id="portfolioModal1" tabIndex={-1} aria-labelledby="portfolioModal1" aria-hidden="true">
-                    <div className="modal-dialog modal-xl">
-                        <div className="modal-content">
-                            <div className="modal-header border-0"><button className="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" /></div>
-                            <div className="modal-body text-center pb-5">
-                                <div className="container">
-                                    <div className="row justify-content-center">
-                                        <div className="col-lg-8">
-                                            {/* Portfolio Modal - Title*/}
-                                            <h2 className="portfolio-modal-title text-secondary text-uppercase mb-0">Ai 영어학습</h2>
-                                            {/* Icon Divider*/}
-                                            <div className="divider-custom">
-                                                <div className="divider-custom-line" />
-                                                <div className="divider-custom-icon"><i className="fas fa-star" /></div>
-                                                <div className="divider-custom-line" />
-                                            </div>
-                                            {/* Portfolio Modal - Image*/}
-                                            <img className="img-fluid rounded mb-5" src={aic} alt="..." />
-                                            {/* Portfolio Modal - Text*/}
-                                            <p className="mb-4">진짜 사람같은 AI와 자유롭게 대화해보세요!</p>
-                                            <button className="btn btn-primary" data-bs-dismiss="modal">
-                                                <i className="fas fa-xmark fa-fw" />
-                                                닫기
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {/* Portfolio Modal 2*/}
-                <div className="portfolio-modal modal fade" id="portfolioModal2" tabIndex={-1} aria-labelledby="portfolioModal2" aria-hidden="true">
-                    <div className="modal-dialog modal-xl">
-                        <div className="modal-content">
-                            <div className="modal-header border-0"><button className="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" /></div>
-                            <div className="modal-body text-center pb-5">
-                                <div className="container">
-                                    <div className="row justify-content-center">
-                                        <div className="col-lg-8">
-                                            {/* Portfolio Modal - Title*/}
-                                            <h2 className="portfolio-modal-title text-secondary text-uppercase mb-0">편리성</h2>
-                                            {/* Icon Divider*/}
-                                            <div className="divider-custom">
-                                                <div className="divider-custom-line" />
-                                                <div className="divider-custom-icon"><i className="fas fa-star" /></div>
-                                                <div className="divider-custom-line" />
-                                            </div>
-                                            {/* Portfolio Modal - Image*/}
-                                            <img className="img-fluid rounded mb-5" src={eng} alt="..." />
-                                            {/* Portfolio Modal - Text*/}
-                                            <p className="mb-4">언제 어디서든 시간과 장소를 구애 받지 않고, 편하게 이용할 수 있습니다.</p>
-                                            <button className="btn btn-primary" data-bs-dismiss="modal">
-                                                <i className="fas fa-xmark fa-fw" />
-                                                닫기
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {/* Portfolio Modal 3*/}
-                <div className="portfolio-modal modal fade" id="portfolioModal3" tabIndex={-1} aria-labelledby="portfolioModal3" aria-hidden="true">
-                    <div className="modal-dialog modal-xl">
-                        <div className="modal-content">
-                            <div className="modal-header border-0"><button className="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" /></div>
-                            <div className="modal-body text-center pb-5">
-                                <div className="container">
-                                    <div className="row justify-content-center">
-                                        <div className="col-lg-8">
-                                            {/* Portfolio Modal - Title*/}
-                                            <h2 className="portfolio-modal-title text-secondary text-uppercase mb-0">성공</h2>
-                                            {/* Icon Divider*/}
-                                            <div className="divider-custom">
-                                                <div className="divider-custom-line" />
-                                                <div className="divider-custom-icon"><i className="fas fa-star" /></div>
-                                                <div className="divider-custom-line" />
-                                            </div>
-                                            {/* Portfolio Modal - Image*/}
-                                            <img className="img-fluid rounded mb-5" src={success} alt="..." />
-                                            {/* Portfolio Modal - Text*/}
-                                            <p className="mb-4">T와 함께하며 영어분야에서 성공하세요!</p>
-                                            <button className="btn btn-primary" data-bs-dismiss="modal">
-                                                <i className="fas fa-xmark fa-fw" />
-                                                Close Window
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+                <div className="text-center" style={{ backgroundColor: '#20232a', color: '#f8f9fa', padding: '5px 0' }}>
+                    <small>© 2023 너랑 나</small>
                 </div>
             </div>
     </>

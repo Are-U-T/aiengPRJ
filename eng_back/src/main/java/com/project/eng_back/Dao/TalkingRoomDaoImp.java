@@ -1,7 +1,8 @@
 package com.project.eng_back.Dao;
 
 import com.project.eng_back.Dto.TalkingRoomDto;
-import com.project.eng_back.Mapper.TalkingRoomMapper;
+import com.project.eng_back.Mapper
+        .TalkingRoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

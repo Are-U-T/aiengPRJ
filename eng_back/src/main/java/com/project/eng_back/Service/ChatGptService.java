@@ -35,10 +35,6 @@ public class ChatGptService {
         chatGPTMapper.save(choice);
     }
 
-    public String getGptContent() {
-        return chatGPTMapper.getGptContent();
-    }
-
     public void saveToDatabase2(QuestionRequestDto question) {
         chatGPTMapper.save2(question);
     }
@@ -59,9 +55,31 @@ public class ChatGptService {
         return responseEntity.getBody();
     }
 
-    public ChatGptResponseDto askQuestion(QuestionRequestDto initiationRequestDto, StringBuilder conversationHistory) {
+    public ChatGptResponseDto setSituation(QuestionRequestDto questionRequestDto) {
 
-        String prompt = initiationRequestDto.getQuestion();
+        String prompt = questionRequestDto.getQuestion();
+
+//        String prompt = "Remember our situation and your role and communicate naturally.";
+
+        // GPT에게 고려된 프롬프트로 요청 보내고 응답 받기
+        ChatGptRequestDto chatGptRequestDto = ChatGptRequestDto.builder()
+                .model(ChatGptConfig.MODEL)
+                .prompt(prompt)
+                .maxTokens(ChatGptConfig.MAX_TOKEN)
+                .temperature(ChatGptConfig.TEMPERATURE)
+                .topP(ChatGptConfig.TOP_P)
+                .build();
+        logger.info("Sent prompt to GPT, setSituation: {}", chatGptRequestDto.getPrompt());
+
+        return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
+    }
+
+    public ChatGptResponseDto askQuestion(QuestionRequestDto questionRequestDto, StringBuilder conversationHistory) {
+
+        String prompt = "My question is " + questionRequestDto.getQuestion() + "And when answering, answer without your roles. " +
+                "And don't forget our role situation. And our conversation history is '"+ conversationHistory + "'."
+                + "Don't forget that your role is " + questionRequestDto.getGPTRole() + "And my role is "+
+                questionRequestDto.getUserRole();
 
 //        String prompt = "Remember our situation and your role and communicate naturally.";
 
@@ -75,8 +93,6 @@ public class ChatGptService {
                 .build();
 
         logger.info("Sent prompt to GPT: {}", chatGptRequestDto.getPrompt());
-
-        System.out.println("이전 대화임: " + conversationHistory.toString());
 
         return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
     }

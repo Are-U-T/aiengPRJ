@@ -4,11 +4,18 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Typography from './Typography';
 import Button from './Button';
-import productCurvyLines from './images/productCurvyLines.png';
 import aic from './images/AI대화.png';
 import eng from './images/영어학습.png';
 import success from './images/성공사례.png';
 import logo from './images/logo.png';
+import child from './images/어린이.png';
+import worker from './images/직장인.png';
+import student from './images/학생.png';
+import freedom from './images/자유.png';
+import study from './images/학습.png';
+import free from './images/무료.png';
+import design from './images/디자인.png';
+
 
 
 const item = {
@@ -18,146 +25,140 @@ const item = {
   px: 5,
 };
 
-const number = {
-  fontSize: 24,
-  fontFamily: 'default',
-  color: 'secondary.main',
-  fontWeight: 'medium',
+const customItem = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  borderRight: '1px solid #ccc', // 오른쪽 테두리만 추가
+  padding: '10px',
+  margin: '10px',
 };
 
-const image = {
-  height: 55,
-  my: 4,
+const customImage = {
+  maxWidth: '60%',
+  height: 'auto',
 };
+
+
 export default function Mainarea(){
 
     return (
         <>
         <div>
-  {/* Portfolio Section*/}
-  <section className="page-section portfolio" id="portfolio">
-    <div className="container">
-      {/* Portfolio Section Heading*/}
-      <h2 className="page-section-heading text-center"
-          style={{ marginTop: '40px', fontWeight: 'bold', fontSize: '40px', color: '#333' }}>학습 효과</h2>
 
-      {/* Icon Divider*/}
-      <div className="divider-custom">
-        <div className="divider-custom-line" />
-        <div className="divider-custom-icon"><i className="fas fa-star" /></div>
-        <div className="divider-custom-line" />
-      </div>
-      {/* Portfolio Grid Items*/}
-      <div className="row justify-content-center">
-        {/* Portfolio Item 1*/}
-        <div className="col-md-6 col-lg-4 mb-5">
-          <div className="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
-            <div className="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div className="portfolio-item-caption-content text-center text-white"><i className="fas fa-plus fa-3x" /></div>
-            </div>
-            <img className="img-fluid" src={aic} alt="..." />
+          <div style={{marginTop : '150px'}}/>
+
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '200px', marginBottom : '10px'}}>
+            <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
+            <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>학습 효과</h5>
           </div>
-        </div>
-        {/* Portfolio Item 2*/}
-        <div className="col-md-6 col-lg-4 mb-5">
-          <div className="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal2">
-            <div className="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div className="portfolio-item-caption-content text-center text-white"><i className="fas fa-plus fa-3x" /></div>
+
+
+
+          <section className="page-section portfolio" id="portfolio" style={{ marginTop: '-100px' }}>
+            <div className="container">
+              <div className="row justify-content-between">
+                {/* Portfolio Item 1 */}
+                <div className="col-md-6 col-lg-4 mb-5">
+                  <div className="portfolio-item mx-auto" style={{ background: 'linear-gradient(135deg, #6e8efb, #a777e3)', borderRadius: '20px', overflow: 'hidden' }}>
+                    <img className="img-fluid" src={aic} alt="..." style={{ transition: 'transform 0.3s ease-in-out' }}/>
+                    <p style={{ padding: '20px', color: '#fff', fontSize: '16px', fontWeight: 'bold', textAlign: 'center' }}>
+                      진짜 사람같은 AI와 자유롭게 대화해보세요!ㅋㅋㅋㅋㅋㅋㅋ
+                    </p>
+                  </div>
+                </div>
+                {/* Portfolio Item 2 */}
+                <div className="col-md-6 col-lg-4 mb-5">
+                  <div className="portfolio-item mx-auto" style={{ background: 'linear-gradient(135deg, #fc4a1a, #f7b733)', borderRadius: '20px', overflow: 'hidden' }}>
+                    <img className="img-fluid" src={eng} alt="..." style={{ transition: 'transform 0.3s ease-in-out' }}/>
+                    <p style={{ padding: '20px', color: '#fff', fontSize: '16px', fontWeight: 'bold', textAlign: 'center' }}>
+                      언제 어디서든 시간과 장소를 구애 받지 않고, 편하게 이용할 수 있습니다.
+                    </p>
+                  </div>
+                </div>
+                {/* Portfolio Item 3 */}
+                <div className="col-md-6 col-lg-4 mb-5">
+                  <div className="portfolio-item mx-auto" style={{ background: 'linear-gradient(135deg, #ee0979, #ff6a00)', borderRadius: '20px', overflow: 'hidden' }}>
+                    <img className="img-fluid" src={success} alt="..." style={{ transition: 'transform 0.3s ease-in-out' }}/>
+                    <p style={{ padding: '20px', color: '#fff', fontSize: '16px', fontWeight: 'bold', textAlign: 'center' }}>
+                      T와 함께하며 영어분야에서 성공하세요!ㅋㅋㅋㅋㅋ
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <img className="img-fluid" src={eng} alt="..." />
+          </section>
+
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '200px'}}>
+            <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
+            <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>사용 대상</h5>
           </div>
-        </div>
-        {/* Portfolio Item 3*/}
-        <div className="col-md-6 col-lg-4 mb-5">
-          <div className="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal3">
-            <div className="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div className="portfolio-item-caption-content text-center text-white"><i className="fas fa-plus fa-3x" /></div>
-            </div>
-            <img className="img-fluid" src={success} alt="..." />
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-  </section>
 
           <Box
               component="section"
-              sx={{ display: 'flex', overflow: 'hidden', bgcolor: 'yellow' }}
+              sx={{ display: 'flex', overflow: 'hidden', bgcolor: 'white'}}
           >
-            <Container sx={{ mt: 15, mb: 20, display: 'flex', position: 'relative' }}>
-              <Box
-                  component="img"
-                  src={productCurvyLines}
-                  alt="curvy lines"
-                  sx={{ pointerEvents: 'none', position: 'absolute', top: -180 }}
-              />
+            <Container sx={{ mt: 5, mb: 20, display: 'flex', position: 'relative' }}>
+
+
               <Grid container spacing={5}>
                 <Grid item xs={12} md={4}>
                   <Box sx={item}>
                     <Box
                         component="img"
-                        src={logo}
+                        src={child}
                         alt="suitcase"
-                        sx={{ height: 55 }}
+                        sx={{ height: 320 }}
                     />
-                    <Typography variant="h6" sx={{ my: 5 }}>
-                      The best luxury hotels
+                    <Typography variant="h6" sx={{ my: 2, fontWeight: 'bold', fontSize: '1.5rem' }}>
+                      어린이
                     </Typography>
-                    <Typography variant="h5">
+
+                    <Typography variant="h6" sx={{ mt: 2}}>
                       {
-                        'From the latest trendy boutique hotel to the iconic palace with XXL pool'
+                        '유아기부터 영어 경쟁력을 키울 수 있도록 모국어 환경에서 맞춤형 1:1 행복한 학습'
                       }
 
-                      {
-                        ', go for a mini-vacation just a few subway stops away from your home.'
-                      }
                     </Typography>
                   </Box>
+
+
                 </Grid>
                 <Grid item xs={12} md={4}>
                   <Box sx={item}>
                     <Box
                         component="img"
-                        src={logo}
+                        src={worker}
                         alt="graph"
-                        sx={{ height: 55 }}
+                        sx={{ height: 320 }}
                     />
-                    <Typography variant="h6" sx={{ my: 5 }}>
-                      New experiences
+                    <Typography variant="h6" sx={{ my: 2, fontWeight: 'bold', fontSize: '1.5rem' }}>
+                      직장인
                     </Typography>
-                    <Typography variant="h5">
+                    <Typography variant="h6" sx={{ mt: 2}}>
                       {
-                        'Privatize a pool, take a Japanese bath or wake up in 900m2 of garden… '
+                        '성공적으로 언어 경쟁력 향상,급여 인상, 전직, 관심을 가지고 공부하고 자유롭게 목표 달성'
                       }
-
-                      {'your Sundays will not be alike.'}
                     </Typography>
                   </Box>
                 </Grid>
+
+
                 <Grid item xs={12} md={4}>
                   <Box sx={item}>
                     <Box
                         component="img"
-                        src={logo}
+                        src={student}
                         alt="clock"
-                        sx={{ height: 55 }}
+                        sx={{ height: 320 }}
                     />
-                    <Typography variant="h6" sx={{ my: 5 }}>
-                      Exclusive rates
+                    <Typography variant="h6" sx={{ my: 2, fontWeight: 'bold', fontSize: '1.5rem' }}>
+                      학생
                     </Typography>
-                    <Typography variant="h5">
-                      {'By registering, you will access specially negotiated rates '}
-                      {'that you will not find anywhere else.'}
+                    <Typography variant="h6" sx={{ mt: 2}}>
+                      {
+                        '유학시 약점, 시험, 쉬운 합격을 바탕으로 한 특별한 준비'
+                      }
                     </Typography>
                   </Box>
                 </Grid>
@@ -168,107 +169,124 @@ export default function Mainarea(){
 
 
 
-          <Box
-              component="section"
-              sx={{ display: 'flex', bgcolor: 'sky', overflow: 'hidden' }}
+
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '200px'}}>
+            <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
+            <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>사용하는 이유</h5>
+          </div>
+          <Container
+              sx={{
+                mt: { xs: 5, md: 10 },
+                mx : 'auto',
+                position: 'relative',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
           >
-            {/*secondary.light*/}
-            <Container
-                sx={{
-                  mt: 10,
-                  mb: 15,
-                  position: 'relative',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                }}
-            >
-              <Box
-                  component="img"
-                  src={productCurvyLines}
-                  alt="curvy lines"
-                  sx={{
-                    pointerEvents: 'none',
-                    position: 'absolute',
-                    top: -180,
-                    opacity: 0.7,
-                  }}
-              />
-              <Typography variant="h4" marked="center" component="h2" sx={{ mb: 14 }}>
-                How it works
-              </Typography>
-              <div>
-                <Grid container spacing={5}>
-                  <Grid item xs={12} md={4}>
-                    <Box sx={item}>
-                      <Box sx={number}>1.</Box>
-                      <Box
-                          component="img"
-                          src={logo}
-                          alt="suitcase"
-                          sx={image}
-                      />
-                      <Typography variant="h5" align="center">
-                        Appointment every Wednesday 9am.
-                      </Typography>
-                    </Box>
+            <Grid container spacing={{ xs: 4, md: 8 }}>
+              <Grid item xs={12} md={6}>
+                <Grid container spacing={0}>
+                  <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}>
+                    <img
+                        src={freedom}
+                        alt="icon1"
+                        style={{ ...customImage, alignSelf: 'center', margin: '0' }}
+                    />
                   </Grid>
-                  <Grid item xs={12} md={4}>
-                    <Box sx={item}>
-                      <Box sx={number}>2.</Box>
-                      <Box
-                          component="img"
-                          src={logo}
-                          alt="graph"
-                          sx={image}
-                      />
-                      <Typography variant="h5" align="center">
-                        First come, first served. Our offers are in limited quantities, so
-                        be quick.
-                      </Typography>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={12} md={4}>
-                    <Box sx={item}>
-                      <Box sx={number}>3.</Box>
-                      <Box
-                          component="img"
-                          src={logo}
-                          alt="clock"
-                          sx={image}
-                      />
-                      <Typography variant="h5" align="center">
-                        {'New offers every week. New experiences, new surprises. '}
-                        {'Your Sundays will no longer be alike.'}
+                  <Grid item xs={6}>
+                    <Box sx={{ ...customItem, borderRight: 'none' }}>
+                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}>
+                        언제 어디서나 마음 껏 자유롭게!
                       </Typography>
                     </Box>
                   </Grid>
                 </Grid>
-              </div>
-            </Container>
-          </Box>
+              </Grid>
 
-  {/* About Section*/}
-          <section className="page-section" style={{ backgroundColor: 'yellow', color: 'black' }} id="about">
-    <div className="container">
-      {/* About Section Heading*/}
-      <h2 className="page-section-heading text-center"
-          style={{paddingTop: '5px', color: 'black', fontWeight: 'bold'}}>
-        너랑 나
-      </h2>
-      {/* Icon Divider*/}
-      <div className="divider-custom" style={{marginRight: '-20px', marginTop: '-10px'}}>
-        <div className="divider-custom-line" />
-        <div className="divider-custom-icon"><i className="fas fa-star" /></div>
-        <div className="divider-custom-line" />
-      </div>
-      {/* About Section Content*/}
-      <div className="row">
-        <div className="col-lg-4 ms-auto"><p className="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.</p></div>
-        <div className="col-lg-4 me-auto"><p className="lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p></div>
-      </div>
-    </div>
-  </section>
+
+              <Grid item xs={12} md={6}>
+                <Grid container spacing={0}>
+                  <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}> {/* 여기서 Padding과 Margin을 0으로 설정 */}
+                    <img
+                        src={study}
+                        alt="icon2"
+                        style={{ ...customImage, alignSelf: 'center', margin: '0' }} // 이미지 위치 조정
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Box sx={{ ...customItem, borderRight: 'none' }}> {/* 여기서는 경계선 제거 */}
+                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}> {/* 텍스트 크기와 스타일 조정 */}
+                       능력에 따른 효과적이고 맞춤형 학습
+                      </Typography>
+                    </Box>
+                  </Grid>
+                </Grid>
+              </Grid>
+
+              {/* 두 개의 추가 그리드 아이템 */}
+              <Grid item xs={12} md={6}>
+                <Grid container spacing={0}>
+                  <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}> {/* 여기서 Padding과 Margin을 0으로 설정 */}
+                    <img
+                        src={free}
+                        alt="icon3"
+                        style={{ ...customImage, alignSelf: 'center', margin: '0' }} // 이미지 위치 조정
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Box sx={{ ...customItem, borderRight: 'none' }}> {/* 여기서는 경계선 제거 */}
+                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}> {/* 텍스트 크기와 스타일 조정 */}
+                        무료로 인한 부담감 제로!
+                      </Typography>
+                    </Box>
+                  </Grid>
+                </Grid>
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <Grid container spacing={0}>
+                  <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}> {/* 여기서 Padding과 Margin을 0으로 설정 */}
+                    <img
+                        src={design}
+                        alt="icon4"
+                        style={{ ...customImage, alignSelf: 'center', margin: '0' }} // 이미지 위치 조정
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Box sx={{ ...customItem, borderRight: 'none' }}> {/* 여기서는 경계선 제거 */}
+                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}> {/* 텍스트 크기와 스타일 조정 */}
+                        모두가 좋아하는 편한 디자인!
+                      </Typography>
+                    </Box>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Container>
+
+
+
+
+          {/* About Section*/}
+  {/*        <div style={{marginTop : '200px'}}></div>*/}
+
+  {/*        <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '200px', marginBottom : '10px'}}>*/}
+  {/*          <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />*/}
+  {/*          <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>너랑 나</h5>*/}
+  {/*        </div>*/}
+
+  {/*        <section className="page-section" style={{ backgroundColor: 'white', color: 'black' }} id="about">*/}
+  {/*  <div className="container">*/}
+
+  {/*    <div className="divider-custom"/>*/}
+  {/*    /!* About Section Content*!/*/}
+  {/*    <div className="row">*/}
+  {/*      <div className="col-lg-3 ms-auto"><p className="lead">너랑 나는 4명의 팀으로 구성되어 있습니다.</p></div>*/}
+  {/*      <div className="col-lg-3 me-auto"><p className="lead">효율적인 운영을 위해 늘 최선을 다하고 있습니다.</p></div>*/}
+  {/*    </div>*/}
+  {/*  </div>*/}
+  {/*</section>*/}
 </div>
         </>
     )

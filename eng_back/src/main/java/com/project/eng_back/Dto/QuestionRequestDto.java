@@ -3,11 +3,15 @@ package com.project.eng_back.Dto;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
+@Component
 @Getter
 public class QuestionRequestDto implements Serializable {
+
+    private String crid;
 
     private String question;
 
@@ -21,8 +25,6 @@ public class QuestionRequestDto implements Serializable {
 
     private String situation;
 
-    private String crid;
-
     public QuestionRequestDto() {
     }
 
@@ -31,7 +33,8 @@ public class QuestionRequestDto implements Serializable {
         this.question = question;
     }
 
-    public QuestionRequestDto(String question, String GPTRole, String UserRole, String situation) {
+    public QuestionRequestDto(String crid , String question, String GPTRole, String UserRole, String situation) {
+        this.crid = crid;
         this.question = question;
         this.GPTRole = GPTRole;
         this.UserRole = UserRole;
@@ -58,5 +61,5 @@ public class QuestionRequestDto implements Serializable {
         this.situation = situation;
     }
 
-    public void setCrid(String crid) { this.crid = crid; }
+    public void setCrid(String crid){ this.crid = crid; }
 }

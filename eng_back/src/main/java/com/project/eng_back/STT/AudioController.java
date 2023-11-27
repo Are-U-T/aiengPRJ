@@ -1,36 +1,110 @@
 package com.project.eng_back.STT;
 
-// AudioController.java
+import com.google.api.client.util.Value;
+import com.project.eng_back.Controller.ChatGptController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.stereotype.Controller;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
-@Controller
+import static com.google.api.ResourceProto.resource;
+
+@CrossOrigin(origins = "http://localhost:3000")
+@RestController
+@RequestMapping("/api/audio")
+//@RequestMapping("/api/speech-to-text")
 public class AudioController {
 
-    @MessageMapping("/audio")
-    public void handleAudioStream(byte[] audioData) {
-        System.out.println("Received audio data. Length: " + audioData.length);
-        // 在这里处理从前端接收到的音频数据
-        // 调用 Google Cloud 语音识别 API 将音频转换为文本
-        String transcribedText = transcribeAudio(audioData);
+    private ChatGptController chatGptController;
 
-        // 将文本通过WebSocket发送回前端
-        // 这里的 "/topic/transcription" 是前端订阅的消息目的地
-        // 你可以根据需要修改消息目的地
-        sendTranscriptionToClient(transcribedText);
+    @Autowired
+    public AudioController(ChatGptController chatGptController) {
+        this.chatGptController = chatGptController;
     }
 
-    // 调用 Google Cloud 语音识别 API 将音频转换为文本
-    private String transcribeAudio(byte[] audioData) {
-        // 在这里添加调用 Google Cloud 语音识别 API 的逻辑
-        // 返回识别出的文本
-        return "This is a placeholder for transcribed text.";
-    }
+//    @PostMapping("/start")
+//    public void startRecording() {
+//        // 開始錄音的相應邏輯
+//        System.out.println("Start Recording");
+//        try {
+//            SpeechToTextExample.startRecording();
+//            SpeechToTextExample.streamingMicRecognize();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }// 重置停止錄音的標誌
+//
+//    }
+//
+//    @PostMapping("/stop")
+//    public void stopRecording() {
+//        SpeechToTextExample.stopRecording();
+//        System.out.println("Stop Recording");
+//    }
 
-    // 将文本通过WebSocket发送回前端
-    private void sendTranscriptionToClient(String transcribedText) {
-        System.out.println("Sending transcription to client: " + transcribedText);
-        // 在这里添加通过WebSocket发送文本到前端的逻辑
+//    @Value("${upload.path}")
+//    private String uploadPath;  // 设置为文件上传路径
+
+    @PostMapping("/upload")
+    public ResponseEntity<Resource> handleAudioUpload(@RequestPart("audio") MultipartFile audioFile) {
+//        if (audioFile.isEmpty()) {
+////            return ResponseEntity.badRequest().body("Audio file is empty");
+//            return ResponseEntity.badRequest().body("Audio file is empty".getBytes());
+//        }
+
+        try {
+
+//            // Specify the file path where you want to save the audio file
+//            String fileName = "recording.mp3";
+//            String uploadPath ="/Users/wangjiangling/Desktop/final/audio/";
+//
+//
+//            // Save the audio file to the specified path
+//            Path filePath = Path.of(uploadPath, fileName);
+//            Files.copy(audioFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING); // 컴퓨터에 저장
+
+            try {
+//                System.out.println(filePath.toString());
+                String output = SpeechToTextService.syncRecognizeFile(audioFile.getBytes());
+                System.out.println("Speech Recognition Result: " + output);
+
+                byte[] audioData = chatGptController.conversation(output);
+
+                ByteArrayResource resource = new ByteArrayResource(audioData);
+
+
+//                String filePath = "/Users/wangjiangling/Documents/GitHub/aiengPRJ/1seoyun.mp3";
+//                Path path = Paths.get(filePath);
+//                Resource resource = new UrlResource(path.toUri());
+
+                return ResponseEntity.ok()
+                        .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"audio.mp3\"")
+                        .body(resource);
+            } catch (Exception e) {
+                e.printStackTrace(); // Handle the exception as needed
+//                return new ResponseEntity<>("Failed to process audio", HttpStatus.INTERNAL_SERVER_ERROR);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ByteArrayResource(new byte[0]));
+            }
+//            return new ResponseEntity<>("Audio uploaded successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+//            return new ResponseEntity<>("Failed to upload audio", HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ByteArrayResource(new byte[0]));
+        }
     }
 }

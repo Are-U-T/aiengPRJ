@@ -6,13 +6,11 @@ import com.project.eng_back.Dto.Choice;
 import com.project.eng_back.Dto.QuestionRequestDto;
 import com.project.eng_back.Service.ChatGptService;
 import com.project.eng_back.TTS.QuickstartSample;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,95 +22,136 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/chat-gpt")
 public class ChatGptController {
 
-    public Logger logger = LoggerFactory.getLogger(TalkingRoomController.class);
-
     private final ChatGptService chatGptService;
-
     private final QuickstartSample quickstartSample;
+
+    private final QuestionRequestDto questionRequestDto = new QuestionRequestDto();
+
+    private final Choice choice;
 
     private boolean isFirstQuestion = true;
 
     // 대화 기록을 저장할 변수
     private StringBuilder conversationHistory = new StringBuilder();
 
-    public ChatGptController(ChatGptService chatGptService, QuickstartSample quickstartSample) {
+    @Autowired
+    public ChatGptController(ChatGptService chatGptService, QuickstartSample quickstartSample, Choice choice) {
         this.chatGptService = chatGptService;
         this.quickstartSample = quickstartSample;
+        this.choice = choice;
     }
 
-    @PostMapping("/question")
-    public ResponseEntity<String> initiateConversation(QuestionRequestDto initiationRequestDto) {
+    public byte[] initiateConversation(QuestionRequestDto initiationRequestDto) {
+
+        String userRole = initiationRequestDto.getUserRole();
+        String gptRole = initiationRequestDto.getGPTRole();
+        String situation = initiationRequestDto.getSituation();
+        questionRequestDto.setCrid(initiationRequestDto.getCrid());
+        choice.setCrid(initiationRequestDto.getCrid());
+
+        System.out.println("----------------------------------------------------------------");
+        System.out.println("questionRequestDto.getCrid(): " + questionRequestDto.getCrid());
+        System.out.println("----------------------------------------------------------------");
+
+        System.out.println("----------------------------------------------------------------");
+        System.out.println("initiationRequestDto.getCrid: " + initiationRequestDto.getCrid());
+        System.out.println("choice.getCrid: " + choice.getCrid());
+        System.out.println("----------------------------------------------------------------");
+
+        System.out.println("userRole: " + userRole);
+        System.out.println("gptRole: " + gptRole);
+        System.out.println("situation: " + situation);
+        String initialQuestion = String.format(
+                "To increase English conversation, we're going to take on roles and converse in English. " +
+                        "You're my %s, and I'm your %s. " +
+                        "We're in a situation is '%s'. " +
+                        "And when answering, answer without your roles. " +
+                        "You just have to play the role of the %s. " +
+                        "So, starting now, as your %s, " ,
+                gptRole, userRole, situation, gptRole, userRole);
+
+
+
+        ChatGptResponseDto gptResponseDto = chatGptService.setSituation(new QuestionRequestDto(initialQuestion));
+
+        Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
+        gptResponseChoice.setCrid(initiationRequestDto.getCrid());
+
+        if (gptResponseChoice == null) {
+            gptResponseDto = chatGptService.setSituation(initiationRequestDto);
+            gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
+        }
+        byte[] audioBytes = quickstartSample.run(gptResponseChoice).getBody();
+        // Add log to check if the audio data is generated and returned correctly
+        System.out.println("GPT audio file. Size: " + audioBytes.length + " bytes");
+
+//        quickstartSample.run(gptResponseChoice);
+//        chatGptService.saveToDatabase2(new QuestionRequestDto(initiationRequestDto.getCrid(), initialQuestion, initiationRequestDto.getGPTRole(), initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
+        chatGptService.saveToDatabase(gptResponseChoice);
+        isFirstQuestion = false;
+
+        questionRequestDto.setGPTRole(initiationRequestDto.getGPTRole());
+        questionRequestDto.setUserRole(initiationRequestDto.getUserRole());
+        questionRequestDto.setSituation(initiationRequestDto.getSituation());
+
+        return audioBytes;
+    }
+
+    public byte[] conversation(String question) {
+
+        if(question==null)
+        {
+            question = "The user's words were not entered correctly, so please repeat them.";
+        }
+
+        questionRequestDto.setQuestion(question);
+
+        System.out.println("question : " + question);
         try {
-            String crid = initiationRequestDto.getCrid();
-            String gptRole = initiationRequestDto.getGPTRole();
-            String userRole = initiationRequestDto.getUserRole();
-            String situation = initiationRequestDto.getSituation();
-
-            logger.info("***** ChatGptController *****");
-            logger.info("crid: {}", crid);
-            logger.info("gptRole: {}", gptRole);
-            logger.info("userRole: {}", userRole);
-            logger.info("situation: {}", situation);
-            logger.info("***** ChatGptController *****");
-
-            if (isFirstQuestion) {
-                String initialQuestion = String.format(
-                        "To increase English conversation, we're going to take on roles and converse in English. " +
-                                "You're my %s, and I'm your %s. " +
-                                "We're in a situation where %s. " +
-                                "You just have to play the role of the %s. " +
-                                "So, starting now, as your %s, " +
-                                "I'll be asking and answering questions, and you, as the %s, can start by asking a question in English."
-                                + "Answer naturally as if you were talking to me.",
-                        gptRole, userRole, situation, gptRole, userRole, gptRole);
-
-                ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(new QuestionRequestDto(initialQuestion), conversationHistory);
-
-                Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
-                if (gptResponseChoice == null) {
-                    gptResponseDto = chatGptService.askQuestion(initiationRequestDto, conversationHistory);
-                    gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
-                }
-
-                quickstartSample.run(gptResponseChoice);
-                chatGptService.saveToDatabase2(new QuestionRequestDto(initialQuestion, initiationRequestDto.getGPTRole(), initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
-                chatGptService.saveToDatabase(gptResponseChoice);
-                isFirstQuestion = false;
-
-                return new ResponseEntity<>("Initiation question and GPT response saved successfully.", HttpStatus.OK);
-            }
 
 //            sendRoleAndSituationToChatGptPy(userRole, gptRole, situation);
 
-            ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(initiationRequestDto, conversationHistory);
+            ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(questionRequestDto, conversationHistory);
 
 //            ChatGptResponseDto gptResponseDto = sendRoleAndSituationToChatGptPy(userRole, gptRole, situation, conversationHistory);
 
 //            System.out.println("py 코드에서 리턴 받은 것임: " + sendRoleAndSituationToChatGptPy(userRole, gptRole, situation, conversationHistory));
+            Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, question);
+            gptResponseChoice.setCrid(questionRequestDto.getCrid());
 
-            Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initiationRequestDto.getQuestion());
+            System.out.println("gptResponseChoice.getCrid: " + gptResponseChoice.getCrid());
 
             if (gptResponseChoice == null) {
-                gptResponseDto = chatGptService.askQuestion(initiationRequestDto, conversationHistory);
-                gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initiationRequestDto.getQuestion());
+                gptResponseDto = chatGptService.askQuestion(questionRequestDto,conversationHistory);
+                gptResponseChoice = extractChoiceFromResponse(gptResponseDto, question);
             }
 
-            quickstartSample.run(gptResponseChoice);
+            byte[] audioBytes = quickstartSample.run(gptResponseChoice).getBody();
 
-            chatGptService.saveToDatabase2(initiationRequestDto);
+            // Add log to check if the audio data is generated and returned correctly
+            System.out.println("Received audio file. Size: " + audioBytes.length + " bytes");
+
+            questionRequestDto.setQuestion(question);
+            chatGptService.saveToDatabase2(questionRequestDto);
             chatGptService.saveToDatabase(gptResponseChoice);
 
             // 대화 기록 업데이트
-            conversationHistory.append(initiationRequestDto.getQuestion()).append("\n");
+            conversationHistory.append(question).append("\n");
             conversationHistory.append(gptResponseChoice.getText()).append("\n");
 
-            return new ResponseEntity<>("Question and GPT response saved successfully.", HttpStatus.OK);
+//            return new ResponseEntity<>("Question and GPT response saved successfully.", HttpStatus.OK);
+
+            return audioBytes;
         } catch (Exception e) {
-            return new ResponseEntity<>("Error processing the initiation question: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            System.out.println("에러!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            e.printStackTrace();
+//            return new ResponseEntity<>("Error processing the initiation question: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new byte[0];
         }
     }
 

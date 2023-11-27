@@ -87,7 +87,7 @@ export default function SignInSide() {
         const num1 = $("#number").val();
         // const num2 = $("#Confirm").val();
 
-        axios.post("confirm", {
+        axios.post("http://localhost/confirm", {
             num1: num1,
             // num2: num2
         })
@@ -153,7 +153,6 @@ export default function SignInSide() {
                                         name="mail"
                                         autoComplete="mail"
                                         autoFocus
-                                        value="smartkorea@gmail.com"
                                     />
 
                                     <Button // 인증 버튼 (인증번호 메일 요청)
@@ -187,20 +186,7 @@ export default function SignInSide() {
                                     >
                                         인증확인
                                     </Button>
-
-                                    {/*<script>*/}
-                                    {/*    const input = document.createElement("input");*/}
-                                    {/*    input.type = "text";*/}
-                                    {/*    input.id = "Confirm";*/}
-                                    {/*    input.name = "Confirm";*/}
-                                    {/*    input.style.display = "none";*/}
-                                    {/*    input.value = "";*/}
-
-                                    {/*    const container = document.getElementById("container");*/}
-                                    {/*    container.appendChild(input);*/}
-                                    {/*</script>*/}
                                 </div>
-
 
                                 <TextField
                                     margin="normal"
@@ -220,7 +206,6 @@ export default function SignInSide() {
                                     label="Name"
                                     name="name"
                                     autoComplete="name"
-                                    autoFocus
                                 />
 
                                 <FormControl component="fieldset" sx={{mt: 2, mb: 2}}>
