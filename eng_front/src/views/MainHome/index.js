@@ -8,10 +8,12 @@ export default function MainHome(){
 
     return (
         <>
+            <div style={{backgroundColor : 'white'}}>
             <Navigation/>
             <Header/>
             <Mainarea/>
             <Footer/>
+            </div>
         </>
     )
 }

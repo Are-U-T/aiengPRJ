@@ -48,14 +48,14 @@ export default function Mainarea(){
 
           <div style={{marginTop : '150px'}}/>
 
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '200px', marginBottom : '10px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '10px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>학습 효과</h5>
           </div>
 
 
 
-          <section className="page-section" id="portfolio" style={{ marginTop: '-100px',  cursor: 'default' }}>
+          <section className="page-section" id="portfolio" style={{ marginTop: '-120px',  cursor: 'default' }}>
             <div className="container">
               <div className="row justify-content-between">
                 {/* Portfolio Item 1 */}
@@ -92,14 +92,14 @@ export default function Mainarea(){
 
 
 
-          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '200px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '180px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>사용 대상</h5>
           </div>
 
           <Box
               component="section"
-              sx={{ display: 'flex', overflow: 'hidden', bgcolor: 'white'}}
+              sx={{ display: 'flex', overflow: 'hidden'}}
           >
             <Container sx={{ mt: 5, mb: 20, display: 'flex', position: 'relative' }}>
 
@@ -173,7 +173,7 @@ export default function Mainarea(){
 
 
 
-          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '200px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '180px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>사용하는 이유</h5>
           </div>
@@ -194,7 +194,7 @@ export default function Mainarea(){
                     <img
                         src={freedom}
                         alt="icon1"
-                        style={{ ...customImage, alignSelf: 'center', margin: '0' }}
+                        style={{ ...customImage, alignSelf: 'center', marginLeft: '20px' }}
                     />
                   </Grid>
                   <Grid item xs={6}>
@@ -210,16 +210,16 @@ export default function Mainarea(){
 
               <Grid item xs={12} md={6}>
                 <Grid container spacing={0}>
-                  <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}> {/* 여기서 Padding과 Margin을 0으로 설정 */}
+                  <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}>
                     <img
                         src={study}
                         alt="icon2"
-                        style={{ ...customImage, alignSelf: 'center', margin: '0' }} // 이미지 위치 조정
+                        style={{ ...customImage, alignSelf: 'center', marginLeft: '20px' }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <Box sx={{ ...customItem, borderRight: 'none' }}> {/* 여기서는 경계선 제거 */}
-                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}> {/* 텍스트 크기와 스타일 조정 */}
+                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}>
                        능력에 따른 효과적이고 맞춤형 학습
                       </Typography>
                     </Box>
@@ -230,16 +230,16 @@ export default function Mainarea(){
               {/* 두 개의 추가 그리드 아이템 */}
               <Grid item xs={12} md={6}>
                 <Grid container spacing={0}>
-                  <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}> {/* 여기서 Padding과 Margin을 0으로 설정 */}
+                  <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}>
                     <img
                         src={free}
                         alt="icon3"
-                        style={{ ...customImage, alignSelf: 'center', margin: '0' }} // 이미지 위치 조정
+                        style={{ ...customImage, alignSelf: 'center', marginLeft: '20px' }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <Box sx={{ ...customItem, borderRight: 'none' }}> {/* 여기서는 경계선 제거 */}
-                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}> {/* 텍스트 크기와 스타일 조정 */}
+                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}>
                         무료로 인한 부담감 제로!
                       </Typography>
                     </Box>
@@ -249,16 +249,16 @@ export default function Mainarea(){
 
               <Grid item xs={12} md={6}>
                 <Grid container spacing={0}>
-                  <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}> {/* 여기서 Padding과 Margin을 0으로 설정 */}
+                  <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}>
                     <img
                         src={design}
                         alt="icon4"
-                        style={{ ...customImage, alignSelf: 'center', margin: '0' }} // 이미지 위치 조정
+                        style={{ ...customImage, alignSelf: 'center', marginLeft: '20px' }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <Box sx={{ ...customItem, borderRight: 'none' }}> {/* 여기서는 경계선 제거 */}
-                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}> {/* 텍스트 크기와 스타일 조정 */}
+                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}>
                         모두가 좋아하는 편한 디자인!
                       </Typography>
                     </Box>

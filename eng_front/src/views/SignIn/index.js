@@ -69,6 +69,8 @@ function ColorSchemeToggle(props) {
         </IconButton>
     );
 }
+
+
 export default function JoySignInSideTemplate() {
 
     const navigate = useNavigate();
@@ -148,40 +150,43 @@ export default function JoySignInSideTemplate() {
                     }}
                 >
 
-
-
                     <Box
                         component="header"
                         sx={{
-                            py: 3,
+                            py: 11,
                             display: 'flex',
                             alignItems: 'left',
                             justifyContent: 'space-between',
+                            marginLeft: 'auto',
                         }}
                     >
-                        <Box
-                            sx={{
-                                gap: 2,
-                                display: 'flex',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <IconButton variant="soft" color="primary" size="sm" sx={{ backgroundColor: 'transparent',
-                                width : '60px', height : '60px', transform: 'translateY(10px)' }}>
-                                <img src={logo} alt="Logo" style={{ width: '100%', height: '100%',  marginLeft : '50px' }}  />
-                            </IconButton>
+                        {/*<Box*/}
+                        {/*    sx={{*/}
+                        {/*        gap: 2,*/}
+                        {/*        display: 'flex',*/}
+                        {/*        alignItems: 'center',*/}
+                        {/*    }}*/}
+                        {/*>*/}
+                        {/*    <IconButton variant="soft" color="primary" size="sm" sx={{ backgroundColor: 'transparent',*/}
+                        {/*        width : '60px', height : '60px', transform: 'translateY(10px)' }}>*/}
+                        {/*        <img src={logo} alt="Logo" style={{ width: '100%', height: '100%',  marginLeft : '40px' }}  />*/}
+                        {/*    </IconButton>*/}
 
-                            <Typography level="title-lg" sx={{ whiteSpace: 'nowrap',fontSize: '25px',
-                                transform: 'translateY(10px)'}} style={{marginLeft : '20px'}}>Are You T?</Typography>
-                        </Box>
+                        {/*    <Typography level="title-lg" sx={{ whiteSpace: 'nowrap',fontSize: '25px',*/}
+                        {/*        transform: 'translateY(10px)'}} style={{marginLeft : '20px'}}>Are You T?</Typography>*/}
+                        {/*</Box>*/}
                         <ColorSchemeToggle />
                     </Box>
+
+
+
+
                     <Box
                         component="main"
                         sx={{
                             my: 'auto',
-                            py: 2,
-                            pb: 18,
+                            py: -5,
+                            pb: 15,
                             display: 'flex',
                             flexDirection: 'column',
                             gap: 2,
@@ -279,7 +284,7 @@ export default function JoySignInSideTemplate() {
                     height: '100%',
                     position: 'absolute',
                     right: 0,
-                    top:'86px',
+                    top:'80px',
                     bottom: 0,
                     left: 'clamp(0px, (100vw - var(--Collapsed-breakpoint)) * 999, 100vw - var(--Cover-width))',
                     transition:
