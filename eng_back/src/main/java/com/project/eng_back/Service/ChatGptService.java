@@ -55,6 +55,7 @@ public class ChatGptService {
         return responseEntity.getBody();
     }
 
+    // 초기 상황 세팅
     public ChatGptResponseDto setSituation(QuestionRequestDto questionRequestDto) {
 
         String prompt = questionRequestDto.getQuestion();
@@ -74,6 +75,7 @@ public class ChatGptService {
         return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
     }
 
+    // 대화 진행
     public ChatGptResponseDto askQuestion(QuestionRequestDto questionRequestDto, StringBuilder conversationHistory) {
 
         String prompt = "My question is " + questionRequestDto.getQuestion() + "And when answering, answer without your roles. " +
@@ -93,6 +95,29 @@ public class ChatGptService {
                 .build();
 
         logger.info("Sent prompt to GPT: {}", chatGptRequestDto.getPrompt());
+
+        return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
+    }
+
+    // gpt 한테 문법 체크 받기
+    public ChatGptResponseDto grading(String question) {
+
+        String prompt = "\n" +
+                "Please correct any grammar mistakes in the '"+question+"', " +
+                "or guess what I said if it is incorrect from our previous conversation."
+                +"There is no need to distinguish between lowercase and lowercase letters.";
+
+//        String prompt = "Remember our situation and your role and communicate naturally.";
+
+        // GPT에게 고려된 프롬프트로 요청 보내고 응답 받기
+        ChatGptRequestDto chatGptRequestDto = ChatGptRequestDto.builder()
+                .model(ChatGptConfig.MODEL)
+                .prompt(prompt)
+                .maxTokens(ChatGptConfig.MAX_TOKEN)
+                .temperature(ChatGptConfig.TEMPERATURE)
+                .topP(ChatGptConfig.TOP_P)
+                .build();
+        logger.info("Sent prompt to GPT, setSituation: {}", chatGptRequestDto.getPrompt());
 
         return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
     }

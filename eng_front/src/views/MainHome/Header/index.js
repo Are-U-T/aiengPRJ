@@ -108,7 +108,7 @@ function Header(){
             </div>
 
             <div style={{ maxWidth: '1200px', margin: 'auto', padding: '0 40px' }}>
-                <div className="process-grid-container" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '20px', overflowX: 'auto' }}>
+                <div className="process-grid-container" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '20px' }}>
 
                     {/* 첫 번째 행 */}
                     <div style={{ width: '600px', height: '150px', border: '2px solid #132650', borderRadius: '10px', boxShadow: '0 6px 10px rgba(0,0,0,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', backgroundColor: 'white' }}>
@@ -157,7 +157,7 @@ function Header(){
                             <div>
                                 <p style={{ fontWeight: 'bold', color: '#4A90E2', marginBottom: '5px' }}>04</p>
                                 <h4 style={{ margin: '0', color: '#132650' }}>결과</h4>
-                                <p style={{ color: '#333' }}>아에ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+                                <p style={{ color: '#333' }}>아에ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
                             </div>
                             <img src={logo} alt="Speech" style={{ width: '60px', height: '60px', objectFit: 'cover' }} />
                         </div>

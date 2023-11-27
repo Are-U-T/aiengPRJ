@@ -46,6 +46,7 @@ public class ChatGptController {
         this.choice = choice;
     }
 
+    // 초기 대화 세팅
     public byte[] initiateConversation(QuestionRequestDto initiationRequestDto) {
 
         String userRole = initiationRequestDto.getUserRole();
@@ -54,27 +55,14 @@ public class ChatGptController {
         questionRequestDto.setCrid(initiationRequestDto.getCrid());
         choice.setCrid(initiationRequestDto.getCrid());
 
-        System.out.println("----------------------------------------------------------------");
-        System.out.println("questionRequestDto.getCrid(): " + questionRequestDto.getCrid());
-        System.out.println("----------------------------------------------------------------");
-
-        System.out.println("----------------------------------------------------------------");
-        System.out.println("initiationRequestDto.getCrid: " + initiationRequestDto.getCrid());
-        System.out.println("choice.getCrid: " + choice.getCrid());
-        System.out.println("----------------------------------------------------------------");
-
-        System.out.println("userRole: " + userRole);
-        System.out.println("gptRole: " + gptRole);
-        System.out.println("situation: " + situation);
         String initialQuestion = String.format(
                 "To increase English conversation, we're going to take on roles and converse in English. " +
                         "You're my %s, and I'm your %s. " +
                         "We're in a situation is '%s'. " +
                         "And when answering, answer without your roles. " +
                         "You just have to play the role of the %s. " +
-                        "So, starting now, as your %s, " ,
+                        "So, starting now, as your %s, ",
                 gptRole, userRole, situation, gptRole, userRole);
-
 
 
         ChatGptResponseDto gptResponseDto = chatGptService.setSituation(new QuestionRequestDto(initialQuestion));
@@ -90,6 +78,8 @@ public class ChatGptController {
         // Add log to check if the audio data is generated and returned correctly
         System.out.println("GPT audio file. Size: " + audioBytes.length + " bytes");
 
+        gptResponseChoice.setSpeaker("Teacher");
+
 //        quickstartSample.run(gptResponseChoice);
 //        chatGptService.saveToDatabase2(new QuestionRequestDto(initiationRequestDto.getCrid(), initialQuestion, initiationRequestDto.getGPTRole(), initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
         chatGptService.saveToDatabase(gptResponseChoice);
@@ -102,10 +92,10 @@ public class ChatGptController {
         return audioBytes;
     }
 
+    // 이후 대화 진행용
     public byte[] conversation(String question) {
 
-        if(question==null)
-        {
+        if (question == null) {
             question = "The user's words were not entered correctly, so please repeat them.";
         }
 
@@ -127,7 +117,7 @@ public class ChatGptController {
             System.out.println("gptResponseChoice.getCrid: " + gptResponseChoice.getCrid());
 
             if (gptResponseChoice == null) {
-                gptResponseDto = chatGptService.askQuestion(questionRequestDto,conversationHistory);
+                gptResponseDto = chatGptService.askQuestion(questionRequestDto, conversationHistory);
                 gptResponseChoice = extractChoiceFromResponse(gptResponseDto, question);
             }
 
@@ -136,8 +126,16 @@ public class ChatGptController {
             // Add log to check if the audio data is generated and returned correctly
             System.out.println("Received audio file. Size: " + audioBytes.length + " bytes");
 
+            questionRequestDto.setSpeaker("User");
+            gptResponseChoice.setSpeaker("Teacher");
             questionRequestDto.setQuestion(question);
             chatGptService.saveToDatabase2(questionRequestDto);
+            chatGptService.saveToDatabase(gptResponseChoice);
+
+            // GPT 한테 문법 체크 받은 거 저장
+            gptResponseChoice = grading(question);
+            gptResponseChoice.setCrid(questionRequestDto.getCrid());
+            gptResponseChoice.setSpeaker("Corrected grammar");
             chatGptService.saveToDatabase(gptResponseChoice);
 
             // 대화 기록 업데이트
@@ -153,6 +151,14 @@ public class ChatGptController {
 //            return new ResponseEntity<>("Error processing the initiation question: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
             return new byte[0];
         }
+    }
+
+    // gpt 한테 유저의 말을 문법 검사 받기
+    public Choice grading(String question) {
+
+        ChatGptResponseDto gptResponseDto = chatGptService.grading(question);
+        Choice answer = extractChoiceFromResponse(gptResponseDto, question);
+        return answer;
     }
 
     private Choice extractChoiceFromResponse(ChatGptResponseDto responseDto, String question) {

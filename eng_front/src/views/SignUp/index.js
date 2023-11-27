@@ -70,7 +70,7 @@ export default function SignInSide() {
         })
             .then((response) => {
                 if (response.data === "success") {
-                    alert("인증 성공");
+                    alert("인증!!!!!","인증 성공");
                 } else {
                     alert("인증 실패");
                 }
@@ -130,7 +130,7 @@ export default function SignInSide() {
                                     name="mail"
                                     autoComplete="mail"
                                     autoFocus
-                                    value="smartkorea@gmail.com"
+                                    // value="smartkorea@gmail.com"
                                 />
 
                                 <Button // 인증 버튼 (인증번호 메일 요청)

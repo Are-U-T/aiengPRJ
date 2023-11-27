@@ -10,10 +10,10 @@ import java.util.Map;
 @Mapper
 public interface ChatGPTMapper {
 
-    @Insert("INSERT INTO CHAT_TEST (CRID, CONTENT, SPEAKER) VALUES (#{crid, jdbcType=VARCHAR}, #{text, jdbcType=VARCHAR}, 'Teacher')")
+    @Insert("INSERT INTO CHAT_TEST (CRID, CONTENT, SPEAKER) VALUES (#{crid, jdbcType=VARCHAR}, #{text, jdbcType=VARCHAR},  #{speaker, jdbcType=VARCHAR})")
     int save(Choice choice);
 
-    @Insert("INSERT INTO CHAT_TEST ( CRID, CONTENT, SPEAKER) VALUES (#{crid, jdbcType=VARCHAR}, #{question, jdbcType=VARCHAR}, 'User')")
+    @Insert("INSERT INTO CHAT_TEST ( CRID, CONTENT, SPEAKER) VALUES (#{crid, jdbcType=VARCHAR}, #{question, jdbcType=VARCHAR},  #{speaker, jdbcType=VARCHAR})")
     int save2(QuestionRequestDto question);
 
     @Select("SELECT CONTENT FROM CHAT_TEST WHERE SPEAKER = 0")

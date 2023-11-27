@@ -19,6 +19,7 @@ public class Choice implements Serializable {
     private String crid;
 
     private int sequence;
+    private String speaker;
 
     // 생성자
     public Choice() {
@@ -30,14 +31,17 @@ public class Choice implements Serializable {
     }
 
     @Builder
-    public Choice(String text, Integer index, String finishReason, String crid) {
+    public Choice(String text, Integer index, String finishReason, String crid, String speaker) {
         this.text = text;
         this.index = index;
         this.finishReason = finishReason;
         this.crid = crid;
+        this.speaker = speaker;
     }
 
     public void setCrid(String crid) {
         this.crid = crid;
     }
+
+    public void setSpeaker(String speaker) { this.speaker = speaker; }
 }

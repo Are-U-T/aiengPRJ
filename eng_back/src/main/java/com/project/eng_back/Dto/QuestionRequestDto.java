@@ -25,6 +25,8 @@ public class QuestionRequestDto implements Serializable {
 
     private String situation;
 
+    private String speaker;
+
     public QuestionRequestDto() {
     }
 
@@ -33,12 +35,13 @@ public class QuestionRequestDto implements Serializable {
         this.question = question;
     }
 
-    public QuestionRequestDto(String crid , String question, String GPTRole, String UserRole, String situation) {
+    public QuestionRequestDto(String crid , String question, String GPTRole, String UserRole, String situation, String speaker) {
         this.crid = crid;
         this.question = question;
         this.GPTRole = GPTRole;
         this.UserRole = UserRole;
         this.situation = situation;
+        this.speaker = speaker;
     }
 
     public void setSequence(int sequence) {
@@ -62,4 +65,6 @@ public class QuestionRequestDto implements Serializable {
     }
 
     public void setCrid(String crid){ this.crid = crid; }
+
+    public void setSpeaker(String speaker) { this.speaker = speaker; }
 }

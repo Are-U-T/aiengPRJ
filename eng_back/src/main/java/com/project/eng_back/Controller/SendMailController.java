@@ -36,7 +36,7 @@ public class SendMailController {
     //    자 밖으로 다 빼보세요
     private final JavaMailSender javaMailSender; // 이메일 발송 객체
 
-    private final String senderEmail = "비밀3";
+    private final String senderEmail = "devtestmail.9900@gmail.com";
 
     public MimeMessage CreateMail(String mail) {
 
@@ -81,7 +81,7 @@ public class SendMailController {
 
     public String SendMail(String email) {
 
-        String number = createNumber();
+        number = createNumber();
 
         logger.info("service: {}", email);
 
