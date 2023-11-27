@@ -1,0 +1,221 @@
+.hi {
+    text-align: center;
+    margin-top: 100px;
+    font-size: 2.5rem;
+    background: -webkit-linear-gradient(left, #6e8efb, #a777e3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* 크롬, 사파리용 텍스트 색상 투명 처리 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.styledpodo {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: darkblue;
+    text-align: center;
+}
+
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 40px auto;
+    max-width: 1200px;
+}
+
+
+.sort {
+    margin-top: -10px;
+    background-color: #fff;
+    border: 2px solid #a777e3;
+    border-radius: 30px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 600px;
+}
+
+
+.column {
+    flex: 1 1 300px;
+    margin: 10px;
+    background-color: #fff;
+    border: 2px solid darkblue;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    height: 350px;
+}
+
+.column:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+    border-color: #2b6cc4;
+    background-color: #e0e8f9;
+}
+
+
+
+/*.column {*/
+/*        flex: 1 1 300px;*/
+/*        margin: 10px;*/
+/*        background-color: #fff;*/
+/*        border: 2px solid darkblue;*/
+/*        border-radius: 15px;*/
+/*        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);*/
+/*        padding: 20px;*/
+/*    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;*/
+/*    perspective: 1000px;*/
+/*}*/
+
+/*.column:hover {*/
+/*    transform: rotateY(200deg) rotateX(200deg);*/
+/*    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);*/
+/*    border-color: #2b6cc4;*/
+/*    background-color: #e0e8f9;*/
+/*}*/
+
+/*.column-content {*/
+/*    opacity: 0;*/
+/*    transition: opacity 0.3s ease;*/
+
+/*}*/
+/*200으로 설정*/
+
+
+
+
+/*.scroll-container {*/
+/*    max-height: 300px;*/
+/*    overflow-y: auto;*/
+/*}*/
+
+/*.scroll-container::-webkit-scrollbar {*/
+/*    width: 1px;*/
+/*    background-color: transparent;*/
+/*}*/
+
+/*.scroll-container::-webkit-scrollbar-thumb {*/
+/*    background-color: #d0d0d0;*/
+/*    border-radius: 4px;*/
+/*}*/
+
+/*.scroll-container::-webkit-scrollbar-thumb:hover {*/
+/*    background-color: #a0a0a0;*/
+/*}*/
+
+/*.scroll-container::-webkit-scrollbar-track {*/
+/*    background-color: transparent;*/
+/*    border-radius: 0px;*/
+/*}*/
+
+
+.item {
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: white; /* 아이템 배경색 변경 */
+    border-radius: 10px;
+    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+    cursor: pointer;
+}
+
+
+.selected {
+    background: #a1b8f3;
+    color: white;
+    font-weight: bold;
+}
+
+
+.coselected{
+
+}
+
+
+.flag-container {
+    position: relative;
+    display: inline-block; /* 또는 flex */
+    text-align: center; /* 가로 방향 가운데 정렬 (inline-block의 경우) */
+}
+
+.flag-container img {
+    width: 60%; /* 또는 필요한 크기 */
+    height: auto; /* 또는 필요한 크기 */
+    display: block; /* 이미지를 블록 요소로 만들어 줄의 가운데에 배치 */
+    margin-left: 60px; /* 가로 방향 가운데 정렬 */
+}
+
+
+
+
+
+/*.check-mark {*/
+/*    width: 100px;*/
+/*    height: 100px;*/
+/*    position: absolute;*/
+/*    top: -35px;*/
+/*    right: -45px;*/
+/*}*/
+
+.speachbutton-container {
+    text-align: center;
+    position: relative;
+    top: 38px;
+    margin-bottom: 30px; /* 하단 마진 줄임 */
+}
+
+.speachbutton {
+    padding: 12px 24px; /* 패딩 조정 */
+    background: linear-gradient(to right, #89C4F4, #1D2B64);
+    color: white;
+    border: none;
+    border-radius: 20px; /* 모서리 둥근 정도 조정 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 변경 */
+    cursor: pointer;
+    font-size: 16px; /* 폰트 크기 조정 */
+    font-family: 'Helvetica', sans-serif; /* 폰트 스타일 변경 */
+    font-weight: bold;
+    transition: all 0.3s ease;
+    width: 400px; /* 버튼 너비 조정 */
+}
+
+.speachbutton:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #1D2B64, #89C4F4);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+
+.custom-button {
+    background-color: #555555; /* 어두운 회색으로 변경 */
+    color: white; /* 텍스트 색상 */
+    padding: 15px 32px; /* 내부 여백 */
+    text-align: center; /* 텍스트 정렬 */
+    text-decoration: none; /* 텍스트 장식 제거 */
+    display: inline-block; /* 인라인 블록으로 표시 */
+    font-size: 16px; /* 폰트 크기 */
+    font-family: 'Helvetica Neue', sans-serif; /* 세련된 글꼴로 변경 */
+    margin: 10px; /* 버튼 간 마진 */
+    cursor: pointer; /* 커서 스타일 */
+    border: none; /* 테두리 제거 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1); /* 더 섬세한 그림자 효과 */
+    transition: all 0.3s; /* 부드러운 전환 효과 */
+}
+
+.custom-button:hover {
+    background-color: #6e6e6e; /* 호버 시 더 밝은 회색으로 변경 */
+    box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2); /* 호버 시 그림자 변경 */
+}
+
+.custom-button:active {
+    background-color: #4d4d4d; /* 클릭 시 색상 변경 */
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1); /* 클릭 시 그림자 변경 */
+}
+
+
+
+
+

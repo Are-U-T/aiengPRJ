@@ -192,28 +192,24 @@ export default function JoySignInSideTemplate() {
                                 justifyContent: 'space-between',
                             }}
                         >
-                            <Box
-                                sx={{
-                                    gap: 2,
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <IconButton variant="soft" color="primary" size="sm" sx={{
-                                    backgroundColor: 'transparent',
-                                    width: '60px', height: '60px', transform: 'translateY(10px)'
-                                }}>
-                                    <img src={logo} alt="Logo"
-                                         style={{width: '100%', height: '100%', marginLeft: '50px'}}/>
-                                </IconButton>
+                            {/*<Box*/}
+                            {/*    sx={{*/}
+                            {/*        gap: 2,*/}
+                            {/*        display: 'flex',*/}
+                            {/*        alignItems: 'center',*/}
+                            {/*    }}*/}
+                            {/*>*/}
+                            {/*    <IconButton variant="soft" color="primary" size="sm" sx={{ backgroundColor: 'transparent',*/}
+                            {/*        width : '60px', height : '60px', transform: 'translateY(10px)' }}>*/}
+                            {/*        <img src={logo} alt="Logo" style={{ width: '100%', height: '100%',  marginLeft : '40px' }}  />*/}
+                            {/*    </IconButton>*/}
 
-                                <Typography level="title-lg" sx={{
-                                    whiteSpace: 'nowrap', fontSize: '25px',
-                                    transform: 'translateY(10px)'
-                                }} style={{marginLeft: '20px'}}>Are You T?</Typography>
-                            </Box>
-                            <ColorSchemeToggle/>
+                            {/*    <Typography level="title-lg" sx={{ whiteSpace: 'nowrap',fontSize: '25px',*/}
+                            {/*        transform: 'translateY(10px)'}} style={{marginLeft : '20px'}}>Are You T?</Typography>*/}
+                            {/*</Box>*/}
+                            <ColorSchemeToggle />
                         </Box>
+
                         <Box
                             component="main"
                             sx={{

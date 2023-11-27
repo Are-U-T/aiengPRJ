@@ -46,7 +46,7 @@ function Header(){
 
 
             {/*<div style={{ background : 'linear-gradient(to right, #89C4F4, #1D2B64)'}}>*/}
-            <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '200px', marginBottom : '10px'}}>
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '10px'}}>
                 <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
                 <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>학습 종류</h5>
             </div>
@@ -102,7 +102,7 @@ function Header(){
 
 
 
-            <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '200px', marginBottom : '10px'}}>
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '10px'}}>
                 <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
                 <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>구현 과정</h5>
             </div>

@@ -56,8 +56,6 @@ const Navigation = () => {
                             <Dropdown.Toggle as={Nav.Link}  id="dropdown-profile">
                                 <img
                                     src={profile}
-                                    width="40"
-                                    height="40"
                                     alt="Profile"
                                 />
                             </Dropdown.Toggle>

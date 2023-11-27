@@ -10,12 +10,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
     const [timeSpent, setTimeSpent] = useState(0); // 페이지에 머문 시간
 
-    // // 테스트용 자막 데이터
-    //     const initialSubtitles = [
-    //     { Speaker: "ai", Content: "Hi" },
-    //     { Speaker: "user", Content: "Nice to meet you" },
-    // ];
-
     // useState를 사용하여 초기 자막 상태 설정
     const [liveSubtitles, setLiveSubtitles] = useState([]);
     const [currentInput, setCurrentInput] = useState('');

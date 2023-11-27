@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './Speaking.css';
 import ai5 from './images/ai5.png';
-import Navigation from "../Navigation2";
-import Navigation2 from "../Navigation2";
+import Navigation from "../Navigation";
 import Modal from "./Modal";
 import MicRecorder from "mic-recorder-to-mp3";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
 function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
-    const [timeSpent, setTimeSpent] = useState(0); // 페이지에 머문 시간
+    const [timeSpent, setTimeSpent] = useState(300);
 
     // const [liveSubtitles, setLiveSubtitles] = useState([]);  // 실시간 자막목록
     const [currentInput, setCurrentInput] = useState('');
@@ -17,9 +16,21 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
     const [recorder, setRecorder] = useState(new MicRecorder({ bitRate: 128 }));
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
+    const [showSubtitles, setShowSubtitles] = useState(true);
+
     const navigate = useNavigate(); // useNavigate 훅 사용
 
 
+
+    // 자막 토글 함수
+    const toggleSubtitles = () => {
+        setShowSubtitles(!showSubtitles);
+    };
+
+
+    // 사진과 자막 컨테이너의 동적 스타일을 위한 클래스
+    const imageContainerClass = showSubtitles ? "image-container" : "image-container expanded";
+    const subtitlesContainerClass = showSubtitles ? "subtitles-container" : "subtitles-container hidden";
 
 
     // 테스트용 자막 데이터
@@ -29,12 +40,8 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
         // 추가적인 테스트 데이터...
     ];
 
-    // json 형태
-
     // useState를 사용하여 초기 자막 상태 설정
     const [liveSubtitles, setLiveSubtitles] = useState(initialSubtitles);
-
-
 
 
     const startRecording = () => {
@@ -76,7 +83,6 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
 
 
 
-    // 시간이 300초에 도달했을 때 호출될 함수
     const handleTimeLimitReached = () => {
         // 모든 기능 종료 로직 (예: 녹음 중지, 타이머 정지 등)
         if (isRecording) {
@@ -88,25 +94,26 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
 
 
 
-// 페이지에 머문 시간을 추적하는 useEffect
+
     useEffect(() => {
         let timer;
-        if (timeSpent < 300) {
+        if (timeSpent > 0) {
+            // 1초 간격으로 timeSpent 감소
             timer = setInterval(() => {
-                setTimeSpent((time) => time + 1);
+                setTimeSpent(time => time - 1);
             }, 1000);
-        } else if (timeSpent === 300) { // 시간이 정확히 300초에 도달했을 때만 호출
+        } else if (timeSpent === 0) {
+            // 시간이 0초에 도달했을 때 호출
             handleTimeLimitReached();
         }
-        // 컴포넌트가 언마운트 되거나 timeSpent가 변경될 때 이전 타이머를 정리
+
+        // 컴포넌트가 언마운트 되거나 timeSpent가 변경될 때 타이머 정리
         return () => clearInterval(timer);
     }, [timeSpent]);
 
-
-
     useEffect(() => {
-        // 5분(300초)이 지나면 모달창을 띄우는 로직
-        if (timeSpent >= 300 && !isModalOpen) {
+        // 시간이 0초가 되면 모달창을 띄우는 로직
+        if (timeSpent === 0 && !isModalOpen) {
             handleTimeLimitReached();
         }
     }, [timeSpent, isModalOpen]); // 의존성 배열에 isModalOpen을 추가
@@ -164,13 +171,6 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
 
 
 
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setTimeSpent(time => time + 1);
-        }, 1000);
-
-        return () => clearInterval(timer);
-    }, []);
 
     // 시간을 분과 초로 변환하는 함수
     const formatTime = (totalSeconds) => {
@@ -181,14 +181,16 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
 
     return (
         <>
-            <Navigation2/>
+            <Navigation/>
 
             <div className="speaking-container">
+                <div className={imageContainerClass}>
                 <div className="image-container">
                     <img src={ai5} alt="Speaking Example" />
                 </div>
+                </div>
 
-
+                <div className={subtitlesContainerClass}>
                 <div className="subtitles-container">
                     <h3>실시간 자막</h3>
                     <ul>
@@ -200,6 +202,7 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
                         ))}
                     </ul>
                 </div>
+                </div>
                 <div className="buttons-containerpp">
                     <button onClick={startRecording} disabled={isRecording}>
                         녹음 시작
@@ -207,12 +210,14 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
                     <button onClick={stopRecording} disabled={!isRecording}>
                         녹음 정지
                     </button>
+                    <button onClick={toggleSubtitles}>
+                        {showSubtitles ? "자막 숨기기" : "자막 보이기"}
+                    </button>
                 </div>
                 <div className="time-spent">
                     진행 시간: {formatTime(timeSpent)}
                 </div>
             </div>
-
 
 
 

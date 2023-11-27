@@ -18,15 +18,25 @@
     flex-grow: 1;
 }
 
-/* 로고 및 프로필 이미지 스타일 통합 */
-.navbar-brand img, .dropdown img {
-    width: 45px; /* 통합 이미지 크기 */
+
+.navbar-brand img{
+    width: 45px;
     height: 45px;
     border: 2px solid #f8f9fa;
     border-radius: 50%;
     box-shadow: 0 0 10px #f8f9fa;
     transition: transform 0.3s ease;
 }
+
+.dropdown img{
+    width: 35px;
+    height: 35px;
+    border: 2px solid #f8f9fa;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #f8f9fa;
+    transition: transform 0.3s ease;
+}
+
 
 .navbar-brand img:hover, .dropdown img:hover {
     transform: scale(1.1);

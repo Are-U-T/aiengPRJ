@@ -34,8 +34,6 @@ public class ChatGptController {
 
     private final Choice choice;
 
-    private boolean isFirstQuestion = true;
-
     // 대화 기록을 저장할 변수
     private StringBuilder conversationHistory = new StringBuilder();
 
@@ -74,7 +72,7 @@ public class ChatGptController {
             gptResponseDto = chatGptService.setSituation(initiationRequestDto);
             gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
         }
-        byte[] audioBytes = quickstartSample.run(gptResponseChoice, 1).getBody();
+        byte[] audioBytes = quickstartSample.run(gptResponseChoice, initiationRequestDto.getCountry()).getBody();
         // Add log to check if the audio data is generated and returned correctly
         System.out.println("GPT audio file. Size: " + audioBytes.length + " bytes");
 
@@ -83,7 +81,6 @@ public class ChatGptController {
 //        quickstartSample.run(gptResponseChoice);
 //        chatGptService.saveToDatabase2(new QuestionRequestDto(initiationRequestDto.getCrid(), initialQuestion, initiationRequestDto.getGPTRole(), initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
         chatGptService.saveToDatabase(gptResponseChoice);
-        isFirstQuestion = false;
 
         questionRequestDto.setGPTRole(initiationRequestDto.getGPTRole());
         questionRequestDto.setUserRole(initiationRequestDto.getUserRole());
@@ -135,7 +132,7 @@ public class ChatGptController {
                 gptResponseChoice = extractChoiceFromResponse(gptResponseDto, question);
             }
 
-            byte[] audioBytes = quickstartSample.run(gptResponseChoice, 1).getBody();
+            byte[] audioBytes = quickstartSample.run(gptResponseChoice, questionRequestDto.getCountry()).getBody();
 
             // Add log to check if the audio data is generated and returned correctly
             System.out.println("Received audio file. Size: " + audioBytes.length + " bytes");

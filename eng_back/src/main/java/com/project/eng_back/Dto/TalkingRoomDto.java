@@ -23,6 +23,8 @@ public class TalkingRoomDto {
     @JsonProperty("situation")
     private String situation;
 
+    private int country;
+
     public void setCrid(String crid) {
         this.crid = crid;
     }
@@ -62,4 +64,6 @@ public class TalkingRoomDto {
     public void setSituation(String situation) {
         this.situation = situation;
     }
+
+    public void setCountry(int country){ this.country = country; }
 }

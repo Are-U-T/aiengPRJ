@@ -23,7 +23,7 @@ export default function Footer(){
         <>
             <div style={{marginTop : '150px'}}></div>
 
-            <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '200px', marginBottom : '10px'}}>
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '10px'}}>
                 <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
                 <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>팀 소개</h5>
             </div>
@@ -47,14 +47,7 @@ export default function Footer(){
                 boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
                 transform: 'none' // 마우스 오버 시 변형 효과 제거
             }}}>
-            <CardActionArea sx={{
-                border: 'none', // 테두리 제거
-                '&:hover': {
-                    backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
-                    boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
-                    transform: 'none' // 마우스 오버 시 변형 효과 제거
-                }
-            }}>
+
                 <CardMedia
                     component="img"
                     sx={{
@@ -68,14 +61,14 @@ export default function Footer(){
                 />
 
                 <CardContent sx={{ textAlign: 'center' }}>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography  variant="h5" component="div">
                         박서윤
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         취업 하고 싶어요 *^^*
                     </Typography>
                 </CardContent>
-            </CardActionArea>
+
         </Card>
 
 
@@ -91,14 +84,7 @@ export default function Footer(){
                             boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
                             transform: 'none' // 마우스 오버 시 변형 효과 제거
                         }}}>
-                        <CardActionArea sx={{
-                            border: 'none', // 테두리 제거
-                            '&:hover': {
-                                backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
-                                boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
-                                transform: 'none' // 마우스 오버 시 변형 효과 제거
-                            }
-                        }}>
+
                     <CardMedia
                         component="img"
                         sx={{
@@ -119,7 +105,6 @@ export default function Footer(){
                             ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
                         </Typography>
                     </CardContent>
-                </CardActionArea>
             </Card>
 
 
@@ -133,14 +118,7 @@ export default function Footer(){
                             boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
                             transform: 'none' // 마우스 오버 시 변형 효과 제거
                         }}}>
-                        <CardActionArea sx={{
-                            border: 'none', // 테두리 제거
-                            '&:hover': {
-                                backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
-                                boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
-                                transform: 'none' // 마우스 오버 시 변형 효과 제거
-                            }
-                        }}>
+
                     <CardMedia
                         component="img"
                         sx={{
@@ -161,7 +139,6 @@ export default function Footer(){
                             안녕하세요!!
                         </Typography>
                     </CardContent>
-                </CardActionArea>
             </Card>
 
 
@@ -176,14 +153,6 @@ export default function Footer(){
                             boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
                             transform: 'none' // 마우스 오버 시 변형 효과 제거
                         }}}>
-                        <CardActionArea sx={{
-                            border: 'none', // 테두리 제거
-                            '&:hover': {
-                                backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
-                                boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
-                                transform: 'none' // 마우스 오버 시 변형 효과 제거
-                            }
-                        }}>
                     <CardMedia
                         component="img"
                         sx={{
@@ -204,10 +173,12 @@ export default function Footer(){
                             히히힣
                         </Typography>
                     </CardContent>
-                </CardActionArea>
             </Card>
                 </Box>
             </Container>
+
+
+
 
 
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
 import Container from '@mui/joy/Container';
 import { typographyClasses } from '@mui/joy/Typography';
@@ -8,7 +7,7 @@ import study from '../MainHome/Images/study.png';
 export default function TwoSidedLayout({ children, reversed }) {
     return (
         <Container
-            sx={(theme) => ({
+            sx={(theme) => ({ // 여기서 theme을 인자로 사용
                 position: 'relative',
                 minHeight: '100vh',
                 display: 'flex',
@@ -26,7 +25,7 @@ export default function TwoSidedLayout({ children, reversed }) {
             })}
         >
             <Box
-                sx={(theme) => ({
+                sx={(theme) => ({ // 여기서도 theme을 인자로 사용
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -46,29 +45,23 @@ export default function TwoSidedLayout({ children, reversed }) {
             >
                 {children}
             </Box>
-            <AspectRatio
-                ratio={600 / 520}
-                variant="outlined"
-                maxHeight={300}
-                sx={(theme) => ({
-                    minWidth: 300,
-                    alignSelf: 'stretch',
+            <Box
+                sx={(theme) => ({ // 그리고 여기서도 theme을 인자로 사용
+                    width: '100%', // 너비는 부모 요소에 맞춤
                     [theme.breakpoints.up(834)]: {
-                        alignSelf: 'initial',
-                        flexGrow: 1,
-                        '--AspectRatio-maxHeight': '520px',
-                        '--AspectRatio-minHeight': '400px',
+                        width: '50%', // 데스크톱에서는 부모 요소의 50% 크기
                     },
-                    borderRadius: 'sm',
-                    bgcolor: 'background.level2',
-                    flexBasis: '50%',
                 })}
             >
                 <img
                     src={study}
-                    alt=""
+                    alt="English learning"
+                    style={{
+                        width: '100%', // 너비를 부모 요소에 맞추고
+                        height: 'auto', // 높이를 자동으로 설정하여 비율을 유지
+                    }}
                 />
-            </AspectRatio>
+            </Box>
         </Container>
     );
 }

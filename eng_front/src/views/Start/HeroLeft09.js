@@ -29,8 +29,7 @@ export default function HeroLeft09() {
             </Typography>
 
             <Typography fontSize="lg" textColor="text.secondary" lineHeight="lg">
-                A descriptive secondary text placeholder. Use it to explain your business
-                offer better.
+               항상 최고를 지향합니다.
             </Typography>
             <Button
                 size="lg"

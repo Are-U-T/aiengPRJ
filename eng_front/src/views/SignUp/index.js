@@ -138,16 +138,16 @@ export default function SignInSide() {
                                 <LockOutlinedIcon/>
                             </Avatar>
                             <Typography component="h1" variant="h5">
-                                Sign up
+                                회원가입
                             </Typography>
 
-                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 1}}>
-                                <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
-                                    <TextField // 이메일 입력
+                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <TextField
                                         margin="normal"
                                         required
                                         fullWidth={false}
-                                        style={{flex: 9}}
+                                        style={{ flex: 9 }}
                                         id="mail"
                                         label="Email Address"
                                         name="mail"
@@ -184,7 +184,7 @@ export default function SignInSide() {
                                         id="confirmBtn"
                                         name="confirmBtn"
                                     >
-                                        인증확인
+                                        인증 확인
                                     </Button>
                                 </div>
 
@@ -234,7 +234,7 @@ export default function SignInSide() {
                                         }
                                     }}
                                 >
-                                    Sign Up
+                                    회원가입
                                 </Button>
 
 
@@ -242,7 +242,7 @@ export default function SignInSide() {
                                     <Grid item xs/>
                                     <Grid item>
                                         <Link to="/login" variant="body2" style={{textDecoration: 'none'}}>
-                                            {"Already have an account? Sign in"}
+                                            {"이미 계정이 있나요? 로그인하러 가기"}
                                         </Link>
                                     </Grid>
                                 </Grid>

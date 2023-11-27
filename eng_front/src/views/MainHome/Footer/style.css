@@ -2,7 +2,6 @@
 .footer {
     font-size: 12px;
     line-height: 1.4;
-    color: #f8f9fa;
     padding: 20px 50px; /* 너무 큰 패딩을 줄임 */
     text-align: center; /* 텍스트 중앙 정렬 */
 }
