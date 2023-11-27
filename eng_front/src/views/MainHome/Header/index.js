@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import logo from './images/logo.png';
+import logoXlogo from './images/logoXlogo.png';
 import { Link } from 'react-router-dom';
 import './Style.css';
 import aip from './images/헤더사진.png';
@@ -104,20 +105,20 @@ function Header(){
 
             <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '10px'}}>
                 <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
-                <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>구현 과정</h5>
+                <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>Open AI 기술 사용</h5>
             </div>
 
             <div style={{ maxWidth: '1200px', margin: 'auto', padding: '0 40px' }}>
                 <div className="process-grid-container" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '20px' }}>
 
                     {/* 첫 번째 행 */}
-                    <div style={{ width: '600px', height: '150px', border: '2px solid #132650', borderRadius: '10px', boxShadow: '0 6px 10px rgba(0,0,0,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', backgroundColor: 'white' }}>
+                    <div style={{ alignContent:'center', width: '600px', height: '150px', border: '2px solid #132650', borderRadius: '10px', boxShadow: '0 6px 10px rgba(0,0,0,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', backgroundColor: 'white' }}>
                             <div>
-                                <p style={{ fontWeight: 'bold', color: '#4A90E2', marginBottom: '5px' }}>01</p>
-                                <h4 style={{ margin: '0', color: '#132650' }}>처음</h4>
-                                <p style={{ color: '#333' }}>으악 뭘로 해ㅋㅋㅋㅋㅋㅋㅋ</p>
+                                <h1 style={{ fontWeight: 'bold', color: '#4A90E2', marginBottom: '5px' }}>01</h1>
+                                <h5 style={{ margin: '0', color: '#132650' }}>사용자가 원하는<br/><b>상황</b>과 <b>역할</b> 선택</h5>
+                                {/*<p style={{ color: '#333' }}>으악 뭘로 해ㅋㅋㅋㅋㅋㅋㅋ</p>*/}
                             </div>
-                            <img src={logo} alt="Speech" style={{ width: '60px', height: '60px', objectFit: 'cover' }} />
+                            {/*<img src={logo} alt="Speech" style={{ width: '60px', height: '60px', objectFit: 'cover' }} />*/}
                         </div>
 
                     <div style={{ alignSelf: 'stretch', display: 'flex', alignItems: 'center' }}>
@@ -127,11 +128,11 @@ function Header(){
                     {/* 두 번째 행 */}
                     <div style={{ width: '600px', height: '150px', border: '2px solid #132650', borderRadius: '10px', boxShadow: '0 6px 10px rgba(0,0,0,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', backgroundColor: 'white' }}>
                         <div>
-                            <p style={{ fontWeight: 'bold', color: '#4A90E2', marginBottom: '5px' }}>02</p>
-                            <h4 style={{ margin: '0', color: '#132650' }}>뭐지</h4>
-                            <p style={{ color: '#333' }}>ㅋㅋㅋㅋㅋㅋㅋ</p>
+                            <h1 style={{ fontWeight: 'bold', color: '#4A90E2', marginBottom: '5px' }}>02</h1>
+                            <h5 style={{ margin: '0', color: '#132650' }}>웹 마이크로 <b>음성</b><br/><b>인식</b> 후 전달</h5>
+                            {/*<p style={{ color: '#333' }}>ㅋㅋㅋㅋㅋㅋㅋ</p>*/}
                         </div>
-                        <img src={logo} alt="Speech" style={{ width: '60px', height: '60px', objectFit: 'cover' }} />
+                        {/*<img src={logo} alt="Speech" style={{ width: '60px', height: '60px', objectFit: 'cover' }} />*/}
                     </div>
 
                     <div style={{ alignSelf: 'stretch', display: 'flex', alignItems: 'center' }}>
@@ -141,11 +142,11 @@ function Header(){
                     {/* 세 번째 행 */}
                     <div style={{ width: '600px', height: '150px', border: '2px solid #132650', borderRadius: '10px', boxShadow: '0 6px 10px rgba(0,0,0,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', backgroundColor: 'white' }}>
                         <div>
-                            <p style={{ fontWeight: 'bold', color: '#4A90E2', marginBottom: '5px' }}>03</p>
-                            <h4 style={{ margin: '0', color: '#132650' }}>대화</h4>
-                            <p style={{ color: '#333' }}>커뮤니케이션중~</p>
+                            <h1 style={{ fontWeight: 'bold', color: '#4A90E2', marginBottom: '5px' }}>03</h1>
+                            <h5 style={{ margin: '0', color: '#132650' }}><b>Open AI</b>를<br/>활용해 답변 생성</h5>
+                            {/*<p style={{ color: '#333' }}>커뮤니케이션중~</p>*/}
                         </div>
-                        <img src={logo} alt="Speech" style={{ width: '60px', height: '60px', objectFit: 'cover' }} />
+                        {/*<img src={logo} alt="Speech" style={{ width: '60px', height: '60px', objectFit: 'cover' }} />*/}
                     </div>
 
                     <div style={{ alignSelf: 'stretch', display: 'flex', alignItems: 'center' }}>
@@ -155,20 +156,19 @@ function Header(){
                     {/* 네 번째 행 */}
                     <div style={{ width: '600px', height: '150px', border: '2px solid #132650', borderRadius: '10px', boxShadow: '0 6px 10px rgba(0,0,0,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', backgroundColor: 'white' }}>
                             <div>
-                                <p style={{ fontWeight: 'bold', color: '#4A90E2', marginBottom: '5px' }}>04</p>
-                                <h4 style={{ margin: '0', color: '#132650' }}>결과</h4>
-                                <p style={{ color: '#333' }}>아에ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+                                <h1 style={{ fontWeight: 'bold', color: '#4A90E2', marginBottom: '5px' }}>04</h1>
+                                <h5 style={{ margin: '0', color: '#132650' }}><b>TTS</b> 로<br/>AI 선생님 듣기</h5>
+                                {/*<p style={{ color: '#333' }}>아에ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>*/}
                             </div>
-                            <img src={logo} alt="Speech" style={{ width: '60px', height: '60px', objectFit: 'cover' }} />
+                            {/*<img src={logo} alt="Speech" style={{ width: '60px', height: '60px', objectFit: 'cover' }} />*/}
                         </div>
                 </div>
             </div>
-
-
-
-
-
-
+            <div style={{display: 'flex', justifyContent: 'center', alignItems:'center' }}>
+                <img src={logoXlogo} alt="Logo" />
+                    <h5>인공지능을 개발하며 안전한 AGI 개발을 추구하는 미국의 비영리 단체이며,
+                    <br/>대형 언어 모델 (LLM)과 이를 기반으로 하는 ChatGPT 등의 소프트웨어를 제공</h5>
+            </div>
         </>
     )
 }
