@@ -1,0 +1,153 @@
+.masthead {
+    /*background: linear-gradient(to right, #3a7bd5, #3a6073);*/
+    background: linear-gradient(to right, #89C4F4, #1D2B64);
+    color: white;
+    text-align: center;
+    padding: 100px 0; /* 패딩 조정 */
+    height: 75vh; /* 높이 조정 */
+    margin-top: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    animation: fadeInBackground 2s ease-out;
+}
+
+
+.make{
+    animation: fadeInBackground 5s ease-out;
+}
+
+
+@keyframes fadeInText {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+@keyframes fadeInBackground {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.masthead-avatar:hover {
+    animation: pulse 1s ease infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.masthead-heading, .masthead-subheading {
+    animation: fadeInText 2s ease-out;
+    margin-top: 20px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.masthead-avatar {
+    margin-bottom: 30px; /* 이미지 마진 조정 */
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* 원형 이미지 */
+    /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); !* 부드러운 그림자 효과 *!*/
+    box-shadow: 0 0 10px #f8f9fa; /* 그림자 효과 */
+    transition: transform 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+.grid-container {
+    display: grid;
+    /* 기타 스타일 */
+}
+
+.masthead-avatar:hover {
+    transform: scale(1.1); /* 자연스러운 확대 비율 */
+}
+
+.masthead-heading {
+    margin-bottom: 25px;
+    font-size: 3em;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 약간의 텍스트 그림자 */
+}
+
+.masthead-subheading {
+    font-size: 1.5em;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    text-align: center;
+}
+
+.arrow {
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid #66a6ff;
+    transition: transform 0.3s ease; /* 전환 효과 */
+    position: relative; /* 상대 위치 설정 */
+    top: 100px; /* 화살표를 아래로 20px 이동 */
+}
+
+
+@keyframes floatArrow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+
+.arrow:hover {
+    transform: translateY(-10px); /* 호버 시 위로 약간 이동 */
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+
+/* 기본 그리드 설정 (데스크톱) */
+.process-grid-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 20px;
+    /* 기타 스타일 */
+}
+
+/* 태블릿 화면 */
+@media only screen and (max-width: 1024px) {
+    .process-grid-container {
+        grid-template-columns: repeat(4, 1fr); /* 4열 그리드 */
+    }
+}
+
+/* 중간 크기 태블릿 또는 큰 모바일 화면 */
+@media only screen and (max-width: 768px) {
+    .process-grid-container {
+        grid-template-columns: repeat(2, 1fr); /* 2열 그리드 */
+    }
+}
+
+/* 작은 모바일 화면 */
+@media only screen and (max-width: 480px) {
+    .process-grid-container {
+        grid-template-columns: 1fr; /* 1열 그리드 */
+    }
+}
+
+
+
+
