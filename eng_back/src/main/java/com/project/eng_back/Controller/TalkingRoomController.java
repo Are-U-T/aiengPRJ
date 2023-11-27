@@ -40,6 +40,13 @@ public class TalkingRoomController {
         String userRole = data.get("selectedMyrole");
         String country = data.get("selectedCountry");
 
+        System.out.println("---------------------------------------");
+        System.out.println(situation);
+        System.out.println(gptRole);
+        System.out.println(userRole);
+        System.out.println(country);
+        System.out.println("---------------------------------------");
+
         // 한국어에서 영어로 바꾸는 메서드
         questionRequestDto = translateToEnglish(situation,gptRole,userRole,country);
 

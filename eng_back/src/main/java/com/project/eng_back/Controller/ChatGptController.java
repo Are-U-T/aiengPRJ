@@ -72,6 +72,7 @@ public class ChatGptController {
             gptResponseDto = chatGptService.setSituation(initiationRequestDto);
             gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
         }
+
         byte[] audioBytes = quickstartSample.run(gptResponseChoice, initiationRequestDto.getCountry()).getBody();
         // Add log to check if the audio data is generated and returned correctly
         System.out.println("GPT audio file. Size: " + audioBytes.length + " bytes");
@@ -85,7 +86,7 @@ public class ChatGptController {
         questionRequestDto.setGPTRole(initiationRequestDto.getGPTRole());
         questionRequestDto.setUserRole(initiationRequestDto.getUserRole());
         questionRequestDto.setSituation(initiationRequestDto.getSituation());
-
+        questionRequestDto.setCountry(initiationRequestDto.getCountry());
         
         // gpt 한테 질문 3개 추천 받기
         String recommended = String.format(
