@@ -10,9 +10,11 @@ import LevelTest from "./views/LevelTest";
 import Speech from "./views/Speech";
 import Speaking from "./views/Speaking";
 import Keyword from "./views/Keyword";
+import './App.css'
 
 function App() {
   return (
+      <div className="App">
      <Routes>
          <Route path="/" element={<HeroLeft09/>}/>
          <Route path="/main" element={<MainHome/>}/>
@@ -25,6 +27,7 @@ function App() {
          <Route path="/keyword" element={<Keyword/>}/>
          <Route path="/speaking" element={<Speaking/>}/>
     </Routes>
+      </div>
   );
 }
 

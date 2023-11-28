@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: io.grpc:grpc-googleapis:1.58.0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="io.grpc" artifactId="grpc-googleapis" version="1.58.0" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.grpc/grpc-googleapis/1.58.0/2327b1875165d99a9b0fe2b52e257dfe0af29d6a/grpc-googleapis-1.58.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.grpc/grpc-googleapis/1.58.0/e7f5eff61880716ec8533507e70ffed2737cbaa/grpc-googleapis-1.58.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

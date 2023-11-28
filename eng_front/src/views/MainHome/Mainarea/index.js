@@ -17,7 +17,6 @@ import free from './images/무료.png';
 import design from './images/디자인.png';
 
 
-
 const item = {
   display: 'flex',
   flexDirection: 'column',
@@ -52,8 +51,6 @@ export default function Mainarea(){
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>학습 효과</h5>
           </div>
-
-
 
           <section className="page-section" id="portfolio" style={{ marginTop: '-120px',  cursor: 'default' }}>
             <div className="container">
