@@ -24,7 +24,7 @@ import {GoogleOAuthProvider} from '@react-oauth/google';
 import {GoogleLogin} from '@react-oauth/google';
 import {jwtDecode} from 'jwt-decode';
 import NaverLogin from 'react-naver-login';
-import kakao_login from './images/kakao_login.png'
+import KakaoLogin from "react-kakao-login";
 
 function ColorSchemeToggle(props) {
     const {mode, setMode} = useColorScheme();
@@ -71,75 +71,34 @@ function ColorSchemeToggle(props) {
 }
 
 export default function JoySignInSideTemplate() {
-    // 카카오 소셜로그인
-    const KAKAO_CLIENT_ID = "c6136e5566b6f7d31631644e45960620";
-    const KAKAO_REDIRECT_URI = "http://localhost/oauth/callback/kakao";
-    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
+    const kakaoClientId = '0e395d0577e5959b7a73d1ebdcbcf376'
+    const kakaoOnSuccess = async (data) => {
+        console.log(data)
+        try {
+            const response = await fetch('http://localhost/user/google-login', {
+                method: 'Put',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: data.profile.properties.nickname,
+                    email: data.profile.kakao_account.email,
+                }),
+            });
 
-    // window.Kakao.init(""); // JS 코드
-    //
-    // const kakaoLogin = () => {
-    //     window.Kakao.Auth.login({
-    //         scope: "profile_nickname, account_email",
-    //         success: function(authObj) {
-    //             console.log(authObj);
-    //             window.Kakao.API.request({
-    //                 url: '/v2/user/me', // 로그인한 사용자의 정보를 갖고옴
-    //                 success: res => {
-    //                     const kakao_account = res.kakao_account;
-    //                     console.log(kakao_account);
-    //                 }
-    //             }) // userInfo
-    //         }
-    //     })
-    // }
-
-    // const accessToken = response.data.access_token;
-
-    // access_token을 사용하여 백엔드로 사용자 정보를 전송합니다.
-    // const response = await axios.post(`http://localhost:3000/kakao-login`, {
-    //     access_token: accessToken,
-    //     name: response.data.user_name,
-    // });
-    //
-    // if (response.ok) {
-    //     console.log(response.data);
-    //     navigate("/loginSuccess");
-    // } else {
-    //     console.error("Failed to send user info to backend.");
-    // }
-    //
-    // const loginHandler = () => {
-    //     window.location.href = KAKAO_AUTH_URL;
-    // };
-
-    // 네이버 소셜로그인
-    // const NAVER_CLIENT_ID = "Z1aW6yz9f3F2pxa5d41X";
-    // const REDIRECT_URI = "http://localhost:3000/oauth/naver/callback";
-    // const STATE = "flase";
-    // const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${REDIRECT_URI}`;
-    // const NaverLogin = () => {
-    //     window.location.href = NAVER_AUTH_URL;
-    // };
-
-    const [access_token, setAccessToken] = useState();
-    const handleLogin = () => {
-        NaverLogin.login({
-            clientId: "Z1aW6yz9f3F2pxa5d41X",
-            callbackUrl: "http://localhost:3000/oauth/naver/callback",
-        });
-    };
-
-    const handleAccessToken = (result) => {
-        const {access_token} = result;
-        setAccessToken(access_token);
-        NaverLogin.getProfile({
-            access_token,
-        }).then((profile) => {
-            console.log(profile);
-        }).catch((error) => {
-            console.error(error);
-        });
+            if (response.ok) {
+                const data = await response.json();
+                console.log('User data from backend:', data);
+                navigate('/main');
+            } else {
+                console.error('Failed to log in with Google.');
+            }
+        } catch (error) {
+            console.error('Error during Google login:', error);
+        }
+    }
+    const kakaoOnFailure = (error) => {
+        console.log(error);
     };
 
     const navigate = useNavigate();
@@ -311,9 +270,11 @@ export default function JoySignInSideTemplate() {
                                             로그인
                                         </Button>
 
-                                        <a href={KAKAO_AUTH_URL} className="kakaobtn">
-                                            <img src={kakao_login} />
-                                        </a>
+                                        <KakaoLogin
+                                            token={kakaoClientId}
+                                            onSuccess={kakaoOnSuccess}
+                                            onFail={kakaoOnFailure}
+                                        />
 
                                         <GoogleOAuthProvider
                                             clientId="868155967382-ubbhk0fdkoq93q63btkkmeats8h5p7o2.apps.googleusercontent.com">
@@ -349,47 +310,47 @@ export default function JoySignInSideTemplate() {
                                             />
                                         </GoogleOAuthProvider>
 
-                                        <NaverLogin
-                                            clientId="Z1aW6yz9f3F2pxa5d41X"
-                                            callbackUrl="http://localhost:3000/oauth/naver/callback"
-                                            render={(props) => <div onClick={props.onClick}>Naver Login</div>}
-                                            onSuccess={async (result) => {
+                                        {/*<NaverLogin*/}
+                                        {/*    clientId="Z1aW6yz9f3F2pxa5d41X"*/}
+                                        {/*    callbackUrl="http://localhost:3000/oauth/naver/callback"*/}
+                                        {/*    render={(props) => <div onClick={props.onClick}>Naver Login</div>}*/}
+                                        {/*    onSuccess={async (result) => {*/}
 
-                                                const {access_token} = result;
-                                                console.log(result);
-                                                try {
-                                                    // 서버로 access token을 보내고 사용자 정보를 얻기 위한 HTTP 요청
-                                                    const response = await fetch('http://localhost/user/naver-login', {
-                                                        method: 'PUT',
-                                                        headers: {
-                                                            // 'Content-Type': 'application/json',
-                                                            'Authorization': 'Bearer ' + access_token,
-                                                        },
-                                                        body: JSON.stringify({
-                                                            access_token,
-                                                        }),
-                                                    });
+                                        {/*        const {access_token} = result;*/}
+                                        {/*        console.log(result);*/}
+                                        {/*        try {*/}
+                                        {/*            // 서버로 access token을 보내고 사용자 정보를 얻기 위한 HTTP 요청*/}
+                                        {/*            const response = await fetch('http://localhost/user/naver-login', {*/}
+                                        {/*                method: 'PUT',*/}
+                                        {/*                headers: {*/}
+                                        {/*                    // 'Content-Type': 'application/json',*/}
+                                        {/*                    'Authorization': 'Bearer ' + access_token,*/}
+                                        {/*                },*/}
+                                        {/*                body: JSON.stringify({*/}
+                                        {/*                    access_token,*/}
+                                        {/*                }),*/}
+                                        {/*            });*/}
 
-                                                    if (response.ok) {
-                                                        // 서버로부터 사용자 정보를 성공적으로 받아왔을 경우
-                                                        const data = await response.json();
-                                                        console.log('User data from backend:', data);
+                                        {/*            if (response.ok) {*/}
+                                        {/*                // 서버로부터 사용자 정보를 성공적으로 받아왔을 경우*/}
+                                        {/*                const data = await response.json();*/}
+                                        {/*                console.log('User data from backend:', data);*/}
 
-                                                        // 사용자 정보를 이용한 추가 작업 수행 가능
-                                                        // 예: 상태 업데이트, 리디렉션 등
-                                                        setAccessToken(access_token);
-                                                        navigate('/main');
-                                                    } else {
-                                                        // 서버 문제
-                                                        console.error('Failed to log in with Naver.');
-                                                    }
-                                                } catch (error) {
-                                                    // HTTP 요청 문제
-                                                    console.error('Error during Naver login:', error);
-                                                }
-                                            }}
-                                            onFailure={(result) => console.error(result)}
-                                        />
+                                        {/*                // 사용자 정보를 이용한 추가 작업 수행 가능*/}
+                                        {/*                // 예: 상태 업데이트, 리디렉션 등*/}
+                                        {/*                setAccessToken(access_token);*/}
+                                        {/*                navigate('/main');*/}
+                                        {/*            } else {*/}
+                                        {/*                // 서버 문제*/}
+                                        {/*                console.error('Failed to log in with Naver.');*/}
+                                        {/*            }*/}
+                                        {/*        } catch (error) {*/}
+                                        {/*            // HTTP 요청 문제*/}
+                                        {/*            console.error('Error during Naver login:', error);*/}
+                                        {/*        }*/}
+                                        {/*    }}*/}
+                                        {/*    onFailure={(result) => console.error(result)}*/}
+                                        {/*/>*/}
                                     </Stack>
                                 </form>
                             </Stack>
