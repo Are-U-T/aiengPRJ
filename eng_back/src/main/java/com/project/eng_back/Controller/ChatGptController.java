@@ -9,10 +9,7 @@ import com.project.eng_back.TTS.QuickstartSample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -20,6 +17,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -34,6 +32,10 @@ public class ChatGptController {
 
     private final Choice choice;
 
+    private boolean first = true;
+
+    private String recommended;
+
     // 대화 기록을 저장할 변수
     private StringBuilder conversationHistory = new StringBuilder();
 
@@ -42,6 +44,45 @@ public class ChatGptController {
         this.chatGptService = chatGptService;
         this.quickstartSample = quickstartSample;
         this.choice = choice;
+    }
+
+    @PostMapping("/recommend")
+    public List<Map<String, String>> getRecommendQuestion(@RequestBody Map<String, String> request) {
+        String crid = request.get("crid");
+        String speaker = request.get("speaker");
+        recommendQuestion(crid, speaker);
+        System.out.println("!!!!!!!!!!!!!!!!" + crid);
+        return chatGptService.getGptContentList2(crid, speaker);
+    }
+
+
+    public void recommendQuestion(String crid, String speaker) {
+
+        if (first) {
+            // gpt 한테 질문 1개 추천 받기
+            recommended = String.format(
+                    "You're my %s, and I'm your %s. " +
+                            "We're in a situation is '%s'. " +
+                            "Recommend one questions that fit the role and situation."
+                            + "And answer without the number.",
+                    questionRequestDto.getGPTRole(), questionRequestDto.getUserRole(), questionRequestDto.getSituation());
+            first = false;
+        } else {
+            // 이미 추천 받은 질문 제외하고 다른 질문 받기
+            recommended = String.format("You're my %s, and I'm your %s. " +
+                            "We're in a situation is '%s'. " +
+                            "Recommend one questions that are different from the previous questions."
+                            + "And answer without the number.",
+                    questionRequestDto.getGPTRole(), questionRequestDto.getUserRole(), questionRequestDto.getSituation());
+        }
+
+        questionRequestDto.setQuestion(recommended);
+        ChatGptResponseDto recommendedQuestion = chatGptService.recommendedQuestion(questionRequestDto);
+        Choice recommend = extractChoiceFromResponse(recommendedQuestion, recommended);
+        recommend.setCrid(crid);
+        recommend.setSpeaker(speaker);
+        chatGptService.saveToDatabase(recommend);
+        System.out.println("recommend.getText(): " + recommend.getText());
     }
 
     // 초기 대화 세팅
@@ -59,7 +100,7 @@ public class ChatGptController {
                         "We're in a situation is '%s'. " +
                         "And when answering, answer without your roles. " +
                         "You just have to play the role of the %s. " +
-                        "So, starting now, as your %s, ",
+                        "Let me ask a question first.",
                 gptRole, userRole, situation, gptRole, userRole);
 
 
@@ -80,26 +121,11 @@ public class ChatGptController {
         gptResponseChoice.setSpeaker("Teacher");
 
 //        quickstartSample.run(gptResponseChoice);
-//        chatGptService.saveToDatabase2(new QuestionRequestDto(initiationRequestDto.getCrid(), initialQuestion, initiationRequestDto.getGPTRole(), initiationRequestDto.getUserRole(), initiationRequestDto.getSituation()));
-        chatGptService.saveToDatabase(gptResponseChoice);
 
         questionRequestDto.setGPTRole(initiationRequestDto.getGPTRole());
         questionRequestDto.setUserRole(initiationRequestDto.getUserRole());
         questionRequestDto.setSituation(initiationRequestDto.getSituation());
         questionRequestDto.setCountry(initiationRequestDto.getCountry());
-        
-        // gpt 한테 질문 3개 추천 받기
-        String recommended = String.format(
-                        "You're my %s, and I'm your %s. " +
-                        "We're in a situation is '%s'. " +
-                        "Recommend three questions that fit the role and situation.",
-                gptRole, userRole, situation);
-
-        ChatGptResponseDto recommendedQuestion = chatGptService.recommendedQuestion(new QuestionRequestDto(recommended));
-        Choice recommend = extractChoiceFromResponse(recommendedQuestion, initialQuestion);
-        recommend.setCrid(initiationRequestDto.getCrid());
-        chatGptService.saveToDatabase3(recommend);
-        System.out.println("recommend.getText(): " + recommend.getText());
 
         return audioBytes;
     }
@@ -183,42 +209,42 @@ public class ChatGptController {
     }
 
     // 아래부터는 파이썬에 open ai 에 요청 보내는 코드들임 ,, 근데 실패함 ㅋ
-    private ChatGptResponseDto sendRoleAndSituationToChatGptPy(String userRole, String gptRole, String situation, StringBuilder conversationHistory) {
-        String chatGptPyUrl = "http://10.20.100.136:8889/update-model";
-        HttpClient httpClient = HttpClient.newHttpClient();
-
-        try {
-            // 데이터를 JSON 형식으로 변환
-            String jsonBody = buildJsonBody(userRole, gptRole, situation, conversationHistory);
-
-            // HTTP 요청 구성
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(chatGptPyUrl))
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
-                    .build();
-
-            // HTTP 요청 보내기
-            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-            // 응답을 ChatGptResponseDto 객체로 반환
-            Gson gson = new Gson();
-            return gson.fromJson(response.body(), ChatGptResponseDto.class);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            return null;  // 오류 발생 시 null 반환
-        }
-    }
-
-    // 데이터를 JSON 형식으로 변환하는 메서드
-    private String buildJsonBody(String userRole, String gptRole, String situation, StringBuilder conversationHistory) {
-        Map<String, String> data = new HashMap<>();
-        data.put("user_role", userRole);
-        data.put("gpt_role", gptRole);
-        data.put("situation", situation);
-        data.put("conversationHistory", conversationHistory.toString());
-
-        // JSON 문자열 생성
-        return new Gson().toJson(data);
-    }
+//    private ChatGptResponseDto sendRoleAndSituationToChatGptPy(String userRole, String gptRole, String situation, StringBuilder conversationHistory) {
+//        String chatGptPyUrl = "http://10.20.100.136:8889/update-model";
+//        HttpClient httpClient = HttpClient.newHttpClient();
+//
+//        try {
+//            // 데이터를 JSON 형식으로 변환
+//            String jsonBody = buildJsonBody(userRole, gptRole, situation, conversationHistory);
+//
+//            // HTTP 요청 구성
+//            HttpRequest request = HttpRequest.newBuilder()
+//                    .uri(URI.create(chatGptPyUrl))
+//                    .header("Content-Type", "application/json")
+//                    .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
+//                    .build();
+//
+//            // HTTP 요청 보내기
+//            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+//
+//            // 응답을 ChatGptResponseDto 객체로 반환
+//            Gson gson = new Gson();
+//            return gson.fromJson(response.body(), ChatGptResponseDto.class);
+//        } catch (IOException | InterruptedException e) {
+//            e.printStackTrace();
+//            return null;  // 오류 발생 시 null 반환
+//        }
+//    }
+//
+//    // 데이터를 JSON 형식으로 변환하는 메서드
+//    private String buildJsonBody(String userRole, String gptRole, String situation, StringBuilder conversationHistory) {
+//        Map<String, String> data = new HashMap<>();
+//        data.put("user_role", userRole);
+//        data.put("gpt_role", gptRole);
+//        data.put("situation", situation);
+//        data.put("conversationHistory", conversationHistory.toString());
+//
+//        // JSON 문자열 생성
+//        return new Gson().toJson(data);
+//    }
 }

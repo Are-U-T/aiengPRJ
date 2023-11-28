@@ -1,5 +1,6 @@
 package com.project.eng_back.Controller;
 
+import com.project.eng_back.Dto.Choice;
 import com.project.eng_back.Service.ChattingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,14 @@ public class ChattingController {
     @PostMapping("/content")
     public List<Map<String, String>> getContentList(@RequestBody Map<String, String> request) {
         String crid = request.get("crid");
-//        System.out.println("cird : " + crid);
         return chattingService.getGptContentList(crid);
+    }
+
+    @PostMapping("/grammar")
+    public List<Map<String, String>> getContentList2(@RequestBody Map<String, String> request) {
+        String crid = request.get("crid");
+        String speaker = request.get("speaker");
+//        System.out.println("speaker: " + speaker);
+        return chattingService.getGptContentList2(crid, speaker);
     }
 }

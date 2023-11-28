@@ -15,6 +15,9 @@ import org.springframework.web.client.RestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+import java.util.Map;
+
 
 @Service
 public class ChatGptService {
@@ -39,9 +42,12 @@ public class ChatGptService {
         chatGPTMapper.save2(question);
     }
 
+    public List<Map<String, String>> getGptContentList(String crid){ chatGPTMapper.getGptContentList(crid);
+        return chatGPTMapper.getGptContentList(crid);
+    }
 
-    public void saveToDatabase3(Choice choice) {
-        chatGPTMapper.save3(choice);
+    public List<Map<String, String>> getGptContentList2(String crid, String speaker){ chatGPTMapper.getGptContentList2(crid, speaker);
+        return chatGPTMapper.getGptContentList2(crid, speaker);
     }
 
     public HttpEntity<ChatGptRequestDto> buildHttpEntity(ChatGptRequestDto requestDto) {
@@ -133,7 +139,7 @@ public class ChatGptService {
 
 //        String prompt = "Remember our situation and your role and communicate naturally.";
 
-        // GPT에게 고려된 프롬프트로 요청 보내고 응답 받기
+        // GPT에게 고려된 fh 요청 보내고 응답 받기
         ChatGptRequestDto chatGptRequestDto = ChatGptRequestDto.builder()
                 .model(ChatGptConfig.MODEL)
                 .prompt(prompt)

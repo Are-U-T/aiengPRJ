@@ -101,6 +101,7 @@ public class TalkingRoomController {
                 }
             }
         } else if(situation.equals("일본 여행 2박 3일 일정 정하기")){
+            situation="Decide on a 3-day, 2-night trip to Japan";
             if(gptRole.equals("엄마")){
                 gptRole = "mom";
                 userRole = "daughter";
@@ -119,6 +120,7 @@ public class TalkingRoomController {
                 }
             }
         } else {
+            situation="Recommend favorite movies to each other";
             if(gptRole.equals("남자")){
                 gptRole = "man";
                 userRole = "woman";
