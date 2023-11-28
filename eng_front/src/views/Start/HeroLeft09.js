@@ -29,7 +29,8 @@ export default function HeroLeft09() {
             </Typography>
 
             <Typography fontSize="lg" textColor="text.secondary" lineHeight="lg">
-               항상 최고를 지향합니다.
+               항상 최고를 지향합니다.<br/>
+                최고를 위해 최선을 다합니다.
             </Typography>
             <Button
                 size="lg"
@@ -37,11 +38,11 @@ export default function HeroLeft09() {
                 sx={{ mt: 2, mb: 1 }}
                 onClick={handleButtonClick}
             >
-                Get Started
+                시작하기
             </Button>
             <Typography>
-                Already a member? <MuiLink component={RouterLink} to="/login" fontWeight="lg">
-                Sign in
+               회원인가요? <MuiLink component={RouterLink} to="/login" fontWeight="lg">
+                로그인 하러가기
             </MuiLink>
             </Typography>
 

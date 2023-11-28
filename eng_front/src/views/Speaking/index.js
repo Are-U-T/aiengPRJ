@@ -3,9 +3,12 @@ import './Speaking.css';
 import ai5 from './images/ai5.png';
 import Navigation from "../Navigation";
 import Modal from "./Modal";
+import ModalResult from "./ModalResult";
 import MicRecorder from "mic-recorder-to-mp3";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import mic from './images/mic.png';
+import micno from './images/micno.png';
 
 function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
     const [timeSpent, setTimeSpent] = useState(300);
@@ -15,10 +18,20 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
     const [isRecording, setIsRecording] = useState(false);
     const [recorder, setRecorder] = useState(new MicRecorder({ bitRate: 128 }));
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
+    const [isModal2Open, setIsModal2Open] = useState(false); // modal2 상태
+
 
     const [showSubtitles, setShowSubtitles] = useState(true);
 
     const navigate = useNavigate(); // useNavigate 훅 사용
+
+    const toggleRecording = () => {
+        if (isRecording) {
+            stopRecording();
+        } else {
+            startRecording();
+        }
+    };
 
 
 
@@ -26,12 +39,6 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
     const toggleSubtitles = () => {
         setShowSubtitles(!showSubtitles);
     };
-
-
-    // 사진과 자막 컨테이너의 동적 스타일을 위한 클래스
-    const imageContainerClass = showSubtitles ? "image-container" : "image-container expanded";
-    const subtitlesContainerClass = showSubtitles ? "subtitles-container" : "subtitles-container hidden";
-
 
     // 테스트용 자막 데이터
     const initialSubtitles = [
@@ -97,19 +104,22 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
 
     useEffect(() => {
         let timer;
-        if (timeSpent > 0) {
-            // 1초 간격으로 timeSpent 감소
+        if (isRecording && timeSpent > 0) {
+            // 녹음 중이고 시간이 남아 있을 때만 시간 감소
             timer = setInterval(() => {
                 setTimeSpent(time => time - 1);
             }, 1000);
-        } else if (timeSpent === 0) {
-            // 시간이 0초에 도달했을 때 호출
-            handleTimeLimitReached();
+        } else if (!isRecording || timeSpent === 0) {
+            // 녹음이 중지되거나 시간이 0에 도달했을 때 호출
+            clearInterval(timer);
+            if (timeSpent === 0) {
+                handleTimeLimitReached();
+            }
         }
 
-        // 컴포넌트가 언마운트 되거나 timeSpent가 변경될 때 타이머 정리
+        // 컴포넌트가 언마운트 되거나 isRecording, timeSpent가 변경될 때 타이머 정리
         return () => clearInterval(timer);
-    }, [timeSpent]);
+    }, [isRecording, timeSpent]);
 
     useEffect(() => {
         // 시간이 0초가 되면 모달창을 띄우는 로직
@@ -117,16 +127,6 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
             handleTimeLimitReached();
         }
     }, [timeSpent, isModalOpen]); // 의존성 배열에 isModalOpen을 추가
-
-
-
-
-
-    // const handleButtonClick = () => {
-    //     console.log(`Button clicked for item: ${selectedItem}, AI: ${selectedAirole} , ME : ${selectedMyrole}`);
-    //     setIsModalOpen(true); // 모달 열기
-    // };
-
 
 
 
@@ -170,8 +170,6 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
     }, [currentInput]);
 
 
-
-
     // 시간을 분과 초로 변환하는 함수
     const formatTime = (totalSeconds) => {
         const minutes = Math.floor(totalSeconds / 60);
@@ -179,45 +177,63 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
         return `${minutes}분 ${seconds}초`;
     };
 
+    // 자막 컨테이너 및 이미지 컨테이너의 클래스를 조건부로 설정
+    const imageContainerClass = showSubtitles ? "image-container" : "image-container expanded";
+    const subtitlesContainerClass = showSubtitles ? "subtitles-container" : "subtitles-container hidden";
+
     return (
         <>
             <Navigation/>
 
             <div className="speaking-container">
                 <div className={imageContainerClass}>
-                <div className="image-container">
                     <img src={ai5} alt="Speaking Example" />
                 </div>
-                </div>
 
-                <div className={subtitlesContainerClass}>
-                <div className="subtitles-container">
-                    <h3>실시간 자막</h3>
-                    <ul>
-                        {liveSubtitles.map((subtitle, index) => (
-                            <li key={index}>
-                                사용자: {subtitle.user}<br/>
-                                AI: {subtitle.ai}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                </div>
-                <div className="buttons-containerpp">
-                    <button onClick={startRecording} disabled={isRecording}>
-                        녹음 시작
-                    </button>
-                    <button onClick={stopRecording} disabled={!isRecording}>
-                        녹음 정지
+                {showSubtitles && (
+                    <>
+                        <div className={subtitlesContainerClass}>
+                            <h3>실시간 자막</h3>
+                            <ul>
+                                {liveSubtitles.map((subtitle, index) => (
+                                    <li key={index}>
+                                        사용자: {subtitle.user}<br/>
+                                        AI: {subtitle.ai}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <div className='mrt'>
+                            <div className="typo-correction-container">
+                                오타
+                            </div>
+                        </div>
+
+                        <div className="question-suggestion-container">
+                            질문 추천
+                        </div>
+                    </>
+                )}
+
+                <div className='mrts'>
+                    <div className={`buttons-containerpp ${!showSubtitles ? "buttons-hidden-subtitles" : ""}`}>
+                    <button onClick={toggleRecording}>
+                        <img src={isRecording ? mic : micno} alt={isRecording ? "중지" : "시작"}
+                             style={{ width: '50px', height: '50px' }}/>
                     </button>
                     <button onClick={toggleSubtitles}>
                         {showSubtitles ? "자막 숨기기" : "자막 보이기"}
                     </button>
-                </div>
-                <div className="time-spent">
-                    진행 시간: {formatTime(timeSpent)}
+                    <button onClick={() => setIsModal2Open(true)}>
+                        {formatTime(timeSpent)}
+                        <br/>
+                        대화 종료
+                    </button>
                 </div>
             </div>
+            </div>
+
 
 
 
@@ -238,6 +254,21 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
                 </Modal>
             )}
 
+
+            {isModal2Open && (
+                <ModalResult isOpen={isModal2Open} onClose={() => setIsModal2Open(false)}>
+                    {/* 모달창 내용 */}
+                    <h2 className="modal-title">대화 종료</h2>
+                    <div className="modal-body">
+                        <p>대화가 종료되었습니다.</p>
+                        {/* 추가 내용 */}
+                    </div>
+                    <button className="modal-button" onClick={() => {
+                        setIsModal2Open(false); // 모달 상태를 false로 설정하여 닫음
+                        navigate('/main'); // 메인 화면으로 이동
+                    }}>확인</button>
+                </ModalResult>
+            )}
         </>
     );
 }
