@@ -25,6 +25,7 @@ import {GoogleLogin} from '@react-oauth/google';
 import {jwtDecode} from 'jwt-decode';
 import NaverLogin from 'react-naver-login';
 import KakaoLogin from "react-kakao-login";
+import loginValidation from './Validation';
 
 function ColorSchemeToggle(props) {
     const {mode, setMode} = useColorScheme();
@@ -104,6 +105,9 @@ export default function JoySignInSideTemplate() {
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
+
+        loginValidation();
+
         event.preventDefault();
         const form = event.currentTarget;
         const data = {
@@ -251,11 +255,11 @@ export default function JoySignInSideTemplate() {
                                 <form onSubmit={handleSubmit}>
                                     <FormControl required>
                                         <FormLabel>이메일</FormLabel>
-                                        <Input type="email" name="email"/>
+                                        <Input type="email" id="email" name="email"/>
                                     </FormControl>
                                     <FormControl required>
                                         <FormLabel>비밀번호</FormLabel>
-                                        <Input type="password" name="password"/>
+                                        <Input type="password" id="password" name="password"/>
                                     </FormControl>
                                     <Stack gap={4} sx={{mt: -2}}>
                                         <Box

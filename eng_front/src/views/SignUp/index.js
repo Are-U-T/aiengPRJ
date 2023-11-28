@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-//import Link from '@mui/material/Link';
 import {Link} from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -20,7 +19,7 @@ import Radio from '@mui/material/Radio';
 import {useNavigate} from 'react-router-dom';
 import axios from "axios";
 import $ from "jquery";
-
+import userValidation from './Validation';
 
 const defaultTheme = createTheme();
 
@@ -28,6 +27,9 @@ export default function SignInSide() {
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
+
+        userValidation();
+
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const userData = {
@@ -61,6 +63,9 @@ export default function SignInSide() {
     const $ = require("jquery");
 
     async function sendNum() {
+
+        userValidation();
+
         const emailData = {
             email: $("#mail").val(),
         };
@@ -84,23 +89,30 @@ export default function SignInSide() {
 
     // 사용자가 입력한 인증번호와 서버에서 받은 인증번호를 비교
     function confirmNum() {
-        const num1 = $("#number").val();
-        // const num2 = $("#Confirm").val();
 
-        axios.post("http://localhost/confirm", {
-            num1: num1,
-            // num2: num2
-        })
-            .then((response) => {
-                if (response.data === "success") {
-                    alert("인증 성공");
-                } else {
-                    alert("인증 실패");
-                }
+        const number = document.querySelector("input[id=number]");
+
+        userValidation();
+
+        const num1 = $("#number").val();
+
+        if (num1) {
+            axios.post("http://localhost/confirm", {
+                num1: num1,
             })
-            .catch((error) => {
-                console.log(error);
-            });
+                .then((response) => {
+                    if (response.data === "success") {
+                        alert("인증 성공");
+                    } else {
+                        alert("인증 실패");
+                        number.focus();
+                        number.value = "";
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     }
 
 
@@ -141,7 +153,8 @@ export default function SignInSide() {
                                 Sign up
                             </Typography>
 
-                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 1}}>
+                            <Box component="form" noValidate onSubmit={handleSubmit}
+                                 sx={{mt: 1}}>
                                 <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
                                     <TextField // 이메일 입력
                                         margin="normal"
@@ -153,6 +166,7 @@ export default function SignInSide() {
                                         name="mail"
                                         autoComplete="mail"
                                         autoFocus
+                                        placeholder="이메일 입력"
                                     />
 
                                     <Button // 인증 버튼 (인증번호 메일 요청)
@@ -173,8 +187,9 @@ export default function SignInSide() {
                                         fullWidth={false}
                                         style={{flex: 8}}
                                         id="number"
-                                        label="인증번호 입력"
+                                        label="Key Number"
                                         name="number"
+                                        placeholder="인증번호 입력"
                                     />
 
                                     <Button // 인증확인 버튼 (인증번호 정확하게 입력했는지 확인)
@@ -197,6 +212,7 @@ export default function SignInSide() {
                                     type="password"
                                     id="password"
                                     autoComplete="current-password"
+                                    placeholder="영문 + 숫자 + 특수문자 조합으로 8~15글자"
                                 />
                                 <TextField
                                     margin="normal"
@@ -206,6 +222,7 @@ export default function SignInSide() {
                                     label="Name"
                                     name="name"
                                     autoComplete="name"
+                                    placeholder="이름 입력"
                                 />
 
                                 <FormControl component="fieldset" sx={{mt: 2, mb: 2}}>
