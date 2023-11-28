@@ -10,8 +10,7 @@ import LevelTest from "./views/LevelTest";
 import Speech from "./views/Speech";
 import Speaking from "./views/Speaking";
 import Keyword from "./views/Keyword";
-import LoginHandeler from "./views/SignUp/LoginHandeler";
-
+import Redirection from "./views/SignIn/Redirection";
 function App() {
   return (
      <Routes>
@@ -25,7 +24,7 @@ function App() {
          <Route path="/speech" element={<Speech/>}/>
          <Route path="/keyword" element={<Keyword/>}/>
          <Route path="/speaking" element={<Speaking/>}/>
-         <Route path="/oauth/callback/kakao" element={<LoginHandeler />}/>
+         <Route exact path='/kakao/callback' element={<Redirection />} />
     </Routes>
   );
 }

@@ -72,13 +72,50 @@ function ColorSchemeToggle(props) {
 
 export default function JoySignInSideTemplate() {
     // 카카오 소셜로그인
-    const KAKAO_CLIENT_ID = "";
-    const KAKAO_REDIRECT_URI = "";
+    const KAKAO_CLIENT_ID = "c6136e5566b6f7d31631644e45960620";
+    const KAKAO_REDIRECT_URI = "http://localhost/oauth/callback/kakao";
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
 
-    // 네이버 소셜로그인 //
-    // const NAVER_CLIENT_ID = "";
-    // const REDIRECT_URI = "";
+    // window.Kakao.init(""); // JS 코드
+    //
+    // const kakaoLogin = () => {
+    //     window.Kakao.Auth.login({
+    //         scope: "profile_nickname, account_email",
+    //         success: function(authObj) {
+    //             console.log(authObj);
+    //             window.Kakao.API.request({
+    //                 url: '/v2/user/me', // 로그인한 사용자의 정보를 갖고옴
+    //                 success: res => {
+    //                     const kakao_account = res.kakao_account;
+    //                     console.log(kakao_account);
+    //                 }
+    //             }) // userInfo
+    //         }
+    //     })
+    // }
+
+    // const accessToken = response.data.access_token;
+
+    // access_token을 사용하여 백엔드로 사용자 정보를 전송합니다.
+    // const response = await axios.post(`http://localhost:3000/kakao-login`, {
+    //     access_token: accessToken,
+    //     name: response.data.user_name,
+    // });
+    //
+    // if (response.ok) {
+    //     console.log(response.data);
+    //     navigate("/loginSuccess");
+    // } else {
+    //     console.error("Failed to send user info to backend.");
+    // }
+    //
+    // const loginHandler = () => {
+    //     window.location.href = KAKAO_AUTH_URL;
+    // };
+
+    // 네이버 소셜로그인
+    // const NAVER_CLIENT_ID = "Z1aW6yz9f3F2pxa5d41X";
+    // const REDIRECT_URI = "http://localhost:3000/oauth/naver/callback";
     // const STATE = "flase";
     // const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${REDIRECT_URI}`;
     // const NaverLogin = () => {
@@ -88,7 +125,7 @@ export default function JoySignInSideTemplate() {
     const [access_token, setAccessToken] = useState();
     const handleLogin = () => {
         NaverLogin.login({
-            clientId: "",
+            clientId: "Z1aW6yz9f3F2pxa5d41X",
             callbackUrl: "http://localhost:3000/oauth/naver/callback",
         });
     };
@@ -313,8 +350,8 @@ export default function JoySignInSideTemplate() {
                                         </GoogleOAuthProvider>
 
                                         <NaverLogin
-                                            clientId=""
-                                            callbackUrl=""
+                                            clientId="Z1aW6yz9f3F2pxa5d41X"
+                                            callbackUrl="http://localhost:3000/oauth/naver/callback"
                                             render={(props) => <div onClick={props.onClick}>Naver Login</div>}
                                             onSuccess={async (result) => {
 

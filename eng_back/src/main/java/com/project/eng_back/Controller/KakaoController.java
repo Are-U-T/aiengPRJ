@@ -1,10 +1,10 @@
 package com.project.eng_back.Controller;
 
+import com.project.eng_back.Dto.GoogleUserDTO;
 import com.project.eng_back.Service.KakaoAPI;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,9 +24,20 @@ public class KakaoController {
 
     KakaoAPI kakaoAPI = new KakaoAPI();
 
+    private UserController userController;
+
+    private GoogleUserDTO googleUserDTO = new GoogleUserDTO();
+
     @RequestMapping("/kakao")
     public ModelAndView login(@RequestParam("code") String code, HttpSession session) {
         ModelAndView mav = new ModelAndView();
+
+        GoogleUserDTO gDto = new GoogleUserDTO();
+//        gDto.setName();
+//        gDto.setEmail();
+
+//        userController.googleSave();
+
 
         logger.info("code: {}", code);
 

@@ -80,7 +80,7 @@ public class SendMailController {
 
     public String SendMail(String email) {
 
-        String number = createNumber();
+        number = createNumber();
 
         logger.info("service: {}", email);
 

@@ -63,7 +63,7 @@ public class UserController {
 
     @PutMapping("/google-login")
     public ResponseEntity<?> googleSave(@RequestBody GoogleUserDTO guDto, HttpSession session) {
-
+        System.out.println("test" + guDto);
         UserDTO foundUser = userMapper.findByEmail(guDto.getEmail());
 
         if (foundUser != null) {
