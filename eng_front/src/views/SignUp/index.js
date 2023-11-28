@@ -39,23 +39,33 @@ export default function SignInSide() {
             gender: data.get('gender'),
         };
 
-        try {
-            const response = await fetch('http://localhost/user/save', {
-                method: 'Put',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData),
-            });
+        const valid = await fetch('http://localhost/user/validate', {
+            method: 'post',
+            headers: {
+                'Content=Type': 'application/json',
+            },
+            body: JSON.stringify(userData)
+        })
 
-            if (response.ok) {
-                console.log('User registered successfully.');
-                navigate('/login');
-            } else {
-                console.error('Failed to register user.');
+        if (valid.status === 200) {
+            try {
+                const response = await fetch('http://localhost/user/save', {
+                    method: 'Put',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData),
+                });
+
+                if (response.ok) {
+                    console.log('User registered successfully.');
+                    navigate('/login');
+                } else {
+                    console.error('Failed to register user.');
+                }
+            } catch (error) {
+                console.error('Error during registration:', error);
             }
-        } catch (error) {
-            console.error('Error during registration:', error);
         }
     };
 
@@ -91,8 +101,6 @@ export default function SignInSide() {
     function confirmNum() {
 
         const number = document.querySelector("input[id=number]");
-
-        userValidation();
 
         const num1 = $("#number").val();
 

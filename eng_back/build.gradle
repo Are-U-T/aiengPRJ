@@ -52,16 +52,15 @@ dependencies {
 	// naver
 	implementation 'com.google.code.gson:gson:2.8.9'
 
+	// valid
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 	// Apache OpenNLP dependencies
 	implementation 'org.apache.opennlp:opennlp-tools:1.9.3'
 
 	implementation 'org.apache.commons:commons-text:1.10.0'
 	implementation 'org.apache.lucene:lucene-core:8.10.1' // 최신 버전으로 업데이트 가능
 	implementation 'org.apache.lucene:lucene-analyzers-common:8.10.1'
-
-	// JSONParser, JSONObject
-//	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
-//	implementation 'org.json:json:20230308'
 }
 
 tasks.named('bootBuildImage') {

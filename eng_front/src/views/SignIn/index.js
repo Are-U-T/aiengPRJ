@@ -38,7 +38,6 @@ function ColorSchemeToggle(props) {
     if (!mounted) {
         return <IconButton size="sm" variant="outlined" color="neutral" disabled/>;
     }
-
     return (
         <IconButton
 
@@ -181,8 +180,6 @@ export default function JoySignInSideTemplate() {
                             px: 2,
                         }}
                     >
-
-
                         <Box
                             component="header"
                             sx={{
@@ -253,11 +250,11 @@ export default function JoySignInSideTemplate() {
 
                             <Stack gap={4} sx={{mt: 2}}>
                                 <form onSubmit={handleSubmit}>
-                                    <FormControl required>
+                                    <FormControl>
                                         <FormLabel>이메일</FormLabel>
                                         <Input type="email" id="email" name="email"/>
                                     </FormControl>
-                                    <FormControl required>
+                                    <FormControl>
                                         <FormLabel>비밀번호</FormLabel>
                                         <Input type="password" id="password" name="password"/>
                                     </FormControl>
