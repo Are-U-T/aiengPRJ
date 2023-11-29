@@ -11,6 +11,8 @@ import Speech from "./views/Speech";
 import Speaking from "./views/Speaking";
 import Keyword from "./views/Keyword";
 import Mypage from "./views/MyPage";
+import EngExam from "./views/EngExam";
+import ResultPage from "./views/EngExam/ResultPage";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
          <Route path="/keyword" element={<Keyword/>}/>
          <Route path="/speaking" element={<Speaking/>}/>
          <Route path="/mypage" element={<Mypage/>}/>
+         <Route path="/engExam" element={<EngExam/>}/>
+         <Route path="/resultpage" element={<ResultPage/>}/>
     </Routes>
   );
 }
