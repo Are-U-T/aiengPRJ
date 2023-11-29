@@ -39,12 +39,14 @@ public class TalkingRoomController {
         String gptRole = data.get("selectedAirole");
         String userRole = data.get("selectedMyrole");
         String country = data.get("selectedCountry");
+//        String lv = (data.get("selectedLv"));
 
         System.out.println("---------------------------------------");
         System.out.println(situation);
         System.out.println(gptRole);
         System.out.println(userRole);
         System.out.println(country);
+//        System.out.println(lv);
         System.out.println("---------------------------------------");
 
         // 한국어에서 영어로 바꾸는 메서드
@@ -54,9 +56,10 @@ public class TalkingRoomController {
         System.out.println("crid: " + crid);
         String encodedCrid = Base64.getEncoder().encodeToString(crid.getBytes());
         System.out.println("encodedCrid: " + encodedCrid);
-        talkingRoomDto.setCrid(encodedCrid); // crid 설정
+        talkingRoomDto.setCrid(encodedCrid);
+//        talkingRoomDto.setLv(lv);
         logger.info("crid 값 {} ", talkingRoomDto.getCrid());
-        questionRequestDto.setCrid(encodedCrid); // crid 설정
+        questionRequestDto.setCrid(encodedCrid);
 
         initiationRequestDto.setCrid(encodedCrid);
         initiationRequestDto.setGPTRole(questionRequestDto.getGPTRole());

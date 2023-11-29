@@ -10,6 +10,7 @@ function Speech() {
     const [selectedItem, setSelectedItem] = useState(null);
     const [selectedAirole, setSelectedAirole] = useState(null);
     const [selectedMyrole, setSelectedMyrole] = useState(null);
+    const [selectedLv, setSelectedLv] = useState(null);
 
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 추가
 
@@ -21,6 +22,7 @@ function Speech() {
             selectedItem,
             selectedAirole,
             selectedMyrole,
+            selectedLv
         };
 
         console.log(`Button clicked for item: ${selectedItem}, AI: ${selectedAirole} , ME : ${selectedMyrole}`);

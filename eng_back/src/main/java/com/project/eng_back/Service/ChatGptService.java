@@ -15,6 +15,9 @@ import org.springframework.web.client.RestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+import java.util.Map;
+
 
 @Service
 public class ChatGptService {
@@ -39,6 +42,14 @@ public class ChatGptService {
         chatGPTMapper.save2(question);
     }
 
+    public List<Map<String, String>> getGptContentList(String crid){ chatGPTMapper.getGptContentList(crid);
+        return chatGPTMapper.getGptContentList(crid);
+    }
+
+    public List<Map<String, String>> getGptContentList2(String crid, String speaker){ chatGPTMapper.getGptContentList2(crid, speaker);
+        return chatGPTMapper.getGptContentList2(crid, speaker);
+    }
+
     public HttpEntity<ChatGptRequestDto> buildHttpEntity(ChatGptRequestDto requestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(ChatGptConfig.MEDIA_TYPE));
@@ -55,6 +66,7 @@ public class ChatGptService {
         return responseEntity.getBody();
     }
 
+    // 초기 상황 세팅
     public ChatGptResponseDto setSituation(QuestionRequestDto questionRequestDto) {
 
         String prompt = questionRequestDto.getQuestion();
@@ -74,6 +86,7 @@ public class ChatGptService {
         return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
     }
 
+    // 대화 진행
     public ChatGptResponseDto askQuestion(QuestionRequestDto questionRequestDto, StringBuilder conversationHistory) {
 
         String prompt = "My question is " + questionRequestDto.getQuestion() + "And when answering, answer without your roles. " +
@@ -92,8 +105,51 @@ public class ChatGptService {
                 .topP(ChatGptConfig.TOP_P)
                 .build();
 
-        logger.info("Sent prompt to GPT: {}", chatGptRequestDto.getPrompt());
+        logger.info("Sent prompt to GPT: {}, askQuestion", chatGptRequestDto.getPrompt());
 
         return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
     }
+
+    // gpt 한테 문법 체크 받기
+    public ChatGptResponseDto grading(String question) {
+
+        String prompt = "\n" +
+                "Please correct any grammar mistakes in the '"+question+"', " +
+                "or guess what I said if it is incorrect from our previous conversation."
+                +"There is no need to distinguish between lowercase and lowercase letters.";
+
+//        String prompt = "Remember our situation and your role and communicate naturally.";
+
+        // GPT에게 고려된 프롬프트로 요청 보내고 응답 받기
+        ChatGptRequestDto chatGptRequestDto = ChatGptRequestDto.builder()
+                .model(ChatGptConfig.MODEL)
+                .prompt(prompt)
+                .maxTokens(ChatGptConfig.MAX_TOKEN)
+                .temperature(ChatGptConfig.TEMPERATURE)
+                .topP(ChatGptConfig.TOP_P)
+                .build();
+        logger.info("Sent prompt to GPT, grading: {}", chatGptRequestDto.getPrompt());
+
+        return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
+    }
+
+    public ChatGptResponseDto recommendedQuestion(QuestionRequestDto questionRequestDto) {
+
+        String prompt = questionRequestDto.getQuestion();
+
+//        String prompt = "Remember our situation and your role and communicate naturally.";
+
+        // GPT에게 고려된 fh 요청 보내고 응답 받기
+        ChatGptRequestDto chatGptRequestDto = ChatGptRequestDto.builder()
+                .model(ChatGptConfig.MODEL)
+                .prompt(prompt)
+                .maxTokens(ChatGptConfig.MAX_TOKEN)
+                .temperature(ChatGptConfig.TEMPERATURE)
+                .topP(ChatGptConfig.TOP_P)
+                .build();
+        logger.info("Sent prompt to GPT, recommendedQuestion: {}", chatGptRequestDto.getPrompt());
+
+        return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
+    }
+
 }
