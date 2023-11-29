@@ -1,17 +1,18 @@
 import React from 'react';
-import Navigation from "../views/Navigation";
-import logo from './images/logo.png';
-import '../App.css'
+import Navigation from "../../views/Navigation";
+import '../../App.css';
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
-import syImage from "../views/MainHome/Images/sy.jpg";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import khImage from "../views/MainHome/Images/kh.jpg";
-import jhImage from "../views/MainHome/Images/jh.jpg";
-import cgImage from "../views/MainHome/Images/cg.jpg";
+import khImage from "./images/kh.jpg";
+import jhImage from "./images/jh.jpg";
+import syImage from "./images/sy.jpg";
+import cgImage from "./images/cg.jpg";
+
+
 
 const ProjectIntro = () => (
     <>
@@ -33,7 +34,6 @@ const ProjectIntro = () => (
 
             <div style={{marginTop : '-100px'}}></div>
             <div style={{ display: 'flex', alignItems: 'center', marginLeft: '150px', marginBottom : '10px'}}>
-                {/*<img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />*/}
                 <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650'}}>Team</h5>
             </div>
 

@@ -3,9 +3,9 @@ import  './style.css'
 import '../../../App.css'
 import {CardActionArea} from "@mui/material";
 import CardMedia from "@mui/material/CardMedia";
-import jhImage from '../Images/jh.jpg';
-import syImage from '../Images/sy.jpg';
-import cgImage from '../Images/cg.jpg';
+import jhImage from '../../Developer/images/jh.jpg';
+import syImage from '../../Developer/images/sy.jpg';
+import cgImage from '../../Developer/images/cg.jpg';
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 import aic from './images/AI대화.png';
 import eng from './images/영어학습.png';
 import success from './images/성공사례.png';
-import khImage from '../Images/kh.jpg';
+import khImage from '../../Developer/images/kh.jpg';
 import logo from './images/logo.png';
 
 

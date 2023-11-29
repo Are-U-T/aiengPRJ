@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import MainHome from "./views/MainHome";
 import SignIn from "./views/SignIn";
 import SignUp from "./views/SignUp";
-import Developer from "./Developer";
+import Developer from "./views/Developer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import HeroLeft09 from "./views/Start/HeroLeft09";
 import Change from "./views/InformationChange";
