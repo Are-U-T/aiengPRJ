@@ -24,7 +24,8 @@ import {GoogleOAuthProvider} from '@react-oauth/google';
 import {GoogleLogin} from '@react-oauth/google';
 import {jwtDecode} from 'jwt-decode';
 // import NaverLogin from 'react-naver-login';
-import kakao_login from './images/kakao_login.png'
+import KakaoLogin from "react-kakao-login";
+import loginValidation from './Validation';
 
 function ColorSchemeToggle(props) {
     const {mode, setMode} = useColorScheme();
@@ -37,7 +38,6 @@ function ColorSchemeToggle(props) {
     if (!mounted) {
         return <IconButton size="sm" variant="outlined" color="neutral" disabled/>;
     }
-
     return (
         <IconButton
 
@@ -71,43 +71,42 @@ function ColorSchemeToggle(props) {
 }
 
 export default function JoySignInSideTemplate() {
-    // 카카오 소셜로그인
-    const KAKAO_CLIENT_ID = "4f016154d948156bead456cbe08752ef";
-    const KAKAO_REDIRECT_URI = "http://localhost:3000/main";
-    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
+    const kakaoClientId = '0e395d0577e5959b7a73d1ebdcbcf376'
+    const kakaoOnSuccess = async (data) => {
+        console.log(data)
+        try {
+            const response = await fetch('http://localhost/user/google-login', {
+                method: 'Put',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: data.profile.properties.nickname,
+                    email: data.profile.kakao_account.email,
+                }),
+            });
 
-    // 네이버 소셜로그인 //
-    // const NAVER_CLIENT_ID = "";
-    // const REDIRECT_URI = "";
-    // const STATE = "flase";
-    // const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${REDIRECT_URI}`;
-    // const NaverLogin = () => {
-    //     window.location.href = NAVER_AUTH_URL;
-    // };
-
-    const [access_token, setAccessToken] = useState();
-    // const handleLogin = () => {
-    //     NaverLogin.login({
-    //         clientId: "",
-    //         callbackUrl: "http://localhost:3000/oauth/naver/callback",
-    //     });
-    // };
-
-    // const handleAccessToken = (result) => {
-    //     const {access_token} = result;
-    //     setAccessToken(access_token);
-    //     NaverLogin.getProfile({
-    //         access_token,
-    //     }).then((profile) => {
-    //         console.log(profile);
-    //     }).catch((error) => {
-    //         console.error(error);
-    //     });
-    // };
+            if (response.ok) {
+                const data = await response.json();
+                console.log('User data from backend:', data);
+                navigate('/main');
+            } else {
+                console.error('Failed to log in with Google.');
+            }
+        } catch (error) {
+            console.error('Error during Google login:', error);
+        }
+    }
+    const kakaoOnFailure = (error) => {
+        console.log(error);
+    };
 
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
+
+        loginValidation();
+
         event.preventDefault();
         const form = event.currentTarget;
         const data = {
@@ -181,8 +180,6 @@ export default function JoySignInSideTemplate() {
                             px: 2,
                         }}
                     >
-
-
                         <Box
                             component="header"
                             sx={{
@@ -192,24 +189,28 @@ export default function JoySignInSideTemplate() {
                                 justifyContent: 'space-between',
                             }}
                         >
-                            {/*<Box*/}
-                            {/*    sx={{*/}
-                            {/*        gap: 2,*/}
-                            {/*        display: 'flex',*/}
-                            {/*        alignItems: 'center',*/}
-                            {/*    }}*/}
-                            {/*>*/}
-                            {/*    <IconButton variant="soft" color="primary" size="sm" sx={{ backgroundColor: 'transparent',*/}
-                            {/*        width : '60px', height : '60px', transform: 'translateY(10px)' }}>*/}
-                            {/*        <img src={logo} alt="Logo" style={{ width: '100%', height: '100%',  marginLeft : '40px' }}  />*/}
-                            {/*    </IconButton>*/}
+                            <Box
+                                sx={{
+                                    gap: 2,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <IconButton variant="soft" color="primary" size="sm" sx={{
+                                    backgroundColor: 'transparent',
+                                    width: '60px', height: '60px', transform: 'translateY(10px)'
+                                }}>
+                                    <img src={logo} alt="Logo"
+                                         style={{width: '100%', height: '100%', marginLeft: '50px'}}/>
+                                </IconButton>
 
-                            {/*    <Typography level="title-lg" sx={{ whiteSpace: 'nowrap',fontSize: '25px',*/}
-                            {/*        transform: 'translateY(10px)'}} style={{marginLeft : '20px'}}>Are You T?</Typography>*/}
-                            {/*</Box>*/}
-                            <ColorSchemeToggle />
+                                <Typography level="title-lg" sx={{
+                                    whiteSpace: 'nowrap', fontSize: '25px',
+                                    transform: 'translateY(10px)'
+                                }} style={{marginLeft: '20px'}}>Are You T?</Typography>
+                            </Box>
+                            <ColorSchemeToggle/>
                         </Box>
-
                         <Box
                             component="main"
                             sx={{
@@ -249,13 +250,13 @@ export default function JoySignInSideTemplate() {
 
                             <Stack gap={4} sx={{mt: 2}}>
                                 <form onSubmit={handleSubmit}>
-                                    <FormControl required>
+                                    <FormControl>
                                         <FormLabel>이메일</FormLabel>
-                                        <Input type="email" name="email"/>
+                                        <Input type="email" id="email" name="email"/>
                                     </FormControl>
-                                    <FormControl required>
+                                    <FormControl>
                                         <FormLabel>비밀번호</FormLabel>
-                                        <Input type="password" name="password"/>
+                                        <Input type="password" id="password" name="password"/>
                                     </FormControl>
                                     <Stack gap={4} sx={{mt: -2}}>
                                         <Box
@@ -270,9 +271,11 @@ export default function JoySignInSideTemplate() {
                                             로그인
                                         </Button>
 
-                                        <a href={KAKAO_AUTH_URL} className="kakaobtn">
-                                            <img src={kakao_login} />
-                                        </a>
+                                        <KakaoLogin
+                                            token={kakaoClientId}
+                                            onSuccess={kakaoOnSuccess}
+                                            onFail={kakaoOnFailure}
+                                        />
 
                                         <GoogleOAuthProvider
                                             clientId="868155967382-ubbhk0fdkoq93q63btkkmeats8h5p7o2.apps.googleusercontent.com">
@@ -309,8 +312,8 @@ export default function JoySignInSideTemplate() {
                                         </GoogleOAuthProvider>
 
                                         {/*<NaverLogin*/}
-                                        {/*    clientId=""*/}
-                                        {/*    callbackUrl=""*/}
+                                        {/*    clientId="Z1aW6yz9f3F2pxa5d41X"*/}
+                                        {/*    callbackUrl="http://localhost:3000/oauth/naver/callback"*/}
                                         {/*    render={(props) => <div onClick={props.onClick}>Naver Login</div>}*/}
                                         {/*    onSuccess={async (result) => {*/}
 

@@ -39,25 +39,34 @@ public class TalkingRoomController {
         String gptRole = data.get("selectedAirole");
         String userRole = data.get("selectedMyrole");
         String country = data.get("selectedCountry");
-        String lv = data.get("selectedLv");
+//        String lv = (data.get("selectedLv"));
 
         System.out.println("---------------------------------------");
         System.out.println(situation);
         System.out.println(gptRole);
         System.out.println(userRole);
         System.out.println(country);
+//        System.out.println(lv);
         System.out.println("---------------------------------------");
 
         // 한국어에서 영어로 바꾸는 메서드
-        questionRequestDto = translateToEnglish(situation,gptRole,userRole,country, lv);
+        questionRequestDto = translateToEnglish(situation,gptRole,userRole,country);
 
         String crid = UUID.randomUUID().toString().replaceAll("-", "");
         System.out.println("crid: " + crid);
         String encodedCrid = Base64.getEncoder().encodeToString(crid.getBytes());
         System.out.println("encodedCrid: " + encodedCrid);
-        talkingRoomDto.setCrid(encodedCrid); // crid 설정
+        talkingRoomDto.setCrid(encodedCrid);
+//        talkingRoomDto.setLv(lv);
         logger.info("crid 값 {} ", talkingRoomDto.getCrid());
-        questionRequestDto.setCrid(encodedCrid); // crid 설정
+        questionRequestDto.setCrid(encodedCrid);
+
+        initiationRequestDto.setCrid(encodedCrid);
+        initiationRequestDto.setGPTRole(questionRequestDto.getGPTRole());
+        initiationRequestDto.setUserRole(questionRequestDto.getUserRole());
+        initiationRequestDto.setSituation(questionRequestDto.getSituation());
+        initiationRequestDto.setCountry(questionRequestDto.getCountry());
+        chatGptController.initiateConversation(initiationRequestDto);
 
         talkingRoomDto.setCrid(encodedCrid);
         talkingRoomDto.setGPTRole(questionRequestDto.getGPTRole());
@@ -66,21 +75,12 @@ public class TalkingRoomController {
         talkingRoomDto.setCountry(questionRequestDto.getCountry());
         talkingRoomService.insert(talkingRoomDto);
 
-        initiationRequestDto.setCrid(encodedCrid);
-        initiationRequestDto.setGPTRole(questionRequestDto.getGPTRole());
-        initiationRequestDto.setUserRole(questionRequestDto.getUserRole());
-        initiationRequestDto.setSituation(questionRequestDto.getSituation());
-        initiationRequestDto.setCountry(questionRequestDto.getCountry());
-        initiationRequestDto.setLv(questionRequestDto.getLv());
-        chatGptController.initiateConversation(initiationRequestDto);
-
         return encodedCrid;
     }
 
     // 있는 상황들에 대해서만 . . . 변역
-    public QuestionRequestDto translateToEnglish(String situation , String gptRole, String userRole, String country, String lv){
+    public QuestionRequestDto translateToEnglish(String situation , String gptRole, String userRole, String country){
         int voice;
-        String level = null;
 
         if(situation.equals("주말 데이트 계획 세우기"))
         {
@@ -144,21 +144,10 @@ public class TalkingRoomController {
 
         }
 
-        if(lv.equals("초보"))
-        {
-            level = "middle school";
-        } else if(lv.equals("중등"))
-        {
-            level = "high school";
-        } else {
-            level = "university";
-        }
-
         questionRequestDto.setSituation(situation);
         questionRequestDto.setGPTRole(gptRole);
         questionRequestDto.setUserRole(userRole);
         questionRequestDto.setCountry(voice);
-        questionRequestDto.setLv(level);
 
         return questionRequestDto;
     }

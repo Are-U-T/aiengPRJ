@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -62,8 +63,8 @@ public class UserController {
     }
 
     @PutMapping("/google-login")
-    public ResponseEntity<?> googleSave(@RequestBody GoogleUserDTO guDto, HttpSession session) {
-
+    public ResponseEntity<?> googleSave(@Valid @RequestBody GoogleUserDTO guDto, HttpSession session) {
+        System.out.println("test" + guDto);
         UserDTO foundUser = userMapper.findByEmail(guDto.getEmail());
 
         if (foundUser != null) {
