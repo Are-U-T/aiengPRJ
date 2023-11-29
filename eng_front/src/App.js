@@ -10,6 +10,7 @@ import LevelTest from "./views/LevelTest";
 import Speech from "./views/Speech";
 import Speaking from "./views/Speaking";
 import Keyword from "./views/Keyword";
+import Mypage from "./views/MyPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
          <Route path="/speech" element={<Speech/>}/>
          <Route path="/keyword" element={<Keyword/>}/>
          <Route path="/speaking" element={<Speaking/>}/>
+         <Route path="/mypage" element={<Mypage/>}/>
     </Routes>
   );
 }
