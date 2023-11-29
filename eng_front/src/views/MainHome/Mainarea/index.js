@@ -80,9 +80,9 @@ export default function Mainarea(){
                   </div>
                 </div>
                 {/* Portfolio Item 3 */}
-                <div className="col-md-6 col-lg-4 mb-5">
+                <div className="col-md-6 col-lg-4 mb-5" style={{marginTop : '2px'}}>
                   <div className="portfolio-item mx-auto" style={{ background: 'linear-gradient(90deg, #1D2B64, #3a6073)', borderRadius: '20px', overflow: 'hidden' }}>
-                    <img className="img-fluid" src={studyImg1} alt="..."/>
+                    <img className="img-fluid" src={studyImg1} alt="..." />
                     <p style={{ padding: '20px', color: '#fff', fontSize: '17px', fontWeight: 'bold', textAlign: 'center' }}>
                       T와 함께 회화 만렙 되기
                     </p>
