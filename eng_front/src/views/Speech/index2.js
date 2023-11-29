@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Navigation from "../Navigation";
 import Modal from "./Modal";
 import { useNavigate } from 'react-router-dom';
-import './Speach.css';
+import './Speech.css';
 import us from './images/us.png';
 import uk from './images/uk.png';
 import usno from './images/usno.jpg';

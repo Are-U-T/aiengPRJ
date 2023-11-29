@@ -13,6 +13,7 @@ import Keyword from "./views/Keyword";
 import Mypage from "./views/MyPage";
 import EngExam from "./views/EngExam";
 import ResultPage from "./views/EngExam/ResultPage";
+// import Developer from "./views//Developer";
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
          <Route path="/login" element={<SignIn/>}/>
          <Route path="/signup" element={<SignUp/>}/>
          <Route path="/introduction" element={<Introduction/>}/>
-         <Route path="/Change" element={<Change/>}/>
+         {/*<Route path="/change" element={<Developer/>}/>*/}
          <Route path="/leveltest" element={<LevelTest/>}/>
          <Route path="/speech" element={<Speech/>}/>
          <Route path="/keyword" element={<Keyword/>}/>
@@ -30,6 +31,7 @@ function App() {
          <Route path="/mypage" element={<Mypage/>}/>
          <Route path="/engExam" element={<EngExam/>}/>
          <Route path="/resultpage" element={<ResultPage/>}/>
+            {/*<Route path="/developer" element={<Developer/>}/>*/}
     </Routes>
   );
 }

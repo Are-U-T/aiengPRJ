@@ -9,6 +9,8 @@ import {useNavigate, useLocation} from "react-router-dom";
 import mic from './images/mic.png';
 import micno from './images/micno.png';
 import ModalResult from "./ModalResult";
+import subtitle from "./images/subtitle.png";
+import subtitleno from "./images/subtitleno.png";
 
 function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const [timeSpent, setTimeSpent] = useState(300); // 페이지에 머문 시간
@@ -268,17 +270,17 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
                 <div className='mrts'>
                     <div className={`buttons-containerpp ${!showSubtitles ? "buttons-hidden-subtitles" : ""}`}>
-                        <button onClick={toggleRecording}>
-                            <img src={isRecording ? mic : micno} alt={isRecording ? "중지" : "시작"}
-                                 style={{width: '50px', height: '50px'}}/>
+                        <button onClick={toggleRecording} className={isRecording ? "recording-active" : ""}>
+                            <img src={isRecording ? mic : micno} alt={isRecording ? "중지" : "시작"} style={{ width: '35px', height: '35px' }}/>
                         </button>
                         <button onClick={toggleSubtitles}>
-                            {showSubtitles ? "자막 숨기기" : "자막 보이기"}
+                            <img src={showSubtitles ? subtitle : subtitleno} alt={showSubtitles ? "자막 숨기기" : "자막 보이기"}
+                                 style={{ width: '35px', height: '35px' }}/>
                         </button>
                         <button onClick={() => setIsModal2Open(true)}>
                             {formatTime(timeSpent)}
                             <br/>
-                            대화 종료
+                            <div style={{color : 'blueviolet'}}>대화 종료</div>
                         </button>
                     </div>
                 </div>
@@ -298,8 +300,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                     <button className="modal-button" onClick={() => {
                         setIsModalOpen(false); // 모달 상태를 false로 설정하여 닫음
                         navigate('/main'); // 메인 화면으로 이동
-                    }}>확인
-                    </button>
+                    }}>확인</button>
                 </Modal>
             )}
 
@@ -315,8 +316,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                     <button className="modal-button" onClick={() => {
                         setIsModal2Open(false); // 모달 상태를 false로 설정하여 닫음
                         navigate('/main'); // 메인 화면으로 이동
-                    }}>확인
-                    </button>
+                    }}>확인</button>
                 </ModalResult>
             )}
         </>

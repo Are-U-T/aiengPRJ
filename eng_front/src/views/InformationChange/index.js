@@ -35,23 +35,26 @@ import FileUpload from './FileUpload';
 import CountrySelector from './CountrySelector';
 import EditorToolbar from './EditorToolbar';
 import Navigation from "../Navigation";
+import '../../App.css'
+import user from './images/user.png';
 
 export default function MyProfile() {
     return (
-        <>
+        <div className='App'>
         <Navigation/>
 
+            <div style={{marginTop : '30px'}}/>
             <Box sx={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '70vh' // 부모 컨테이너의 높이 설정
+                height: '100vh' // 부모 컨테이너의 높이 설정
             }}>
                 <Card >
                     <Box sx={{ mb: 1 }}>
-                        <Typography level="title-md">Personal info</Typography>
+                        <Typography level="title-md">개인정보 수정</Typography>
                         <Typography level="body-sm">
-                            Customize how your profile information will apper to the networks.
+                            본인의 정보를 수정하세요.
                         </Typography>
                     </Box>
                     <Divider />
@@ -67,8 +70,8 @@ export default function MyProfile() {
                                 sx={{ flex: 1, minWidth: 120, borderRadius: '100%' }}
                             >
                                 <img
-                                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
-                                    srcSet="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286&dpr=2 2x"
+                                    src={user}
+                                    srcSet={`${user} 1x`}
                                     loading="lazy"
                                     alt=""
                                 />
@@ -93,7 +96,7 @@ export default function MyProfile() {
                         </Stack>
                         <Stack spacing={2} sx={{ flexGrow: 1 }}>
                             <Stack spacing={1}>
-                                <FormLabel>Name</FormLabel>
+                                <FormLabel>이름</FormLabel>
                                 <FormControl
                                     sx={{
                                         display: {
@@ -109,11 +112,11 @@ export default function MyProfile() {
                             </Stack>
                             <Stack direction="row" spacing={2}>
                                 <FormControl>
-                                    <FormLabel>Role</FormLabel>
+                                    <FormLabel>직업</FormLabel>
                                     <Input size="sm" defaultValue="UI Developer" />
                                 </FormControl>
                                 <FormControl sx={{ flexGrow: 1 }}>
-                                    <FormLabel>Email</FormLabel>
+                                    <FormLabel>이메일</FormLabel>
                                     <Input
                                         size="sm"
                                         type="email"
@@ -167,7 +170,7 @@ export default function MyProfile() {
                                 </IconButton>
                             </Stack>
                             <Stack spacing={1} sx={{ flexGrow: 1 }}>
-                                <FormLabel>Name</FormLabel>
+                                <FormLabel>이름</FormLabel>
                                 <FormControl
                                     sx={{
                                         display: {
@@ -217,6 +220,6 @@ export default function MyProfile() {
                 </Card>
             </Box>
 
-           </>
+           </div>
     );
 }

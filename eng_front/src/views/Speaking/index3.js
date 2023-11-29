@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Speaking.css';
+import '../../App.css'
 import ai5 from './images/ai5.png';
 import Navigation from "../Navigation";
 import Modal from "./Modal";
@@ -9,21 +10,25 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import mic from './images/mic.png';
 import micno from './images/micno.png';
+import subtitle from  './images/subtitle.png';
+import subtitleno from  './images/subtitleno.png';
+
+
 
 function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
-    const [timeSpent, setTimeSpent] = useState(300);
+    const [timeSpent, setTimeSpent] = useState(180);
 
-    // const [liveSubtitles, setLiveSubtitles] = useState([]);  // 실시간 자막목록
+    // const [liveSubtitles, setLiveSubtitles] = useState([]);
     const [currentInput, setCurrentInput] = useState('');
     const [isRecording, setIsRecording] = useState(false);
     const [recorder, setRecorder] = useState(new MicRecorder({ bitRate: 128 }));
-    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
-    const [isModal2Open, setIsModal2Open] = useState(false); // modal2 상태
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModal2Open, setIsModal2Open] = useState(false);
 
 
     const [showSubtitles, setShowSubtitles] = useState(true);
 
-    const navigate = useNavigate(); // useNavigate 훅 사용
+    const navigate = useNavigate();
 
     const toggleRecording = () => {
         if (isRecording) {
@@ -35,19 +40,19 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
 
 
 
-    // 자막 토글 함수
+
     const toggleSubtitles = () => {
         setShowSubtitles(!showSubtitles);
     };
 
-    // 테스트용 자막 데이터
+
     const initialSubtitles = [
         { user: "사용자 대화 내용 1", ai: "AI 대답 1" },
         { user: "사용자 대화 내용 2", ai: "AI 대답 2" },
         // 추가적인 테스트 데이터...
     ];
 
-    // useState를 사용하여 초기 자막 상태 설정
+
     const [liveSubtitles, setLiveSubtitles] = useState(initialSubtitles);
 
 
@@ -174,18 +179,18 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
     const formatTime = (totalSeconds) => {
         const minutes = Math.floor(totalSeconds / 60);
         const seconds = totalSeconds % 60;
-        return `${minutes}분 ${seconds}초`;
+        return `${minutes} : ${seconds}`;
     };
 
     // 자막 컨테이너 및 이미지 컨테이너의 클래스를 조건부로 설정
-    const imageContainerClass = showSubtitles ? "image-container" : "image-container expanded";
+    const imageContainerClass = showSubtitles ? "image-container" : "image-container hidden";
     const subtitlesContainerClass = showSubtitles ? "subtitles-container" : "subtitles-container hidden";
 
     return (
         <>
             <Navigation/>
 
-            <div className="speaking-container">
+            <div className="speaking-container App">
                 <div className={imageContainerClass}>
                     <img src={ai5} alt="Speaking Example" />
                 </div>
@@ -218,20 +223,20 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
 
                 <div className='mrts'>
                     <div className={`buttons-containerpp ${!showSubtitles ? "buttons-hidden-subtitles" : ""}`}>
-                    <button onClick={toggleRecording}>
-                        <img src={isRecording ? mic : micno} alt={isRecording ? "중지" : "시작"}
-                             style={{ width: '50px', height: '50px' }}/>
-                    </button>
-                    <button onClick={toggleSubtitles}>
-                        {showSubtitles ? "자막 숨기기" : "자막 보이기"}
-                    </button>
-                    <button onClick={() => setIsModal2Open(true)}>
-                        {formatTime(timeSpent)}
-                        <br/>
-                        대화 종료
-                    </button>
+                        <button onClick={toggleRecording} className={isRecording ? "recording-active" : ""}>
+                            <img src={isRecording ? mic : micno} alt={isRecording ? "중지" : "시작"} style={{ width: '35px', height: '35px' }}/>
+                        </button>
+                        <button onClick={toggleSubtitles}>
+                            <img src={showSubtitles ? subtitle : subtitleno} alt={showSubtitles ? "자막 숨기기" : "자막 보이기"}
+                                 style={{ width: '35px', height: '35px' }}/>
+                        </button>
+                        <button onClick={() => setIsModal2Open(true)}>
+                            {formatTime(timeSpent)}
+                            <br/>
+                            <div style={{color : 'blueviolet'}}>대화 종료</div>
+                        </button>
+                    </div>
                 </div>
-            </div>
             </div>
 
 

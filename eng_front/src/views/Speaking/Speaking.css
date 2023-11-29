@@ -11,13 +11,10 @@
 }
 
 .image-container {
+    margin-top: -5px;
     padding-left: 70px;
 }
 
-.image-container.centered {
-    margin: auto;
-
-}
 
 .image-container img {
     width: 90%; /* 이미지 자체는 컨테이너의 너비에 맞춤 */
@@ -25,9 +22,17 @@
     object-fit: contain; /* 이미지가 컨테이너에 맞춰 조정됨 */
 }
 
-.image-container.expanded {
-    margin: auto; /* 가운데 정렬을 위한 자동 마진 */
+.image-container.hidden {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.image-container.hidden img {
+    width: 90%; /* 원래의 너비를 유지 */
+}
+
+
 
 .subtitles-container {
     /*background: #f0f0f0; !* 밝은 회색 배경 *!*/
@@ -40,7 +45,7 @@
     overflow-y: auto;
     border: 2px;
     transition: all 0.3s ease-in-out;
-    height: 600px;
+    height: 700px;
 }
 
 .subtitles-container h3 {
@@ -97,7 +102,6 @@
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif;
     color: #333333;
     transition: all 0.3s ease;
 }
@@ -105,16 +109,15 @@
 /* 오타 수정 공간 스타일링 */
 .typo-correction-container {
     padding: 25px;
-    margin-top: 70px;
+    margin-top: 50px;
     border: 2px;
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif;
     color: #333333;
     transition: all 0.3s ease;
     width: 450px;
-    margin-left: 60px;
+    margin-left: 75px;
 
 }
 
@@ -124,38 +127,78 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 50px;
     margin-top: 30px;
     margin-left: 20px;
 }
 
 /* 버튼 스타일링 */
 .buttons-containerpp button {
-    padding: 15px 30px;
-    background-color: white;
+    padding: 15px 15px;
+    background-color: transparent;
     color: darkblue;
     /*border: 2px solid transparent;*/
-    border-radius: 25px; /* 둥근 모서리 */
+    /*border-radius: 80%; !* 둥근 모서리 *!*/
+    border-radius: 100%;
     cursor: pointer;
     border: none;
     font-size: 1rem;
     font-weight: bold;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 부드러운 그림자 */
-    width: 150px;
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); !* 부드러운 그림자 *!*/
+    /*width: 150px;*/
 }
 
-.buttons-containerpp button:hover,
-.buttons-containerpp button:focus {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    transform: translateY(-10px);
-    border-color: #ffffff;
+.buttons-containerpp button:hover {
+    background-color: transparent;
+    border: none;
+    transition: transform 0.3s ease;
+    position: relative;
 }
 
-.buttons-containerpp button:active {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transform: translateY(0);
+
+
+
+.recording-active {
+    background-color: transparent;
+    border: none;
+    transition: transform 0.3s ease;
+    animation: flame-effect 1s ease-in-out infinite, float 2s ease-in-out infinite;
+    position: relative;
 }
+
+@keyframes flame-effect {
+    0%, 100% {
+        box-shadow: 0 0 60px deepskyblue, 0 0 30px dodgerblue, 0 0 15px royalblue;
+    }
+    25% {
+        box-shadow: 0 0 70px royalblue, 0 0 35px dodgerblue, 0 0 20px deepskyblue;
+    }
+    50% {
+        box-shadow: 0 0 60px dodgerblue, 0 0 30px deepskyblue, 0 0 15px royalblue;
+    }
+    75% {
+        box-shadow: 0 0 70px deepskyblue, 0 0 35px royalblue, 0 0 20px dodgerblue;
+    }
+}
+
+
+
+@keyframes blink {
+    0%, 100% {
+        color: black;
+    }
+    50% {
+        color: transparent;
+    }
+}
+
+.recording-active span {
+    animation: blink 0.5s linear infinite;
+}
+
+
+
 
 
 
@@ -184,5 +227,11 @@
 
 
 .buttons-hidden-subtitles {
-    margin-top: 350px; /* 예시: 상단 마진 증가 */
+    /*display: flex;           !* Flexbox 레이아웃 적용 *!*/
+    /*justify-content: center; !* 가로축 중앙 정렬 *!*/
+    margin-top: 650px;       /* 상단 여백 조정 */
+    /*padding-right: 500px;*/
+    /*width: 1000px; !* 버튼의 너비를 자동으로 설정 *!*/
+
+
 }
