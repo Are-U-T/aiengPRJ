@@ -25,6 +25,8 @@ public class QuestionRequestDto implements Serializable {
 
     private String situation;
 
+    private String Country;
+
     public QuestionRequestDto() {
     }
 
@@ -62,4 +64,8 @@ public class QuestionRequestDto implements Serializable {
     }
 
     public void setCrid(String crid){ this.crid = crid; }
+
+    public void setCountry(String country) {
+        Country = country;
+    }
 }

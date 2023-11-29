@@ -38,6 +38,17 @@ public class TalkingRoomController {
         String situation = data.get("selectedItem");
         String gptRole = data.get("selectedAirole");
         String userRole = data.get("selectedMyrole");
+        String country = data.get("selectedCountry");
+
+        System.out.println("---------------------------------------");
+        System.out.println(situation);
+        System.out.println(gptRole);
+        System.out.println(userRole);
+        System.out.println(country);
+        System.out.println("---------------------------------------");
+
+        // 한국어에서 영어로 바꾸는 메서드
+        questionRequestDto = translateToEnglish(situation,gptRole,userRole,country);
 
         String crid = UUID.randomUUID().toString().replaceAll("-", "");
         System.out.println("crid: " + crid);
@@ -47,25 +58,94 @@ public class TalkingRoomController {
         logger.info("crid 값 {} ", talkingRoomDto.getCrid());
         questionRequestDto.setCrid(encodedCrid); // crid 설정
 
-        logger.info("***** TalkingRoomController *****");
-        logger.info("crid: {}", crid);
-        logger.info("gptRole: {}", gptRole);
-        logger.info("userRole: {}", userRole);
-        logger.info("situation: {}", situation);
-        logger.info("***** TalkingRoomController *****");
-
         initiationRequestDto.setCrid(encodedCrid);
-        initiationRequestDto.setGPTRole(gptRole);
-        initiationRequestDto.setUserRole(userRole);
-        initiationRequestDto.setSituation(situation);
-//        chatGptController.initiateConversation(initiationRequestDto);
+        initiationRequestDto.setGPTRole(questionRequestDto.getGPTRole());
+        initiationRequestDto.setUserRole(questionRequestDto.getUserRole());
+        initiationRequestDto.setSituation(questionRequestDto.getSituation());
+        initiationRequestDto.setCountry(questionRequestDto.getCountry());
+        chatGptController.initiateConversation(initiationRequestDto);
 
         talkingRoomDto.setCrid(encodedCrid);
-        talkingRoomDto.setGPTRole(gptRole);
-        talkingRoomDto.setUserRole(userRole);
-        talkingRoomDto.setSituation(situation);
+        talkingRoomDto.setGPTRole(questionRequestDto.getGPTRole());
+        talkingRoomDto.setUserRole(questionRequestDto.getUserRole());
+        talkingRoomDto.setSituation(questionRequestDto.getSituation());
+        talkingRoomDto.setCountry(questionRequestDto.getCountry());
         talkingRoomService.insert(talkingRoomDto);
 
         return encodedCrid;
+    }
+
+    // 있는 상황들에 대해서만 . . . 변역
+    public QuestionRequestDto translateToEnglish(String situation , String gptRole, String userRole, String country){
+        int voice;
+
+        if(situation.equals("주말 데이트 계획 세우기"))
+        {
+            situation = "Plan a weekend date";
+            if(gptRole.equals("여자친구")){
+                gptRole = "girfriend";
+                userRole = "boyfriend";
+                if(country.equals("영국")){
+                    voice = 4;
+                } else {
+                    voice = 8;
+                }
+
+            } else{
+                gptRole = "boyfriend";
+                userRole = "girfriend";
+                if(country.equals("영국")){
+                    voice = 3;
+                } else {
+                    voice = 7;
+                }
+            }
+        } else if(situation.equals("일본 여행 2박 3일 일정 정하기")){
+            situation="Decide on a 3-day, 2-night trip to Japan";
+            if(gptRole.equals("엄마")){
+                gptRole = "mom";
+                userRole = "daughter";
+                if(country.equals("영국")){
+                    voice = 2;
+                } else {
+                    voice = 6;
+                }
+            } else{
+                gptRole = "daughter";
+                userRole = "mom";
+                if(country.equals("영국")){
+                    voice = 4;
+                } else {
+                    voice = 8;
+                }
+            }
+        } else {
+            situation="Recommend favorite movies to each other";
+            if(gptRole.equals("남자")){
+                gptRole = "man";
+                userRole = "woman";
+                if(country.equals("영국")){
+                    voice = 1;
+                } else {
+                    voice = 5;
+                }
+            } else{
+                gptRole = "woman";
+                userRole = "man";
+                if(country.equals("영국")){
+                    voice = 2;
+                } else {
+                    voice = 5;
+                }
+            }
+
+        }
+
+        questionRequestDto.setSituation(situation);
+        questionRequestDto.setGPTRole(gptRole);
+        questionRequestDto.setUserRole(userRole);
+        questionRequestDto.setCountry(voice);
+
+        return questionRequestDto;
     }
 }
