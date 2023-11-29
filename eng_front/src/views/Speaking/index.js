@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Speaking.css';
+import '../../App.css'
 import ai5 from './images/ai5.png';
 import Navigation from "../Navigation";
 import Modal from "./Modal";
@@ -189,7 +190,7 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
         <>
             <Navigation/>
 
-            <div className="speaking-container">
+            <div className="speaking-container App">
                 <div className={imageContainerClass}>
                     <img src={ai5} alt="Speaking Example" />
                 </div>

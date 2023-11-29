@@ -4,13 +4,14 @@ import logoXlogo from './images/logoXlogo.png';
 import { Link } from 'react-router-dom';
 import './Style.css';
 import aip from './images/헤더사진.png';
+import '../../../App.css'
 
 function Header(){
     const [isModalOpen, setModalOpen] = useState(false);
     return (
         <>
 
-            <div>
+            <div className='App'>
                 <header className="masthead">
                     <div className="container d-flex align-items-center flex-column">
                         <img className="masthead-avatar mb-3" src={logo} alt="..." style={{ maxWidth: '120px' }}/>

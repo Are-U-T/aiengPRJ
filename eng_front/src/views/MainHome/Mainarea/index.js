@@ -15,6 +15,7 @@ import freedom from './images/자유.png';
 import study from './images/학습.png';
 import free from './images/무료.png';
 import design from './images/디자인.png';
+import '../../../App.css'
 
 
 const item = {
@@ -43,7 +44,7 @@ export default function Mainarea(){
 
     return (
         <>
-        <div>
+        <div className='App'>
 
           <div style={{marginTop : '150px'}}/>
 

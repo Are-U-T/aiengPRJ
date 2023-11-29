@@ -35,10 +35,11 @@ import FileUpload from './FileUpload';
 import CountrySelector from './CountrySelector';
 import EditorToolbar from './EditorToolbar';
 import Navigation from "../Navigation";
+import '../../App.css'
 
 export default function MyProfile() {
     return (
-        <>
+        <div className='App'>
         <Navigation/>
 
             <Box sx={{
@@ -217,6 +218,6 @@ export default function MyProfile() {
                 </Card>
             </Box>
 
-           </>
+           </div>
     );
 }
