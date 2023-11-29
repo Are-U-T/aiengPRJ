@@ -47,7 +47,7 @@ const Navigation = () => {
                     <Nav.Link href="/main" className="custom-nav-link" >Home</Nav.Link>
                     <Nav.Link href="/leveltest" className="custom-nav-link">Level Test</Nav.Link>
                     <Nav.Link href="/speech" className="custom-nav-link">Speech</Nav.Link>
-                    <Nav.Link href="/change" className="custom-nav-link">Developer</Nav.Link>
+                    <Nav.Link href="/developer" className="custom-nav-link">Developer</Nav.Link>
                 </Nav>
 
                     <Nav>
@@ -61,7 +61,7 @@ const Navigation = () => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item href="/profile-edit">개인정보 수정</Dropdown.Item>
+                                <Dropdown.Item href="/change">개인정보 수정</Dropdown.Item>
                                 <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>

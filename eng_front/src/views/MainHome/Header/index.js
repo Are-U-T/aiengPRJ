@@ -27,25 +27,16 @@ function Header(){
             </div>
 
 
-            <div className="d-flex justify-content-center align-items-center make" style={{ marginTop: '200px', color: '#132650' }}>
-                <div style={{ marginRight: '100px', marginBottom: '200px' }}>
-                    <h2 style={{ fontWeight: 'bold' }}>실제 사람과 대화하듯</h2>
-                    <h3 style={{ fontWeight: 'bold' }}>대화해보세요!</h3>
+            {/*<div className="d-flex justify-content-center align-items-center make" style={{ marginTop: '200px', color: '#132650' }}>*/}
+            {/*    <div style={{ marginRight: '100px', marginBottom: '200px' }}>*/}
+            {/*        <h2 style={{ fontWeight: 'bold' }}>실제 사람과 대화하듯</h2>*/}
+            {/*        <h3 style={{ fontWeight: 'bold' }}>대화해보세요!</h3>*/}
 
-                </div>
-                <img src={aip} alt="Description" style={{ width: '500px', height: 'auto' }} />
-            </div>
+            {/*    </div>*/}
+            {/*    <img src={aip} alt="Description" style={{ width: '500px', height: 'auto' }} />*/}
+            {/*</div>*/}
 
-
-
-
-
-
-
-            <div style={{marginTop : '150px'}}/>
-
-
-
+            <div style={{marginTop : '100px'}}/>
 
             {/*<div style={{ background : 'linear-gradient(to right, #89C4F4, #1D2B64)'}}>*/}
             <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '10px'}}>

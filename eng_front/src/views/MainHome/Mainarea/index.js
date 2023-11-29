@@ -61,7 +61,7 @@ export default function Mainarea(){
                   <div className="portfolio-item mx-auto" style={{ background: 'linear-gradient(135deg, #6e8efb, #a777e3)', borderRadius: '20px', overflow: 'hidden' }}>
                     <img className="img-fluid" src={aic} alt="..."/>
                     <p style={{ padding: '20px', color: '#fff', fontSize: '16px', fontWeight: 'bold', textAlign: 'center' }}>
-                      진짜 사람같은 AI와 자유롭게 대화해보세요!ㅋㅋㅋㅋㅋㅋㅋ
+                      진짜 사람같은 AI와 자유롭게<br/> 대화할 수 있습니다.
                     </p>
                   </div>
                 </div>
@@ -70,7 +70,7 @@ export default function Mainarea(){
                   <div className="portfolio-item mx-auto" style={{ background: 'linear-gradient(135deg, #fc4a1a, #f7b733)', borderRadius: '20px', overflow: 'hidden' }}>
                     <img className="img-fluid" src={eng} alt="..." />
                     <p style={{ padding: '20px', color: '#fff', fontSize: '16px', fontWeight: 'bold', textAlign: 'center' }}>
-                      언제 어디서든 시간과 장소를 구애 받지 않고, 편하게 이용할 수 있습니다.
+                      언제 어디서든 시간과 장소를 구애 받지 않고,<br/> 편하게 이용할 수 있습니다.
                     </p>
                   </div>
                 </div>
@@ -79,7 +79,7 @@ export default function Mainarea(){
                   <div className="portfolio-item mx-auto" style={{ background: 'linear-gradient(135deg, #ee0979, #ff6a00)', borderRadius: '20px', overflow: 'hidden' }}>
                     <img className="img-fluid" src={success} alt="..."/>
                     <p style={{ padding: '20px', color: '#fff', fontSize: '16px', fontWeight: 'bold', textAlign: 'center' }}>
-                      T와 함께하며 영어분야에서 성공하세요!ㅋㅋㅋㅋㅋ
+                      T와 함께하여 영어 분야에서<br/> 성공할 수 있습니다.
                     </p>
                   </div>
                 </div>
@@ -167,14 +167,11 @@ export default function Mainarea(){
             </Container>
           </Box>
 
-
-
-
-
           <div style={{ display: 'flex', alignItems: 'center', marginLeft: '180px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>사용하는 이유</h5>
           </div>
+          <div style={{marginTop : '-30px'}}></div>
           <Container
               sx={{
                 mt: { xs: 5, md: 10 },
