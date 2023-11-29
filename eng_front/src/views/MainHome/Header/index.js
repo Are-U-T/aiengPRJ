@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import './Style.css';
 import aip from './images/헤더사진.png';
 import '../../../App.css'
+import smile from './images/smile.png';
+import Typography from "@mui/joy/Typography";
 
 function Header(){
     const [isModalOpen, setModalOpen] = useState(false);
@@ -15,7 +17,7 @@ function Header(){
                 <header className="masthead">
                     <div className="container d-flex align-items-center flex-column">
                         <img className="masthead-avatar mb-3" src={logo} alt="..." style={{ maxWidth: '120px' }}/>
-                        <h1 className="masthead-heading mb-2">Are You T?</h1>
+                        <h1 className="masthead-heading mb-2">Are You Teacher?</h1>
                         <p className="masthead-subheading mb-2" style={{fontWeight: 'bold'}}>
                             AI와 함께하는 영어 학습 여정
                         </p>
@@ -45,8 +47,20 @@ function Header(){
             </div>
 
 
+
             <div className="grid-container" style={{ maxWidth: '1200px', margin: 'auto', padding: '0 40px'}}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', padding: '20px', gap: '100px' }}>
+
+
+                    <div style = {{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '30vh', flexDirection : 'column'}}>
+
+                        <Typography level="h1" fontWeight="xl" fontSize="clamp(1rem, 0.9rem + 0.8vw, 2rem)" className="rainbow-text"
+                        >
+                            간단한 레벨테스트와<br/> 내 맞춤 AI선생님이<br/> 항시 대기
+                        </Typography>
+
+                        <img src={smile} alt='smile' width='80px' height='auto' style={{marginTop : '-15px', marginLeft : '95px'}}/>
+                    </div>
 
                     {/* 첫 번째 행 */}
                     <Link to='/leveltest' style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -72,17 +86,17 @@ function Header(){
                         </div>
                     </Link>
 
-                    {/* 세 번째 행 */}
-                    <Link to='/keyword' style={{ textDecoration: 'none', color: 'inherit' }} className="grid-item">
-                        <div onClick={() => setModalOpen(true)} style={{ border: '2px solid #132650', borderRadius: '10px',
-                            boxShadow: '0 6px 10px rgba(0,0,0,0.1)', overflow: 'hidden', cursor: 'pointer', aspectRatio: '1 / 1', width: '80%', backgroundColor : 'white' }}>
-                            <div style={{ padding: '15px', textAlign: 'center' }}>
-                                <h5 style={{ marginBottom: '10px' }}>Keyword</h5>
-                                <img src={logo} alt="Speech" style={{ width: '80px', height: '80px', objectFit: 'cover', margin: '0 auto' }} />
-                                <p style={{ marginTop: '10px', color: '#132650', fontSize: '14px' }}>키워드 시험을 봅니다!</p>
-                            </div>
-                        </div>
-                    </Link>
+                    {/*/!* 세 번째 행 *!/*/}
+                    {/*<Link to='/keyword' style={{ textDecoration: 'none', color: 'inherit' }} className="grid-item">*/}
+                    {/*    <div onClick={() => setModalOpen(true)} style={{ border: '2px solid #132650', borderRadius: '10px',*/}
+                    {/*        boxShadow: '0 6px 10px rgba(0,0,0,0.1)', overflow: 'hidden', cursor: 'pointer', aspectRatio: '1 / 1', width: '80%', backgroundColor : 'white' }}>*/}
+                    {/*        <div style={{ padding: '15px', textAlign: 'center' }}>*/}
+                    {/*            <h5 style={{ marginBottom: '10px' }}>Keyword</h5>*/}
+                    {/*            <img src={logo} alt="Speech" style={{ width: '80px', height: '80px', objectFit: 'cover', margin: '0 auto' }} />*/}
+                    {/*            <p style={{ marginTop: '10px', color: '#132650', fontSize: '14px' }}>키워드 시험을 봅니다!</p>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*</Link>*/}
                 </div>
 
             </div>
@@ -104,7 +118,7 @@ function Header(){
                 <div className="process-grid-container" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '20px' }}>
 
                     {/* 첫 번째 행 */}
-                    <div style={{ alignContent:'center', width: '600px', height: '150px', border: '2px solid #132650', borderRadius: '10px', boxShadow: '0 6px 10px rgba(0,0,0,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', backgroundColor: 'white' }}>
+                    <div style={{ alignContent:'center', width: '600px', height: '150px', border: '2px solid #132650', borderRadius: '10px',  display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', backgroundColor: 'white' }}>
                         <div>
                             <h1 style={{ fontWeight: 'bold', color: '#4A90E2', marginBottom: '5px' }}>01</h1>
                             <h5 style={{ margin: '0', color: '#132650' }}>사용자가 원하는<br/><b>상황</b>과 <b>역할</b> 선택</h5>
@@ -118,7 +132,7 @@ function Header(){
                     </div>
 
                     {/* 두 번째 행 */}
-                    <div style={{ width: '600px', height: '150px', border: '2px solid #132650', borderRadius: '10px', boxShadow: '0 6px 10px rgba(0,0,0,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', backgroundColor: 'white' }}>
+                    <div style={{ alignContent:'center', width: '600px', height: '150px', border: '2px solid #132650', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', backgroundColor: 'white' }}>
                         <div>
                             <h1 style={{ fontWeight: 'bold', color: '#4A90E2', marginBottom: '5px' }}>02</h1>
                             <h5 style={{ margin: '0', color: '#132650' }}>웹 마이크로 <b>음성</b><br/><b>인식</b> 후 전달</h5>
@@ -132,7 +146,7 @@ function Header(){
                     </div>
 
                     {/* 세 번째 행 */}
-                    <div style={{ width: '600px', height: '150px', border: '2px solid #132650', borderRadius: '10px', boxShadow: '0 6px 10px rgba(0,0,0,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', backgroundColor: 'white' }}>
+                    <div style={{ alignContent:'center', width: '600px', height: '150px', border: '2px solid #132650', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', backgroundColor: 'white' }}>
                         <div>
                             <h1 style={{ fontWeight: 'bold', color: '#4A90E2', marginBottom: '5px' }}>03</h1>
                             <h5 style={{ margin: '0', color: '#132650' }}><b>Open AI</b>를<br/>활용해 답변 생성</h5>
@@ -146,7 +160,7 @@ function Header(){
                     </div>
 
                     {/* 네 번째 행 */}
-                    <div style={{ width: '600px', height: '150px', border: '2px solid #132650', borderRadius: '10px', boxShadow: '0 6px 10px rgba(0,0,0,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', backgroundColor: 'white' }}>
+                    <div style={{ alignContent:'center', width: '600px', height: '150px', border: '2px solid #132650', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', backgroundColor: 'white' }}>
                         <div>
                             <h1 style={{ fontWeight: 'bold', color: '#4A90E2', marginBottom: '5px' }}>04</h1>
                             <h5 style={{ margin: '0', color: '#132650' }}><b>TTS</b> 로<br/>AI 선생님 듣기</h5>

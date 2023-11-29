@@ -21,45 +21,43 @@ export default function HeroLeft09() {
 
     return (
         <>
-            <div className='make'>
-        <TwoSidedLayout reversed>
-            <Typography
-                level="h1"
-                fontWeight="xl"
-                fontSize="clamp(1.575rem, 1.3636rem + 1.4818vw, 3rem)"
-                //fontSize="clamp(1.875rem, 1.3636rem + 2.1818vw, 3rem)"
-                textColor="#132650"
-            >
-                AI 영어 회화 학습에<br/> 오신 것을 환영합니다!
-            </Typography>
+        {/*    <div className='make'>*/}
+        {/*<TwoSidedLayout reversed>*/}
+        {/*    <Typography*/}
+        {/*        level="h1"*/}
+        {/*        fontWeight="xl"*/}
+        {/*        fontSize="clamp(1.575rem, 1.3636rem + 1.4818vw, 3rem)"*/}
+        {/*        //fontSize="clamp(1.875rem, 1.3636rem + 2.1818vw, 3rem)"*/}
+        {/*        textColor="#132650"*/}
+        {/*    >*/}
+        {/*        AI 영어 회화 학습에<br/> 오신 것을 환영합니다!*/}
+        {/*    </Typography>*/}
 
-            <Typography fontSize="lg" textColor="#132650" lineHeight="lg">
-                실제 사람과 대화하듯<br/>
-                대화해보세요!
-            </Typography>
-            <Button
-                size="lg"
-                endDecorator={<ArrowForward fontSize="xl" />}
-                sx={{ mt: 2, mb: 1 }}
-                onClick={handleButtonClick}
-            >
-                시작하기
-            </Button>
-            <Typography>
-               회원인가요? <MuiLink component={RouterLink} to="/login" fontWeight="lg">
-                로그인 하러가기
-            </MuiLink>
-            </Typography>
+        {/*    <Typography fontSize="lg" textColor="#132650" lineHeight="lg">*/}
+        {/*        실제 사람과 대화하듯<br/>*/}
+        {/*        대화해보세요!*/}
+        {/*    </Typography>*/}
+        {/*    <Button*/}
+        {/*        size="lg"*/}
+        {/*        endDecorator={<ArrowForward fontSize="xl" />}*/}
+        {/*        sx={{ mt: 2, mb: 1 }}*/}
+        {/*        onClick={handleButtonClick}*/}
+        {/*    >*/}
+        {/*        시작하기*/}
+        {/*    </Button>*/}
+        {/*    <Typography>*/}
+        {/*       회원인가요? <MuiLink component={RouterLink} to="/login" fontWeight="lg">*/}
+        {/*        로그인 하러가기*/}
+        {/*    </MuiLink>*/}
+        {/*    </Typography>*/}
 
-        </TwoSidedLayout>
-            </div>
-
-
+        {/*</TwoSidedLayout>*/}
+        {/*    </div>*/}
 
 
 
-            <div className="d-flex justify-content-center align-items-center make" style={{ marginTop: '200px', color: '#132650' }}>
-                <div style={{ marginRight: '100px', marginBottom: '200px' }}>
+            <div className="d-flex justify-content-center align-items-center make" style={{  color: '#132650' }}>
+                <div style={{ marginRight: '100px' }}>
                     <Typography
                         level="h1"
                         fontWeight="xl"
@@ -69,7 +67,7 @@ export default function HeroLeft09() {
                         AI 영어 회화 학습에<br /> 오신 것을 환영합니다!
                     </Typography>
 
-                    <Typography level="h4" marginTop="30px">
+                    <Typography level="h4" marginTop="20px">
                         실제 사람과 대화하듯
                     </Typography>
                     <Typography level="h4">

@@ -26,6 +26,8 @@ function App() {
          <Route path="/speech" element={<Speech/>}/>
          <Route path="/keyword" element={<Keyword/>}/>
          <Route path="/speaking" element={<Speaking/>}/>
+         {/*<Route path="/resultpage" element={<ResultPage/>}/>*/}
+
     </Routes>
       </div>
   );

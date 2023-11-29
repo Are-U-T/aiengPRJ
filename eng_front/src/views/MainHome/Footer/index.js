@@ -16,52 +16,64 @@ import eng from './images/영어학습.png';
 import success from './images/성공사례.png';
 import khImage from '../Images/kh.jpg';
 import logo from './images/logo.png';
-import hugi from './images/후기.png';
+
+
 
 
 export default function Footer(){
 
     return(
         <>
-            <div style={{marginTop : '50px'}}/>
-            <img src={hugi} alt="후기" style={{ maxWidth: '100%', height: 'auto' }} />
-
-
 
             <div style={{marginTop : '100px'}} className='App'>
-                <footer className="footer" style={{ backgroundColor: '#333333', color: 'white', padding: '10px 0', height: '130px'}}>
+                <footer className="footer" style={{ backgroundColor: 'black', color: 'white'}}>
                     <div className="footer-container">
                         <div className="row">
 
                             <div className="col-lg-6 col-md-12 mb-2 d-flex">
-                                <img src={logo} alt="logo" style={{ maxWidth: '100px', marginRight: '15px' }}/>
                                 <div>
-                                    <h5 className="uu">Are You T?</h5>
-                                    <p>여러분의 성공을 기원합니다.</p>
-                                </div>
-                            </div>
-
-                            <div className="col-lg-3 col-md-6 mb-2">
-                                <h5 className="uu">Follow Us</h5>
-                                <div className="social-links">
-                                    <a className="social-icon facebook-icon" href="#!"><i className="fab fa-facebook-f" /></a>
-                                    <a className="social-icon twitter-icon" href="#!"><i className="fab fa-twitter" /></a>
-                                    <a className="social-icon instagram-icon" href="#!"><i className="fab fa-instagram" /></a>
-                                    <a className="social-icon youtube-icon" href="#!"><i className="fab fa-youtube" /></a>
+                                    <h5 className="uu">About</h5>
+                                    <p>너랑나 | 팀장: 박서윤, 팀원: 서정훈 정경희 왕장령</p>
+                                    <p>충남 아산시 탕정면 선문로221번길 70</p>
+                                    <p> Are You T.Since 2023</p>
                                 </div>
                             </div>
 
                             <div className="col-lg-3 col-md-6 mb-2">
                                 <h5 className="uu">Contact</h5>
-                                <ul className="contact-list contact-text-large">
-                                    <li><a href="mailto:smartkorea77@gmail.com">이메일</a></li>
-                                    <li><a href="https://maps.google.com">위치</a></li>
-                                </ul>
+                                <div>
+                                    <a href="mailto:p81500@naver.com" className="email-link">p81500@naver.com</a>
+                                    <p>010-XXXX-XXXX</p>
+                                </div>
+                            </div>
+
+
+                            <div className="col-lg-3 col-md-6 mb-2">
+                                <h5 className="uu">Follow Us</h5>
+                                <p style={{marginTop : '-15px',fontSize :'11px'}}>Are U T 공식채널</p>
+                                <div className="social-links" style={{marginTop : '-10px'}}>
+                                    <a className="social-icon facebook-icon" href="https://www.facebook.com/sunmoonuniversity/?locale=ko_KR"><i className="fab fa-facebook-f" /></a>
+                                    <a className="social-icon instagram-icon" href="https://www.instagram.com/sunmoonuniv/?hl=ko"><i className="fab fa-instagram" /></a>
+                                    <a className="social-icon youtube-icon" href="https://www.youtube.com/channel/UCwK3hT2ah8OA9Hzjmiq4TmQ/videos"><i className="fab fa-youtube" /></a>
+                                    <a className="social-icon github-icon" href="https://github.com/Are-U-T/aiengPRJ">
+                                        <i className="fab fa-github"></i>
+                                    </a>
+
+                                    <a className="social-icon notion-icon" href="https://www.notion.so/a93a058a1f6449849a0f394bfe12f75a">
+                                        <i className="fab fa-notion"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </footer>
             </div>
+
+
+
+
+
+
     </>
     )
 }

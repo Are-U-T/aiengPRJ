@@ -17,6 +17,10 @@ import free from './images/무료.png';
 import design from './images/디자인.png';
 import '../../../App.css'
 import studyImg1 from './images/studyImg1.jpg'
+import speakingexam from "./images/speakingexam.png";
+import nationalexam from "./images/nationalexam.png";
+import './exam.css';
+import hugi from '../Mainarea/images/후기.png';
 
 
 const item = {
@@ -264,28 +268,32 @@ export default function Mainarea(){
             </Grid>
           </Container>
 
+          <div style={{marginTop : '150px'}}/>
+
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '10px'}}>
+            <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
+            <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}> 시험 정보, 알고 계셨나요?</h5>
+          </div>
+
+
+          <div className="im">
+            <a href="https://www.opic.or.kr/opics/jsp/senior/index.jsp">
+              <img src={speakingexam} alt="스피킹시험" className="ei"/>
+            </a>
+            <a href="http://www.espt.org/">
+              <img src={nationalexam} alt="국가시험" className="ei"/>
+            </a>
+          </div>
 
 
 
-          {/* About Section*/}
-  {/*        <div style={{marginTop : '200px'}}></div>*/}
 
-  {/*        <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '200px', marginBottom : '10px'}}>*/}
-  {/*          <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />*/}
-  {/*          <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>너랑 나</h5>*/}
-  {/*        </div>*/}
+          <div style={{marginTop : '150px'}}/>
+          <img src={hugi} alt="후기" style={{ maxWidth: '100%', height: 'auto' }} />
 
-  {/*        <section className="page-section" style={{ backgroundColor: 'white', color: 'black' }} id="about">*/}
-  {/*  <div className="container">*/}
 
-  {/*    <div className="divider-custom"/>*/}
-  {/*    /!* About Section Content*!/*/}
-  {/*    <div className="row">*/}
-  {/*      <div className="col-lg-3 ms-auto"><p className="lead">너랑 나는 4명의 팀으로 구성되어 있습니다.</p></div>*/}
-  {/*      <div className="col-lg-3 me-auto"><p className="lead">효율적인 운영을 위해 늘 최선을 다하고 있습니다.</p></div>*/}
-  {/*    </div>*/}
-  {/*  </div>*/}
-  {/*</section>*/}
+
+
 </div>
         </>
     )
