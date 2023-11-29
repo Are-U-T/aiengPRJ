@@ -63,10 +63,9 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
     // 대화 업데이트 시 추천 질문도 업데이트
     useEffect(() => {
-        // updateRecommendedQuestions();
         const subtitleInterval = setInterval(() => {
             updateRecommendedQuestions("recommend");
-        }, 100000); // 1분 마다 업데이트
+        }, 200000); // 2분 마다 업데이트
         return () => clearInterval(subtitleInterval);
     }, [crid]);
 
@@ -255,7 +254,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                         </div>
 
                         <div className="question-suggestion-container">
-                            <b>1분마다 유저가 선택한 상황에<br/>대해 추천 질문이 떠요</b>
+                            <b>2분마다 유저가 선택한 상황에<br/>대해 추천 질문이 떠요</b>
                             <ul>
                                 {recommendedQuestions.map((subtitle, index) => (
                                     <li key={index}>

@@ -15,6 +15,7 @@ function Speech() {
     const [selectedAirole, setSelectedAirole] = useState(null);
     const [selectedMyrole, setSelectedMyrole] = useState(null);
     const [selectedCountry, setSelectedCountry] = useState(null);
+    const [selectedLv, setselectedLv] = useState("중학교");
     const [availableRoles, setAvailableRoles] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -27,6 +28,7 @@ function Speech() {
             selectedAirole,
             selectedMyrole,
             selectedCountry,
+            selectedLv
         };
 
         try {
