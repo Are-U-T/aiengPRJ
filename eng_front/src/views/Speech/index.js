@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import Navigation from "../Navigation";
 import Modal from "./Modal";
 import { useNavigate } from 'react-router-dom';
-import './Speach.css';
+import './Speech.css';
+import Navigation from "../Navigation";
 import us from './images/us.png';
 import uk from './images/uk.png';
 import usno from './images/usno.jpg';
@@ -14,17 +14,53 @@ function Speech() {
     const [selectedItem, setSelectedItem] = useState(null);
     const [selectedAirole, setSelectedAirole] = useState(null);
     const [selectedMyrole, setSelectedMyrole] = useState(null);
-
     const [selectedCountry, setSelectedCountry] = useState(null);
-
+    const [selectedLv, setselectedLv] = useState("중학교");
+    const [availableRoles, setAvailableRoles] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const [availableRoles, setAvailableRoles] = useState([]);
-
     const navigate = useNavigate();
-    const handlePageChange = () => {
-        navigate('/speaking');
-    };
+    const handlePageChange = async(event) => {
+        event.preventDefault();
+
+        const data = {
+            selectedItem,
+            selectedAirole,
+            selectedMyrole,
+            selectedCountry,
+            selectedLv
+        };
+
+        try {
+            const response = await fetch('http://localhost/talking/newTalkingRoom', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                const responseData = await response.text();
+                console.log('방 생성 successful:', responseData);
+
+                // 생성된 방의 crid를 상태로 저장
+                const crid = responseData;
+
+                // Speaking 컴포넌트로 이동하면서 crid를 전달
+                navigate('/speaking', {state: {crid}});
+            } else {
+                const errorMessage = await response.text();
+                console.error('방 생성 failed:', errorMessage);
+            }
+        } catch (error) {
+            console.error('방 생성 중 Error:', error);
+        }
+    }
+
+    const handleButtonClick =  () => {
+        setIsModalOpen(true); // 모달 열기
+    }
 
     const items = [
         "주말 데이트 계획 세우기",
@@ -59,23 +95,17 @@ function Speech() {
         setSelectedCountry(country);
     };
 
-
     const handleItemClick = (item) => {
         setSelectedItem(item);
+    };
+
+    const handleAiroleClick = (role) => {
+        setSelectedAirole(role);
     };
 
     const handleMyroleClick = (role) => {
         setSelectedMyrole(role);
     };
-
-    const handleButtonClick = () => {
-        console.log(`Button clicked for item: ${selectedItem}, ME : ${selectedMyrole}, AI : ${selectedAirole}, Country: ${selectedCountry}`);
-        setIsModalOpen(true);
-
-
-
-    };
-
 
     return (
         <div className='App'>
@@ -154,7 +184,7 @@ function Speech() {
 
                 <div className="speachbutton-container">
                     {selectedItem && selectedAirole && selectedMyrole && selectedCountry && (
-                        <button className="speachbutton" onClick={handleButtonClick} value={`Si: ${selectedItem}, AI: ${selectedAirole}, ME: ${selectedMyrole}, Country: ${selectedCountry}`}>
+                        <button className="speachbutton" onClick={handleButtonClick}>
                             시작
                         </button>
                     )}
@@ -176,10 +206,11 @@ function Speech() {
 
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
                             <button
-                                onClick={() => {
+                                onClick={(event) => {
                                     setIsModalOpen(false);
-                                    handlePageChange();
+                                    handlePageChange(event);
                                 }}
+                                value={`Si: ${selectedItem}, AI: ${selectedAirole}, ME: ${selectedMyrole}, Country: ${selectedCountry}`}
                                 className="custom-button"
                                 style={{ marginRight: '10px' }}
                             >

@@ -24,11 +24,8 @@ import { useNavigate } from 'react-router-dom';
 import {GoogleOAuthProvider} from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
-<<<<<<< Updated upstream
-=======
 import KakaoLogin from "react-kakao-login";
 import loginValidation from './Validation';
->>>>>>> Stashed changes
 
 function ColorSchemeToggle(props) {
     const { mode, setMode } = useColorScheme();
@@ -75,8 +72,6 @@ function ColorSchemeToggle(props) {
     );
 }
 
-<<<<<<< Updated upstream
-=======
 
 export default function JoySignInSideTemplate() {
 
@@ -94,9 +89,21 @@ export default function JoySignInSideTemplate() {
                     email: data.profile.kakao_account.email,
                 }),
             });
->>>>>>> Stashed changes
 
-export default function JoySignInSideTemplate() {
+            if (response.ok) {
+                const data = await response.json();
+                console.log('User data from backend:', data);
+                navigate('/main');
+            } else {
+                console.error('Failed to log in with Google.');
+            }
+        } catch (error) {
+            console.error('Error during Google login:', error);
+        }
+    }
+    const kakaoOnFailure = (error) => {
+        console.log(error);
+    };
 
     const navigate = useNavigate();
 
@@ -134,37 +141,6 @@ export default function JoySignInSideTemplate() {
     return (
         <>
             <Navigation/>
-<<<<<<< Updated upstream
-        <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
-            <CssBaseline />
-            <GlobalStyles
-                styles={{
-                    ':root': {
-                        '--Collapsed-breakpoint': '769px', // form will stretch when viewport is below `769px`
-                        '--Cover-width': '50vw', // must be `vw` only
-                        '--Form-maxWidth': '800px',
-                        '--Transition-duration': '0.4s', // set to `none` to disable transition
-                    },
-                }}
-            />
-            <Box
-                sx={(theme) => ({
-                    width:
-                        'clamp(100vw - var(--Cover-width), (var(--Collapsed-breakpoint) - 100vw) * 999, 100vw)',
-                    transition: 'width var(--Transition-duration)',
-                    transitionDelay: 'calc(var(--Transition-duration) + 0.1s)',
-                    position: 'relative',
-                    zIndex: 1,
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    backdropFilter: 'blur(12px)',
-                    backgroundColor: 'rgba(255 255 255 / 0.2)',
-                    [theme.getColorSchemeSelector('dark')]: {
-                        backgroundColor: 'rgba(19 19 24 / 0.4)',
-                    },
-                })}
-            >
-=======
             <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
                 <CssBaseline />
                 <GlobalStyles
@@ -177,48 +153,34 @@ export default function JoySignInSideTemplate() {
                         },
                     }}
                 />
->>>>>>> Stashed changes
                 <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        minHeight: '100dvh',
+                    sx={(theme) => ({
                         width:
-                            'clamp(var(--Form-maxWidth), (var(--Collapsed-breakpoint) - 100vw) * 999, 100%)',
-                        maxWidth: '100%',
-                        px: 2,
-                    }}
+                            'clamp(100vw - var(--Cover-width), (var(--Collapsed-breakpoint) - 100vw) * 999, 100vw)',
+                        transition: 'width var(--Transition-duration)',
+                        transitionDelay: 'calc(var(--Transition-duration) + 0.1s)',
+                        position: 'relative',
+                        zIndex: 1,
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        backdropFilter: 'blur(12px)',
+                        backgroundColor: 'rgba(255 255 255 / 0.2)',
+                        [theme.getColorSchemeSelector('dark')]: {
+                            backgroundColor: 'rgba(19 19 24 / 0.4)',
+                        },
+                    })}
                 >
-
                     <Box
-                        component="header"
                         sx={{
-                            py: 11,
                             display: 'flex',
-                            alignItems: 'left',
-                            justifyContent: 'space-between',
-                            marginLeft: 'auto',
+                            flexDirection: 'column',
+                            minHeight: '100dvh',
+                            width:
+                                'clamp(var(--Form-maxWidth), (var(--Collapsed-breakpoint) - 100vw) * 999, 100%)',
+                            maxWidth: '100%',
+                            px: 2,
                         }}
                     >
-<<<<<<< Updated upstream
-                        {/*<Box*/}
-                        {/*    sx={{*/}
-                        {/*        gap: 2,*/}
-                        {/*        display: 'flex',*/}
-                        {/*        alignItems: 'center',*/}
-                        {/*    }}*/}
-                        {/*>*/}
-                        {/*    <IconButton variant="soft" color="primary" size="sm" sx={{ backgroundColor: 'transparent',*/}
-                        {/*        width : '60px', height : '60px', transform: 'translateY(10px)' }}>*/}
-                        {/*        <img src={logo} alt="Logo" style={{ width: '100%', height: '100%',  marginLeft : '40px' }}  />*/}
-                        {/*    </IconButton>*/}
-
-                        {/*    <Typography level="title-lg" sx={{ whiteSpace: 'nowrap',fontSize: '25px',*/}
-                        {/*        transform: 'translateY(10px)'}} style={{marginLeft : '20px'}}>Are You T?</Typography>*/}
-                        {/*</Box>*/}
-                        <ColorSchemeToggle />
-                    </Box>
-=======
 
                         <Box
                             component="header"
@@ -233,56 +195,35 @@ export default function JoySignInSideTemplate() {
 
                             <ColorSchemeToggle />
                         </Box>
->>>>>>> Stashed changes
 
 
 
 
-<<<<<<< Updated upstream
-                    <Box
-                        component="main"
-                        sx={{
-                            my: 'auto',
-                            py: -5,
-                            pb: 15,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: 2,
-                            width: 400,
-                            maxWidth: '100%',
-                            mx: 'auto',
-                            borderRadius: 'sm',
-                            '& form': {
-=======
                         <Box
                             component="main"
                             sx={{
                                 my: 'auto',
                                 py: -5,
                                 pb: 15,
->>>>>>> Stashed changes
                                 display: 'flex',
                                 flexDirection: 'column',
                                 gap: 2,
-                            },
-                            [`& .${formLabelClasses.asterisk}`]: {
-                                visibility: 'hidden',
-                            },
-                        }}
-                    >
+                                width: 400,
+                                maxWidth: '100%',
+                                mx: 'auto',
+                                borderRadius: 'sm',
+                                '& form': {
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: 2,
+                                },
+                                [`& .${formLabelClasses.asterisk}`]: {
+                                    visibility: 'hidden',
+                                },
+                            }}
+                        >
 
 
-<<<<<<< Updated upstream
-                        <Stack gap={4} sx={{ mb: 2 }}>
-                            <Stack gap={1}>
-                                <Typography level="h3">로그인</Typography>
-                                <Typography level="body-sm">
-                                    아직 회원이 아닌가요?<span style={{ marginRight: '5px' }}></span>
-                                    <Link to="/signup" level="title-sm" style={{ textDecoration: 'none' }}>
-                                        회원가입 하러가기!
-                                    </Link>
-                                </Typography>
-=======
                             <Stack gap={4} sx={{ mb: 2 }}>
                                 <Stack gap={1}>
                                     <Typography level="h3">로그인</Typography>
@@ -293,34 +234,8 @@ export default function JoySignInSideTemplate() {
                                         </Link>
                                     </Typography>
                                 </Stack>
->>>>>>> Stashed changes
                             </Stack>
-                        </Stack>
 
-<<<<<<< Updated upstream
-                        <Stack gap={4} sx={{ mt: 2 }}>
-                            <form onSubmit={handleSubmit}>
-                                <FormControl required>
-                                    <FormLabel>이메일</FormLabel>
-                                    <Input type="email" name="email" />
-                                </FormControl>
-                                <FormControl required>
-                                    <FormLabel>비밀번호</FormLabel>
-                                    <Input type="password" name="password" />
-                                </FormControl>
-                                <Stack gap={4} sx={{ mt: -2}}>
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center',
-                                        }}
-                                    >
-                                    </Box>
-                                    <Button type="submit" fullWidth>
-                                         로그인
-                                    </Button>
-=======
                             <Stack gap={4} sx={{ mt: 2 }}>
                                 <form onSubmit={handleSubmit}>
                                     <FormControl required>
@@ -343,31 +258,13 @@ export default function JoySignInSideTemplate() {
                                         <Button type="submit" fullWidth>
                                             로그인
                                         </Button>
->>>>>>> Stashed changes
 
-                                    <GoogleOAuthProvider clientId="868155967382-ubbhk0fdkoq93q63btkkmeats8h5p7o2.apps.googleusercontent.com">
-                                        <GoogleLogin
-                                            onSuccess={async credentialResponse => {
-                                                var decoded = jwtDecode(credentialResponse.credential);
-                                                try {
-                                                    const response = await fetch('http://localhost/user/google-login', {
-                                                        method: 'Put',
-                                                        headers: {
-                                                            'Content-Type': 'application/json',
-                                                        },
-                                                        body: JSON.stringify({
-                                                            name: decoded.name,
-                                                            email: decoded.email,}),
-                                                    });
+                                        <KakaoLogin
+                                            token={kakaoClientId}
+                                            onSuccess={kakaoOnSuccess}
+                                            onFail={kakaoOnFailure}
+                                        />
 
-<<<<<<< Updated upstream
-                                                    if (response.ok) {
-                                                        const data = await response.json();
-                                                        console.log('User data from backend:', data);
-                                                        navigate('/main');
-                                                    } else {
-                                                        console.error('Failed to log in with Google.');
-=======
 
                                         <GoogleOAuthProvider clientId="868155967382-ubbhk0fdkoq93q63btkkmeats8h5p7o2.apps.googleusercontent.com">
                                             <GoogleLogin
@@ -393,44 +290,14 @@ export default function JoySignInSideTemplate() {
                                                         }
                                                     } catch (error) {
                                                         console.error('Error during Google login:', error);
->>>>>>> Stashed changes
                                                     }
-                                                } catch (error) {
-                                                    console.error('Error during Google login:', error);
-                                                }
-                                            }}
-                                            onError={() => {
-                                                console.log('Login Failed');
-                                            }}
-                                        />
-                                    </GoogleOAuthProvider>
+                                                }}
+                                                onError={() => {
+                                                    console.log('Login Failed');
+                                                }}
+                                            />
+                                        </GoogleOAuthProvider>
 
-<<<<<<< Updated upstream
-                                </Stack>
-                            </form>
-                        </Stack>
-                    </Box>
-                </Box>
-            </Box>
-            <Box
-                sx={(theme) => ({
-                    height: '100%',
-                    position: 'absolute',
-                    right: 0,
-                    top:'80px',
-                    bottom: 0,
-                    left: 'clamp(0px, (100vw - var(--Collapsed-breakpoint)) * 999, 100vw - var(--Cover-width))',
-                    transition:
-                        'background-image var(--Transition-duration), left var(--Transition-duration) !important',
-                    transitionDelay: 'calc(var(--Transition-duration) + 0.1s)',
-                    backgroundColor: 'background.level1',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundImage:
-                        'url(https://images.unsplash.com/photo-1527181152855-fc03fc7949c8?auto=format&w=1000&dpr=2)',
-                    [theme.getColorSchemeSelector('dark')]: {
-=======
                                     </Stack>
                                 </form>
                             </Stack>
@@ -452,13 +319,15 @@ export default function JoySignInSideTemplate() {
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',
->>>>>>> Stashed changes
                         backgroundImage:
-                            'url(https://images.unsplash.com/photo-1572072393749-3ca9c8ea0831?auto=format&w=1000&dpr=2)',
-                    },
-                })}
-            />
-        </CssVarsProvider>
-            </>
+                            'url(https://images.unsplash.com/photo-1527181152855-fc03fc7949c8?auto=format&w=1000&dpr=2)',
+                        [theme.getColorSchemeSelector('dark')]: {
+                            backgroundImage:
+                                'url(https://images.unsplash.com/photo-1572072393749-3ca9c8ea0831?auto=format&w=1000&dpr=2)',
+                        },
+                    })}
+                />
+            </CssVarsProvider>
+        </>
     );
 }

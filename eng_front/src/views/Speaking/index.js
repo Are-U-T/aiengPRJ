@@ -1,111 +1,139 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import './Speaking.css';
-import '../../App.css'
 import ai5 from './images/ai5.png';
 import Navigation from "../Navigation";
-import Modal from "./Modal";
-import ModalResult from "./ModalResult";
+import Modal from "../Speech/Modal";
 import MicRecorder from "mic-recorder-to-mp3";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate, useLocation} from "react-router-dom";
 import mic from './images/mic.png';
 import micno from './images/micno.png';
-import subtitle from  './images/subtitle.png';
-import subtitleno from  './images/subtitleno.png';
+import ModalResult from "./ModalResult";
+import subtitle from "./images/subtitle.png";
+import subtitleno from "./images/subtitleno.png";
 
+function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
+    const [timeSpent, setTimeSpent] = useState(300); // 페이지에 머문 시간
 
-
-function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
-    const [timeSpent, setTimeSpent] = useState(180);
-
-    // const [liveSubtitles, setLiveSubtitles] = useState([]);
-    const [currentInput, setCurrentInput] = useState('');
+    // 녹음
     const [isRecording, setIsRecording] = useState(false);
-    const [recorder, setRecorder] = useState(new MicRecorder({ bitRate: 128 }));
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isModal2Open, setIsModal2Open] = useState(false);
+    const [recorder, setRecorder] = useState(new MicRecorder({bitRate: 128}));
 
+    // 모달  1,2
+    const [isModalOpen, setIsModalOpen] = useState(false); // 대화 5분 채오면 자동으로 나오는 모달
+    const [isModal2Open, setIsModal2Open] = useState(false); // 5분 안 채우고 대화 종료 버튼 누르면 나오는 모달
 
-    const [showSubtitles, setShowSubtitles] = useState(true);
+    // 자막
+    const [liveSubtitles, setLiveSubtitles] = useState([]); // 실시간 자막
+    const [recommendedQuestions, setRecommendedQuestions] = useState([]); // 상황에 맞는 추천 질문
+    const [correctGrammar , setCorrectGrammer] = useState([]); // 문법 고치는 자막
+    const [showSubtitles, setShowSubtitles] = useState(true); // 자막 컨테이너들 전체
+    
+    // 사진과 자막 컨테이너의 동적 스타일을 위한 클래스
+    const imageContainerClass = showSubtitles ? "image-container" : "image-container expanded";
+    const subtitlesContainerClass = showSubtitles ? "subtitles-container" : "subtitles-container hidden";
 
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // useNavigate 훅 사용
 
-    const toggleRecording = () => {
-        if (isRecording) {
-            stopRecording();
-        } else {
-            startRecording();
-        }
-    };
+    const location = useLocation();
+    const crid = location.state?.crid; // 채팅방 생성시에 전달 받은 crid 전달 받아서 서버에 넘겨줌
+    const speaker =null;
 
+    // 컴포넌트 마운트 시와 일정한 간격으로 자막을 가져오기 위해 useEffect 사용
+    useEffect(() => {
+        fetchSubtitles(); // 컴포넌트 마운트 시 자막 가져오기
 
+        const subtitleInterval = setInterval(() => {
+            fetchSubtitles(); // 일정한 간격으로 자막 가져오기 (필요에 따라 간격 조절)
+        }, 1000); // 1초마다 가져오도록 설정. 필요에 따라 조절하세요.
 
+        // 컴포넌트 언마운트 시 간격 정리
+        return () => clearInterval(subtitleInterval);
+    }, [crid]);
 
-    const toggleSubtitles = () => {
-        setShowSubtitles(!showSubtitles);
-    };
+    // 올바른 문법 자막 업데이트
+    useEffect(() => {
+        correctGrammer("Corrected grammar"); // 컴포넌트 마운트 시 자막 가져오기
 
+        const subtitleInterval = setInterval(() => {
+            correctGrammer("Corrected grammar"); // 일정한 간격으로 자막 가져오기 (필요에 따라 간격 조절)
+        }, 1000); // 1초마다 가져오도록 설정. 필요에 따라 조절하세요.
 
-    const initialSubtitles = [
-        { user: "사용자 대화 내용 1", ai: "AI 대답 1" },
-        { user: "사용자 대화 내용 2", ai: "AI 대답 2" },
-        // 추가적인 테스트 데이터...
-    ];
+        // 컴포넌트 언마운트 시 간격 정리
+        return () => clearInterval(subtitleInterval);
+    }, [crid]);
 
+    // 대화 업데이트 시 추천 질문도 업데이트
+    useEffect(() => {
+        const subtitleInterval = setInterval(() => {
+            updateRecommendedQuestions("recommend");
+        }, 200000); // 2분 마다 업데이트
+        return () => clearInterval(subtitleInterval);
+    }, [crid]);
 
-    const [liveSubtitles, setLiveSubtitles] = useState(initialSubtitles);
-
-
-    const startRecording = () => {
-        recorder.start().then(() => {
-            setIsRecording(true);
-        }).catch((e) => console.error(e));
-    };
-
-    const stopRecording = async () => {
+    // 일정한 간격으로 서버에서 자막을 가져오는 함수
+    const fetchSubtitles = async () => {
         try {
-            const [buffer, blob] = await recorder.stop().getMp3();
-
-            const formData = new FormData();
-            formData.append('audio', blob, 'recording.mp3');
-
-            // 发送音频数据到后台
-            const response = await axios.post('http://localhost/api/audio/upload', formData, {
-                responseType: 'arraybuffer', // 设置响应类型为二进制数组
-            });
-
-            if (response.status === 200) {
-                const audioBlob = new Blob([response.data], { type: 'audio/mp3' });
-                const url = URL.createObjectURL(audioBlob);
-                console.log('Audio sent successfully:', url);
-
-                // 直接播放音频
-                const audioElement = new Audio(url);
-                audioElement.play();
-            } else {
-                console.error('Failed to send audio. Status code:', response.status);
-            }
+            const response = await axios.post('http://localhost/chatting/content', {crid});
+            // console.log('자막 응답:', response.data); // 응답 로깅
+            setLiveSubtitles(response.data);
         } catch (error) {
-            console.error('Error sending audio:', error);
+            console.error('자막을 가져오는 중 오류 발생:', error);
         }
+    };
 
-        setIsRecording(false);
-        console.log('Recording stopped');
+    // 대화 내용에 따라 추천 질문 업데이트
+    const updateRecommendedQuestions = async (speaker) => {
+        try {
+            const response = await axios.post('http://localhost/chat-gpt/recommend', {crid, speaker});
+            // console.log('자막 응답:', response.data); // 응답 로깅
+            setRecommendedQuestions(response.data);
+            // console.log('recommendedQuestions:', recommendedQuestions);
+        } catch (error) {
+            console.error('자막을 가져오는 중 오류 발생:', error);
+        }
+    };
+
+    // 문법 고친 자막 업데이트
+    const correctGrammer = async (speaker) => {
+        try {
+            const response = await axios.post('http://localhost/chatting/grammar', {crid, speaker});
+            // console.log('자막 응답:', response.data); // 응답 로깅
+            setCorrectGrammer(response.data);
+            // console.log('recommendedQuestions:', recommendedQuestions);
+        } catch (error) {
+            console.error('자막을 가져오는 중 오류 발생:', error);
+        }
     };
 
 
-
-    const handleTimeLimitReached = () => {
-        // 모든 기능 종료 로직 (예: 녹음 중지, 타이머 정지 등)
-        if (isRecording) {
-            stopRecording(); // 녹음 중지
+    // 페이지에 머문 시간을 추적하는 useEffect
+    useEffect(() => {
+        let timer;
+        if (isRecording && timeSpent > 0) {
+            // 녹음 중이고 시간이 남아 있을 때만 시간 감소
+            timer = setInterval(() => {
+                setTimeSpent(time => time - 1);
+            }, 1000);
+        } else if (!isRecording || timeSpent === 0) {
+            // 녹음이 중지되거나 시간이 0에 도달했을 때 호출
+            clearInterval(timer);
+            if (timeSpent === 0) {
+                handleTimeLimitReached();
+            }
         }
 
-        setIsModalOpen(true); // 모달 열기
-    };
+        // 컴포넌트가 언마운트 되거나 isRecording, timeSpent가 변경될 때 타이머 정리
+        return () => clearInterval(timer);
+    }, [isRecording, timeSpent]);
 
 
-
+    useEffect(() => {
+        // 시간이 0초가 되면 모달창을 띄우는 로직
+        if (timeSpent === 0 && !isModalOpen) {
+            handleTimeLimitReached();
+        }
+    }, [timeSpent, isModalOpen]); // 의존성 배열에 isModalOpen을 추가
 
     useEffect(() => {
         let timer;
@@ -126,73 +154,79 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
         return () => clearInterval(timer);
     }, [isRecording, timeSpent]);
 
-    useEffect(() => {
-        // 시간이 0초가 되면 모달창을 띄우는 로직
-        if (timeSpent === 0 && !isModalOpen) {
-            handleTimeLimitReached();
-        }
-    }, [timeSpent, isModalOpen]); // 의존성 배열에 isModalOpen을 추가
-
-
-
-    const [recommendedQuestions, setRecommendedQuestions] = useState([]);
-
-    // 대화 내용에 따라 추천 질문 업데이트
-    const updateRecommendedQuestions = (conversation) => {
-        // 대화 분석 로직 (가상 코드)
-        // 예: const newQuestions = QuestionGenerator.getQuestionsBasedOnConversation(conversation);
-        // setRecommendedQuestions(newQuestions);
-    };
-
-    // 대화 업데이트 시 추천 질문도 업데이트
-    useEffect(() => {
-        updateRecommendedQuestions(liveSubtitles);
-    }, [liveSubtitles]);
-
-
-
-
-
-    // STT 처리 함수 (가상 코드)
-    const handleSpeechToText = (audioInput) => {
-        // STT 서비스를 사용하여 오디오를 텍스트로 변환
-        // 예: const text = STTService.convert(audioInput);
-        // setCurrentInput(text);
-    };
-
-    // AI 응답 처리 함수 (가상 코드)
-    const handleAIResponse = (inputText) => {
-        // AI 서비스에 텍스트를 전달하고 응답을 받음
-        // 예: const response = AIService.getResponse(inputText);
-        // setLiveSubtitles([...liveSubtitles, { user: inputText, ai: response }]);
-    };
-
-    // 사용자 음성 입력이 들어올 때 처리
-    useEffect(() => {
-        if (currentInput) {
-            handleAIResponse(currentInput);
-        }
-    }, [currentInput]);
-
-
     // 시간을 분과 초로 변환하는 함수
     const formatTime = (totalSeconds) => {
         const minutes = Math.floor(totalSeconds / 60);
         const seconds = totalSeconds % 60;
-        return `${minutes} : ${seconds}`;
+        return `${minutes}분 ${seconds}초`;
     };
 
-    // 자막 컨테이너 및 이미지 컨테이너의 클래스를 조건부로 설정
-    const imageContainerClass = showSubtitles ? "image-container" : "image-container hidden";
-    const subtitlesContainerClass = showSubtitles ? "subtitles-container" : "subtitles-container hidden";
+    const handleTimeLimitReached = () => {
+        // 모든 기능 종료 로직 (예: 녹음 중지, 타이머 정지 등)
+        if (isRecording) {
+            stopRecording(); // 녹음 중지
+        }
+
+        setIsModalOpen(true); // 모달 열기
+    };
+
+    // 녹음
+    const toggleRecording = () => {
+        if (isRecording) {
+            stopRecording();
+        } else {
+            startRecording();
+        }
+    };
+
+    const startRecording = () => {
+        recorder.start().then(() => {
+            setIsRecording(true);
+        }).catch((e) => console.error(e));
+    };
+
+    const stopRecording = async () => {
+        try {
+            const [buffer, blob] = await recorder.stop().getMp3();
+
+            const formData = new FormData();
+            formData.append('audio', blob, 'recording.mp3');
+
+            // 发送音频数据到后台
+            const response = await axios.post('http://localhost/api/audio/upload', formData, {
+                responseType: 'arraybuffer', // 设置响应类型为二进制数组
+            });
+
+            if (response.status === 200) {
+                const audioBlob = new Blob([response.data], {type: 'audio/mp3'});
+                const url = URL.createObjectURL(audioBlob);
+                console.log('Audio sent successfully:', url);
+
+                // 直接播放音频
+                const audioElement = new Audio(url);
+                audioElement.play();
+            } else {
+                console.error('Failed to send audio. Status code:', response.status);
+            }
+        } catch (error) {
+            console.error('Error sending audio:', error);
+        }
+
+        setIsRecording(false);
+        console.log('Recording stopped');
+    };
+
+    const toggleSubtitles = () => {
+        setShowSubtitles(!showSubtitles);
+    };
 
     return (
         <>
             <Navigation/>
 
-            <div className="speaking-container App">
+            <div className="speaking-container">
                 <div className={imageContainerClass}>
-                    <img src={ai5} alt="Speaking Example" />
+                    <img src={ai5} alt="Speaking Example"/>
                 </div>
 
                 {showSubtitles && (
@@ -202,8 +236,7 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
                             <ul>
                                 {liveSubtitles.map((subtitle, index) => (
                                     <li key={index}>
-                                        사용자: {subtitle.user}<br/>
-                                        AI: {subtitle.ai}
+                                        {subtitle.SPEAKER}: {subtitle.CONTENT}
                                     </li>
                                 ))}
                             </ul>
@@ -211,12 +244,26 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
 
                         <div className='mrt'>
                             <div className="typo-correction-container">
-                                오타
+                                <b>유저의 Speech를 Text로 수정한 문장!<br/>문법이 틀리면 고쳐서 출력돼요</b>
+                                <ul>
+                                    {correctGrammar.map((subtitle, index) => (
+                                        <li key={index}>
+                                            {subtitle.CONTENT}
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
                         </div>
 
                         <div className="question-suggestion-container">
-                            질문 추천
+                            <b>2분마다 유저가 선택한 상황에<br/>대해 추천 질문이 떠요</b>
+                            <ul>
+                                {recommendedQuestions.map((subtitle, index) => (
+                                    <li key={index}>
+                                        {subtitle.CONTENT}
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </>
                 )}
@@ -238,8 +285,6 @@ function Speaking({ selectedItem, selectedAiRole, selectedMyRole }) {
                     </div>
                 </div>
             </div>
-
-
 
 
             {/*이 부분은 모달창*/}
