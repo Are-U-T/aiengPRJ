@@ -33,6 +33,7 @@ public class SendMailController {
 //    @Autowired
 //    private SendMailService sendMailService;
 
+    //    자 밖으로 다 빼보세요
     private final JavaMailSender javaMailSender; // 이메일 발송 객체
 
     private final String senderEmail = "devtestmail.9900@gmail.com";
@@ -90,6 +91,7 @@ public class SendMailController {
 
         return number; // 인증 번호 반환
     }
+
 
     @ResponseBody
     @PostMapping("/mail")

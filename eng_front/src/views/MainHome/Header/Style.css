@@ -91,62 +91,11 @@
     text-align: center;
 }
 
-.arrow {
-    width: 0;
-    height: 0;
-    border-top: 15px solid transparent;
-    border-bottom: 15px solid transparent;
-    border-left: 15px solid #66a6ff;
-    transition: transform 0.3s ease; /* 전환 효과 */
-    position: relative; /* 상대 위치 설정 */
-    top: 100px; /* 화살표를 아래로 20px 이동 */
-}
 
 
-@keyframes floatArrow {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
 
 
-.arrow:hover {
-    transform: translateY(-10px); /* 호버 시 위로 약간 이동 */
-}
 
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-}
-
-
-/* 기본 그리드 설정 (데스크톱) */
-.process-grid-container {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 20px;
-    /* 기타 스타일 */
-}
-
-/* 태블릿 화면 */
-@media only screen and (max-width: 1024px) {
-    .process-grid-container {
-        grid-template-columns: repeat(4, 1fr); /* 4열 그리드 */
-    }
-}
-
-/* 중간 크기 태블릿 또는 큰 모바일 화면 */
-@media only screen and (max-width: 768px) {
-    .process-grid-container {
-        grid-template-columns: repeat(2, 1fr); /* 2열 그리드 */
-    }
-}
-
-/* 작은 모바일 화면 */
-@media only screen and (max-width: 480px) {
-    .process-grid-container {
-        grid-template-columns: 1fr; /* 1열 그리드 */
-    }
-}
 
 
 

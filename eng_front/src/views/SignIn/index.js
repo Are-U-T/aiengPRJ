@@ -23,7 +23,7 @@ import {useNavigate} from 'react-router-dom';
 import {GoogleOAuthProvider} from '@react-oauth/google';
 import {GoogleLogin} from '@react-oauth/google';
 import {jwtDecode} from 'jwt-decode';
-import NaverLogin from 'react-naver-login';
+// import NaverLogin from 'react-naver-login';
 import KakaoLogin from "react-kakao-login";
 import loginValidation from './Validation';
 

@@ -1,143 +1,147 @@
-
 .footer {
-    font-size: 12px;
-    line-height: 1.4;
-    color: #f8f9fa;
-    padding: 20px 50px; /* 너무 큰 패딩을 줄임 */
-    text-align: center; /* 텍스트 중앙 정렬 */
+    font-size: 15px;
+    line-height: 1.1;
+    padding: 100px 100px;
+    text-align: center; /* 중앙 정렬 */
+    background-color: #2c3e50; /* 배경색 변경 */
+    color: #ecf0f1; /* 텍스트 색상 변경 */
 }
 
 .footer .uu {
-    margin-bottom: 15px;
+    font-size: 18px; /* 제목 폰트 크기 변경 */
+    margin-bottom: 20px;
+    color: #3498db; /* 제목 색상 변경 */
     font-weight: bold;
-    color: #ffcc00;
 }
-
 
 .contact-text-large {
-    font-size: 16px; /* Increased font size */
-}
-
-
-.footer img {
-    margin-bottom: 10px; /* Reduced margin */
+    font-size: 16px; /* 폰트 크기 변경 */
+    color: #bdc3c7; /* 폰트 색상 변경 */
 }
 
 .social-links {
     list-style-type: none;
     padding: 0;
-    display: flex; /* Align icons horizontally */
-    justify-content: start;
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+    align-items: center;
+    margin-top: 10px; /* 상단 여백 추가 */
 }
 
 .social-icon {
-    font-size: 20px;
-    margin-right: 10px; /* Spacing between icons */
-    color: #f8f9fa;
-    text-decoration: none;
-    transition: color 0.3s;
+    font-size: 28px; /* 아이콘 크기 증가 */
+    margin: 0 12px; /* 좌우 간격 조정 */
+    color: #bdc3c7;
+    transition: color 0.3s, transform 0.3s;
 }
 
+.social-icon:hover {
+    color: #3498db; /* 호버 시 색상 변경 */
+    transform: scale(1.15); /* 확대 효과 */
+}
+
+.footer .light-text {
+    color: #bdc3c7; /* 회색으로 변경 */
+}
+
+/* 이메일 링크 스타일 */
+.email-link {
+    color: #ecf0f1;
+    /*text-decoration: none;*/
+}
+
+.email-link:hover {
+    color: #3498db;
+}
 
 
 .footer-container {
     display: flex;
-    flex-wrap: wrap; /* 반응형 레이아웃을 위한 설정 */
-    justify-content: space-around;
-    max-width: 1200px;
-    margin: 0 auto; /* 가운데 정렬 */
+    justify-content: center; /* 섹션들을 공간 균등 배치 */
+    align-items: start; /* 섹션들을 상단 정렬 */
+    flex-wrap: wrap;
+    height: 100%;
 }
 
+.jk a {
+    text-decoration: none;
+    color: #ecf0f1; /* 링크 색상 변경 */
+}
 
+.jk a:hover {
+    color: #3498db; /* 호버 시 색상 변경 */
+}
 
-.social-icon:hover {
-    color: #ffcc00;
+.jk {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px; /* 상단 여백 추가 */
+}
+
+.footer .row {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* 요소들을 일자로 균등 배치 */
+    align-items: start; /* 요소들을 상단 정렬 */
+    flex-wrap: wrap;
+}
+
+/* 섹션 스타일 */
+.footer .col-lg-6, .footer .col-lg-3, .footer .col-md-6, .footer .col-md-12 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* 섹션 내용을 상단 정렬 */
+    align-items: flex-start; /* 섹션 내용을 왼쪽 정렬 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+    margin-bottom: 20px;
+    flex: 0 0 auto; /* 유연한 크기 조정 */
+    max-width: 33%; /* 최대 너비 설정 */
+}
+
+/* 반응형 레이아웃 */
+@media only screen and (max-width: 768px) {
+    .footer {
+        padding: 25px;
+    }
+
+    .footer .col-lg-6, .footer .col-lg-3, .footer .col-md-6, .footer .col-md-12 {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .footer-container, .footer .row {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .footer-container, .footer .row {
+        flex-direction: column;
+    }
 }
 
 
 
 .facebook-icon {
-    color: #4267B2; /* Facebook Blue */
+    color: #4267B2;
 }
 
-.twitter-icon {
-    color: #1DA1F2; /* Twitter Blue */
-}
 
 .instagram-icon {
-    color: #C13584; /* 대표적인 인스타그램 핑크 */
+    color: #C13584;
 }
 
 
 .youtube-icon {
-    color: #FF0000; /* YouTube Red */
+    color: #FF0000;
 }
 
-
-
-/* 화면 크기가 768px 이하일 때 적용되는 스타일 */
-@media only screen and (max-width: 768px) {
-    .footer {
-        padding: 20px; /* 화면이 작을 때 패딩 줄임 */
-    }
-
-    .footer {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-    .footer-container,
-    .footer .d-flex,
-    .social-links {
-        flex-direction: column; /* 항목들이 가로로 유지되도록 함 */
-        justify-content: center; /* 중앙 정렬 */
-        align-items: center; /* 세로 중앙 정렬 */
-    }
-
-    .footer .col-lg-6,
-    .footer .col-lg-3,
-    .footer .col-md-6,
-    .footer .col-md-12 {
-        width: auto; /* 너비를 자동으로 설정 */
-        margin-bottom: 10px;
-        flex: 1; /* 유연한 아이템 크기 조정 */
-        min-width: 150px; /* 최소 너비 설정 */
-    }
-
-    .team-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .team-card {
-        width: 100%; /* 모든 카드가 전체 너비를 차지하도록 설정 */
-        margin-bottom: 20px; /* 아래쪽 마진 설정 */
-    }
+.github-icon {
+    color: white;
 }
 
-
-/* 작은 모바일 화면 */
-@media only screen and (max-width: 480px) {
-    .footer {
-        padding: 10px; /* 패딩 조정 */
-    }
-
-    .footer-container {
-        flex-direction: column; /* 모바일 화면에서는 컬럼으로 변경 */
-    }
-
-    .footer .col-lg-6,
-    .footer .col-lg-3,
-    .footer .col-md-6,
-    .footer .col-md-12 {
-        width: 100%; /* 모바일 화면에서는 컬럼 너비를 100%로 설정 */
-    }
-
-    .team-card {
-        /* 화면이 매우 작을 때도 카드의 너비를 100%로 설정하여 세로로 쌓이도록 합니다. */
-        width: 100%;
-        margin-bottom: 20px;
-    }
+.notion-icon {
+    color: white;
 }
 
 

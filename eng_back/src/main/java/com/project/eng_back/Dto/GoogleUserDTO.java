@@ -10,7 +10,7 @@ public class GoogleUserDTO {
     private int gender;
 
     public GoogleUserDTO() {
-        this.pw = "GoogleUser";
+        this.pw = "SocialLogin";
         this.gender = 1;
     }
 }

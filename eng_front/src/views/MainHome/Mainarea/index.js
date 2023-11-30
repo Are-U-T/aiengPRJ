@@ -15,7 +15,12 @@ import freedom from './images/자유.png';
 import study from './images/학습.png';
 import free from './images/무료.png';
 import design from './images/디자인.png';
-
+import '../../../App.css'
+import studyImg1 from './images/studyImg1.jpg'
+import speakingexam from "./images/speakingexam.png";
+import nationalexam from "./images/nationalexam.png";
+import './exam.css';
+import hugi from '../Mainarea/images/후기.png';
 
 
 const item = {
@@ -44,44 +49,42 @@ export default function Mainarea(){
 
     return (
         <>
-        <div>
+        <div className='App'>
 
           <div style={{marginTop : '150px'}}/>
 
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '200px', marginBottom : '10px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '10px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>학습 효과</h5>
           </div>
 
-
-
-          <section className="page-section portfolio" id="portfolio" style={{ marginTop: '-100px' }}>
+          <section className="page-section" id="portfolio" style={{ marginTop: '-120px',  cursor: 'default' }}>
             <div className="container">
               <div className="row justify-content-between">
                 {/* Portfolio Item 1 */}
                 <div className="col-md-6 col-lg-4 mb-5">
-                  <div className="portfolio-item mx-auto" style={{ background: 'linear-gradient(135deg, #6e8efb, #a777e3)', borderRadius: '20px', overflow: 'hidden' }}>
-                    <img className="img-fluid" src={aic} alt="..." style={{ transition: 'transform 0.3s ease-in-out' }}/>
-                    <p style={{ padding: '20px', color: '#fff', fontSize: '16px', fontWeight: 'bold', textAlign: 'center' }}>
-                      진짜 사람같은 AI와 자유롭게 대화해보세요!ㅋㅋㅋㅋㅋㅋㅋ
+                  <div className="portfolio-item mx-auto" style={{ background: 'linear-gradient(90deg, #89C4F4, #3a7bd5)', borderRadius: '20px', overflow: 'hidden' }}>
+                    <img className="img-fluid" src={aic} alt="..."/>
+                    <p style={{ padding: '20px', color: '#fff', fontSize: '17px', fontWeight: 'bold', textAlign: 'center' }}>
+                      사람과의 회화 부담감을 감소
                     </p>
                   </div>
                 </div>
                 {/* Portfolio Item 2 */}
                 <div className="col-md-6 col-lg-4 mb-5">
-                  <div className="portfolio-item mx-auto" style={{ background: 'linear-gradient(135deg, #fc4a1a, #f7b733)', borderRadius: '20px', overflow: 'hidden' }}>
-                    <img className="img-fluid" src={eng} alt="..." style={{ transition: 'transform 0.3s ease-in-out' }}/>
-                    <p style={{ padding: '20px', color: '#fff', fontSize: '16px', fontWeight: 'bold', textAlign: 'center' }}>
-                      언제 어디서든 시간과 장소를 구애 받지 않고, 편하게 이용할 수 있습니다.
+                  <div className="portfolio-item mx-auto" style={{ background: 'linear-gradient(90deg, #3a7bd5, #1D2B64)', borderRadius: '20px', overflow: 'hidden' }}>
+                    <img className="img-fluid" src={eng} alt="..." />
+                    <p style={{ padding: '20px', color: '#fff', fontSize: '17px', fontWeight: 'bold', textAlign: 'center' }}>
+                      사용자가 원할 때마다 언제 어디서든
                     </p>
                   </div>
                 </div>
                 {/* Portfolio Item 3 */}
-                <div className="col-md-6 col-lg-4 mb-5">
-                  <div className="portfolio-item mx-auto" style={{ background: 'linear-gradient(135deg, #ee0979, #ff6a00)', borderRadius: '20px', overflow: 'hidden' }}>
-                    <img className="img-fluid" src={success} alt="..." style={{ transition: 'transform 0.3s ease-in-out' }}/>
-                    <p style={{ padding: '20px', color: '#fff', fontSize: '16px', fontWeight: 'bold', textAlign: 'center' }}>
-                      T와 함께하며 영어분야에서 성공하세요!ㅋㅋㅋㅋㅋ
+                <div className="col-md-6 col-lg-4 mb-5" style={{marginTop : '2px'}}>
+                  <div className="portfolio-item mx-auto" style={{ background: 'linear-gradient(90deg, #1D2B64, #3a6073)', borderRadius: '20px', overflow: 'hidden' }}>
+                    <img className="img-fluid" src={studyImg1} alt="..." />
+                    <p style={{ padding: '20px', color: '#fff', fontSize: '17px', fontWeight: 'bold', textAlign: 'center' }}>
+                      T와 함께 회화 만렙 되기
                     </p>
                   </div>
                 </div>
@@ -89,14 +92,17 @@ export default function Mainarea(){
             </div>
           </section>
 
-          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '200px'}}>
+
+
+
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '180px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>사용 대상</h5>
           </div>
 
           <Box
               component="section"
-              sx={{ display: 'flex', overflow: 'hidden', bgcolor: 'white'}}
+              sx={{ display: 'flex', overflow: 'hidden'}}
           >
             <Container sx={{ mt: 5, mb: 20, display: 'flex', position: 'relative' }}>
 
@@ -166,14 +172,11 @@ export default function Mainarea(){
             </Container>
           </Box>
 
-
-
-
-
-          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '200px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '180px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>사용하는 이유</h5>
           </div>
+          <div style={{marginTop : '-30px'}}></div>
           <Container
               sx={{
                 mt: { xs: 5, md: 10 },
@@ -191,7 +194,7 @@ export default function Mainarea(){
                     <img
                         src={freedom}
                         alt="icon1"
-                        style={{ ...customImage, alignSelf: 'center', margin: '0' }}
+                        style={{ ...customImage, alignSelf: 'center', marginLeft: '20px' }}
                     />
                   </Grid>
                   <Grid item xs={6}>
@@ -207,16 +210,16 @@ export default function Mainarea(){
 
               <Grid item xs={12} md={6}>
                 <Grid container spacing={0}>
-                  <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}> {/* 여기서 Padding과 Margin을 0으로 설정 */}
+                  <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}>
                     <img
                         src={study}
                         alt="icon2"
-                        style={{ ...customImage, alignSelf: 'center', margin: '0' }} // 이미지 위치 조정
+                        style={{ ...customImage, alignSelf: 'center', marginLeft: '20px' }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <Box sx={{ ...customItem, borderRight: 'none' }}> {/* 여기서는 경계선 제거 */}
-                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}> {/* 텍스트 크기와 스타일 조정 */}
+                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}>
                        능력에 따른 효과적이고 맞춤형 학습
                       </Typography>
                     </Box>
@@ -227,16 +230,16 @@ export default function Mainarea(){
               {/* 두 개의 추가 그리드 아이템 */}
               <Grid item xs={12} md={6}>
                 <Grid container spacing={0}>
-                  <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}> {/* 여기서 Padding과 Margin을 0으로 설정 */}
+                  <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}>
                     <img
                         src={free}
                         alt="icon3"
-                        style={{ ...customImage, alignSelf: 'center', margin: '0' }} // 이미지 위치 조정
+                        style={{ ...customImage, alignSelf: 'center', marginLeft: '20px' }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <Box sx={{ ...customItem, borderRight: 'none' }}> {/* 여기서는 경계선 제거 */}
-                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}> {/* 텍스트 크기와 스타일 조정 */}
+                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}>
                         무료로 인한 부담감 제로!
                       </Typography>
                     </Box>
@@ -246,16 +249,16 @@ export default function Mainarea(){
 
               <Grid item xs={12} md={6}>
                 <Grid container spacing={0}>
-                  <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}> {/* 여기서 Padding과 Margin을 0으로 설정 */}
+                  <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}>
                     <img
                         src={design}
                         alt="icon4"
-                        style={{ ...customImage, alignSelf: 'center', margin: '0' }} // 이미지 위치 조정
+                        style={{ ...customImage, alignSelf: 'center', marginLeft: '20px' }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <Box sx={{ ...customItem, borderRight: 'none' }}> {/* 여기서는 경계선 제거 */}
-                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}> {/* 텍스트 크기와 스타일 조정 */}
+                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}>
                         모두가 좋아하는 편한 디자인!
                       </Typography>
                     </Box>
@@ -265,28 +268,32 @@ export default function Mainarea(){
             </Grid>
           </Container>
 
+          <div style={{marginTop : '150px'}}/>
+
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '10px'}}>
+            <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
+            <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}> 시험 정보, 알고 계셨나요?</h5>
+          </div>
+
+
+          <div className="im">
+            <a href="https://www.opic.or.kr/opics/jsp/senior/index.jsp">
+              <img src={speakingexam} alt="스피킹시험" className="ei"/>
+            </a>
+            <a href="http://www.espt.org/">
+              <img src={nationalexam} alt="국가시험" className="ei"/>
+            </a>
+          </div>
 
 
 
-          {/* About Section*/}
-  {/*        <div style={{marginTop : '200px'}}></div>*/}
 
-  {/*        <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '200px', marginBottom : '10px'}}>*/}
-  {/*          <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />*/}
-  {/*          <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>너랑 나</h5>*/}
-  {/*        </div>*/}
+          <div style={{marginTop : '150px'}}/>
+          <img src={hugi} alt="후기" style={{ maxWidth: '100%', height: 'auto' }} />
 
-  {/*        <section className="page-section" style={{ backgroundColor: 'white', color: 'black' }} id="about">*/}
-  {/*  <div className="container">*/}
 
-  {/*    <div className="divider-custom"/>*/}
-  {/*    /!* About Section Content*!/*/}
-  {/*    <div className="row">*/}
-  {/*      <div className="col-lg-3 ms-auto"><p className="lead">너랑 나는 4명의 팀으로 구성되어 있습니다.</p></div>*/}
-  {/*      <div className="col-lg-3 me-auto"><p className="lead">효율적인 운영을 위해 늘 최선을 다하고 있습니다.</p></div>*/}
-  {/*    </div>*/}
-  {/*  </div>*/}
-  {/*</section>*/}
+
+
 </div>
         </>
     )

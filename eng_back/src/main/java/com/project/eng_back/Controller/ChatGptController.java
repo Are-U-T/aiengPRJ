@@ -16,6 +16,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,7 @@ public class ChatGptController {
     private boolean first = true;
 
     private String recommended;
+    private List<String> recommendedList = new ArrayList<>();
 
     // 대화 기록을 저장할 변수
     private StringBuilder conversationHistory = new StringBuilder();
@@ -71,7 +73,8 @@ public class ChatGptController {
             // 이미 추천 받은 질문 제외하고 다른 질문 받기
             recommended = String.format("You're my %s, and I'm your %s. " +
                             "We're in a situation is '%s'. " +
-                            "Recommend one questions that are different from the previous questions."
+                            "Apart from previous questions such as "+ recommendedList.toString() +
+                            ", please recommend other one questions."
                             + "And answer without the number.",
                     questionRequestDto.getGPTRole(), questionRequestDto.getUserRole(), questionRequestDto.getSituation());
         }
@@ -82,6 +85,8 @@ public class ChatGptController {
         recommend.setCrid(crid);
         recommend.setSpeaker(speaker);
         chatGptService.saveToDatabase(recommend);
+        recommendedList.add(recommend.getText());
+        System.out.println("recommend list: " + recommendedList.toString());
         System.out.println("recommend.getText(): " + recommend.getText());
     }
 
@@ -91,6 +96,7 @@ public class ChatGptController {
         String userRole = initiationRequestDto.getUserRole();
         String gptRole = initiationRequestDto.getGPTRole();
         String situation = initiationRequestDto.getSituation();
+        String level = initiationRequestDto.getLv();
         questionRequestDto.setCrid(initiationRequestDto.getCrid());
         choice.setCrid(initiationRequestDto.getCrid());
 
@@ -100,8 +106,8 @@ public class ChatGptController {
                         "We're in a situation is '%s'. " +
                         "And when answering, answer without your roles. " +
                         "You just have to play the role of the %s. " +
-                        "Let me ask a question first.",
-                gptRole, userRole, situation, gptRole, userRole);
+                        "And please use conversational vocabulary at a ‘%s’ level.",
+                gptRole, userRole, situation, gptRole, userRole, level);
 
 
         ChatGptResponseDto gptResponseDto = chatGptService.setSituation(new QuestionRequestDto(initialQuestion));
@@ -126,6 +132,7 @@ public class ChatGptController {
         questionRequestDto.setUserRole(initiationRequestDto.getUserRole());
         questionRequestDto.setSituation(initiationRequestDto.getSituation());
         questionRequestDto.setCountry(initiationRequestDto.getCountry());
+        questionRequestDto.setLv(initiationRequestDto.getLv());
 
         return audioBytes;
     }
@@ -133,14 +140,15 @@ public class ChatGptController {
     // 대화방 설정 이후 대화 진행용
     public byte[] conversation(String question) {
 
-        if (question == null) {
-            question = "The user's words were not entered correctly, so please repeat them.";
-        }
-
-        questionRequestDto.setQuestion(question);
-
-        System.out.println("question : " + question);
         try {
+
+            if (question == null) {
+                question = "The user's words were not entered correctly, so please repeat them.";
+            }
+
+            questionRequestDto.setQuestion(question);
+
+            System.out.println("question : " + question);
 
 //            sendRoleAndSituationToChatGptPy(userRole, gptRole, situation);
 

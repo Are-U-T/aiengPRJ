@@ -12,5 +12,5 @@ public class ReviewDaoImpl implements ReviewDao {
     ReviewMapper reviewMapper;
 
     @Override
-    public int write(ReviewDto reviewDto) { return reviewMapper.write(reviewDto);};
+    public int write(ReviewDto reviewDto) { return reviewMapper.write(reviewDto);}
 }
