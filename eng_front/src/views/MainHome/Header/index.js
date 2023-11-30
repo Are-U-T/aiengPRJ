@@ -178,7 +178,7 @@ function Header(){
             }}>
                 <img src={logoXlogo} alt="Logo" />
                 <div style={{color : '#1D2B64', fontWeight : 'bold'}}>
-                    <h4>인공지능을 개발하며 안전한 AGI 개발을 추구하는 미국의 비영리 단체이며,
+                    <h4 style={{lineHeight: 2.0}}>인공지능을 개발하며 안전한 AGI 개발을 추구하는 미국의 비영리 단체이며,
                         <br/>대형 언어 모델 (LLM)과 이를 기반으로 하는 ChatGPT 등의 소프트웨어를 제공</h4>
                 </div>
             </div>
