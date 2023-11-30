@@ -27,10 +27,27 @@ export default function SignInSide() {
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
-
-        userValidation();
-
         event.preventDefault();
+
+        const mail = document.querySelector("input[id=mail]");
+
+        if (mail.value == "") {
+            alert("이메일을 입력하세요.");
+            mail.focus();
+            return false;
+        }
+        ;
+
+
+        // var mailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+        var mailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
+        if (!mailRegExp.test(mail.value)) {
+            alert("올바른 이메일을 입력해주세요.");
+            mail.focus();
+            mail.value = "";
+            return false;
+        }
+
         const data = new FormData(event.currentTarget);
         const userData = {
             email: data.get('mail'),
@@ -39,33 +56,37 @@ export default function SignInSide() {
             gender: data.get('gender'),
         };
 
-        const valid = await fetch('http://localhost/user/validate', {
-            method: 'post',
-            headers: {
-                'Content=Type': 'application/json',
-            },
-            body: JSON.stringify(userData)
-        })
+        try {
+            // 첫 번째 요청: 이메일 검증
+            const validateResponse = await fetch('http://localhost/user/save', {
+                method: 'put',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
 
-        if (valid.status === 200) {
-            try {
-                const response = await fetch('http://localhost/user/save', {
-                    method: 'Put',
+            if (validateResponse.status === 200) {
+                // 두 번째 요청: 사용자 정보 저장
+                const saveResponse = await fetch('http://localhost/user/save', {
+                    method: 'put',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(userData),
                 });
 
-                if (response.ok) {
+                if (saveResponse.ok) {
                     console.log('User registered successfully.');
                     navigate('/login');
                 } else {
                     console.error('Failed to register user.');
                 }
-            } catch (error) {
-                console.error('Error during registration:', error);
+            } else {
+                console.error('Email validation failed.');
             }
+        } catch (error) {
+            console.error('Error during registration:', error);
         }
     };
 
@@ -74,7 +95,7 @@ export default function SignInSide() {
 
     async function sendNum() {
 
-        userValidation();
+        // userValidation();
 
         const emailData = {
             email: $("#mail").val(),

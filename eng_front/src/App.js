@@ -6,12 +6,12 @@ import Introduction from "./views/Introduction";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Developer from "./views/Developer";
 import HeroLeft09 from "./views/Start/HeroLeft09";
-import LevelTest from "./views/LevelTest";
+import LevelTest from "./views/EngExam";
 import Speech from "./views/Speech";
 import Speaking from "./views/Speaking";
 import Keyword from "./views/Keyword";
 import Mypage from "./views/MyPage";
-import EngExam from "./views/EngExam";
+// import EngExam from "./views/EngExam";
 import ResultPage from "./views/EngExam/ResultPage";
 
 function App() {
@@ -28,9 +28,7 @@ function App() {
          <Route path="/keyword" element={<Keyword/>}/>
          <Route path="/speaking" element={<Speaking/>}/>
          <Route path="/mypage" element={<Mypage/>}/>
-         <Route path="/engExam" element={<EngExam/>}/>
          <Route path="/resultpage" element={<ResultPage/>}/>
-            {/*<Route path="/developer" element={<Developer/>}/>*/}
     </Routes>
   );
 }

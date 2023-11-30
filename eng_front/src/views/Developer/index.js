@@ -34,7 +34,7 @@ const ProjectIntro = () => (
 
             <div style={{marginTop : '-100px'}}></div>
             <div style={{ display: 'flex', alignItems: 'center', marginLeft: '150px', marginBottom : '10px'}}>
-                <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650'}}>Team</h5>
+                {/*<h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650'}}>Team</h5>*/}
             </div>
 
 
