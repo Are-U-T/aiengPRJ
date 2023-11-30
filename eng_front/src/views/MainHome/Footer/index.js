@@ -1,6 +1,7 @@
 import React from 'react';
 import  './style.css'
 import '../../../App.css'
+<<<<<<< Updated upstream
 import {CardActionArea} from "@mui/material";
 import CardMedia from "@mui/material/CardMedia";
 import jhImage from '../../Developer/images/jh.jpg';
@@ -18,6 +19,8 @@ import khImage from '../../Developer/images/kh.jpg';
 import logo from './images/logo.png';
 
 
+=======
+>>>>>>> Stashed changes
 
 
 export default function Footer(){

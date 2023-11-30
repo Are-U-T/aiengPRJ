@@ -103,6 +103,7 @@ export default function SignInSide() {
 
     return (
         <>
+<<<<<<< Updated upstream
         <ThemeProvider theme={defaultTheme}>
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
@@ -122,6 +123,16 @@ export default function SignInSide() {
                 />
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                     <Box
+=======
+            <ThemeProvider theme={defaultTheme}>
+                <Grid container component="main" sx={{ height: '100vh' }}>
+                    <CssBaseline />
+                    <Grid
+                        item
+                        xs={false}
+                        sm={4}
+                        md={7}
+>>>>>>> Stashed changes
                         sx={{
                             my: 8,
                             mx: 4,
@@ -129,6 +140,7 @@ export default function SignInSide() {
                             flexDirection: 'column',
                             alignItems: 'center',
                         }}
+<<<<<<< Updated upstream
                     >
                         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                             <LockOutlinedIcon />
@@ -161,6 +173,75 @@ export default function SignInSide() {
                               인증
                             </Button>
                             </div>
+=======
+                    />
+                    <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                        <Box
+                            sx={{
+                                my: 8,
+                                mx: 4,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                                <LockOutlinedIcon />
+                            </Avatar>
+                            <Typography component="h1" variant="h5">
+                                회원가입
+                            </Typography>
+
+                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth={false}
+                                        style={{ flex: 9 }}
+                                        id="mail"
+                                        label="Email Address"
+                                        name="mail"
+                                        autoComplete="mail"
+                                        autoFocus
+                                        placeholder="이메일 입력"
+                                    />
+
+                                    <Button
+                                        variant="contained"
+                                        style={{ flex: 1 , backgroundColor : '#1D2B64'}}
+                                        onClick={sendNum}
+                                        name="sendBtn"
+                                        id="sendBtn"
+                                    >
+                                        인증
+                                    </Button>
+                                </div>
+
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth={false}
+                                        style={{ flex: 8 }}
+                                        id="number"
+                                        label="Key Number"
+                                        name="number"
+                                        placeholder="인증번호 입력"
+                                    />
+
+                                    <Button
+                                        variant="contained"
+                                        style={{ flex: 2, backgroundColor: '#1D2B64' }}
+                                        onClick={confirmNum}
+                                        id="confirmBtn"
+                                        name="confirmBtn"
+
+                                    >
+                                        인증 확인
+                                    </Button>
+                                </div>
+>>>>>>> Stashed changes
 
                             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                 <TextField
@@ -172,9 +253,38 @@ export default function SignInSide() {
                                     label="인증번호"
                                     name="mail_number"
                                 />
+<<<<<<< Updated upstream
+=======
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="name"
+                                    label="Name"
+                                    name="name"
+                                    autoComplete="name"
+                                    placeholder="이름 입력"
+                                />
+
+                                <FormControl component="fieldset" sx={{ mt: 2, mb: 2 }}>
+                                    <FormLabel component="legend">Gender</FormLabel>
+                                    <RadioGroup
+                                        row
+                                        aria-label="gender"
+                                        name="gender"
+                                        defaultValue={1}
+                                    >
+                                        <FormControlLabel value={1} control={<Radio/>} label="man"/>
+                                        <FormControlLabel value={0} control={<Radio/>} label="woman"/>
+                                    </RadioGroup>
+                                </FormControl>
+>>>>>>> Stashed changes
+
+
 
                                 <Button
                                     variant="contained"
+<<<<<<< Updated upstream
                                     style={{ flex: 2, backgroundColor: '#1D2B64' }}
                                     onClick={confirmNum}
                                     id="confirmBtn"
@@ -182,6 +292,20 @@ export default function SignInSide() {
 
                                 >
                                     인증 확인
+=======
+                                    sx={{
+                                        mt: 3,
+                                        mb: 2,
+                                        padding: '6px 12px',
+                                        backgroundColor: '#1D2B64',
+                                        '&:hover': {
+                                            backgroundColor: 'black'
+                                        },
+                                        width: '100%'
+                                    }}
+                                >
+                                    회원가입
+>>>>>>> Stashed changes
                                 </Button>
                             </div>
 
@@ -218,6 +342,7 @@ export default function SignInSide() {
                             </FormControl>
 
 
+<<<<<<< Updated upstream
 
                             <Button
                                 type="submit"
@@ -243,6 +368,15 @@ export default function SignInSide() {
                                     <Link to="/login" variant="body2" style={{ textDecoration: 'none' }}>
                                         {"이미 계정이 있나요? 로그인하러 가기"}
                                     </Link>
+=======
+                                <Grid container>
+                                    <Grid item xs/>
+                                    <Grid item>
+                                        <Link to="/login" variant="body2" style={{ textDecoration: 'none' }}>
+                                            {"이미 계정이 있나요? 로그인하러 가기"}
+                                        </Link>
+                                    </Grid>
+>>>>>>> Stashed changes
                                 </Grid>
                             </Grid>
                         </Box>

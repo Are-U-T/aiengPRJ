@@ -6,11 +6,20 @@ import Developer from "./views/Developer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import HeroLeft09 from "./views/Start/HeroLeft09";
 import Change from "./views/InformationChange";
+<<<<<<< Updated upstream
 import LevelTest from "./views/LevelTest";
 import Speech from "./views/Speech";
 import Speaking from "./views/Speaking";
 import Keyword from "./views/Keyword";
 import './App.css'
+=======
+import LevelTest from "./views/EngExam";
+import Speech from "./views/Speech";
+import Speaking from "./views/Speaking";
+import Mypage from "./views/MyPage";
+// import EngExam from "./views/EngExam";
+import ResultPage from "./views/EngExam/ResultPage";
+>>>>>>> Stashed changes
 
 function App() {
   return (
@@ -24,7 +33,6 @@ function App() {
          <Route path="/Change" element={<Change/>}/>
          <Route path="/leveltest" element={<LevelTest/>}/>
          <Route path="/speech" element={<Speech/>}/>
-         <Route path="/keyword" element={<Keyword/>}/>
          <Route path="/speaking" element={<Speaking/>}/>
          {/*<Route path="/resultpage" element={<ResultPage/>}/>*/}
 

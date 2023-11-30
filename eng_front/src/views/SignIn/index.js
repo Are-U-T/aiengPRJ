@@ -24,6 +24,11 @@ import { useNavigate } from 'react-router-dom';
 import {GoogleOAuthProvider} from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+<<<<<<< Updated upstream
+=======
+import KakaoLogin from "react-kakao-login";
+import loginValidation from './Validation';
+>>>>>>> Stashed changes
 
 function ColorSchemeToggle(props) {
     const { mode, setMode } = useColorScheme();
@@ -70,6 +75,26 @@ function ColorSchemeToggle(props) {
     );
 }
 
+<<<<<<< Updated upstream
+=======
+
+export default function JoySignInSideTemplate() {
+
+    const kakaoClientId = '0e395d0577e5959b7a73d1ebdcbcf376'
+    const kakaoOnSuccess = async (data) => {
+        console.log(data)
+        try {
+            const response = await fetch('http://localhost/user/google-login', {
+                method: 'Put',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: data.profile.properties.nickname,
+                    email: data.profile.kakao_account.email,
+                }),
+            });
+>>>>>>> Stashed changes
 
 export default function JoySignInSideTemplate() {
 
@@ -109,6 +134,7 @@ export default function JoySignInSideTemplate() {
     return (
         <>
             <Navigation/>
+<<<<<<< Updated upstream
         <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
             <CssBaseline />
             <GlobalStyles
@@ -138,6 +164,20 @@ export default function JoySignInSideTemplate() {
                     },
                 })}
             >
+=======
+            <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
+                <CssBaseline />
+                <GlobalStyles
+                    styles={{
+                        ':root': {
+                            '--Collapsed-breakpoint': '769px', // form will stretch when viewport is below `769px`
+                            '--Cover-width': '50vw', // must be `vw` only
+                            '--Form-maxWidth': '800px',
+                            '--Transition-duration': '0.4s', // set to `none` to disable transition
+                        },
+                    }}
+                />
+>>>>>>> Stashed changes
                 <Box
                     sx={{
                         display: 'flex',
@@ -160,6 +200,7 @@ export default function JoySignInSideTemplate() {
                             marginLeft: 'auto',
                         }}
                     >
+<<<<<<< Updated upstream
                         {/*<Box*/}
                         {/*    sx={{*/}
                         {/*        gap: 2,*/}
@@ -177,10 +218,27 @@ export default function JoySignInSideTemplate() {
                         {/*</Box>*/}
                         <ColorSchemeToggle />
                     </Box>
+=======
+
+                        <Box
+                            component="header"
+                            sx={{
+                                py: 11,
+                                display: 'flex',
+                                alignItems: 'left',
+                                justifyContent: 'space-between',
+                                marginLeft: 'auto',
+                            }}
+                        >
+
+                            <ColorSchemeToggle />
+                        </Box>
+>>>>>>> Stashed changes
 
 
 
 
+<<<<<<< Updated upstream
                     <Box
                         component="main"
                         sx={{
@@ -195,6 +253,14 @@ export default function JoySignInSideTemplate() {
                             mx: 'auto',
                             borderRadius: 'sm',
                             '& form': {
+=======
+                        <Box
+                            component="main"
+                            sx={{
+                                my: 'auto',
+                                py: -5,
+                                pb: 15,
+>>>>>>> Stashed changes
                                 display: 'flex',
                                 flexDirection: 'column',
                                 gap: 2,
@@ -206,6 +272,7 @@ export default function JoySignInSideTemplate() {
                     >
 
 
+<<<<<<< Updated upstream
                         <Stack gap={4} sx={{ mb: 2 }}>
                             <Stack gap={1}>
                                 <Typography level="h3">로그인</Typography>
@@ -215,9 +282,22 @@ export default function JoySignInSideTemplate() {
                                         회원가입 하러가기!
                                     </Link>
                                 </Typography>
+=======
+                            <Stack gap={4} sx={{ mb: 2 }}>
+                                <Stack gap={1}>
+                                    <Typography level="h3">로그인</Typography>
+                                    <Typography level="body-sm">
+                                        아직 회원이 아닌가요?<span style={{ marginRight: '5px' }}></span>
+                                        <Link to="/signup" level="title-sm" style={{ textDecoration: 'none' }}>
+                                            회원가입 하러가기!
+                                        </Link>
+                                    </Typography>
+                                </Stack>
+>>>>>>> Stashed changes
                             </Stack>
                         </Stack>
 
+<<<<<<< Updated upstream
                         <Stack gap={4} sx={{ mt: 2 }}>
                             <form onSubmit={handleSubmit}>
                                 <FormControl required>
@@ -240,6 +320,30 @@ export default function JoySignInSideTemplate() {
                                     <Button type="submit" fullWidth>
                                          로그인
                                     </Button>
+=======
+                            <Stack gap={4} sx={{ mt: 2 }}>
+                                <form onSubmit={handleSubmit}>
+                                    <FormControl required>
+                                        <FormLabel>이메일</FormLabel>
+                                        <Input type="email" name="email" />
+                                    </FormControl>
+                                    <FormControl required>
+                                        <FormLabel>비밀번호</FormLabel>
+                                        <Input type="password" name="password" />
+                                    </FormControl>
+                                    <Stack gap={4} sx={{ mt: -2}}>
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                alignItems: 'center',
+                                            }}
+                                        >
+                                        </Box>
+                                        <Button type="submit" fullWidth>
+                                            로그인
+                                        </Button>
+>>>>>>> Stashed changes
 
                                     <GoogleOAuthProvider clientId="868155967382-ubbhk0fdkoq93q63btkkmeats8h5p7o2.apps.googleusercontent.com">
                                         <GoogleLogin
@@ -256,12 +360,40 @@ export default function JoySignInSideTemplate() {
                                                             email: decoded.email,}),
                                                     });
 
+<<<<<<< Updated upstream
                                                     if (response.ok) {
                                                         const data = await response.json();
                                                         console.log('User data from backend:', data);
                                                         navigate('/main');
                                                     } else {
                                                         console.error('Failed to log in with Google.');
+=======
+
+                                        <GoogleOAuthProvider clientId="868155967382-ubbhk0fdkoq93q63btkkmeats8h5p7o2.apps.googleusercontent.com">
+                                            <GoogleLogin
+                                                onSuccess={async credentialResponse => {
+                                                    var decoded = jwtDecode(credentialResponse.credential);
+                                                    try {
+                                                        const response = await fetch('http://localhost/user/google-login', {
+                                                            method: 'Put',
+                                                            headers: {
+                                                                'Content-Type': 'application/json',
+                                                            },
+                                                            body: JSON.stringify({
+                                                                name: decoded.name,
+                                                                email: decoded.email,}),
+                                                        });
+
+                                                        if (response.ok) {
+                                                            const data = await response.json();
+                                                            console.log('User data from backend:', data);
+                                                            navigate('/main');
+                                                        } else {
+                                                            console.error('Failed to log in with Google.');
+                                                        }
+                                                    } catch (error) {
+                                                        console.error('Error during Google login:', error);
+>>>>>>> Stashed changes
                                                     }
                                                 } catch (error) {
                                                     console.error('Error during Google login:', error);
@@ -273,6 +405,7 @@ export default function JoySignInSideTemplate() {
                                         />
                                     </GoogleOAuthProvider>
 
+<<<<<<< Updated upstream
                                 </Stack>
                             </form>
                         </Stack>
@@ -297,6 +430,29 @@ export default function JoySignInSideTemplate() {
                     backgroundImage:
                         'url(https://images.unsplash.com/photo-1527181152855-fc03fc7949c8?auto=format&w=1000&dpr=2)',
                     [theme.getColorSchemeSelector('dark')]: {
+=======
+                                    </Stack>
+                                </form>
+                            </Stack>
+                        </Box>
+                    </Box>
+                </Box>
+                <Box
+                    sx={(theme) => ({
+                        height: '100%',
+                        position: 'absolute',
+                        right: 0,
+                        top:'80px',
+                        bottom: 0,
+                        left: 'clamp(0px, (100vw - var(--Collapsed-breakpoint)) * 999, 100vw - var(--Cover-width))',
+                        transition:
+                            'background-image var(--Transition-duration), left var(--Transition-duration) !important',
+                        transitionDelay: 'calc(var(--Transition-duration) + 0.1s)',
+                        backgroundColor: 'background.level1',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+>>>>>>> Stashed changes
                         backgroundImage:
                             'url(https://images.unsplash.com/photo-1572072393749-3ca9c8ea0831?auto=format&w=1000&dpr=2)',
                     },

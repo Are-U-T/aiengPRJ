@@ -6,8 +6,8 @@ import './Speach.css';
 import us from './images/us.png';
 import uk from './images/uk.png';
 import usno from './images/usno.jpg';
-import ukno from './images/ukno.jpg'
-// import check from './images/check.png';
+import ukno from './images/ukno.jpg';
+import '../../App.css';
 
 
 function Speech() {
@@ -78,7 +78,7 @@ function Speech() {
 
 
     return (
-        <>
+        <div className='App'>
             <Navigation />
             <h2 className="hi">Speech</h2>
 
@@ -198,7 +198,7 @@ function Speech() {
 
 
             </div>
-        </>
+        </div>
     );
 }
 
