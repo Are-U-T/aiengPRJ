@@ -11,14 +11,12 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import Navigation from "../Navigation";
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 import {useNavigate} from 'react-router-dom';
 import axios from "axios";
-import $ from "jquery";
 import userValidation from './Validation';
 
 const defaultTheme = createTheme();
@@ -27,26 +25,10 @@ export default function SignInSide() {
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
+
+        userValidation();
+
         event.preventDefault();
-
-        const mail = document.querySelector("input[id=mail]");
-
-        if (mail.value == "") {
-            alert("이메일을 입력하세요.");
-            mail.focus();
-            return false;
-        }
-        ;
-
-
-        // var mailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
-        var mailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
-        if (!mailRegExp.test(mail.value)) {
-            alert("올바른 이메일을 입력해주세요.");
-            mail.focus();
-            mail.value = "";
-            return false;
-        }
 
         const data = new FormData(event.currentTarget);
         const userData = {
@@ -95,7 +77,23 @@ export default function SignInSide() {
 
     async function sendNum() {
 
-        // userValidation();
+        const mail = document.querySelector("input[id=mail]");
+
+        if (mail.value == "") {
+            alert("이메일을 입력하세요.");
+            mail.focus();
+            return false;
+        }
+        ;
+
+        // var mailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+        var mailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
+        if (!mailRegExp.test(mail.value)) {
+            alert("올바른 이메일을 입력해주세요.");
+            mail.focus();
+            mail.value = "";
+            return false;
+        }
 
         const emailData = {
             email: $("#mail").val(),
