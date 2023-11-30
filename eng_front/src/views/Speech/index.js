@@ -184,7 +184,7 @@ function Speech() {
 
                 <div className="speachbutton-container">
                     {selectedItem && selectedAirole && selectedMyrole && selectedCountry && (
-                        <button className="speachbutton" onClick={(event) => handlePageChange(event)} value={`Si: ${selectedItem}, AI: ${selectedAirole}, ME: ${selectedMyrole}, Country: ${selectedCountry}`}>
+                        <button className="speachbutton" onClick={handleButtonClick}>
                             시작
                         </button>
                     )}
@@ -206,10 +206,11 @@ function Speech() {
 
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
                             <button
-                                onClick={() => {
+                                onClick={(event) => {
                                     setIsModalOpen(false);
-                                    handlePageChange();
+                                    handlePageChange(event);
                                 }}
+                                value={`Si: ${selectedItem}, AI: ${selectedAirole}, ME: ${selectedMyrole}, Country: ${selectedCountry}`}
                                 className="custom-button"
                                 style={{ marginRight: '10px' }}
                             >

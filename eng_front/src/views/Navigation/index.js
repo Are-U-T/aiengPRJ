@@ -38,35 +38,35 @@ const Navigation = () => {
 
     return (
         <Navbar expand="lg" sticky="top" className={`custom-navbar mr-auto ${show ? 'visible' : 'hidden'}`}>
-                <Navbar.Brand href="/">
-                    <img src={logo} alt="Logo" className="abc"/>
-                </Navbar.Brand>
-                <Navbar.Toggle />
+            <Navbar.Brand href="/">
+                <img src={logo} alt="Logo" className="abc"/>
+            </Navbar.Brand>
+            <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-center">
                 <Nav>
                     <Nav.Link href="/main" className="custom-nav-link" >Home</Nav.Link>
                     <Nav.Link href="/leveltest" className="custom-nav-link">Level Test</Nav.Link>
                     <Nav.Link href="/speech" className="custom-nav-link">Speech</Nav.Link>
-                    <Nav.Link href="/change" className="custom-nav-link">Developer</Nav.Link>
+                    <Nav.Link href="/developer" className="custom-nav-link">Developer</Nav.Link>
                 </Nav>
 
-                    <Nav>
-                        <Nav.Link href="/login" className="custom-login-link" >Login</Nav.Link>
-                        <Dropdown>
-                            <Dropdown.Toggle as={Nav.Link}  id="dropdown-profile">
-                                <img
-                                    src={profile}
-                                    alt="Profile"
-                                />
-                            </Dropdown.Toggle>
+                <Nav>
+                    <Nav.Link href="/login" className="custom-login-link" >Login</Nav.Link>
+                    <Dropdown>
+                        <Dropdown.Toggle as={Nav.Link}  id="dropdown-profile">
+                            <img
+                                src={profile}
+                                alt="Profile"
+                            />
+                        </Dropdown.Toggle>
 
-                            <Dropdown.Menu>
-                                <Dropdown.Item href="/profile-edit">개인정보 수정</Dropdown.Item>
-                                <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </Nav>
-                </Navbar.Collapse>
+                        <Dropdown.Menu>
+                            <Dropdown.Item href="/change">개인정보 수정</Dropdown.Item>
+                            <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Nav>
+            </Navbar.Collapse>
         </Navbar>
     );
 }

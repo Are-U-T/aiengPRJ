@@ -72,8 +72,6 @@ function Speech() {
         console.log(`Button clicked for item: ${selectedItem}, ME : ${selectedMyrole}, AI : ${selectedAirole}, Country: ${selectedCountry}`);
         setIsModalOpen(true);
 
-
-
     };
 
 
