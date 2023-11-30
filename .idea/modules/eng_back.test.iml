@@ -8,9 +8,11 @@
     </facet>
   </component>
   <component name="NewModuleRootManager">
-    <output-test url="file://$MODULE_DIR$/../../eng_back/out/test/classes" />
+    <output-test url="file://$MODULE_DIR$/../../eng_back/build/classes/java/test" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../eng_back/src/test" />
+    <content url="file://$MODULE_DIR$/../../eng_back/src/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../eng_back/src/test/java" isTestSource="true" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="eng_back.main" />
@@ -26,6 +28,7 @@
     <orderEntry type="library" name="Gradle: org.apache.opennlp:opennlp-tools:1.9.3" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-mail:2.7.17" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.9" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-validation:2.7.17" level="project" />
     <orderEntry type="library" name="Gradle: org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.3.1" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-test:2.7.17" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-websocket:5.3.30" level="project" />
@@ -94,6 +97,8 @@
     <orderEntry type="library" name="Gradle: org.apache.commons:commons-lang3:3.12.0" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-context-support:5.3.30" level="project" />
     <orderEntry type="library" name="Gradle: com.sun.mail:jakarta.mail:1.6.7" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-el:9.0.82" level="project" />
+    <orderEntry type="library" name="Gradle: org.hibernate.validator:hibernate-validator:6.2.5.Final" level="project" />
     <orderEntry type="library" name="Gradle: org.mybatis.spring.boot:mybatis-spring-boot-test-autoconfigure:2.3.1" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-test-autoconfigure:2.7.17" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-test:2.7.17" level="project" />
@@ -121,7 +126,6 @@
     <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.30" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.82" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-core:9.0.82" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-el:9.0.82" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-aop:5.3.30" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-expression:5.3.30" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-jdbc:5.3.30" level="project" />
@@ -139,6 +143,7 @@
     <orderEntry type="library" name="Gradle: org.springframework:spring-tx:5.3.30" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.36" level="project" />
     <orderEntry type="library" name="Gradle: com.sun.activation:jakarta.activation:1.2.2" level="project" />
+    <orderEntry type="library" name="Gradle: jakarta.validation:jakarta.validation-api:2.0.2" level="project" />
     <orderEntry type="library" name="Gradle: net.minidev:json-smart:2.4.11" level="project" />
     <orderEntry type="library" name="Gradle: jakarta.activation:jakarta.activation-api:1.2.2" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.8.2" level="project" />

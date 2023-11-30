@@ -32,4 +32,10 @@ public class UserServiceImp implements UserService{
     public int save(UserDTO uDto) {
         return uDao.save(uDto);
     }
+
+    public int editLevel(UserDTO uDto) {
+        return uDao.editLevel(uDto);
+    }
+
+
 }

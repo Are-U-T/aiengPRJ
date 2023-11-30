@@ -5,7 +5,6 @@
     <content url="file://$MODULE_DIR$/../../eng_back">
       <excludeFolder url="file://$MODULE_DIR$/../../eng_back/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../eng_back/build" />
-      <excludeFolder url="file://$MODULE_DIR$/../../eng_back/out" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

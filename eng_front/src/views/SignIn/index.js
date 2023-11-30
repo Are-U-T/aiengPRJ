@@ -93,6 +93,7 @@ export default function JoySignInSideTemplate() {
             if (response.ok) {
                 const data = await response.json();
                 console.log('User data from backend:', data);
+                sessionStorage.setItem('userNum', data.num);
                 navigate('/main');
             } else {
                 console.error('Failed to log in with Google.');
@@ -127,7 +128,7 @@ export default function JoySignInSideTemplate() {
             if (response.ok) {
                 const responseData = await response.json();
                 console.log('Login successful:', responseData);
-
+                sessionStorage.setItem('userNum', data.num);
                 navigate('/main');
             } else {
                 const errorMessage = await response.text();
@@ -284,6 +285,7 @@ export default function JoySignInSideTemplate() {
                                                         if (response.ok) {
                                                             const data = await response.json();
                                                             console.log('User data from backend:', data);
+                                                            sessionStorage.setItem('userNum', data.num);
                                                             navigate('/main');
                                                         } else {
                                                             console.error('Failed to log in with Google.');

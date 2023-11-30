@@ -33,4 +33,8 @@ public interface UserMapper {
 //
 //    @Select("SELECT * FROM USER_T WHERE no = #{num}")
 //    public UserDTO findByUserNo(int num);
+
+
+    @Update("update USER_T set lv = #{lv} where num = #{num}")
+    public int editLevel(UserDTO uDto);
 }
