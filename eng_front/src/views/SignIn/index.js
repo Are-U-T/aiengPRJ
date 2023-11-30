@@ -4,28 +4,21 @@ import GlobalStyles from '@mui/joy/GlobalStyles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
-import Checkbox from '@mui/joy/Checkbox';
-import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel, { formLabelClasses } from '@mui/joy/FormLabel';
 import IconButton from '@mui/joy/IconButton';
-//import Link from '@mui/joy/Link';
 import { Link } from 'react-router-dom';
 import Input from '@mui/joy/Input';
 import Typography from '@mui/joy/Typography';
 import Stack from '@mui/joy/Stack';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
-import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
 import Navigation from "../Navigation";
-import logo from './images/logo.png';
-import Avatar from "@mui/material/Avatar";
 import { useNavigate } from 'react-router-dom';
 import {GoogleOAuthProvider} from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import KakaoLogin from "react-kakao-login";
-import loginValidation from './Validation';
 
 function ColorSchemeToggle(props) {
     const { mode, setMode } = useColorScheme();
@@ -128,7 +121,7 @@ export default function JoySignInSideTemplate() {
             if (response.ok) {
                 const responseData = await response.json();
                 console.log('Login successful:', responseData);
-                sessionStorage.setItem('userNum', data.num);
+                sessionStorage.setItem('userNum', responseData.num);
                 navigate('/main');
             } else {
                 const errorMessage = await response.text();

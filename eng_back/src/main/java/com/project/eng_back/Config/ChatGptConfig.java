@@ -3,7 +3,7 @@ package com.project.eng_back.Config;
 public class ChatGptConfig {
     public static final String AUTHORIZATION = "Authorization";
     public static final String BEARER = "Bearer ";
-    public static final String API_KEY = "직접 찾으세요";
+    public static final String API_KEY = "메롱";
     public static final String MODEL = "text-davinci-003";
     public static final Integer MAX_TOKEN = 300;
     public static final Double TEMPERATURE = 0.0;
