@@ -30,19 +30,11 @@ public class SendMailController {
 
     private static MailDto mailDto = new MailDto();
 
-//    @Autowired
-//    private SendMailService sendMailService;
-
-    //    자 밖으로 다 빼보세요
     private final JavaMailSender javaMailSender; // 이메일 발송 객체
 
     private final String senderEmail = "devtestmail.9900@gmail.com";
 
     public MimeMessage CreateMail(String mail) {
-
-//        int number = sendMailController.createNumber();
-//        System.out.println(number);
-//        int number = createNumber();
 
         MimeMessage message = javaMailSender.createMimeMessage(); // 이메일 객체 생성
 

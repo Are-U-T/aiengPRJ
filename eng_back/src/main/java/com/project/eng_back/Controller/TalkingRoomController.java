@@ -61,19 +61,19 @@ public class TalkingRoomController {
         logger.info("crid 값 {} ", talkingRoomDto.getCrid());
         questionRequestDto.setCrid(encodedCrid);
 
-        initiationRequestDto.setCrid(encodedCrid);
-        initiationRequestDto.setGPTRole(questionRequestDto.getGPTRole());
-        initiationRequestDto.setUserRole(questionRequestDto.getUserRole());
-        initiationRequestDto.setSituation(questionRequestDto.getSituation());
-        initiationRequestDto.setCountry(questionRequestDto.getCountry());
-        chatGptController.initiateConversation(initiationRequestDto);
-
         talkingRoomDto.setCrid(encodedCrid);
         talkingRoomDto.setGPTRole(questionRequestDto.getGPTRole());
         talkingRoomDto.setUserRole(questionRequestDto.getUserRole());
         talkingRoomDto.setSituation(questionRequestDto.getSituation());
         talkingRoomDto.setCountry(questionRequestDto.getCountry());
         talkingRoomService.insert(talkingRoomDto);
+
+        initiationRequestDto.setCrid(encodedCrid);
+        initiationRequestDto.setGPTRole(questionRequestDto.getGPTRole());
+        initiationRequestDto.setUserRole(questionRequestDto.getUserRole());
+        initiationRequestDto.setSituation(questionRequestDto.getSituation());
+        initiationRequestDto.setCountry(questionRequestDto.getCountry());
+        chatGptController.initiateConversation(initiationRequestDto);
 
         return encodedCrid;
     }

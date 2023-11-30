@@ -109,7 +109,7 @@ function Header(){
 
 
 
-            <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '10px'}}>
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '50px'}}>
                 <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
                 <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>Open AI 기술 사용</h5>
             </div>

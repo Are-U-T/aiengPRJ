@@ -36,6 +36,12 @@ public class UserController {
         return uService.editById(uDto);
     }
 
+    @PostMapping("/saveLevel")
+    public int saveLevel(@RequestBody UserDTO uDto) {
+        System.out.println(uDto);
+        return uService.editLevel(uDto);
+    }
+
     @DeleteMapping("/delete")
     public int delete(@RequestParam("num") String num) {
         return uService.delete(num);

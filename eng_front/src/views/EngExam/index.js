@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Question from './question';
 import Navigation from "../Navigation";
+import '../../App.css'
 
 const questionsData = [
     {
@@ -184,7 +185,7 @@ function EngExam() {
     };
 
     return (
-        <>
+        <div className='App'>
             <Navigation/>
             <div style={{marginTop: '150px'}}/>
 
@@ -247,7 +248,7 @@ function EngExam() {
                     </button>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

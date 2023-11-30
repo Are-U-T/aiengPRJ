@@ -1,23 +1,6 @@
 import React from 'react';
 import  './style.css'
 import '../../../App.css'
-import {CardActionArea} from "@mui/material";
-import CardMedia from "@mui/material/CardMedia";
-import jhImage from '../Images/jh.jpg';
-import syImage from '../Images/sy.jpg';
-import cgImage from '../Images/cg.jpg';
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import aic from './images/AI대화.png';
-import eng from './images/영어학습.png';
-import success from './images/성공사례.png';
-import khImage from '../Images/kh.jpg';
-import logo from './images/logo.png';
-
-
 
 
 export default function Footer(){
@@ -33,8 +16,8 @@ export default function Footer(){
                             <div className="col-lg-6 col-md-12 mb-2 d-flex">
                                 <div>
                                     <h5 className="uu">About</h5>
-                                    <p>너랑나 | 팀장: 박서윤, 팀원: 서정훈 정경희 왕장령</p>
-                                    <p>충남 아산시 탕정면 선문로221번길 70</p>
+                                    <b>너랑나 | 박서윤 서정훈 정경희 왕장령</b>
+                                    <p style={{color: '#CECECE', margin: '0px'}}>충남 아산시 탕정면 선문로221번길 70</p>
                                     <p> Are You T.Since 2023</p>
                                 </div>
                             </div>

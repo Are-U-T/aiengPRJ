@@ -122,7 +122,7 @@ public class ChatGptController {
 
         byte[] audioBytes = quickstartSample.run(gptResponseChoice, initiationRequestDto.getCountry()).getBody();
         // Add log to check if the audio data is generated and returned correctly
-        System.out.println("GPT audio file. Size: " + audioBytes.length + " bytes");
+//        System.out.println("GPT audio file. Size: " + audioBytes.length + " bytes");
 
         gptResponseChoice.setSpeaker("Teacher");
 

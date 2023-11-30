@@ -13,14 +13,12 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private ConversationMiddleware conversationMiddleware;
 
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(conversationMiddleware);
-//    }
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/user/save")
-//                .allowedOrigins("http://localhost:3000")
-//                .allowedMethods("PUT");
-//    }
+   @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+            .allowedOrigins("http://localhost:3000")
+            .allowedMethods("GET", "POST", "PUT", "DELETE")
+            .allowCredentials(true)
+            .maxAge(3600);
+    }
 }

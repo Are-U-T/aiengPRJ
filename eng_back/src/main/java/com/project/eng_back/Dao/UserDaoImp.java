@@ -31,4 +31,9 @@ public class UserDaoImp implements UserDao {
     public int save(UserDTO uDto) {
         return uMapper.save(uDto);
     }
+
+    @Override
+    public int editLevel(UserDTO uDto) {
+        return uMapper.editLevel(uDto);
+    }
 }
