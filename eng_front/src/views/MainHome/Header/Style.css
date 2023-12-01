@@ -91,6 +91,14 @@
     text-align: center;
 }
 
+.scrd {
+    position: absolute;
+    right: 0;
+    top: 140px;
+    width: 60px;
+    height: 60px;
+}
+
 
 
 

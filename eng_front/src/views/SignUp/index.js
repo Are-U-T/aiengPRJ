@@ -64,11 +64,10 @@ export default function SignInSide() {
                 } else {
                     console.error('Failed to register user.');
                 }
-        //     }else {
-        //         console.error('Email validation failed.');
-        //     }
-        }
-        catch (error) {
+            // } else {
+            //     console.error('Email validation failed.');
+            // }
+        } catch (error) {
             console.error('Error during registration:', error);
         }
     };

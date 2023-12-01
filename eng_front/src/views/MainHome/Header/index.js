@@ -3,18 +3,32 @@ import logo from './images/logo.png';
 import logoXlogo from './images/logoXlogo.png';
 import { Link } from 'react-router-dom';
 import './Style.css';
-import aip from './images/헤더사진.png';
 import '../../../App.css'
 import smile from './images/smile.png';
 import Typography from "@mui/joy/Typography";
+import down from './images/down.png'
+import leveltest from './images/leveltest.png';
+import speech from './images/speech.png';
 
 function Header(){
     const [isModalOpen, setModalOpen] = useState(false);
+
+
+    const scrollToBottom = () => {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth' // 부드러운 스크롤 효과
+        });
+    };
+
+
+
     return (
         <>
 
             <div className='App'>
                 <header className="masthead">
+                    <img src={down} alt='down' onClick={scrollToBottom} className="scrd"/>
                     <div className="container d-flex align-items-center flex-column">
                         <img className="masthead-avatar mb-3" src={logo} alt="..." style={{ maxWidth: '120px' }}/>
                         <h1 className="masthead-heading mb-2">Are You Teacher?</h1>
@@ -67,21 +81,22 @@ function Header(){
                         <div style={{ border: '2px solid #132650', borderRadius: '10px',
                             boxShadow: '0 6px 10px rgba(0,0,0,0.1)', overflow: 'hidden', cursor: 'pointer', aspectRatio: '1 / 1', width: '80%', backgroundColor : 'white' }}>
                             <div style={{ padding: '15px', textAlign: 'center' }}>
-                                <h5 style={{ marginBottom: '10px' }}>레벨 테스트</h5>
-                                <img src={logo} alt="Speech" style={{ width: '80px', height: '80px', objectFit: 'cover', margin: '0 auto' }} />
-                                <p style={{ marginTop: '10px', color: '#132650', fontSize: '14px' }}>당신의 레벨을 테스트 할 수 있습니다!</p>
+                                <h5 style={{ marginBottom: '25px' }}>레벨 테스트</h5>
+                                <img src={leveltest} alt="Speech" style={{ width: '80px', height: '80px', objectFit: 'cover', margin: '0 auto' }} />
+                                <p style={{ marginTop: '25px', color: '#132650', fontSize: '13px' }}>당신의 레벨을 테스트 할 수 있습니다!</p>
                             </div>
                         </div>
                     </Link>
+
 
                     {/* 두 번째 행 */}
                     <Link to='/speech' style={{ textDecoration: 'none', color: 'inherit' }} className="grid-item">
                         <div onClick={() => setModalOpen(true)} style={{ border: '2px solid #132650', borderRadius: '10px',
                             boxShadow: '0 6px 10px rgba(0,0,0,0.1)', overflow: 'hidden', cursor: 'pointer', aspectRatio: '1 / 1', width: '80%', backgroundColor : 'white' }}>
                             <div style={{ padding: '15px',textAlign: 'center'  }}>
-                                <h5 style={{ marginBottom: '10px'}}>Speech</h5>
-                                <img src={logo} alt="Speech" style={{ width: '80px', height: '80px', objectFit: 'cover', margin: '0 auto' }} />
-                                <p style={{ marginTop: '10px', color: '#132650', fontSize: '14px'}}>스피킹을 합니다!</p>
+                                <h5 style={{ marginBottom: '25px'}}>Speech</h5>
+                                <img src={speech} alt="Speech" style={{ width: '80px', height: '80px', objectFit: 'cover', margin: '0 auto' }} />
+                                <p style={{ marginTop: '25px', color: '#132650', fontSize: '14px'}}>스피킹을 합니다!</p>
                             </div>
                         </div>
                     </Link>

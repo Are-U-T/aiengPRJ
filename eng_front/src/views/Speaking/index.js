@@ -8,9 +8,13 @@ import axios from "axios";
 import {useNavigate, useLocation} from "react-router-dom";
 import mic from './images/mic.png';
 import micno from './images/micno.png';
+import time_finish from './images/time_finish.png';
 import ModalResult from "./ModalResult";
 import subtitle from "./images/subtitle.png";
 import subtitleno from "./images/subtitleno.png";
+import ModalStart2 from "./ModalStart2";
+import '../../App.css';
+import './ModalStart2.css'
 
 function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const [timeSpent, setTimeSpent] = useState(300); // 페이지에 머문 시간
@@ -28,19 +32,31 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const [recommendedQuestions, setRecommendedQuestions] = useState([]); // 상황에 맞는 추천 질문
     const [correctGrammar , setCorrectGrammer] = useState([]); // 문법 고치는 자막
     const [showSubtitles, setShowSubtitles] = useState(true); // 자막 컨테이너들 전체
+
+
+    const [startModalOpen2, setStartModalOpen2] = useState(false);
     
     // 사진과 자막 컨테이너의 동적 스타일을 위한 클래스
     const imageContainerClass = showSubtitles ? "image-container" : "image-container expanded";
     const subtitlesContainerClass = showSubtitles ? "subtitles-container" : "subtitles-container hidden";
 
+    const navigate = useNavigate(); // useNavigate 훅 사용
+
     // 프론트에서 세션 uid 가져오기
     const userNum = sessionStorage.getItem('userNum');
-
-    const navigate = useNavigate(); // useNavigate 훅 사용
 
     const location = useLocation();
     const crid = location.state?.crid; // 채팅방 생성시에 전달 받은 crid 전달 받아서 서버에 넘겨줌
     const speaker =null;
+
+    useEffect(() => {
+        setStartModalOpen2(true);
+    }, []);
+
+    const Close2 = () => {
+        setStartModalOpen2(false);
+    };
+
 
     // 컴포넌트 마운트 시와 일정한 간격으로 자막을 가져오기 위해 useEffect 사용
     useEffect(() => {
@@ -53,6 +69,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
         // 컴포넌트 언마운트 시 간격 정리
         return () => clearInterval(subtitleInterval);
     }, [crid]);
+
+
 
     // 올바른 문법 자막 업데이트
     useEffect(() => {
@@ -73,6 +91,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
         }, 200000); // 2분 마다 업데이트
         return () => clearInterval(subtitleInterval);
     }, [crid]);
+
+
 
     // 일정한 간격으로 서버에서 자막을 가져오는 함수
     const fetchSubtitles = async () => {
@@ -137,6 +157,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
             handleTimeLimitReached();
         }
     }, [timeSpent, isModalOpen]); // 의존성 배열에 isModalOpen을 추가
+
+
 
     useEffect(() => {
         let timer;
@@ -228,6 +250,33 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
         <>
             <Navigation/>
 
+            <ModalStart2 isOpen={startModalOpen2} onClose={Close2}>
+                <div style={{ maxWidth: '600px', margin: 'auto' }}>
+                    <h3 className='gh' style={{textAlign: 'center'}}>사용방법 안내</h3>
+
+                    <div className="micq">
+                        <img src={mic} alt='mic' width='25px' height='25px'/>  <img src={micno} alt='mic' width='25px' height='25px'/>
+                        <p>마이크를 켜거나 끌 수 있습니다.</p>
+
+                        <img src={subtitle} alt='subtitle' width='25px' height='25px'/>  <img src={subtitleno} alt='subtitleno' width='32px' height='32px'/>
+                        <p>실시간으로 대화내용을 보거나 끌 수 있습니다.</p>
+
+                        <img src={time_finish} alt='time_finish' width='40px' height='35px'/>
+                        <p>남은 시간을 확인하며 클릭 시, 대화가 종료됩니다.</p>
+
+                        <div className='redcss'>
+                            <span style={{color : 'black',fontSize : '25px'}}> ※ </span> 대화내용을 끄게 되면 오타섹션과 질문추천 섹션도 함께 닫힙니다.<br/>
+                            <span style={{color : 'black',fontSize : '25px'}}> ※ </span>  마이크를 켜면 시간이 줄어들며, 멈추면 시간이 줄어들지 않습니다.
+                        </div>
+
+                    </div>
+
+                    <div className="fooha">
+                        <button onClick={() => setStartModalOpen2(false)} className="qwer">확인</button>
+                    </div>
+                </div>
+            </ModalStart2>
+
             <div className="speaking-container">
                 <div className={imageContainerClass}>
                     <img src={ai5} alt="Speaking Example"/>
@@ -291,7 +340,6 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
             </div>
 
 
-            {/*이 부분은 모달창*/}
             {isModalOpen && (
                 <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
                     {/* 모달의 전체 내용을 여기에 배치 */}
