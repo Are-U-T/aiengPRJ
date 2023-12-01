@@ -46,7 +46,6 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const crid = location.state?.crid; // 채팅방 생성시에 전달 받은 crid 전달 받아서 서버에 넘겨줌
     const speaker =null;
 
-
     useEffect(() => {
         setStartModalOpen2(true);
     }, []);
@@ -244,31 +243,31 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
             <Navigation/>
 
             <ModalStart2 isOpen={startModalOpen2} onClose={Close2}>
-                <div style={{ textAlign: 'center', maxWidth: '600px', margin: 'auto' }}>
-                    <h3 className='gh'>사용방법 안내</h3>
+                <div style={{ maxWidth: '600px', margin: 'auto' }}>
+                    <h3 className='gh' style={{textAlign: 'center'}}>사용방법 안내</h3>
 
-                    
                     <div className="micq">
-                       <img src={mic} alt='mic' width='25px' height='25px'/>  <img src={micno} alt='mic' width='25px' height='25px'/>
+                        <img src={mic} alt='mic' width='25px' height='25px'/>  <img src={micno} alt='mic' width='25px' height='25px'/>
                         <p>마이크를 켜거나 끌 수 있습니다.</p>
 
-                        <img src={subtitle} alt='subtitle' width='25px' height='25px'/>  <img src={subtitleno} alt='subtitleno' width='25px' height='25px'/>
-                        <p>실시간으로 대화내용을 보거나 끌 수 있습니다. <strong>대화내용을 끄게 되면 오타섹션과 질문추천 섹션도 함꼐 닫힙니다.</strong></p>
+                        <img src={subtitle} alt='subtitle' width='25px' height='25px'/>  <img src={subtitleno} alt='subtitleno' width='32px' height='32px'/>
+                        <p>실시간으로 대화내용을 보거나 끌 수 있습니다.</p>
 
-                        <img src={time_finish} alt='time_finish' width='25px' height='25px'/>
-                        <p>남은 시간을 확인하며, 클릭 시, 대화가 종료됩니다.</p>
+                        <img src={time_finish} alt='time_finish' width='40px' height='35px'/>
+                        <p>남은 시간을 확인하며 클릭 시, 대화가 종료됩니다.</p>
+
+                        <div className='redcss'>
+                            <span style={{color : 'black',fontSize : '25px'}}> ※ </span> 대화내용을 끄게 되면 오타섹션과 질문추천 섹션도 함께 닫힙니다.<br/>
+                            <span style={{color : 'black',fontSize : '25px'}}> ※ </span>  마이크를 켜면 시간이 줄어들며, 멈추면 시간이 줄어들지 않습니다.
+                        </div>
 
                     </div>
 
                     <div className="fooha">
-                        <button onClick={() => setStartModalOpen(false)} className="qwer">확인</button>
+                        <button onClick={() => setStartModalOpen2(false)} className="qwer">확인</button>
                     </div>
                 </div>
             </ModalStart2>
-
-
-
-
 
             <div className="speaking-container">
                 <div className={imageContainerClass}>

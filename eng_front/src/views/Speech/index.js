@@ -14,6 +14,12 @@ import right from './images/right.png';
 import LoadingPage from './LoadingPage';
 import './Modal.css';
 import  './ModalStart.css';
+import mic from "../Speaking/images/mic.png";
+import micno from "../Speaking/images/micno.png";
+import subtitle from "../Speaking/images/subtitle.png";
+import subtitleno from "../Speaking/images/subtitleno.png";
+import time_finish from "../Speaking/images/time_finish.png";
+import ModalStart2 from "../Speaking/ModalStart2";
 
 
 function Speech() {
@@ -33,6 +39,21 @@ function Speech() {
 
 
     const [level, setLevel] = useState(1);
+
+
+
+
+
+
+    const [startModalOpen2, setStartModalOpen2] = useState(false);
+    useEffect(() => {
+        setStartModalOpen2(true);
+    }, []);
+
+    const Close2 = () => {
+        setStartModalOpen2(false);
+    };
+
 
 
     useEffect(() => {
@@ -149,10 +170,6 @@ function Speech() {
         <div className='App'>
             <Navigation />
 
-
-
-
-
             <ModalStart isOpen={startModalOpen} onClose={Close}>
                 <div style={{ textAlign: 'center', maxWidth: '600px', margin: 'auto' }}>
                     <h3 className='gh'>사용방법 안내</h3>
@@ -168,13 +185,6 @@ function Speech() {
                     </div>
                 </div>
             </ModalStart>
-
-
-
-
-
-
-
 
             <h2 className="hi">Speech</h2>
 

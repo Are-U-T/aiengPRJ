@@ -22,11 +22,19 @@
     animation: slideUp 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.gh {
+.al {
     color: white;
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 25px;
+
+}
+
+.redcss{
+    padding-top: 10px;
+    color : red;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 button.qwer {
@@ -70,7 +78,7 @@ button.qwer:hover {
 .micq p {
     font-size: 18px;
     color: #333;
-    line-height: 2.5;
+    line-height: 1.5;
     margin-bottom: 15px;
     text-align : left;
 }

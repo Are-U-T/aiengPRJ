@@ -68,6 +68,7 @@ const Navigation = () => {
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 <Dropdown.Item href="/change">개인정보 수정</Dropdown.Item>
+                                <Dropdown.Item href="/mypage">마이페이지</Dropdown.Item>
                                 <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
