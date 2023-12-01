@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import './Speaking.css';
 import ai5 from './images/ai5.png';
 import Navigation from "../Navigation";
@@ -15,6 +15,9 @@ import subtitleno from "./images/subtitleno.png";
 import ModalStart2 from "./ModalStart2";
 import '../../App.css';
 import './ModalStart2.css'
+
+import aimale from  "./images/aimale.mp4";
+import aifemale from  "./images/aifemale.mp4";
 
 function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const [timeSpent, setTimeSpent] = useState(300); // 페이지에 머문 시간
@@ -33,7 +36,6 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const [correctGrammar , setCorrectGrammer] = useState([]); // 문법 고치는 자막
     const [showSubtitles, setShowSubtitles] = useState(true); // 자막 컨테이너들 전체
 
-
     const [startModalOpen2, setStartModalOpen2] = useState(false);
     
     // 사진과 자막 컨테이너의 동적 스타일을 위한 클래스
@@ -49,6 +51,12 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const crid = location.state?.crid; // 채팅방 생성시에 전달 받은 crid 전달 받아서 서버에 넘겨줌
     const speaker =null;
 
+    // 남자 여자 확인
+    const gender = location.state?.gender;
+    const videoSource = gender === 0 ? aimale : aifemale;
+
+    const videoRef = useRef(null);
+
     useEffect(() => {
         setStartModalOpen2(true);
     }, []);
@@ -56,7 +64,6 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const Close2 = () => {
         setStartModalOpen2(false);
     };
-
 
     // 컴포넌트 마운트 시와 일정한 간격으로 자막을 가져오기 위해 useEffect 사용
     useEffect(() => {
@@ -231,6 +238,11 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                 // 直接播放音频
                 const audioElement = new Audio(url);
                 audioElement.play();
+
+                videoRef.current.play();
+                audioElement.addEventListener('ended', () => {
+                    videoRef.current.pause();
+                });
             } else {
                 console.error('Failed to send audio. Status code:', response.status);
             }
@@ -279,7 +291,9 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
             <div className="speaking-container">
                 <div className={imageContainerClass}>
-                    <img src={ai5} alt="Speaking Example"/>
+                    <video ref={videoRef} width="560" height="420" loop muted autoPlay={false}>
+                        <source src={videoSource} type="video/mp4" />
+                    </video>
                 </div>
 
                 {showSubtitles && (

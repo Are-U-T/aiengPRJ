@@ -118,4 +118,24 @@ public class UserController {
         }
         return null;
     }
+
+    @GetMapping("/getLevel")
+    public int getLevel(@RequestParam(name = "userNum") String userNum) {
+        System.out.println("userNum:"+userNum);
+        int level;
+        if (!"null".equals(userNum)) {
+            System.out.println("test");
+            level = uService.getLevelByUserNum(userNum);
+        } else {
+            System.out.println("userLevel==1");
+            level = 1;
+        }
+        return level;
+    }
+
+    @PostMapping("/saveLevel")
+    public int saveLevel(@RequestBody UserDTO uDto) {
+        System.out.println(uDto);
+        return uService.editLevel(uDto);
+    }
 }

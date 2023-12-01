@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Mapper
 public interface UserMapper {
@@ -39,4 +40,7 @@ public interface UserMapper {
 
     @Update("update USER_T set lv = #{lv} where num = #{num}")
     public int editLevel(UserDTO uDto);
+
+    @Select("SELECT LV FROM USER_T WHERE num = #{num}")
+    public int getLevelByUserNum(String num);
 }
