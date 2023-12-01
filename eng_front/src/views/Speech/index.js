@@ -37,12 +37,28 @@ function Speech() {
 
     const navigate = useNavigate();
 
+    const userNum = sessionStorage.getItem('userNum');
 
-    const [level, setLevel] = useState(1);
+    const [level, setLevel] = useState(null);
 
+    useEffect(() => {
+        const fetchInitialLevel = async () => {
+            const userNum = sessionStorage.getItem('userNum');
+            try {
+                const response = await fetch(`http://localhost/user/getLevel?userNum=${userNum}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setLevel(data);
+                } else {
+                    console.error('Failed to fetch initial level from backend');
+                }
+            } catch (error) {
+                console.error('Error during initial level fetch:', error);
+            }
+        };
 
-
-
+        fetchInitialLevel();
+    }, []);
 
 
     const [startModalOpen2, setStartModalOpen2] = useState(false);
@@ -84,7 +100,8 @@ function Speech() {
             selectedAirole,
             selectedMyrole,
             selectedCountry,
-            selectedLv
+            selectedLv,
+            userNum
         };
 
         try {
@@ -105,7 +122,7 @@ function Speech() {
                 const crid = responseData;
 
                 // Speaking 컴포넌트로 이동하면서 crid를 전달
-                navigate('/speaking', {state: {crid}});
+                navigate('/speaking', {state: {crid, gender: 1}});
             } else {
                 const errorMessage = await response.text();
                 console.error('방 생성 failed:', errorMessage);

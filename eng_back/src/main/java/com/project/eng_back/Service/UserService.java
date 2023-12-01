@@ -12,4 +12,5 @@ public interface UserService {
     public int save(UserDTO uDto);
     public int editLevel(UserDTO uDto);
     public UserDTO mypageUser(String num);
+    public int getLevelByUserNum(String userNum);
 }

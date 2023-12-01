@@ -38,6 +38,11 @@ public class UserServiceImp implements UserService{
         return uDao.mypageUser(num);
     }
 
+    @Override
+    public int getLevelByUserNum(String userNum) {
+        return uDao.getLevelByUserNum(userNum);
+    }
+
     public int editLevel(UserDTO uDto) {
         return uDao.editLevel(uDto);
     }

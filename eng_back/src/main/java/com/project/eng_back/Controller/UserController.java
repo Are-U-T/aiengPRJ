@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://10.20.100.74:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -117,5 +117,25 @@ public class UserController {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @GetMapping("/getLevel")
+    public int getLevel(@RequestParam(name = "userNum") String userNum) {
+        System.out.println("userNum:"+userNum);
+        int level;
+        if (!"null".equals(userNum)) {
+            System.out.println("test");
+            level = uService.getLevelByUserNum(userNum);
+        } else {
+            System.out.println("userLevel==1");
+            level = 1;
+        }
+        return level;
+    }
+
+    @PostMapping("/saveLevel")
+    public int saveLevel(@RequestBody UserDTO uDto) {
+        System.out.println(uDto);
+        return uService.editLevel(uDto);
     }
 }

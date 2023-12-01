@@ -39,4 +39,9 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public UserDTO mypageUser(String num) { return uMapper.mypageUser(num); }
+
+    @Override
+    public int getLevelByUserNum(String userNum) {
+        return uMapper.getLevelByUserNum(userNum);
+    }
 }
