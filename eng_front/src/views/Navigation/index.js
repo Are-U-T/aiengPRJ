@@ -5,15 +5,13 @@ import profile from './images/user.png';
 import logo from './images/logo.png'
 import Dropdown from 'react-bootstrap/Dropdown';
 import './Navigation.css'
+import { useNavigate } from 'react-router-dom';
 
 const Navigation = () => {
-
-    const handleLogout = () => {
-        // 로그아웃 로직 구현
-        // 예: 세션 클리어, 인증 토큰 제거, 로그인 페이지로 리디렉트 등
-    };
-
+    const [userName, setUserName] = useState(null);
     const [show, setShow] = useState(true);
+
+    const navigate = useNavigate();
     let lastScrollY = window.scrollY;
 
     useEffect(() => {
@@ -28,11 +26,22 @@ const Navigation = () => {
         };
 
         window.addEventListener('scroll', handleScroll, false);
-
         return () => {
             window.removeEventListener('scroll', handleScroll, false);
         };
     }, []);
+
+    useEffect(() => {
+        const storedUserName = sessionStorage.getItem('userName');
+        setUserName(storedUserName);
+    }, []);
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('userName');
+        sessionStorage.removeItem('userNum');
+        setUserName(null);
+        navigate('/login');
+    };
 
 
 
@@ -51,20 +60,20 @@ const Navigation = () => {
                 </Nav>
 
                 <Nav>
-                    <Nav.Link href="/login" className="custom-login-link" >Login</Nav.Link>
-                    <Dropdown>
-                        <Dropdown.Toggle as={Nav.Link}  id="dropdown-profile">
-                            <img
-                                src={profile}
-                                alt="Profile"
-                            />
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="/change">개인정보 수정</Dropdown.Item>
-                            <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    {userName ? (
+                        <Dropdown>
+                            <Dropdown.Toggle as={Nav.Link} id="dropdown-profile" className="kkk">
+                               <div className="userName"> {userName + '님'}</div>
+                                <img src={profile} alt="Profile" />
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="/change">개인정보 수정</Dropdown.Item>
+                                <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    ) : (
+                        <Nav.Link href="/login" className="custom-login-link">Login</Nav.Link>
+                    )}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

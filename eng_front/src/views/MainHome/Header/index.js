@@ -3,18 +3,30 @@ import logo from './images/logo.png';
 import logoXlogo from './images/logoXlogo.png';
 import { Link } from 'react-router-dom';
 import './Style.css';
-import aip from './images/헤더사진.png';
 import '../../../App.css'
 import smile from './images/smile.png';
 import Typography from "@mui/joy/Typography";
+import down from './images/down.png'
 
 function Header(){
     const [isModalOpen, setModalOpen] = useState(false);
+
+
+    const scrollToBottom = () => {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth' // 부드러운 스크롤 효과
+        });
+    };
+
+
+
     return (
         <>
 
             <div className='App'>
                 <header className="masthead">
+                    <img src={down} alt='down' onClick={scrollToBottom} className="scrd"/>
                     <div className="container d-flex align-items-center flex-column">
                         <img className="masthead-avatar mb-3" src={logo} alt="..." style={{ maxWidth: '120px' }}/>
                         <h1 className="masthead-heading mb-2">Are You Teacher?</h1>

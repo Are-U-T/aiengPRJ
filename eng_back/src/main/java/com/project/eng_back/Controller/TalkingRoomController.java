@@ -144,6 +144,7 @@ public class TalkingRoomController {
 
         }
 
+
         questionRequestDto.setSituation(situation);
         questionRequestDto.setGPTRole(gptRole);
         questionRequestDto.setUserRole(userRole);

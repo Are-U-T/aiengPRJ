@@ -39,16 +39,16 @@ export default function SignInSide() {
         };
 
         try {
-            // 첫 번째 요청: 이메일 검증
-            const validateResponse = await fetch('http://localhost/user/save', {
-                method: 'put',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData),
-            });
-
-            if (validateResponse.status === 200) {
+            // // 첫 번째 요청: 이메일 검증
+            // const validateResponse = await fetch('http://localhost/user/save', {
+            //     method: 'put',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(userData),
+            // });
+            //
+            // if (validateResponse.status === 200) {
                 // 두 번째 요청: 사용자 정보 저장
                 const saveResponse = await fetch('http://localhost/user/save', {
                     method: 'put',
@@ -64,9 +64,9 @@ export default function SignInSide() {
                 } else {
                     console.error('Failed to register user.');
                 }
-            } else {
-                console.error('Email validation failed.');
-            }
+            // } else {
+            //     console.error('Email validation failed.');
+            // }
         } catch (error) {
             console.error('Error during registration:', error);
         }
