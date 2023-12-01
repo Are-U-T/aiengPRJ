@@ -21,7 +21,11 @@ public class ChattingService {
         return chatGPTMapper.getGptContentList(crid);
     }
 
-    public List<Map<String, String>> getGptContentList2(String crid , String speaker) {
+    public List<Map<String, String>> getGptContentList2(String crid, String speaker) {
         return chatGPTMapper.getGptContentList2(crid, speaker);
+    }
+
+    public List<Map<String, String>> getScript(String crid) {
+        return chatGPTMapper.getScript(crid);
     }
 }

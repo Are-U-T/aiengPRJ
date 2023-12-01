@@ -50,6 +50,10 @@ public class ChatGptService {
         return chatGPTMapper.getGptContentList2(crid, speaker);
     }
 
+    public QuestionRequestDto getGptContentList3(String crid){ chatGPTMapper.getGptContentList3(crid);
+        return chatGPTMapper.getGptContentList3(crid);
+    }
+
     public HttpEntity<ChatGptRequestDto> buildHttpEntity(ChatGptRequestDto requestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(ChatGptConfig.MEDIA_TYPE));

@@ -60,7 +60,7 @@ public class AudioController {
 //    private String uploadPath;  // 设置为文件上传路径
 
     @PostMapping("/upload")
-    public ResponseEntity<Resource> handleAudioUpload(@RequestPart("audio") MultipartFile audioFile) {
+    public ResponseEntity<Resource> handleAudioUpload(@RequestPart("audio") MultipartFile audioFile, @RequestPart("userNum") String userNum) {
 //        if (audioFile.isEmpty()) {
 ////            return ResponseEntity.badRequest().body("Audio file is empty");
 //            return ResponseEntity.badRequest().body("Audio file is empty".getBytes());
@@ -82,7 +82,8 @@ public class AudioController {
                 String output = SpeechToTextService.syncRecognizeFile(audioFile.getBytes());
                 System.out.println("Speech Recognition Result: " + output);
 
-                byte[] audioData = chatGptController.conversation(output);
+                System.out.println("audio userNum : " + userNum);
+                byte[] audioData = chatGptController.conversation(output, userNum);
 
                 ByteArrayResource resource = new ByteArrayResource(audioData);
 

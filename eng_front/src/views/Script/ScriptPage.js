@@ -1,7 +1,24 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import './Script.css';
+import {useLocation} from "react-router-dom";
+import axios from "axios";
 
 export default function Script() {
+
+    const location = useLocation();
+    const crid = location.state?.crid;
+
+    const [getScript, setGetScript] = useState([]);
+
+    const script = async () => {
+        try {
+            const response = await axios.post('http://localhost/chatting/script', {crid});
+            console.log('응답:', response.data);
+            setGetScript(response.data);
+        } catch (error) {
+            console.error('그냥 다 에러!!!!!!!!!!!!!!!!!!!!:', error);
+        }
+    };
 
     return (
         <>
@@ -9,7 +26,13 @@ export default function Script() {
             <div className="container-main">
                 <div className="title">
                     <button id="btn">복습하기</button>
-                    <p className="date">2023/11/29</p>
+                    <p className="date">
+                        {getScript.map((title, index) => (
+                            <li key={index}>
+                                {title.REGDATE}
+                            </li>
+                        ))}
+                    </p>
                 </div>
                 <div className="scriptContainer">
                     <div className="container-sub1">

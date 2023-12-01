@@ -22,6 +22,8 @@ function Speech() {
     const [availableRoles, setAvailableRoles] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const userNum = sessionStorage.getItem('userNum');
+
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
@@ -37,8 +39,6 @@ function Speech() {
         setLevel(prevLevel => prevLevel < 6 ? prevLevel + 1 : 6);
     };
 
-
-
     const handlePageChange = async(event) => {
         event.preventDefault();
 
@@ -47,7 +47,8 @@ function Speech() {
             selectedAirole,
             selectedMyrole,
             selectedCountry,
-            selectedLv
+            selectedLv,
+            userNum
         };
 
         try {

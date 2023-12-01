@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {CssVarsProvider, useColorScheme} from '@mui/joy/styles';
+import React, { useState, useEffect } from 'react';
+import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
 import GlobalStyles from '@mui/joy/GlobalStyles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
@@ -7,24 +7,28 @@ import Button from '@mui/joy/Button';
 import Checkbox from '@mui/joy/Checkbox';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
-import FormLabel, {formLabelClasses} from '@mui/joy/FormLabel';
+import FormLabel, { formLabelClasses } from '@mui/joy/FormLabel';
 import IconButton from '@mui/joy/IconButton';
-import {Link} from 'react-router-dom';
+//import Link from '@mui/joy/Link';
+import { Link } from 'react-router-dom';
 import Input from '@mui/joy/Input';
 import Typography from '@mui/joy/Typography';
 import Stack from '@mui/joy/Stack';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
+import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
 import Navigation from "../Navigation";
-import {useNavigate} from 'react-router-dom';
+import logo from './images/logo.png';
+import Avatar from "@mui/material/Avatar";
+import { useNavigate } from 'react-router-dom';
 import {GoogleOAuthProvider} from '@react-oauth/google';
-import {GoogleLogin} from '@react-oauth/google';
-import {jwtDecode} from 'jwt-decode';
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
 import KakaoLogin from "react-kakao-login";
 import loginValidation from './Validation';
 
 function ColorSchemeToggle(props) {
-    const {mode, setMode} = useColorScheme();
+    const { mode, setMode } = useColorScheme();
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -32,7 +36,7 @@ function ColorSchemeToggle(props) {
     }, []);
 
     if (!mounted) {
-        return <IconButton size="sm" variant="outlined" color="neutral" disabled/>;
+        return <IconButton size="sm" variant="outlined" color="neutral" disabled />;
     }
 
     return (
@@ -45,7 +49,7 @@ function ColorSchemeToggle(props) {
                 padding: '8px',
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems : 'center'
             }}
 
             id="toggle-mode"
@@ -63,10 +67,11 @@ function ColorSchemeToggle(props) {
                 if (props.onClick) props.onClick(event);
             }}
         >
-            {mode === 'light' ? <DarkModeRoundedIcon/> : <LightModeRoundedIcon/>}
+            {mode === 'light' ? <DarkModeRoundedIcon /> : <LightModeRoundedIcon />}
         </IconButton>
     );
 }
+
 
 export default function JoySignInSideTemplate() {
 
@@ -104,9 +109,6 @@ export default function JoySignInSideTemplate() {
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
-
-        loginValidation();
-
         event.preventDefault();
         const form = event.currentTarget;
         const data = {
@@ -126,7 +128,7 @@ export default function JoySignInSideTemplate() {
             if (response.ok) {
                 const responseData = await response.json();
                 console.log('Login successful:', responseData);
-                sessionStorage.setItem('userNum', data.num);
+                sessionStorage.setItem('userNum', responseData.num);
                 navigate('/main');
             } else {
                 const errorMessage = await response.text();
@@ -141,7 +143,7 @@ export default function JoySignInSideTemplate() {
         <>
             <Navigation/>
             <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
-                <CssBaseline/>
+                <CssBaseline />
                 <GlobalStyles
                     styles={{
                         ':root': {
@@ -192,8 +194,11 @@ export default function JoySignInSideTemplate() {
                             }}
                         >
 
-                            <ColorSchemeToggle/>
+                            <ColorSchemeToggle />
                         </Box>
+
+
+
 
                         <Box
                             component="main"
@@ -219,29 +224,30 @@ export default function JoySignInSideTemplate() {
                             }}
                         >
 
-                            <Stack gap={4} sx={{mb: 2}}>
+
+                            <Stack gap={4} sx={{ mb: 2 }}>
                                 <Stack gap={1}>
                                     <Typography level="h3">로그인</Typography>
                                     <Typography level="body-sm">
-                                        아직 회원이 아닌가요?<span style={{marginRight: '5px'}}></span>
-                                        <Link to="/signup" level="title-sm" style={{textDecoration: 'none'}}>
+                                        아직 회원이 아닌가요?<span style={{ marginRight: '5px' }}></span>
+                                        <Link to="/signup" level="title-sm" style={{ textDecoration: 'none' }}>
                                             회원가입 하러가기!
                                         </Link>
                                     </Typography>
                                 </Stack>
                             </Stack>
 
-                            <Stack gap={4} sx={{mt: 2}}>
+                            <Stack gap={4} sx={{ mt: 2 }}>
                                 <form onSubmit={handleSubmit}>
-                                    <FormControl>
+                                    <FormControl required>
                                         <FormLabel>이메일</FormLabel>
-                                        <Input type="email" id="email" name="email"/>
+                                        <Input type="email" name="email" />
                                     </FormControl>
-                                    <FormControl>
+                                    <FormControl required>
                                         <FormLabel>비밀번호</FormLabel>
-                                        <Input type="password" id="password" name="password"/>
+                                        <Input type="password" name="password" />
                                     </FormControl>
-                                    <Stack gap={4} sx={{mt: -2}}>
+                                    <Stack gap={4} sx={{ mt: -2}}>
                                         <Box
                                             sx={{
                                                 display: 'flex',
@@ -260,8 +266,8 @@ export default function JoySignInSideTemplate() {
                                             onFail={kakaoOnFailure}
                                         />
 
-                                        <GoogleOAuthProvider
-                                            clientId="868155967382-ubbhk0fdkoq93q63btkkmeats8h5p7o2.apps.googleusercontent.com">
+
+                                        <GoogleOAuthProvider clientId="868155967382-ubbhk0fdkoq93q63btkkmeats8h5p7o2.apps.googleusercontent.com">
                                             <GoogleLogin
                                                 onSuccess={async credentialResponse => {
                                                     var decoded = jwtDecode(credentialResponse.credential);
@@ -273,8 +279,7 @@ export default function JoySignInSideTemplate() {
                                                             },
                                                             body: JSON.stringify({
                                                                 name: decoded.name,
-                                                                email: decoded.email,
-                                                            }),
+                                                                email: decoded.email,}),
                                                         });
 
                                                         if (response.ok) {
@@ -306,7 +311,7 @@ export default function JoySignInSideTemplate() {
                         height: '100%',
                         position: 'absolute',
                         right: 0,
-                        top: '80px',
+                        top:'80px',
                         bottom: 0,
                         left: 'clamp(0px, (100vw - var(--Collapsed-breakpoint)) * 999, 100vw - var(--Cover-width))',
                         transition:

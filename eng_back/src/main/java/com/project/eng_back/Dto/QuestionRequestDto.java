@@ -13,6 +13,8 @@ public class QuestionRequestDto implements Serializable {
 
     private String crid;
 
+    private String unum;
+
     private String question;
 
     private int sequence;
@@ -41,8 +43,9 @@ public class QuestionRequestDto implements Serializable {
         this.question = question;
     }
 
-    public QuestionRequestDto(String crid , String question, String GPTRole, String UserRole, String situation, String speaker, int country, String uid, String lv) {
+    public QuestionRequestDto(String crid , String unum, String question, String GPTRole, String UserRole, String situation, String speaker, int country, String uid, String lv) {
         this.crid = crid;
+        this.unum = unum;
         this.question = question;
         this.GPTRole = GPTRole;
         this.UserRole = UserRole;
@@ -56,6 +59,8 @@ public class QuestionRequestDto implements Serializable {
     public void setSequence(int sequence) {
         this.sequence = sequence;
     }
+
+    public void setUnum(String unum) {this.unum = unum; }
 
     public void setQuestion(String question) {
         this.question = question;

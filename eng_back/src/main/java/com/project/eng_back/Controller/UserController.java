@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
@@ -61,10 +63,12 @@ public class UserController {
 
         if (foundUser != null && foundUser.getPw().equals(userDTO.getPw())) {
             String userNo = foundUser.getNum();
+
             session.setAttribute("userNo", userNo);
+            System.out.println("(login) userNo session: " + userNo);
             return ResponseEntity.ok(foundUser);
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀 번호 틀렸습니다.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호 틀렸습니다.");
         }
     }
 

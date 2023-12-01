@@ -27,7 +27,16 @@ public class ChattingController {
     public List<Map<String, String>> getContentList2(@RequestBody Map<String, String> request) {
         String crid = request.get("crid");
         String speaker = request.get("speaker");
+        String unum = request.get("unum");
 //        System.out.println("speaker: " + speaker);
         return chattingService.getGptContentList2(crid, speaker);
+    }
+
+    @PostMapping("/script")
+    public List<Map<String, String>> getContentList3(@RequestBody Map<String, String> request) {
+        String crid = request.get("crid");
+        System.out.println("(script) crid: " + crid);
+
+        return chattingService.getScript(crid);
     }
 }
