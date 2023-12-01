@@ -113,7 +113,7 @@ public class ChatGptController {
                         "We're in a situation is '%s'. " +
                         "And when answering, answer without your roles. " +
                         "You just have to play the role of the %s. " +
-                        "And please use conversational vocabulary at a ‘%s’ level.",
+                        "And when conversing, please only use ‘%s’",
                 gptRole, userRole, situation, gptRole, userRole, level);
 
         ChatGptResponseDto gptResponseDto = chatGptService.setSituation(new QuestionRequestDto(initialQuestion));
