@@ -12,6 +12,7 @@ import Speaking from "./views/Speaking";
 import Mypage from "./views/MyPage";
 // import EngExam from "./views/EngExam";
 import ResultPage from "./views/EngExam/ResultPage";
+import Script from "./views/Script";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
          <Route path="/speaking" element={<Speaking/>}/>
          <Route path="/mypage" element={<Mypage/>}/>
          <Route path="/resultpage" element={<ResultPage/>}/>
+         <Route path="/script" element={<Script/>}/>
     </Routes>
   );
 }

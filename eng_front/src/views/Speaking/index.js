@@ -42,6 +42,9 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
     const navigate = useNavigate(); // useNavigate 훅 사용
 
+    // 프론트에서 세션 uid 가져오기
+    const userNum = sessionStorage.getItem('userNum');
+
     const location = useLocation();
     const crid = location.state?.crid; // 채팅방 생성시에 전달 받은 crid 전달 받아서 서버에 넘겨줌
     const speaker =null;
@@ -89,6 +92,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
         return () => clearInterval(subtitleInterval);
     }, [crid]);
 
+
+
     // 일정한 간격으로 서버에서 자막을 가져오는 함수
     const fetchSubtitles = async () => {
         try {
@@ -103,7 +108,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     // 대화 내용에 따라 추천 질문 업데이트
     const updateRecommendedQuestions = async (speaker) => {
         try {
-            const response = await axios.post('http://localhost/chat-gpt/recommend', {crid, speaker});
+            const response = await axios.post('http://localhost/chat-gpt/recommend', {crid, speaker, userNum});
             // console.log('자막 응답:', response.data); // 응답 로깅
             setRecommendedQuestions(response.data);
             // console.log('recommendedQuestions:', recommendedQuestions);
@@ -115,7 +120,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     // 문법 고친 자막 업데이트
     const correctGrammer = async (speaker) => {
         try {
-            const response = await axios.post('http://localhost/chatting/grammar', {crid, speaker});
+            const response = await axios.post('http://localhost/chatting/grammar', {crid, speaker, userNum});
             // console.log('자막 응답:', response.data); // 응답 로깅
             setCorrectGrammer(response.data);
             // console.log('recommendedQuestions:', recommendedQuestions);
@@ -152,6 +157,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
             handleTimeLimitReached();
         }
     }, [timeSpent, isModalOpen]); // 의존성 배열에 isModalOpen을 추가
+
+
 
     useEffect(() => {
         let timer;
@@ -209,6 +216,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
             const formData = new FormData();
             formData.append('audio', blob, 'recording.mp3');
+            formData.append('userNum', userNum); // 세션에 저장된 uid
 
             // 发送音频数据到后台
             const response = await axios.post('http://localhost/api/audio/upload', formData, {
