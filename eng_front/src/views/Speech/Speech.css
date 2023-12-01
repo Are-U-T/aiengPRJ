@@ -215,5 +215,21 @@
 
 
 
+.difficulty-selector {
+    text-align: center;
+    margin: 20px;
+}
+
+.controls {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.controls img {
+    width: 30px;
+    height: 20px;
+    cursor: pointer;
+    margin: 0 10px;
+}
 
 

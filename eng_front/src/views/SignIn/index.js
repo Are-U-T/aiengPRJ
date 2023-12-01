@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {CssVarsProvider, useColorScheme} from '@mui/joy/styles';
+import React, { useState, useEffect } from 'react';
+import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
 import GlobalStyles from '@mui/joy/GlobalStyles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
@@ -7,9 +7,10 @@ import Button from '@mui/joy/Button';
 import Checkbox from '@mui/joy/Checkbox';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
-import FormLabel, {formLabelClasses} from '@mui/joy/FormLabel';
+import FormLabel, { formLabelClasses } from '@mui/joy/FormLabel';
 import IconButton from '@mui/joy/IconButton';
-import {Link} from 'react-router-dom';
+//import Link from '@mui/joy/Link';
+import { Link } from 'react-router-dom';
 import Input from '@mui/joy/Input';
 import Typography from '@mui/joy/Typography';
 import Stack from '@mui/joy/Stack';
@@ -19,16 +20,15 @@ import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
 import Navigation from "../Navigation";
 import logo from './images/logo.png';
 import Avatar from "@mui/material/Avatar";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {GoogleOAuthProvider} from '@react-oauth/google';
-import {GoogleLogin} from '@react-oauth/google';
-import {jwtDecode} from 'jwt-decode';
-// import NaverLogin from 'react-naver-login';
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
 import KakaoLogin from "react-kakao-login";
 import loginValidation from './Validation';
 
 function ColorSchemeToggle(props) {
-    const {mode, setMode} = useColorScheme();
+    const { mode, setMode } = useColorScheme();
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -36,9 +36,11 @@ function ColorSchemeToggle(props) {
     }, []);
 
     if (!mounted) {
-        return <IconButton size="sm" variant="outlined" color="neutral" disabled/>;
+        return <IconButton size="sm" variant="outlined" color="neutral" disabled />;
     }
+
     return (
+
         <IconButton
 
             style={{
@@ -47,7 +49,7 @@ function ColorSchemeToggle(props) {
                 padding: '8px',
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems : 'center'
             }}
 
             id="toggle-mode"
@@ -65,12 +67,14 @@ function ColorSchemeToggle(props) {
                 if (props.onClick) props.onClick(event);
             }}
         >
-            {mode === 'light' ? <DarkModeRoundedIcon/> : <LightModeRoundedIcon/>}
+            {mode === 'light' ? <DarkModeRoundedIcon /> : <LightModeRoundedIcon />}
         </IconButton>
     );
 }
 
+
 export default function JoySignInSideTemplate() {
+
     const kakaoClientId = '0e395d0577e5959b7a73d1ebdcbcf376'
     const kakaoOnSuccess = async (data) => {
         console.log(data)
@@ -89,6 +93,7 @@ export default function JoySignInSideTemplate() {
             if (response.ok) {
                 const data = await response.json();
                 console.log('User data from backend:', data);
+                sessionStorage.setItem('userNum', data.num);
                 navigate('/main');
             } else {
                 console.error('Failed to log in with Google.');
@@ -104,9 +109,6 @@ export default function JoySignInSideTemplate() {
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
-
-        loginValidation();
-
         event.preventDefault();
         const form = event.currentTarget;
         const data = {
@@ -115,7 +117,7 @@ export default function JoySignInSideTemplate() {
         };
 
         try {
-            const response = await fetch('http://localhost/user/login', {
+            const response = await fetch('http://10.20.100.74/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -126,7 +128,7 @@ export default function JoySignInSideTemplate() {
             if (response.ok) {
                 const responseData = await response.json();
                 console.log('Login successful:', responseData);
-
+                sessionStorage.setItem('userNum', responseData.num);
                 navigate('/main');
             } else {
                 const errorMessage = await response.text();
@@ -141,7 +143,7 @@ export default function JoySignInSideTemplate() {
         <>
             <Navigation/>
             <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
-                <CssBaseline/>
+                <CssBaseline />
                 <GlobalStyles
                     styles={{
                         ':root': {
@@ -180,43 +182,30 @@ export default function JoySignInSideTemplate() {
                             px: 2,
                         }}
                     >
+
                         <Box
                             component="header"
                             sx={{
-                                py: 3,
+                                py: 11,
                                 display: 'flex',
                                 alignItems: 'left',
                                 justifyContent: 'space-between',
+                                marginLeft: 'auto',
                             }}
                         >
-                            <Box
-                                sx={{
-                                    gap: 2,
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <IconButton variant="soft" color="primary" size="sm" sx={{
-                                    backgroundColor: 'transparent',
-                                    width: '60px', height: '60px', transform: 'translateY(10px)'
-                                }}>
-                                    <img src={logo} alt="Logo"
-                                         style={{width: '100%', height: '100%', marginLeft: '50px'}}/>
-                                </IconButton>
 
-                                <Typography level="title-lg" sx={{
-                                    whiteSpace: 'nowrap', fontSize: '25px',
-                                    transform: 'translateY(10px)'
-                                }} style={{marginLeft: '20px'}}>Are You T?</Typography>
-                            </Box>
-                            <ColorSchemeToggle/>
+                            <ColorSchemeToggle />
                         </Box>
+
+
+
+
                         <Box
                             component="main"
                             sx={{
                                 my: 'auto',
-                                py: 2,
-                                pb: 18,
+                                py: -5,
+                                pb: 15,
                                 display: 'flex',
                                 flexDirection: 'column',
                                 gap: 2,
@@ -236,29 +225,29 @@ export default function JoySignInSideTemplate() {
                         >
 
 
-                            <Stack gap={4} sx={{mb: 2}}>
+                            <Stack gap={4} sx={{ mb: 2 }}>
                                 <Stack gap={1}>
                                     <Typography level="h3">로그인</Typography>
                                     <Typography level="body-sm">
-                                        아직 회원이 아닌가요?<span style={{marginRight: '5px'}}></span>
-                                        <Link to="/signup" level="title-sm" style={{textDecoration: 'none'}}>
+                                        아직 회원이 아닌가요?<span style={{ marginRight: '5px' }}></span>
+                                        <Link to="/signup" level="title-sm" style={{ textDecoration: 'none' }}>
                                             회원가입 하러가기!
                                         </Link>
                                     </Typography>
                                 </Stack>
                             </Stack>
 
-                            <Stack gap={4} sx={{mt: 2}}>
+                            <Stack gap={4} sx={{ mt: 2 }}>
                                 <form onSubmit={handleSubmit}>
-                                    <FormControl>
+                                    <FormControl required>
                                         <FormLabel>이메일</FormLabel>
-                                        <Input type="email" id="email" name="email"/>
+                                        <Input type="email" name="email" />
                                     </FormControl>
-                                    <FormControl>
+                                    <FormControl required>
                                         <FormLabel>비밀번호</FormLabel>
-                                        <Input type="password" id="password" name="password"/>
+                                        <Input type="password" name="password" />
                                     </FormControl>
-                                    <Stack gap={4} sx={{mt: -2}}>
+                                    <Stack gap={4} sx={{ mt: -2}}>
                                         <Box
                                             sx={{
                                                 display: 'flex',
@@ -277,8 +266,8 @@ export default function JoySignInSideTemplate() {
                                             onFail={kakaoOnFailure}
                                         />
 
-                                        <GoogleOAuthProvider
-                                            clientId="868155967382-ubbhk0fdkoq93q63btkkmeats8h5p7o2.apps.googleusercontent.com">
+
+                                        <GoogleOAuthProvider clientId="868155967382-ubbhk0fdkoq93q63btkkmeats8h5p7o2.apps.googleusercontent.com">
                                             <GoogleLogin
                                                 onSuccess={async credentialResponse => {
                                                     var decoded = jwtDecode(credentialResponse.credential);
@@ -290,13 +279,13 @@ export default function JoySignInSideTemplate() {
                                                             },
                                                             body: JSON.stringify({
                                                                 name: decoded.name,
-                                                                email: decoded.email,
-                                                            }),
+                                                                email: decoded.email,}),
                                                         });
 
                                                         if (response.ok) {
                                                             const data = await response.json();
                                                             console.log('User data from backend:', data);
+                                                            sessionStorage.setItem('userNum', data.num);
                                                             navigate('/main');
                                                         } else {
                                                             console.error('Failed to log in with Google.');
@@ -311,47 +300,6 @@ export default function JoySignInSideTemplate() {
                                             />
                                         </GoogleOAuthProvider>
 
-                                        {/*<NaverLogin*/}
-                                        {/*    clientId="Z1aW6yz9f3F2pxa5d41X"*/}
-                                        {/*    callbackUrl="http://localhost:3000/oauth/naver/callback"*/}
-                                        {/*    render={(props) => <div onClick={props.onClick}>Naver Login</div>}*/}
-                                        {/*    onSuccess={async (result) => {*/}
-
-                                        {/*        const {access_token} = result;*/}
-                                        {/*        console.log(result);*/}
-                                        {/*        try {*/}
-                                        {/*            // 서버로 access token을 보내고 사용자 정보를 얻기 위한 HTTP 요청*/}
-                                        {/*            const response = await fetch('http://localhost/user/naver-login', {*/}
-                                        {/*                method: 'PUT',*/}
-                                        {/*                headers: {*/}
-                                        {/*                    // 'Content-Type': 'application/json',*/}
-                                        {/*                    'Authorization': 'Bearer ' + access_token,*/}
-                                        {/*                },*/}
-                                        {/*                body: JSON.stringify({*/}
-                                        {/*                    access_token,*/}
-                                        {/*                }),*/}
-                                        {/*            });*/}
-
-                                        {/*            if (response.ok) {*/}
-                                        {/*                // 서버로부터 사용자 정보를 성공적으로 받아왔을 경우*/}
-                                        {/*                const data = await response.json();*/}
-                                        {/*                console.log('User data from backend:', data);*/}
-
-                                        {/*                // 사용자 정보를 이용한 추가 작업 수행 가능*/}
-                                        {/*                // 예: 상태 업데이트, 리디렉션 등*/}
-                                        {/*                setAccessToken(access_token);*/}
-                                        {/*                navigate('/main');*/}
-                                        {/*            } else {*/}
-                                        {/*                // 서버 문제*/}
-                                        {/*                console.error('Failed to log in with Naver.');*/}
-                                        {/*            }*/}
-                                        {/*        } catch (error) {*/}
-                                        {/*            // HTTP 요청 문제*/}
-                                        {/*            console.error('Error during Naver login:', error);*/}
-                                        {/*        }*/}
-                                        {/*    }}*/}
-                                        {/*    onFailure={(result) => console.error(result)}*/}
-                                        {/*/>*/}
                                     </Stack>
                                 </form>
                             </Stack>
@@ -363,7 +311,7 @@ export default function JoySignInSideTemplate() {
                         height: '100%',
                         position: 'absolute',
                         right: 0,
-                        top: '86px',
+                        top:'80px',
                         bottom: 0,
                         left: 'clamp(0px, (100vw - var(--Collapsed-breakpoint)) * 999, 100vw - var(--Cover-width))',
                         transition:

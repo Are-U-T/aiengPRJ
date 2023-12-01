@@ -11,11 +11,12 @@ import khImage from "./images/kh.jpg";
 import jhImage from "./images/jh.jpg";
 import syImage from "./images/sy.jpg";
 import cgImage from "./images/cg.jpg";
+import '../../App.css';
 
 
 
 const ProjectIntro = () => (
-    <>
+    <div className='App'>
         <Navigation />
         <div style={{ textAlign: 'center'}} className='App'>
             <div style={{ textAlign: 'center' }} className='App'>
@@ -188,7 +189,7 @@ const ProjectIntro = () => (
 
 
         </div>
-    </>
+    </div>
 );
 
 export default ProjectIntro;

@@ -27,6 +27,7 @@ public class ChattingController {
     public List<Map<String, String>> getContentList2(@RequestBody Map<String, String> request) {
         String crid = request.get("crid");
         String speaker = request.get("speaker");
+        String unum = request.get("unum");
 //        System.out.println("speaker: " + speaker);
         return chattingService.getGptContentList2(crid, speaker);
     }

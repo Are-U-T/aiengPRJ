@@ -3,6 +3,7 @@ import Navigation from "../Navigation";
 import Modal from "./Modal";
 import LevelInfo from "./LevelInfo";
 import SecondModal from "./SecondModal";
+import '../../App.css'
 
 
 
@@ -18,7 +19,7 @@ function LevelTest() {
     };
 
     return (
-        <>
+        <div className="App">
             <Navigation/>
             <h2 style={{ textAlign: 'center', margin: '20px 0' }}>영어회화 레벨 테스트</h2>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
@@ -48,7 +49,7 @@ function LevelTest() {
             </Modal>
 
             <SecondModal isOpen={showSecondModal} onClose={() => setShowSecondModal(false)} />
-        </>
+        </div>
     );
 }
 

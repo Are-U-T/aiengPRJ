@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -41,6 +42,8 @@ public class ChatGptController {
     // 대화 기록을 저장할 변수
     private StringBuilder conversationHistory = new StringBuilder();
 
+    HttpSession session;
+
     @Autowired
     public ChatGptController(ChatGptService chatGptService, QuickstartSample quickstartSample, Choice choice) {
         this.chatGptService = chatGptService;
@@ -52,13 +55,15 @@ public class ChatGptController {
     public List<Map<String, String>> getRecommendQuestion(@RequestBody Map<String, String> request) {
         String crid = request.get("crid");
         String speaker = request.get("speaker");
-        recommendQuestion(crid, speaker);
-        System.out.println("!!!!!!!!!!!!!!!!" + crid);
+        String userNum = request.get("userNum");
+        System.out.println("!!!!!!!!!!!!!!!!" + crid + "!!!!!!!!!!!!!!!!" + speaker + "!!!!!!!!!!!!!!!!" + userNum);
+        recommendQuestion(crid, speaker, userNum);
         return chatGptService.getGptContentList2(crid, speaker);
     }
 
+    public void recommendQuestion(String crid, String speaker, String userNum) {
 
-    public void recommendQuestion(String crid, String speaker) {
+        QuestionRequestDto questionRequestDto = chatGptService.getGptContentList3(crid);
 
         if (first) {
             // gpt 한테 질문 1개 추천 받기
@@ -84,6 +89,7 @@ public class ChatGptController {
         Choice recommend = extractChoiceFromResponse(recommendedQuestion, recommended);
         recommend.setCrid(crid);
         recommend.setSpeaker(speaker);
+        recommend.setUid(userNum);
         chatGptService.saveToDatabase(recommend);
         recommendedList.add(recommend.getText());
         System.out.println("recommend list: " + recommendedList.toString());
@@ -91,8 +97,9 @@ public class ChatGptController {
     }
 
     // 초기 대화 세팅
-    public byte[] initiateConversation(QuestionRequestDto initiationRequestDto) {
+    public byte[] initiateConversation(QuestionRequestDto initiationRequestDto, String unum) {
 
+        questionRequestDto.setUnum(unum);
         String userRole = initiationRequestDto.getUserRole();
         String gptRole = initiationRequestDto.getGPTRole();
         String situation = initiationRequestDto.getSituation();
@@ -109,7 +116,6 @@ public class ChatGptController {
                         "And please use conversational vocabulary at a ‘%s’ level.",
                 gptRole, userRole, situation, gptRole, userRole, level);
 
-
         ChatGptResponseDto gptResponseDto = chatGptService.setSituation(new QuestionRequestDto(initialQuestion));
 
         Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, initialQuestion);
@@ -122,7 +128,7 @@ public class ChatGptController {
 
         byte[] audioBytes = quickstartSample.run(gptResponseChoice, initiationRequestDto.getCountry()).getBody();
         // Add log to check if the audio data is generated and returned correctly
-        System.out.println("GPT audio file. Size: " + audioBytes.length + " bytes");
+//        System.out.println("GPT audio file. Size: " + audioBytes.length + " bytes");
 
         gptResponseChoice.setSpeaker("Teacher");
 
@@ -138,7 +144,7 @@ public class ChatGptController {
     }
 
     // 대화방 설정 이후 대화 진행용
-    public byte[] conversation(String question) {
+    public byte[] conversation(String question , String userNum) {
 
         try {
 
@@ -148,7 +154,7 @@ public class ChatGptController {
 
             questionRequestDto.setQuestion(question);
 
-            System.out.println("question : " + question);
+            System.out.println("userNum : " + userNum);
 
 //            sendRoleAndSituationToChatGptPy(userRole, gptRole, situation);
 
@@ -174,6 +180,11 @@ public class ChatGptController {
 
             questionRequestDto.setSpeaker("User");
             gptResponseChoice.setSpeaker("Teacher");
+
+            // uid set 해주기
+            questionRequestDto.setUnum(userNum);
+            gptResponseChoice.setUid(userNum);
+
             questionRequestDto.setQuestion(question);
             chatGptService.saveToDatabase2(questionRequestDto);
             chatGptService.saveToDatabase(gptResponseChoice);
@@ -182,6 +193,7 @@ public class ChatGptController {
             gptResponseChoice = grading(question);
             gptResponseChoice.setCrid(questionRequestDto.getCrid());
             gptResponseChoice.setSpeaker("Corrected grammar");
+            gptResponseChoice.setUid(userNum);
             chatGptService.saveToDatabase(gptResponseChoice);
 
             // 대화 기록 업데이트

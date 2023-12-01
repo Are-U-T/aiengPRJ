@@ -6,8 +6,11 @@ import Navigation from "../Navigation";
 import us from './images/us.png';
 import uk from './images/uk.png';
 import usno from './images/usno.jpg';
-import ukno from './images/ukno.jpg'
-// import check from './images/check.png';
+import ukno from './images/ukno.jpg';
+import '../../App.css';
+import left from './images/left.png';
+import right from './images/right.png';
+import LoadingPage from './LoadingPage';
 
 
 function Speech() {
@@ -19,7 +22,23 @@ function Speech() {
     const [availableRoles, setAvailableRoles] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const userNum = sessionStorage.getItem('userNum');
+
+    const [loading, setLoading] = useState(false);
+
     const navigate = useNavigate();
+
+
+    const [level, setLevel] = useState(1); // 초기 레벨 설정
+
+    const decreaseLevel = () => {
+        setLevel(prevLevel => prevLevel > 1 ? prevLevel - 1 : 1);
+    };
+
+    const increaseLevel = () => {
+        setLevel(prevLevel => prevLevel < 6 ? prevLevel + 1 : 6);
+    };
+
     const handlePageChange = async(event) => {
         event.preventDefault();
 
@@ -28,10 +47,12 @@ function Speech() {
             selectedAirole,
             selectedMyrole,
             selectedCountry,
-            selectedLv
+            selectedLv,
+            userNum
         };
 
         try {
+            setLoading(true);
             const response = await fetch('http://localhost/talking/newTalkingRoom', {
                 method: 'POST',
                 headers: {
@@ -55,6 +76,8 @@ function Speech() {
             }
         } catch (error) {
             console.error('방 생성 중 Error:', error);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -108,7 +131,7 @@ function Speech() {
     };
 
     return (
-        <>
+        <div className='App'>
             <Navigation />
             <h2 className="hi">Speech</h2>
 
@@ -195,7 +218,7 @@ function Speech() {
 
                 <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
                     <div style={{ textAlign: 'center', maxWidth: '500px', margin: 'auto' }}>
-                        <h3 style={{ color: 'darkblue', fontWeight: 'bold', fontSize: '30px', margin: '40px 0' }}>선택 결과</h3>
+                        <h3 style={{ color: 'darkblue', fontWeight: 'bold', fontSize: '30px', margin: '20px 0' }}>선택 결과</h3>
 
                         <div style={{ margin: '20px 0', padding: '10px', border: '1px solid #ccc', borderRadius: '10px' }}>
                             <strong>선택한 상황</strong> <p style={{ fontSize: '18px', margin: '10px 0' }}>{selectedItem}</p>
@@ -203,6 +226,19 @@ function Speech() {
                             <strong>나의 역할</strong> <p style={{ fontSize: '18px', margin: '10px 0' }}>{selectedMyrole}</p>
                             <strong>선택한 발음</strong> <p style={{ fontSize: '18px', margin: '10px 0' }}> {selectedCountry === '미국' ? '미국식' : '영국식'}</p>
                         </div>
+
+
+
+                        <div className="difficulty-selector">
+                            <h5>난이도 조절 선택하기</h5>
+                            <div className="controls">
+                                <img src={left} alt='레벨 다운' onClick={decreaseLevel} />
+                                <span>레벨 {level}</span>
+                                <img src={right} alt='레벨 업' onClick={increaseLevel} />
+                            </div>
+                        </div>
+
+
 
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
                             <button
@@ -227,9 +263,29 @@ function Speech() {
                 </Modal>
 
 
+                {loading && (
+                    <div
+                        style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            zIndex: 9000,
+                        }}
+                    >
+                        <LoadingPage />
+                    </div>
+                )}
+
+
 
             </div>
-        </>
+        </div>
     );
 }
 

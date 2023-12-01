@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public class UserDaoImp implements UserDao {
+
     @Autowired
     UserMapper uMapper;
 
@@ -31,4 +32,11 @@ public class UserDaoImp implements UserDao {
     public int save(UserDTO uDto) {
         return uMapper.save(uDto);
     }
+    @Override
+    public int editLevel(UserDTO uDto) {
+        return uMapper.editLevel(uDto);
+    }
+
+    @Override
+    public UserDTO mypageUser(String num) { return uMapper.mypageUser(num); }
 }

@@ -9,4 +9,6 @@ public interface UserDao {
     public int editById(UserDTO uDto);
     public int delete(String num);
     public int save(UserDTO uDto);
+    public int editLevel(UserDTO uDto);
+    public UserDTO mypageUser(String num);
 }

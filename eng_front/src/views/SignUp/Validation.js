@@ -72,7 +72,6 @@ function userValidation() {
         return false;
     }
 
-    // alert("완료.");
     return true;
 }
 

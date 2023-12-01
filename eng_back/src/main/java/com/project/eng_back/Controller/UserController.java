@@ -1,5 +1,6 @@
 package com.project.eng_back.Controller;
 
+import com.google.api.Http;
 import com.project.eng_back.Dto.GoogleUserDTO;
 import com.project.eng_back.Dto.UserDTO;
 import com.project.eng_back.Mapper.UserMapper;
@@ -9,11 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://10.20.100.74:3000")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -51,14 +55,21 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserDTO userDTO, HttpSession session) {
+
         UserDTO foundUser = userMapper.findByEmail(userDTO.getEmail());
+
+        System.out.println(session);
 
         if (foundUser != null && foundUser.getPw().equals(userDTO.getPw())) {
             String userNo = foundUser.getNum();
+            System.out.println("userNo: " + userNo);
+
             session.setAttribute("userNo", userNo);
+            String unum = (String) session.getAttribute("userNo");
+            System.out.println("unum: " + unum);
             return ResponseEntity.ok(foundUser);
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀 번호 틀렸습니다.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호 틀렸습니다.");
         }
     }
 
@@ -89,5 +100,22 @@ public class UserController {
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save user");
         }
+    }
+
+    @PostMapping("/mypage")
+    public UserDTO mypageProfile(@RequestBody Map<String, String> data) {
+        try {
+//        session.setAttribute("userNo", "a1afc068-0eb9-42ed-aefd-948a6cfd7312");
+            String num = data.get("userNum");
+            System.out.println("mypage num : " + num);
+            System.out.println("session 에 저장된 userNo : " + num);
+            if (num != null) {
+                UserDTO userDto = uService.mypageUser(num);
+                return userDto;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
