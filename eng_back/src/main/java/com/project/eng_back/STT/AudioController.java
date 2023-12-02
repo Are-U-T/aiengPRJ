@@ -63,6 +63,7 @@ public class AudioController {
 //    @Value("${upload.path}")
 //    private String uploadPath;  // 设置为文件上传路径
 
+    // 음성 나오게 하는 메서드
     @PostMapping("/playAudio")
     public ResponseEntity<Resource> playAudio(@RequestParam("text") String textToConvert) {
         try {
@@ -80,6 +81,23 @@ public class AudioController {
             e.printStackTrace();
             // 返回带错误信息的 ResponseEntity
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ByteArrayResource(new byte[0]));
+        }
+    }
+    
+    // 다른 표현 문장 3개 추천
+    @PostMapping("/alternativeExpressionOutput")
+    public ResponseEntity<String> alternativeExpressionOutput(@RequestParam("text") String textToConvert) {
+        try {
+            // 调用 OpenAI API 获取其他表达方式
+            String alternativeExpression = chatGptController.alternativeExpressionOutput(textToConvert);
+            System.out.println("alternativeExpression: " + alternativeExpression);
+
+            // 返回 ResponseEntity，將 alternativeExpression 作為純文本返回
+            return ResponseEntity.ok().body(alternativeExpression);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 返回带错误信息的 ResponseEntity
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error generating alternative expression.");
         }
     }
 

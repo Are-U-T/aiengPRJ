@@ -24,7 +24,7 @@ export default function Script() {
             console.log('응답:', response.data);
             setGetScript(response.data);
         } catch (error) {
-            console.error('그냥 다 에러!!!!!!!!!!!!!!!!!!!!:', error);
+            console.error('error: ', error);
         }
     };
 
@@ -45,9 +45,19 @@ export default function Script() {
     }
 
     const [showPopup, setShowPopup] = useState(false);
-    const handleClick = async () => {
+    const [alternativeExpressions, setAlternativeExpressions] = useState([]);
+
+
+    const handleClick = async (title) => {
+
         try {
-            const textToConvert = "hello, nice to meet you";
+            var textToConvert = title.CONTENT;
+
+            // if ((title.SPEAKER) === 'Teacher') {
+            //     // textToConvert = index.title.CONTENT;
+            //     // textToConvert = getScript2(index).CONTENT;
+            // }
+
             const response = await axios.post('http://localhost/api/audio/playAudio', null, {
                 params: {
                     text: textToConvert,
@@ -60,6 +70,30 @@ export default function Script() {
                 const url = URL.createObjectURL(audioBlob);
                 const audioElement = new Audio(url);
                 audioElement.play();
+                // setShowPopup(true);
+            } else {
+                console.error('error:', response.status);
+            }
+        } catch (error) {
+            console.error('error:', error);
+        }
+    };
+
+    const handleClick1 = async () => {
+        try {
+            const textToConvert = "hello, nice to meet you";
+
+            const response = await axios.post('http://localhost/api/audio/alternativeExpressionOutput', null, {
+                params: {
+                    text: textToConvert,
+                },
+                responseType: 'text',
+            });
+
+            if (response.status === 200) {
+                const alternativeExpression = response.data.split('\n').filter(Boolean);
+                setAlternativeExpressions(alternativeExpression);
+
                 setShowPopup(true);
             } else {
                 console.error('error:', response.status);
@@ -125,18 +159,17 @@ export default function Script() {
                                 <div key={index}>
                                     {title.SPEAKER === 'Teacher' ? (
                                         <>
-                                            {/*{showPopup && (*/}
                                             <div className="scriptContent">
                                                 <p className="sayGPT">{title.SPEAKER}</p>
-                                                <p className="scriptGPT">{title.CONTENT}</p>
+                                                <p className="scriptGPT" onClick={() => handleClick(title.CONTENT)}
+                                                >{title.CONTENT}</p>
                                             </div>
-                                            {/*)}*/}
                                         </>
                                     ) : title.SPEAKER === 'User' ? (
                                         <>
                                             <div className="scriptContent">
                                                 <p className="sayUser">{title.SPEAKER}</p>
-                                                <p className="script" onClick={handleClick}>{title.CONTENT}</p>
+                                                <p className="script" onClick={handleClick1}>{title.CONTENT}</p>
                                             </div>
                                         </>
                                     ) : (
@@ -154,7 +187,9 @@ export default function Script() {
                 <div className="script-container-popup">
                     {showPopup && (
                         <div className="popup">
-                            <p className="scriptGPT">Hi, Nice to meet you</p>
+                            {alternativeExpressions.map((expression, index) => (
+                                <p key={index} className="scriptGPT">{expression}</p>
+                            ))}
                             <button id="scriptBtn" onClick={() => setShowPopup(false)}>Close</button>
                         </div>
                     )}

@@ -156,4 +156,24 @@ public class ChatGptService {
         return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
     }
 
+    public ChatGptResponseDto alternativeExpression(String question) {
+
+        String prompt = "\n" +
+                "What you caan say instead of '"+question+"', " +
+                "Give me three examples.";
+
+//        String prompt = "Remember our situation and your role and communicate naturally.";
+
+        // GPT에게 고려된 프롬프트로 요청 보내고 응답 받기
+        ChatGptRequestDto chatGptRequestDto = ChatGptRequestDto.builder()
+                .model(ChatGptConfig.MODEL)
+                .prompt(prompt)
+                .maxTokens(ChatGptConfig.MAX_TOKEN)
+                .temperature(ChatGptConfig.TEMPERATURE)
+                .topP(ChatGptConfig.TOP_P)
+                .build();
+        logger.info("Sent prompt to GPT, grading: {}", chatGptRequestDto.getPrompt());
+
+        return this.getResponse(this.buildHttpEntity(chatGptRequestDto));
+    }
 }

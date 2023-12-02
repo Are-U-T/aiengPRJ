@@ -237,6 +237,23 @@ public class ChatGptController {
         }
     }
 
+    public Choice alternativeExpression(String textToConvert) {
+
+        ChatGptResponseDto gptResponseDto = chatGptService.alternativeExpression(textToConvert);
+        Choice answer = extractChoiceFromResponse(gptResponseDto, textToConvert);
+        return answer;
+    }
+
+    public String alternativeExpressionOutput(String textToConvert) {
+        ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(questionRequestDto, conversationHistory);
+        Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, textToConvert);
+        gptResponseChoice = alternativeExpression(textToConvert);
+        String output = gptResponseChoice.getText();
+
+
+        return output;
+    }
+
     // 아래부터는 파이썬에 open ai 에 요청 보내는 코드들임 ,, 근데 실패함 ㅋ
 //    private ChatGptResponseDto sendRoleAndSituationToChatGptPy(String userRole, String gptRole, String situation, StringBuilder conversationHistory) {
 //        String chatGptPyUrl = "http://10.20.100.136:8889/update-model";
