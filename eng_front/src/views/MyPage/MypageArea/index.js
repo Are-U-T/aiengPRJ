@@ -72,13 +72,12 @@ export default function MypageArea() {
     return (
         <>
             <div>
-                <div className="MypageCenter" style={{marginTop: '150px'}}>
+                <div className="MypageCenter" style={{marginTop: '200px'}}>
                     {userProfile && (
                         <>
                             <div className="MypageContainer" style={{marginRight: '30px'}}>
                                 <div style={{marginBottom:'30px'}}/>
                                 <img src={user} className="MypageImg"/>
-                                <div className="MypageImg"/>
                                 <div className="grayline" style={{marginTop: '20px'}}/>
                                 <h5 className="MypageName" style={{marginTop: '20px'}}>{userProfile.name}</h5>
                                 <div className="grayline"/>
