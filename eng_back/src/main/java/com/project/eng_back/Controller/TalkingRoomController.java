@@ -1,9 +1,7 @@
 package com.project.eng_back.Controller;
 
-import java.util.Base64;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.security.Timestamp;
+import java.util.*;
 
 import com.project.eng_back.Dto.Choice;
 import com.project.eng_back.Dto.QuestionRequestDto;
@@ -41,7 +39,30 @@ public class TalkingRoomController {
     @PostMapping("/chattingList")
     public List<Map<String, String>> getUserChattingList(@RequestBody Map<String, String> request) {
         String userNum = request.get("userNum");
-        return talkingRoomService.getGptContentList(userNum);
+        List<Map<String, String>> originalList = talkingRoomService.getGptContentList(userNum);
+        return convertTimestampsToString(originalList);
+    }
+
+    // Timestamp를 String으로 변환
+    private List<Map<String, String>> convertTimestampsToString(List<Map<String, String>> originalList) {
+        List<Map<String, String>> convertedList = new ArrayList<>();
+
+        for (Map<String, String> originalMap : originalList) {
+            Map<String, String> convertedMap = new HashMap<>();
+
+            for (Map.Entry<String, String> entry : originalMap.entrySet()) {
+                Object value = entry.getValue();
+                if (value instanceof Timestamp) {
+                    // Timestamp를 String으로 변환
+                    value = value.toString();
+                }
+                convertedMap.put(entry.getKey(), value.toString());
+            }
+
+            convertedList.add(convertedMap);
+        }
+
+        return convertedList;
     }
 
     @PostMapping("/newTalkingRoom")

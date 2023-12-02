@@ -2,6 +2,7 @@ package com.project.eng_back.Mapper;
 
 import com.project.eng_back.Dto.Choice;
 import com.project.eng_back.Dto.QuestionRequestDto;
+import com.project.eng_back.Dto.TalkingRoomDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -25,6 +26,12 @@ public interface ChatGPTMapper {
     @Select("SELECT GPTROLE, USERROLE, SITUATION FROM CHAT_ROOM WHERE CRID = #{crid}")
     QuestionRequestDto getGptContentList3(@Param("crid") String crid);
 
-    @Select("SELECT CR.CRID, CR.SITUATION, CR.LV, CR.GPTROLE, CR.USERROLE, CR.REGDATE, CHAT.CONTENT, CHAT.SPEAKER FROM CHAT_ROOM CR JOIN CHAT CHAT ON CR.CRID = CHAT.CRID WHERE CR.CRID = #{crid}")
+    @Select("SELECT CRID, SITUATION, LV, GPTROLE, USERROLE, REGDATE FROM CHAT_ROOM WHERE CRID = #{crid}")
     List<Map<String, String>> getScript(@Param("crid") String crid);
+
+    @Select("SELECT CONTENT, SPEAKER FROM CHAT WHERE CRID = #{crid} AND SPEAKER IN ('Teacher', 'User', 'Corrected grammar')")
+    List<Map<String, String>> getScript2(@Param("crid") String crid);
+
+//    @Select("SELECT CRID, SITUATION, LV, GPTROLE, USERROLE, REGDATE FROM CHAT_ROOM WHERE CRID = #{crid}")
+//    TalkingRoomDto getScriptDto(@Param("crid") String crid);
 }

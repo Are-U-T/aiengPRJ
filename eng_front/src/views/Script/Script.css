@@ -73,6 +73,10 @@
 
 .sayUser {
     text-align: right;
+    font-family: "Noto Sans KR Black", sans-serif;
+    font-size: 17px;
+    margin-bottom: 2px;
+    /*float: right;*/
 }
 
 .say {
@@ -91,6 +95,7 @@
     display: inline-block;
     max-width: 80%;
     margin-bottom: 7px;
+    float: right;
 }
 
 .scriptGPT {
@@ -115,4 +120,9 @@
     border-radius: 10px;
     display: inline-block;
     max-width: 80%;
+    float: right;
+}
+
+.scriptP {
+    float: left;
 }

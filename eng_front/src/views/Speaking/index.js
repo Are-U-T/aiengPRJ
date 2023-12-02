@@ -26,7 +26,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     // 자막
     const [liveSubtitles, setLiveSubtitles] = useState([]); // 실시간 자막
     const [recommendedQuestions, setRecommendedQuestions] = useState([]); // 상황에 맞는 추천 질문
-    const [correctGrammar , setCorrectGrammer] = useState([]); // 문법 고치는 자막
+    const [correctGrammar, setCorrectGrammer] = useState([]); // 문법 고치는 자막
     const [showSubtitles, setShowSubtitles] = useState(true); // 자막 컨테이너들 전체
 
     // 사진과 자막 컨테이너의 동적 스타일을 위한 클래스
@@ -40,7 +40,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
     const location = useLocation();
     const crid = location.state?.crid; // 채팅방 생성시에 전달 받은 crid 전달 받아서 서버에 넘겨줌
-    const speaker =null;
+    const speaker = null;
 
     // 컴포넌트 마운트 시와 일정한 간격으로 자막을 가져오기 위해 useEffect 사용
     useEffect(() => {
@@ -275,16 +275,17 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                 <div className='mrts'>
                     <div className={`buttons-containerpp ${!showSubtitles ? "buttons-hidden-subtitles" : ""}`}>
                         <button onClick={toggleRecording} className={isRecording ? "recording-active" : ""}>
-                            <img src={isRecording ? mic : micno} alt={isRecording ? "중지" : "시작"} style={{ width: '35px', height: '35px' }}/>
+                            <img src={isRecording ? mic : micno} alt={isRecording ? "중지" : "시작"}
+                                 style={{width: '35px', height: '35px'}}/>
                         </button>
                         <button onClick={toggleSubtitles}>
                             <img src={showSubtitles ? subtitle : subtitleno} alt={showSubtitles ? "자막 숨기기" : "자막 보이기"}
-                                 style={{ width: '35px', height: '35px' }}/>
+                                 style={{width: '35px', height: '35px'}}/>
                         </button>
                         <button onClick={() => setIsModal2Open(true)}>
                             {formatTime(timeSpent)}
                             <br/>
-                            <div style={{color : 'blueviolet'}}>대화 종료</div>
+                            <div style={{color: 'blueviolet'}}>대화 종료</div>
                         </button>
                     </div>
                 </div>
@@ -304,7 +305,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                     <button className="modal-button" onClick={() => {
                         setIsModalOpen(false); // 모달 상태를 false로 설정하여 닫음
                         navigate('/main'); // 메인 화면으로 이동
-                    }}>확인</button>
+                    }}>확인
+                    </button>
                 </Modal>
             )}
 
@@ -320,7 +322,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                     <button className="modal-button" onClick={() => {
                         setIsModal2Open(false); // 모달 상태를 false로 설정하여 닫음
                         navigate('/main'); // 메인 화면으로 이동
-                    }}>확인</button>
+                    }}>확인
+                    </button>
                 </ModalResult>
             )}
         </>

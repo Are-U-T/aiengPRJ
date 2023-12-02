@@ -17,6 +17,8 @@ public class TalkingRoomDto {
 
     private LocalDateTime regdate;
 
+    private String regdateS;
+
     private String lv;
 
     private String time;
@@ -62,5 +64,13 @@ public class TalkingRoomDto {
 
     public void setUnum(String unum) {
         this.unum = unum;
+    }
+
+    public void setRegdate(LocalDateTime regdate) {
+        this.regdate = regdate;
+    }
+
+    public void setRegdateS(String regdateS) {
+        this.regdateS = regdateS;
     }
 }
