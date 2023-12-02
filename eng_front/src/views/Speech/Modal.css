@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
     animation: fadeIn 0.5s ease;
-    z-index: 9999; /* 더 높은 z-index 값으로 변경 */
+    z-index: 9999;
 }
 
 .modal-style {

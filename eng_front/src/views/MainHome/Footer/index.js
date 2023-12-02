@@ -1,14 +1,24 @@
 import React from 'react';
 import  './style.css'
 import '../../../App.css'
+import up from './images/up.png';
 
 
 export default function Footer(){
+
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
 
     return(
         <>
 
             <div style={{marginTop : '100px'}} className='App'>
+                <img src={up} alt='up' onClick={scrollToTop} className="scru"/>
+
                 <footer className="footer" style={{ backgroundColor: 'black', color: 'white'}}>
                     <div className="footer-container">
                         <div className="row">

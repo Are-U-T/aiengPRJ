@@ -2,7 +2,6 @@ package com.project.eng_back.Mapper;
 
 import com.project.eng_back.Dto.Choice;
 import com.project.eng_back.Dto.QuestionRequestDto;
-import com.project.eng_back.Dto.TalkingRoomDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -34,4 +33,5 @@ public interface ChatGPTMapper {
 
 //    @Select("SELECT CRID, SITUATION, LV, GPTROLE, USERROLE, REGDATE FROM CHAT_ROOM WHERE CRID = #{crid}")
 //    TalkingRoomDto getScriptDto(@Param("crid") String crid);
+
 }

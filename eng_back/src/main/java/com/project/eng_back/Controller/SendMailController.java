@@ -84,7 +84,6 @@ public class SendMailController {
         return number; // 인증 번호 반환
     }
 
-
     @ResponseBody
     @PostMapping("/mail")
     public String Mail(@RequestBody UserDTO uDto) {

@@ -2,18 +2,28 @@
     height: 15vh;
 }
 
-.container-main {
-    margin: 0 auto;
-    display: block;
+.script-container-main-popup {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 40em;
+}
+
+.script-container-main {
+    /*margin: 0 auto;*/
+    /*display: block;*/
     width: 35.2em;
     height: 42.5em;
     user-select: none;
 }
 
+.script-container-popup {
+    margin-top: 20em;
+}
+
 .title {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: right;
 }
 
 .date {
@@ -27,7 +37,7 @@
     margin: 0 auto;
     display: block;
     width: 35em;
-    height: 40em;
+    height: 45em;
     border-color: #17264D;
     border-radius: 3px;
     border-style: solid;
@@ -35,24 +45,23 @@
 
 .container-sub1 {
     background-color: #17264D;
-    width: 34.9em;
+    width: 34.8em;
     height: 5em;
     padding: 8px 0;
 }
 
 .container-sub2 {
     width: 30.7em;
-    height: 32em;
+    height: 37em;
     margin: 2em 0 2em 2em;
     overflow-y: auto;
-    /*background-color: #FBFBFB;*/
 }
 
 .scroll-container::-webkit-scrollbar {
     width: 1px;
 }
 
-#btn {
+#scriptBtn {
     font-family: "Noto Sans KR Medium", "sans-serif";
     font-size: 15px;
     margin-bottom: 5px;
@@ -60,6 +69,7 @@
     background: #1D2B64;
     color: white;
     padding: 3px 10px;
+    margin-left: 15px;
 }
 
 .title-1 {
@@ -71,15 +81,22 @@
     color: #ffffff;
 }
 
+.sayGPT {
+    font-family: "Noto Sans KR Black", sans-serif;
+    font-size: 17px;
+    margin-bottom: 2px;
+}
+
 .sayUser {
     text-align: right;
     font-family: "Noto Sans KR Black", sans-serif;
     font-size: 17px;
     margin-bottom: 2px;
-    /*float: right;*/
+    height: 25px;
 }
 
-.say {
+.sayCorrect {
+    text-align: right;
     font-family: "Noto Sans KR Black", sans-serif;
     font-size: 17px;
     margin-bottom: 2px;
@@ -111,7 +128,7 @@
     max-width: 80%;
 }
 
-.script2 {
+.scriptCorrect {
     font-family: "Noto Sans KR Medium", "sans-serif";
     font-size: 15px;
     color: #ffffff;
@@ -123,6 +140,17 @@
     float: right;
 }
 
-.scriptP {
-    float: left;
+.scriptContent {
+    width: 100%;
+    float: right;
+}
+
+.popup {
+    position: fixed;
+    /*right: 350px;*/
+    width: 500px;
+    max-height: 100vh;
+    background-color: #ffffff;
+    padding: 10px;
+    overflow-y: auto;
 }

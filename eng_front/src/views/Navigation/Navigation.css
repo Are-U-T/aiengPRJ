@@ -101,3 +101,14 @@ nav.hidden {
 .custom-login-link:hover {
     color: #ccc !important;
 }
+
+.userName {
+    color: #e1e5f5 !important;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.kkk{
+    display: flex !important;
+    align-items: center !important;
+}

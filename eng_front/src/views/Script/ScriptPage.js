@@ -34,142 +34,130 @@ export default function Script() {
             console.log('응답:', response.data);
             setGetScript2(response.data);
         } catch (error) {
-            console.error('그냥 다 에러!!!!!!!!!!!!!!!!!!!!:', error);
+            console.error('ScriptPage error: ', error);
         }
     };
 
-    // const scriptDto = async () => {
-    //     try {
-    //         const response = await axios.post('http://localhost/chatting/scriptDto', {crid});
-    //         console.log('응답:', response.data);
-    //         setGetScript(response.data);
-    //     } catch (error) {
-    //         console.error('그냥 다 에러!!!!!!!!!!!!!!!!!!!!:', error);
-    //     }
-    // };
+    function formatDate(dataTimeString) {
+        const getDate = new Date(dataTimeString);
+        const formattedDate = `${getDate.getFullYear()}/${(getDate.getMonth() + 1).toString().padStart(2, '0')}/${getDate.getDate().toString().padStart(2, '0')}`;
+        return formattedDate;
+    }
+
+    const [showPopup, setShowPopup] = useState(false);
+    const handleClick = async () => {
+        try {
+            const textToConvert = "hello, nice to meet you";
+            const response = await axios.post('http://localhost/api/audio/playAudio', null, {
+                params: {
+                    text: textToConvert,
+                },
+                responseType: 'arraybuffer',
+            });
+
+            if (response.status === 200) {
+                const audioBlob = new Blob([response.data], {type: 'audio/mp3'});
+                const url = URL.createObjectURL(audioBlob);
+                const audioElement = new Audio(url);
+                audioElement.play();
+                setShowPopup(true);
+            } else {
+                console.error('error:', response.status);
+            }
+        } catch (error) {
+            console.error('error:', error);
+        }
+    };
 
     return (
         <>
             <div className="start"></div>
-            <div className="container-main">
-                <div className="title">
-                    <button id="btn">복습하기</button>
-                    <p className="date">
-                        {getScript.map((title, index) => (
-                            <p className="date" key={index}>
-                                {title.REGDATE}
-                            </p>
-                        ))}
-                    </p>
-                </div>
-                <div className="scriptContainer">
-                    <div className="container-sub1">
-                        <p className="title-1">
-
-                            {/* level */}
+            <div className="script-container-main-popup">
+                <div className="script-container-main">
+                    <div className="title">
+                        <p className="date">
                             {getScript.map((title, index) => (
-                                <div key={index}>
-                                    level:{"\u00A0\u00A0"}{title.LV}
-                                </div>
+                                <p className="date" key={index}>
+                                    {formatDate(title.REGDATE)}
+                                </p>
                             ))}
-
-                            {/* user */}
-                            {getScript.map((title, index) => (
-                                <div key={index}>
-                                    나:{"\u00A0\u00A0"}{title.USERROLE}
-                                </div>
-                            ))}
-
-                            {/*<p className="scriptP">나:</p>*/}
-                            {/*{getScript && (*/}
-                            {/*    <>*/}
-                            {/*        <p>{getScript.USERROLE}</p>*/}
-                            {/*    </>*/}
-                            {/*)}*/}
                         </p>
-
-                        <div className="title-1">
-
-                            {/* situation */}
-                            {getScript.map((title, index) => (
-                                <div key={index}>
-                                    상황:{"\u00A0\u00A0"}{title.SITUATION}
-                                </div>
-                            ))}
-
-                            {/* teacher */}
-                            {getScript.map((title, index) => (
-                                <div key={index}>
-                                    상대방:{"\u00A0\u00A0"}{title.GPTROLE}
-                                </div>
-                            ))}
-
-                        </div>
                     </div>
-                    <div className="container-sub2 scroll-container">
-
-                        <div className="sayGPT">
+                    <div className="scriptContainer">
+                        <div className="container-sub1">
+                            <p className="title-1">
+                                {/* level */}
+                                {getScript.map((title, index) => (
+                                    <div key={index}>
+                                        level:{"\u00A0\u00A0"}{title.LV}
+                                    </div>
+                                ))}
+                                {/* user */}
+                                {getScript.map((title, index) => (
+                                    <div key={index}>
+                                        나:{"\u00A0\u00A0"}{title.USERROLE}
+                                    </div>
+                                ))}
+                                {/*<p className="scriptP">나:</p>*/}
+                                {/*{getScript && (*/}
+                                {/*    <>*/}
+                                {/*        <p>{getScript.USERROLE}</p>*/}
+                                {/*    </>*/}
+                                {/*)}*/}
+                            </p>
+                            <div className="title-1">
+                                {/* situation */}
+                                {getScript.map((title, index) => (
+                                    <div key={index}>
+                                        상황:{"\u00A0\u00A0"}{title.SITUATION}
+                                    </div>
+                                ))}
+                                {/* teacher */}
+                                {getScript.map((title, index) => (
+                                    <div key={index}>
+                                        상대방:{"\u00A0\u00A0"}{title.GPTROLE}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="container-sub2 scroll-container">
                             {getScript2.map((title, index) => (
                                 <div key={index}>
-                                    <div key={index}>
-                                        {index % 3 === 1 ? (
-                                            <>
-                                                <p className="sayUser">{title.SPEAKER}</p>
-                                                <p className="script2">{title.CONTENT}</p>
-                                            </>
-                                        ) : index % 3 === 2 ? (
-                                            <>
-                                                <p className="sayUser">{title.SPEAKER}</p>
-                                                <p className="script">{title.CONTENT}</p>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <p className="say">{title.SPEAKER}</p>
+                                    {title.SPEAKER === 'Teacher' ? (
+                                        <>
+                                            {/*{showPopup && (*/}
+                                            <div className="scriptContent">
+                                                <p className="sayGPT">{title.SPEAKER}</p>
                                                 <p className="scriptGPT">{title.CONTENT}</p>
-                                            </>
-                                        )}
-                                    </div>
-
+                                            </div>
+                                            {/*)}*/}
+                                        </>
+                                    ) : title.SPEAKER === 'User' ? (
+                                        <>
+                                            <div className="scriptContent">
+                                                <p className="sayUser">{title.SPEAKER}</p>
+                                                <p className="script" onClick={handleClick}>{title.CONTENT}</p>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="scriptContent">
+                                                <p className="scriptCorrect">{title.CONTENT}</p>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             ))}
-                            <br/>
-                            {/*<p className="script2">Yeah! Nice to met you, too</p>*/}
                         </div>
-
-
-                        {/*<div className="sayGPT">*/}
-                        {/*    <p className="say">*/}
-                        {/*        {getScript2.map((title, index) => (*/}
-                        {/*            <p key={index}>*/}
-                        {/*                {title.SPEAKER}*/}
-                        {/*            </p>*/}
-                        {/*        ))}*/}
-                        {/*    </p>*/}
-                        {/*    <p className="scriptGPT">*/}
-                        {/*        {getScript2.map((title, index) => (*/}
-                        {/*            <p key={index}>*/}
-                        {/*                {title.CONTENT}*/}
-                        {/*            </p>*/}
-                        {/*        ))}*/}
-                        {/*    </p>*/}
-                        {/*</div>*/}
-                        {/*<div className="sayUser">*/}
-                        {/*    <p className="say">*/}
-                        {/*        {getScript2.map((title, index) => (*/}
-                        {/*            <p key={index}>*/}
-                        {/*                {title.SPEAKER}*/}
-                        {/*            </p>*/}
-                        {/*        ))}*/}
-                        {/*    </p>*/}
-                        {/*    <p className="script">*/}
-                        {/*        {getScript2.map((title, index) => (*/}
-                        {/*            <p key={index}>*/}
-                        {/*                {title.CONTENT}*/}
-                        {/*            </p>*/}
-                        {/*        ))}</p><br/>*/}
-                        {/*    <p className="script2">Yeah! Nice to met you, too</p>*/}
-                        {/*</div>*/}
                     </div>
+                </div>
+                <div className="script-container-popup">
+                    {showPopup && (
+                        <div className="popup">
+                            <p className="scriptGPT">Hi, Nice to meet you</p>
+                            <button id="scriptBtn" onClick={() => setShowPopup(false)}>Close</button>
+                        </div>
+                    )}
                 </div>
             </div>
         </>

@@ -3,8 +3,10 @@ package com.project.eng_back.Dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Getter;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+//import java.time.LocalDateTime;
 
 @Data
 @Getter
@@ -15,9 +17,8 @@ public class TalkingRoomDto {
 
     private String unum;
 
-    private LocalDateTime regdate;
-
-    private String regdateS;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private LocalDate regdate;
 
     private String lv;
 
@@ -64,13 +65,5 @@ public class TalkingRoomDto {
 
     public void setUnum(String unum) {
         this.unum = unum;
-    }
-
-    public void setRegdate(LocalDateTime regdate) {
-        this.regdate = regdate;
-    }
-
-    public void setRegdateS(String regdateS) {
-        this.regdateS = regdateS;
     }
 }

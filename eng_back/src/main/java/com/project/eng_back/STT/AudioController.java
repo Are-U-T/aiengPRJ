@@ -2,6 +2,7 @@ package com.project.eng_back.STT;
 
 import com.google.api.client.util.Value;
 import com.project.eng_back.Controller.ChatGptController;
+import com.project.eng_back.TTS.PlayAudio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -33,6 +34,9 @@ public class AudioController {
     private ChatGptController chatGptController;
 
     @Autowired
+    private PlayAudio playAudio;
+
+    @Autowired
     public AudioController(ChatGptController chatGptController) {
         this.chatGptController = chatGptController;
     }
@@ -58,6 +62,26 @@ public class AudioController {
 
 //    @Value("${upload.path}")
 //    private String uploadPath;  // 设置为文件上传路径
+
+    @PostMapping("/playAudio")
+    public ResponseEntity<Resource> playAudio(@RequestParam("text") String textToConvert) {
+        try {
+
+            byte[] audioData = playAudio.playAudio(textToConvert).getBody();
+            // 创建 ByteArrayResource
+            ByteArrayResource resource = new ByteArrayResource(audioData);
+
+            // 返回 ResponseEntity，设置响应头以指示资源类型和文件名
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"audio.mp3\"")
+                    .body(resource);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 返回带错误信息的 ResponseEntity
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ByteArrayResource(new byte[0]));
+        }
+    }
 
     @PostMapping("/upload")
     public ResponseEntity<Resource> handleAudioUpload(@RequestPart("audio") MultipartFile audioFile, @RequestPart("userNum") String userNum) {

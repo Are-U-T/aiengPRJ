@@ -1,7 +1,6 @@
 package com.project.eng_back.Controller;
 
 import com.project.eng_back.Dto.Choice;
-import com.project.eng_back.Dto.TalkingRoomDto;
 import com.project.eng_back.Service.ChattingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +30,6 @@ public class ChattingController {
         String crid = request.get("crid");
         String speaker = request.get("speaker");
         String unum = request.get("unum");
-        
         return chattingService.getGptContentList2(crid, speaker);
     }
 

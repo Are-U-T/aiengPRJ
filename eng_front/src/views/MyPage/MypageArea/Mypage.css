@@ -1,0 +1,119 @@
+.MypageCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.MypageContainer {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: #1D2B64;
+    width: 250px;
+    height: 450px;
+    max-width: 1200px;
+    max-height: 95vh;
+    overflow: auto;
+    position: relative;
+    animation: slideUp 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background: #f8f8f8;
+}
+
+.MypageName {
+    text-align: center;
+    padding: 10px;
+    font-family: "Noto Sans KR Medium","sans-serif";
+}
+
+.MypageBtn {
+    margin: 0 auto; /* 가운데 정렬을 위한 스타일 추가 */
+    display: block; /* 블록 레벨 요소로 설정하여 가운데 정렬이 적용되도록 함 */
+    border-radius: 5px;
+    background: #4375DB;
+    color: white;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    font-family: "Noto Sans KR Medium","sans-serif";
+}
+
+.MypageResultBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background: #4375DB;
+    color: white;
+    padding: 10px;
+    width: 9%;
+    height: 40px;
+    text-align: center;
+    font-size: 12px;
+    font-family: "Noto Sans KR Medium","sans-serif";
+}
+
+.MypageListItem p {
+    margin: 0px 25px; /* 각각의 p 요소의 기본 마진을 제거하여 간격을 좁힘 */
+    float: left;
+}
+
+.MypageImg {
+    border-radius: 50px;
+    background: #1D2B64;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    display: block;
+}
+
+.MypageListT {
+    float: left;
+    text-align:center;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: "Noto Sans KR Black","sans-serif";
+}
+
+.MypageListItem {
+    justify-content: space-around;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
+
+.MypageList {
+    float: left;
+    text-align:center;
+    font-size: 14px;
+    margin: 0 auto;
+    width: 10%;
+    font-family: "Noto Sans KR Medium","sans-serif";
+}
+
+.grayline {
+    border-bottom: 1px solid #ccc;
+    margin: 10px 0px;
+}
+
+.mypageTextCenter {
+    align-content: flex-end;
+}
+
+.ChatListNull {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ChatListNullContent {
+    text-align: center;
+}
+
+.ChatListNull p{
+    font-size: 30px;
+    font-family: "Noto Sans KR Black","sans-serif";
+    text-align: center;
+}

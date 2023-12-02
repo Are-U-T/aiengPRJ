@@ -16,6 +16,12 @@
     text-align: center;
 }
 
+.tx{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .container {
     display: flex;
@@ -115,10 +121,11 @@
 .item {
     padding: 15px;
     margin-bottom: 10px;
-    background-color: white; /* 아이템 배경색 변경 */
+    background-color: white;
     border-radius: 10px;
     /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
     cursor: pointer;
+    margin-top: 20px;
 }
 
 

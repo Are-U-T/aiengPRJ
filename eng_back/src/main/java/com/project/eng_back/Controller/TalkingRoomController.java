@@ -3,7 +3,6 @@ package com.project.eng_back.Controller;
 import java.security.Timestamp;
 import java.util.*;
 
-import com.project.eng_back.Dto.Choice;
 import com.project.eng_back.Dto.QuestionRequestDto;
 import com.project.eng_back.Dto.TalkingRoomDto;
 import org.slf4j.Logger;
@@ -11,11 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.project.eng_back.Service.TalkingRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -85,7 +80,7 @@ public class TalkingRoomController {
         System.out.println("---------------------------------------");
 
         // 한국어에서 영어로 바꾸는 메서드
-        questionRequestDto = translateToEnglish(situation,gptRole,userRole,country);
+        questionRequestDto = translateToEnglish(situation,gptRole,userRole,country,lv);
 
         String crid = UUID.randomUUID().toString().replaceAll("-", "");
         System.out.println("crid: " + crid);
@@ -110,14 +105,29 @@ public class TalkingRoomController {
         initiationRequestDto.setUserRole(questionRequestDto.getUserRole());
         initiationRequestDto.setSituation(questionRequestDto.getSituation());
         initiationRequestDto.setCountry(questionRequestDto.getCountry());
+        initiationRequestDto.setLv(questionRequestDto.getLv());
         chatGptController.initiateConversation(initiationRequestDto, unum);
 
         return encodedCrid;
     }
 
     // 있는 상황들에 대해서만 . . . 변역
-    public QuestionRequestDto translateToEnglish(String situation , String gptRole, String userRole, String country){
+    public QuestionRequestDto translateToEnglish(String situation , String gptRole, String userRole, String country, String lv){
         int voice;
+        String level;
+        if(lv.equals("레벨 1")){
+            level = "middle school level vocabulary";
+        } else if(lv.equals("레벨 2")) {
+            level = "middle school level vocabulary";
+        } else if(lv.equals("레벨 3")) {
+            level = "high school level vocabulary";
+        } else if(lv.equals("레벨 4")) {
+            level = "high school level vocabulary";
+        } else if(lv.equals("레벨 5")) {
+            level = "college level vocabulary";
+        } else {
+            level ="college level vocabulary";
+        }
 
         if(situation.equals("주말 데이트 계획 세우기"))
         {
@@ -185,6 +195,7 @@ public class TalkingRoomController {
         questionRequestDto.setGPTRole(gptRole);
         questionRequestDto.setUserRole(userRole);
         questionRequestDto.setCountry(voice);
+        questionRequestDto.setLv(level);
 
         return questionRequestDto;
     }

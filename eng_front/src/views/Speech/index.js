@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Modal from "./Modal";
+import ModalStart from './ModalStart';
 import { useNavigate } from 'react-router-dom';
 import './Speech.css';
 import Navigation from "../Navigation";
@@ -11,6 +12,14 @@ import '../../App.css';
 import left from './images/left.png';
 import right from './images/right.png';
 import LoadingPage from './LoadingPage';
+import './Modal.css';
+import  './ModalStart.css';
+import mic from "../Speaking/images/mic.png";
+import micno from "../Speaking/images/micno.png";
+import subtitle from "../Speaking/images/subtitle.png";
+import subtitleno from "../Speaking/images/subtitleno.png";
+import time_finish from "../Speaking/images/time_finish.png";
+import ModalStart2 from "../Speaking/ModalStart2";
 
 
 function Speech() {
@@ -22,14 +31,56 @@ function Speech() {
     const [availableRoles, setAvailableRoles] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const userNum = sessionStorage.getItem('userNum');
-
     const [loading, setLoading] = useState(false);
+
+    const [startModalOpen, setStartModalOpen] = useState(false);
 
     const navigate = useNavigate();
 
+    const userNum = sessionStorage.getItem('userNum');
 
-    const [level, setLevel] = useState(1); // 초기 레벨 설정
+    const [level, setLevel] = useState(null);
+
+    useEffect(() => {
+        const fetchInitialLevel = async () => {
+            const userNum = sessionStorage.getItem('userNum');
+            try {
+                const response = await fetch(`http://localhost/user/getLevel?userNum=${userNum}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setLevel(data);
+                } else {
+                    console.error('Failed to fetch initial level from backend');
+                }
+            } catch (error) {
+                console.error('Error during initial level fetch:', error);
+            }
+        };
+
+        fetchInitialLevel();
+    }, []);
+
+
+    const [startModalOpen2, setStartModalOpen2] = useState(false);
+    useEffect(() => {
+        setStartModalOpen2(true);
+    }, []);
+
+    const Close2 = () => {
+        setStartModalOpen2(false);
+    };
+
+
+
+    useEffect(() => {
+        setStartModalOpen(true);
+    }, []);
+
+    const Close = () => {
+        setStartModalOpen(false);
+    };
+
+
 
     const decreaseLevel = () => {
         setLevel(prevLevel => prevLevel > 1 ? prevLevel - 1 : 1);
@@ -38,6 +89,8 @@ function Speech() {
     const increaseLevel = () => {
         setLevel(prevLevel => prevLevel < 6 ? prevLevel + 1 : 6);
     };
+
+
 
     const handlePageChange = async(event) => {
         event.preventDefault();
@@ -69,7 +122,7 @@ function Speech() {
                 const crid = responseData;
 
                 // Speaking 컴포넌트로 이동하면서 crid를 전달
-                navigate('/speaking', {state: {crid}});
+                navigate('/speaking', {state: {crid, gender: 1}});
             } else {
                 const errorMessage = await response.text();
                 console.error('방 생성 failed:', errorMessage);
@@ -133,6 +186,23 @@ function Speech() {
     return (
         <div className='App'>
             <Navigation />
+
+            <ModalStart isOpen={startModalOpen} onClose={Close}>
+                <div style={{ textAlign: 'center', maxWidth: '600px', margin: 'auto' }}>
+                    <h3 className='gh'>사용방법 안내</h3>
+
+                    <div className="modal-instructions">
+                        <p><strong>Step 1:</strong> 주어진 3가지 상황 중 주제를 선택하세요.</p>
+                        <p><strong>Step 2:</strong> 두 가지 선택지 중 하나를 선택해 역할을 정합니다.</p>
+                        <p><strong>Step 3:</strong> 발음할 국가를 선택하세요 - 미국(US) 또는 영국(UK)</p>
+                    </div>
+
+                    <div className="foo">
+                        <button onClick={() => setStartModalOpen(false)} className="qwe">확인</button>
+                    </div>
+                </div>
+            </ModalStart>
+
             <h2 className="hi">Speech</h2>
 
             <div style={{ marginTop: '30px' }}></div>
@@ -140,7 +210,7 @@ function Speech() {
             <div className="container">
                 <div className="column">
                     <h3 className="styledpodo">STEP 1 상황 선택</h3>
-                    <div className="scroll-container">
+                    <div className="scroll-container tx">
                         {items.map((item, index) => (
                             <div
                                 key={index}
@@ -155,7 +225,7 @@ function Speech() {
 
                 <div className="column">
                     <h3 className="styledpodo">STEP 2 나의 역할</h3>
-                    <div className="scroll-container">
+                    <div className="scroll-container tx">
                         {availableRoles.map((role, index) => (
                             <div
                                 key={index}
@@ -167,25 +237,6 @@ function Speech() {
                         ))}
                     </div>
                 </div>
-
-
-                {/*<div className="column">*/}
-                {/*    <h3 className="styledpodo">STEP 3 발음 선택</h3>*/}
-                {/*    <div className="scroll-container">*/}
-                {/*        <div className={`item ${selectedCountry === '미국' ? 'coselected' : ''}`} onClick={() => handleCountryClick('미국')}>*/}
-                {/*            <div className="flag-container">*/}
-                {/*                <img src={us} alt="미국 flag" style={{}}/>*/}
-                {/*                {selectedCountry === '미국' && <img src={check} alt="미국" className="check-mark"/>}*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*        <div className={`item ${selectedCountry === '영국' ? 'coselected' : ''}`} onClick={() => handleCountryClick('영국')}>*/}
-                {/*            <div className="flag-container">*/}
-                {/*                <img src={uk} alt="영국 flag"  />*/}
-                {/*                {selectedCountry === '영국' && <img src={check} alt="영국" className="check-mark"/>}*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
 
 
                 <div className="column">
