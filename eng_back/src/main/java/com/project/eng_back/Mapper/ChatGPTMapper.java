@@ -25,4 +25,13 @@ public interface ChatGPTMapper {
     @Select("SELECT GPTROLE, USERROLE, SITUATION FROM CHAT_ROOM WHERE CRID = #{crid}")
     QuestionRequestDto getGptContentList3(@Param("crid") String crid);
 
+    @Select("SELECT CRID, SITUATION, LV, GPTROLE, USERROLE, REGDATE FROM CHAT_ROOM WHERE CRID = #{crid}")
+    List<Map<String, String>> getScript(@Param("crid") String crid);
+
+    @Select("SELECT CONTENT, SPEAKER FROM CHAT WHERE CRID = #{crid} AND SPEAKER IN ('Teacher', 'User', 'Corrected grammar')")
+    List<Map<String, String>> getScript2(@Param("crid") String crid);
+
+//    @Select("SELECT CRID, SITUATION, LV, GPTROLE, USERROLE, REGDATE FROM CHAT_ROOM WHERE CRID = #{crid}")
+//    TalkingRoomDto getScriptDto(@Param("crid") String crid);
+
 }
