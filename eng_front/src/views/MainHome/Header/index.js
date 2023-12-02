@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import logo from './images/logo.png';
 import logoXlogo from './images/logoXlogo.png';
 import { Link } from 'react-router-dom';
@@ -14,12 +14,42 @@ function Header(){
     const [isModalOpen, setModalOpen] = useState(false);
 
 
-    const scrollToBottom = () => {
-        window.scrollTo({
-            top: document.body.scrollHeight,
-            behavior: 'smooth' // 부드러운 스크롤 효과
-        });
+    const [isScrolling, setIsScrolling] = useState(false);
+    let scrollInterval; // 스크롤 인터벌을 저장할 변수
+
+    const stopScrolling = () => {
+        clearInterval(scrollInterval); // 인터벌 중단
+        setIsScrolling(false); // 스크롤 상태 업데이트
     };
+
+    const scrollToBottom = () => {
+        let totalScrollDistance = document.body.scrollHeight - window.scrollY;
+        let scrollStep = totalScrollDistance / 100; // 스크롤 단계를 10배 빠르게 설정
+
+        scrollInterval = setInterval(() => {
+            if (window.scrollY < document.body.scrollHeight - window.innerHeight) {
+                window.scrollBy(0, scrollStep);
+            } else {
+                stopScrolling();
+            }
+        }, 100);
+
+        setIsScrolling(true); // 스크롤 시작
+    };
+
+    useEffect(() => {
+        // 스크롤 중에는 이벤트 리스너를 추가
+        if (isScrolling) {
+            document.addEventListener('wheel', stopScrolling);
+            document.addEventListener('click', stopScrolling);
+        }
+
+        // 컴포넌트 언마운트 시 또는 스크롤이 중단될 때 이벤트 리스너 제거
+        return () => {
+            document.removeEventListener('wheel', stopScrolling);
+            document.removeEventListener('click', stopScrolling);
+        };
+    }, [isScrolling]);
 
 
 

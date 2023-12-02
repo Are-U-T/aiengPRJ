@@ -291,14 +291,14 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
             <div className="speaking-container">
                 <div className={imageContainerClass}>
-                    <video ref={videoRef} width="560" height="420" loop muted autoPlay={false}>
+                    <video ref={videoRef} width="580" height="580" loop muted autoPlay={false} className='vvi'>
                         <source src={videoSource} type="video/mp4" />
                     </video>
                 </div>
 
                 {showSubtitles && (
                     <>
-                        <div className={subtitlesContainerClass}>
+                        <div className={`${subtitlesContainerClass} junghunsub`}>
                             <h3>실시간 자막</h3>
                             <ul>
                                 {liveSubtitles.map((subtitle, index) => (
@@ -309,28 +309,29 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                             </ul>
                         </div>
 
+
+
                         <div className='mrt'>
-                            <div className="typo-correction-container">
+                            <div className="typo-correction-container junghunerr">
                                 <b>유저의 Speech를 Text로 수정한 문장!<br/>문법이 틀리면 고쳐서 출력돼요</b>
-                                <ul>
                                     {correctGrammar.map((subtitle, index) => (
-                                        <li key={index}>
+                                        <div key={index}>
                                             {subtitle.CONTENT}
-                                        </li>
+                                        </div>
                                     ))}
-                                </ul>
                             </div>
                         </div>
 
-                        <div className="question-suggestion-container">
+
+
+
+                        <div className="question-suggestion-container junghun">
                             <b>2분마다 유저가 선택한 상황에<br/>대해 추천 질문이 떠요</b>
-                            <ul>
                                 {recommendedQuestions.map((subtitle, index) => (
-                                    <li key={index}>
+                                    <div key={index}>
                                         {subtitle.CONTENT}
-                                    </li>
+                                    </div>
                                 ))}
-                            </ul>
                         </div>
                     </>
                 )}

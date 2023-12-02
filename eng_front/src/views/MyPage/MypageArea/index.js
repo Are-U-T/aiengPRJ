@@ -3,6 +3,7 @@ import './Mypage.css';
 import emptyChattingList from './images/emptyChattingList.png'
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import user from './images/user.png';
 
 export default function MypageArea() {
 
@@ -58,15 +59,19 @@ export default function MypageArea() {
         }
     }
 
+    const change = () =>{
+        navigate("/change");
+    }
+
     return (
         <>
             <div>
-                <div className="MypageCenter" style={{marginTop: '150px'}}>
+                <div className="MypageCenter" style={{marginTop: '200px'}}>
                     {userProfile && (
                         <>
                             <div className="MypageContainer" style={{marginRight: '30px'}}>
                                 <div style={{marginBottom:'30px'}}/>
-                                <div className="MypageImg"/>
+                                <img src={user} className="MypageImg"/>
                                 <div className="grayline" style={{marginTop: '20px'}}/>
                                 <h5 className="MypageName" style={{marginTop: '20px'}}>{userProfile.name}</h5>
                                 <div className="grayline"/>
@@ -76,12 +81,12 @@ export default function MypageArea() {
                                 <div className="grayline"/>
                                 <h5 className="MypageName">레벨</h5>
                                 <div className="grayline" style={{marginBottom: '15px'}}/>
-                                <div className="MypageBtn">개인정보 수정</div>
+                                <button className="MypageBtn" onClick={change}>개인정보 수정</button>
                             </div>
                         </>
                     )}
 
-                    <div className="MypageContainer" style={{width: '1200px'}}>
+                    <div className="MypageContainer jh" style={{width: '1200px'}}>
                         <div style={{
                             marginTop: '20px',
                             justifyContent: "space-around",
@@ -104,12 +109,12 @@ export default function MypageArea() {
                                     <p className="MypageList" style={{ width: '160px', textAlign: 'center', marginRight: '40px' }}>
                                         {chattingRoom.SITUATION}
                                     </p>
-                                    <p className="MypageList">{chattingRoom.USERROLE}</p>
-                                    <p className="MypageList">{chattingRoom.GPTROLE}</p>
-                                    <p className="MypageList">{chattingRoom.LV}</p>
-                                    <p className="MypageList">{chattingRoom.COUNTRY}</p>
-                                    <p className="MypageList">{chattingRoom.REGDATE}</p>
-                                    <div className="MypageResultBtn" onClick={() => handleClick(chattingRoom.CRID)}>결과보기</div>
+                                    <p className="MypageList" style={{paddingRight : '10px'}}>{chattingRoom.USERROLE}</p>
+                                    <p className="MypageList" style={{paddingLeft : '10px'}}>{chattingRoom.GPTROLE}</p>
+                                    <p className="MypageList" style={{paddingLeft : '10px'}}>{chattingRoom.LV}</p>
+                                    <p className="MypageList" style={{paddingRight : '25px'}}>{chattingRoom.COUNTRY}</p>
+                                    <p className="MypageList" style={{paddingRight : '40px'}}>{chattingRoom.REGDATE}</p>
+                                    <div className="MypageResultBtn" style={{marginRight : '50px'}} onClick={() => handleClick(chattingRoom.CRID)}>결과보기</div>
                                     <div className="grayline" />
                                 </div>
                             ))
