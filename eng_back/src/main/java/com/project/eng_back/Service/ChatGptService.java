@@ -93,10 +93,10 @@ public class ChatGptService {
     // 대화 진행
     public ChatGptResponseDto askQuestion(QuestionRequestDto questionRequestDto, StringBuilder conversationHistory) {
 
-        String prompt = "My question is " + questionRequestDto.getQuestion() + "And when answering, answer without your roles. " +
+        String prompt = "My question is " + questionRequestDto.getQuestion() + ". And when answering, answer without your roles. " +
                 "And don't forget our role situation. And our conversation history is '"+ conversationHistory + "'."
-                + "Don't forget that your role is " + questionRequestDto.getGPTRole() + "And my role is "+
-                questionRequestDto.getUserRole();
+                + " Don't forget that your role is " + questionRequestDto.getGPTRole() + ". And my role is "+
+                questionRequestDto.getUserRole() + ". And answer naturally ";
 
 //        String prompt = "Remember our situation and your role and communicate naturally.";
 
@@ -120,7 +120,8 @@ public class ChatGptService {
         String prompt = "\n" +
                 "Please correct any grammar mistakes in the '"+question+"', " +
                 "or guess what I said if it is incorrect from our previous conversation."
-                +"There is no need to distinguish between lowercase and lowercase letters.";
+                +"There is no need to distinguish between lowercase and lowercase letters."
+                +"When answering, don't just dot and send it back, but ask me the question again.";
 
 //        String prompt = "Remember our situation and your role and communicate naturally.";
 

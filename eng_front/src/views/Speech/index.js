@@ -104,6 +104,8 @@ function Speech() {
             userNum
         };
 
+        const gender = selectedAirole === "남자친구" || selectedAirole === "남자" ? 0 : 1;
+
         try {
             setLoading(true);
             const response = await fetch('http://localhost/talking/newTalkingRoom', {
@@ -122,7 +124,7 @@ function Speech() {
                 const crid = responseData;
 
                 // Speaking 컴포넌트로 이동하면서 crid를 전달
-                navigate('/speaking', {state: {crid, gender: 1}});
+                navigate('/speaking', {state: {crid, gender}});
             } else {
                 const errorMessage = await response.text();
                 console.error('방 생성 failed:', errorMessage);

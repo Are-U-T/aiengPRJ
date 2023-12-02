@@ -81,7 +81,7 @@ public class TalkingRoomController {
 
         // 한국어에서 영어로 바꾸는 메서드
         questionRequestDto = translateToEnglish(situation,gptRole,userRole,country,lv);
-
+        System.out.println(questionRequestDto.getLv());
         String crid = UUID.randomUUID().toString().replaceAll("-", "");
         System.out.println("crid: " + crid);
         String encodedCrid = Base64.getEncoder().encodeToString(crid.getBytes());
@@ -115,19 +115,6 @@ public class TalkingRoomController {
     public QuestionRequestDto translateToEnglish(String situation , String gptRole, String userRole, String country, String lv){
         int voice;
         String level;
-        if(lv.equals("레벨 1")){
-            level = "middle school level vocabulary";
-        } else if(lv.equals("레벨 2")) {
-            level = "middle school level vocabulary";
-        } else if(lv.equals("레벨 3")) {
-            level = "high school level vocabulary";
-        } else if(lv.equals("레벨 4")) {
-            level = "high school level vocabulary";
-        } else if(lv.equals("레벨 5")) {
-            level = "college level vocabulary";
-        } else {
-            level ="college level vocabulary";
-        }
 
         if(situation.equals("주말 데이트 계획 세우기"))
         {
@@ -188,7 +175,27 @@ public class TalkingRoomController {
                     voice = 5;
                 }
             }
+        }
 
+        switch (lv) {
+            case "레벨 1":
+                level = "middle school level vocabulary";
+                break;
+            case "레벨 2":
+                level = "middle school level vocabulary";
+                break;
+            case "레벨 3":
+                level = "high school level vocabulary";
+                break;
+            case "레벨 4":
+                level = "high school level vocabulary";
+                break;
+            case "레벨 5":
+                level = "college level vocabulary";
+                break;
+            default:
+                level = "college level vocabulary";
+                break;
         }
 
         questionRequestDto.setSituation(situation);
