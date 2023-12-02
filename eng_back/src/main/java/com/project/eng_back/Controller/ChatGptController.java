@@ -178,29 +178,38 @@ public class ChatGptController {
             // Add log to check if the audio data is generated and returned correctly
             System.out.println("Received audio file. Size: " + audioBytes.length + " bytes");
 
-            questionRequestDto.setSpeaker("User");
-            gptResponseChoice.setSpeaker("Teacher");
+            System.out.println("1");
+
+            Choice correctGrammar = new Choice();
 
             // uid set 해주기
             questionRequestDto.setUnum(userNum);
             gptResponseChoice.setUid(userNum);
+            correctGrammar.setUid(userNum);
 
             questionRequestDto.setQuestion(question);
-            chatGptService.saveToDatabase2(questionRequestDto);
-            chatGptService.saveToDatabase(gptResponseChoice);
+            questionRequestDto.setSpeaker("User");
+            chatGptService.saveToDatabase2(questionRequestDto); // 유저 저장
 
+            System.out.println("4");
             // GPT 한테 문법 체크 받은 거 저장
-            gptResponseChoice = grading(question);
-            gptResponseChoice.setCrid(questionRequestDto.getCrid());
-            gptResponseChoice.setSpeaker("Corrected grammar");
-            gptResponseChoice.setUid(userNum);
-            chatGptService.saveToDatabase(gptResponseChoice);
+            correctGrammar = grading(question);
+            correctGrammar.setCrid(questionRequestDto.getCrid());
+            correctGrammar.setSpeaker("Corrected grammar");
+            correctGrammar.setUid(userNum);
+
+            chatGptService.saveToDatabase(correctGrammar); // 문법 체크 저장
+            System.out.println("문법 저장");
+
+            gptResponseChoice.setSpeaker("Teacher");
+            chatGptService.saveToDatabase(gptResponseChoice); // 선생 저장
 
             // 대화 기록 업데이트
             conversationHistory.append(question).append("\n");
             conversationHistory.append(gptResponseChoice.getText()).append("\n");
 
 //            return new ResponseEntity<>("Question and GPT response saved successfully.", HttpStatus.OK);
+
 
             return audioBytes;
         } catch (Exception e) {
