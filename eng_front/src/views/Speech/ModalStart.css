@@ -5,6 +5,7 @@
     right: 0;
     bottom: 0;
     backdrop-filter: blur(2px);
+    background-color: rgba(0, 0, 0, 0.3);
     animation: fadeIn 0.7s ease;
     display: flex;
     align-items: center;
@@ -16,7 +17,7 @@
     padding: 40px;
     border-radius: 20px;
     background: skyblue;
-    box-shadow: 10px 10px 20px #cbced1, -10px -10px 20px #ffffff;
+    /*box-shadow: 10px 10px 20px #cbced1, -10px -10px 20px #ffffff;*/
     max-width: 650px;
     overflow: hidden;
     animation: slideUp 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
