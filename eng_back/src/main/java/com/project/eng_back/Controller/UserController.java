@@ -149,7 +149,7 @@ public class UserController {
         if(experience>=90){
             saveEx = 100;
         }else {
-            saveEx = experience+100;
+            saveEx = experience+10;
         }
         UserDTO userDTO = new UserDTO();
         userDTO.setNum(userNum);

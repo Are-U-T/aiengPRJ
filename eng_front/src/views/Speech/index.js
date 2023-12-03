@@ -22,7 +22,6 @@ import subtitleno from "../Speaking/images/subtitleno.png";
 import time_finish from "../Speaking/images/time_finish.png";
 import ModalStart2 from "../Speaking/ModalStart2";
 
-
 function Speech() {
     const [selectedItem, setSelectedItem] = useState(null);
     const [selectedAirole, setSelectedAirole] = useState(null);
@@ -40,8 +39,6 @@ function Speech() {
     const navigate = useNavigate();
 
     const userNum = sessionStorage.getItem('userNum');
-
-    const [level, setLevel] = useState(null);
 
     useEffect(() => {
         if (userNum == null) {
@@ -62,7 +59,7 @@ function Speech() {
                 const response = await fetch(`http://localhost/user/getLevel?userNum=${userNum}`);
                 if (response.ok) {
                     const data = await response.json();
-                    setLevel(data);
+                    setselectedLv(data);
                 } else {
                     console.error('Failed to fetch initial level from backend');
                 }
@@ -95,11 +92,11 @@ function Speech() {
 
 
     const decreaseLevel = () => {
-        setLevel(prevLevel => prevLevel > 1 ? prevLevel - 1 : 1);
+        setselectedLv(prevLevel => prevLevel > 1 ? prevLevel - 1 : 1);
     };
 
     const increaseLevel = () => {
-        setLevel(prevLevel => prevLevel < 6 ? prevLevel + 1 : 6);
+        setselectedLv(prevLevel => prevLevel < 6 ? prevLevel + 1 : 6);
     };
 
 
@@ -298,7 +295,7 @@ function Speech() {
                             <h5>난이도 조절 선택하기</h5>
                             <div className="controls">
                                 <img src={left} alt='레벨 다운' onClick={decreaseLevel}/>
-                                <span>레벨 {level}</span>
+                                <span>레벨 {selectedLv}</span>
                                 <img src={right} alt='레벨 업' onClick={increaseLevel}/>
                             </div>
                         </div>

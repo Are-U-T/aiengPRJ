@@ -1,4 +1,4 @@
-.mbs {
+.modal-backdropllx {
     position: fixed;
     top: 0;
     left: 0;
@@ -12,7 +12,7 @@
     z-index: 9999;
 }
 
-.mty {
+.modal-stylellx {
     padding: 40px;
     border-radius: 20px;
     background: skyblue;
@@ -22,22 +22,14 @@
     animation: slideUp 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.al {
+.ghx {
     color: white;
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 25px;
-
 }
 
-.redcss {
-    padding-top: 10px;
-    color: red;
-    font-weight: bold;
-    font-size: 16px;
-}
-
-button.qwer {
+button.qwex {
     /* 버튼 스타일링 개선 */
     padding: 12px 25px;
     border-radius: 30px;
@@ -49,7 +41,7 @@ button.qwer {
     transition: transform 0.3s ease, background-color 0.3s;
 }
 
-button.qwer:hover {
+button.qwex:hover {
     /* 버튼 호버 효과 개선 */
     background-color: #2980b9;
     transform: translateY(-3px);
@@ -57,26 +49,17 @@ button.qwer:hover {
 }
 
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 
 @keyframes slideUp {
-    0% {
-        transform: translateY(30px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
+    0% { transform: translateY(30px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
 }
 
-.micq {
+
+.modal-instructionsx {
     margin: 30px 0;
     padding: 30px;
     background-color: white;
@@ -84,16 +67,22 @@ button.qwer:hover {
     border-radius: 10px;
 }
 
-.micq p {
+.modal-instructionsx p {
     font-size: 18px;
     color: #333;
-    line-height: 1.5;
+    line-height: 2.5;
     margin-bottom: 15px;
-    text-align: left;
+    text-align : left;
 }
 
-.fooha {
+.foox {
     display: flex;
     justify-content: center;
     margin-top: 30px;
 }
+
+
+
+
+
+

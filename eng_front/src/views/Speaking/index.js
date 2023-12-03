@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
 import './Speaking.css';
-import ai5 from './images/ai5.png';
 import Navigation from "../Navigation";
 import Modal from "../Speech/Modal";
 import MicRecorder from "mic-recorder-to-mp3";
@@ -15,9 +14,8 @@ import subtitleno from "./images/subtitleno.png";
 import ModalStart2 from "./ModalStart2";
 import '../../App.css';
 import './ModalStart2.css'
-
-import aimale from  "./images/aimale.mp4";
-import aifemale from  "./images/aifemale.mp4";
+import aimale from "./images/aimale.mp4";
+import aifemale from "./images/aifemale.mp4";
 import loginImg from "../Speech/images/loginImg.png";
 
 function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
@@ -30,15 +28,16 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     // 모달  1,2,3
     const [isModalOpen, setIsModalOpen] = useState(false); // 대화 5분 채오면 자동으로 나오는 모달
     const [isModal2Open, setIsModal2Open] = useState(false); // 5분 안 채우고 대화 종료 버튼 누르면 나오는 모달
-    const [loginModalOpen , setLoginModalOpen] = useState(false);
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
 
     // 자막
     const [liveSubtitles, setLiveSubtitles] = useState([]); // 실시간 자막
     const [recommendedQuestions, setRecommendedQuestions] = useState([]); // 상황에 맞는 추천 질문
-    const [correctGrammar , setCorrectGrammer] = useState([]); // 문법 고치는 자막
+    const [correctGrammar, setCorrectGrammer] = useState([]); // 문법 고치는 자막
     const [showSubtitles, setShowSubtitles] = useState(true); // 자막 컨테이너들 전체
 
     const [startModalOpen2, setStartModalOpen2] = useState(false);
+    const [isTurningOff, setIsTurningOff] = useState(false);
 
     // 사진과 자막 컨테이너의 동적 스타일을 위한 클래스
     const imageContainerClass = showSubtitles ? "image-container" : "image-container expanded";
@@ -51,7 +50,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
     const location = useLocation();
     const crid = location.state?.crid; // 채팅방 생성시에 전달 받은 crid 전달 받아서 서버에 넘겨줌
-    const speaker =null;
+    const speaker = null;
 
     // 남자 여자 확인
     const gender = location.state?.gender;
@@ -92,7 +91,6 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     }, [crid]);
 
 
-
     // 올바른 문법 자막 업데이트
     useEffect(() => {
         correctGrammer("Corrected grammar"); // 컴포넌트 마운트 시 자막 가져오기
@@ -112,7 +110,6 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
         }, 200000); // 2분 마다 업데이트
         return () => clearInterval(subtitleInterval);
     }, [crid]);
-
 
 
     // 일정한 간격으로 서버에서 자막을 가져오는 함수
@@ -180,7 +177,6 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     }, [timeSpent, isModalOpen]); // 의존성 배열에 isModalOpen을 추가
 
 
-
     useEffect(() => {
         let timer;
         if (isRecording && timeSpent > 0) {
@@ -232,10 +228,14 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     };
 
     const stopRecording = async () => {
+
+        setIsTurningOff(true);
+        setIsRecording(false);
+
         try {
             const [buffer, blob] = await recorder.stop().getMp3();
-
             const formData = new FormData();
+
             formData.append('audio', blob, 'recording.mp3');
             formData.append('userNum', userNum); // 세션에 저장된 uid
 
@@ -264,7 +264,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
             console.error('Error sending audio:', error);
         }
 
-        setIsRecording(false);
+        setIsTurningOff(false);
         console.log('Recording stopped');
     };
 
@@ -295,28 +295,36 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     };
 
     return (
-        <>
+        <div className='App'>
             <Navigation/>
-
             <ModalStart2 isOpen={startModalOpen2} onClose={Close2}>
-                <div style={{ maxWidth: '600px', margin: 'auto' }}>
+                <div style={{maxWidth: '600px', margin: 'auto'}}>
                     <h3 className='gh' style={{textAlign: 'center'}}>사용방법 안내</h3>
-
                     <div className="micq">
-                        <img src={mic} alt='mic' width='25px' height='25px'/>  <img src={micno} alt='mic' width='25px' height='25px'/>
+                        <img src={mic} alt='mic' width='25px' height='25px'/> <img src={micno} alt='mic' width='25px'
+                                                                                   height='25px'/>
                         <p>마이크를 켜거나 끌 수 있습니다.</p>
 
-                        <img src={subtitle} alt='subtitle' width='25px' height='25px'/>  <img src={subtitleno} alt='subtitleno' width='32px' height='32px'/>
+                        <img src={subtitle} alt='subtitle' width='25px' height='25px'/> <img src={subtitleno}
+                                                                                             alt='subtitleno'
+                                                                                             width='32px'
+                                                                                             height='32px'/>
                         <p>실시간으로 대화내용을 보거나 끌 수 있습니다.</p>
 
                         <img src={time_finish} alt='time_finish' width='40px' height='35px'/>
                         <p>남은 시간을 확인하며 클릭 시, 대화가 종료됩니다.</p>
 
-                        <div className='redcss'>
-                            <span style={{color : 'black',fontSize : '25px'}}> ※ </span> 대화내용을 끄게 되면 오타섹션과 질문추천 섹션도 함께 닫힙니다.<br/>
-                            <span style={{color : 'black',fontSize : '25px'}}> ※ </span>  마이크를 켜면 시간이 줄어들며, 멈추면 시간이 줄어들지 않습니다.
-                        </div>
+                        <div style={{marginTop: '30px'}}/>
 
+                        <p><strong>오타 수정 섹션:</strong> 사용자의 말을 텍스트로 변환하며, 발견된 문법 오류를 자동으로 수정합니다.</p>
+                        <p><strong>질문 추천 섹션:</strong> 사용자가 선택한 상황에 맞는 질문을 2분마다 자동으로 제안합니다.</p>
+
+                        <div className='redcss'>
+                            <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 대화내용을 끄게 되면 오타 섹션과 질문추천 섹션도 함께
+                            닫힙니다.<br/>
+                            <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 마이크를 켜면 시간이 줄어들며, 멈추면 시간이 줄어들지
+                            않습니다.
+                        </div>
                     </div>
 
                     <div className="fooha">
@@ -327,14 +335,14 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
             <div className="speaking-container">
                 <div className={imageContainerClass}>
-                    <video ref={videoRef} width="560" height="420" loop muted autoPlay={false}>
-                        <source src={videoSource} type="video/mp4" />
+                    <video ref={videoRef} width="580" height="580" loop muted autoPlay={false} className='vvi'>
+                        <source src={videoSource} type="video/mp4"/>
                     </video>
                 </div>
 
                 {showSubtitles && (
                     <>
-                        <div className={subtitlesContainerClass}>
+                        <div className={`${subtitlesContainerClass} junghunsub`}>
                             <h3>실시간 자막</h3>
                             <ul>
                                 {liveSubtitles.map((subtitle, index) => (
@@ -346,89 +354,85 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                         </div>
 
                         <div className='mrt'>
-                            <div className="typo-correction-container">
-                                <b>유저의 Speech를 Text로 수정한 문장!<br/>문법이 틀리면 고쳐서 출력돼요</b>
-                                <ul>
-                                    {correctGrammar.map((subtitle, index) => (
-                                        <li key={index}>
-                                            {subtitle.CONTENT}
-                                        </li>
-                                    ))}
-                                </ul>
+                            <div className="typo-correction-container junghunerr">
+                                <b style={{color: 'midnightblue'}}>오타 섹션</b>
+                                {correctGrammar.map((subtitle, index) => (
+                                    <div key={index}>
+                                        {subtitle.CONTENT}
+                                    </div>
+                                ))}
                             </div>
                         </div>
 
-                        <div className="question-suggestion-container">
-                            <b>2분마다 유저가 선택한 상황에<br/>대해 추천 질문이 떠요</b>
-                            <ul>
-                                {recommendedQuestions.map((subtitle, index) => (
-                                    <li key={index}>
-                                        {subtitle.CONTENT}
-                                    </li>
-                                ))}
-                            </ul>
+                        <div className="question-suggestion-container junghun">
+                            <b style={{color: 'midnightblue'}}>질문추천 섹션</b>
+                            {recommendedQuestions.map((subtitle, index) => (
+                                <div key={index}>
+                                    {subtitle.CONTENT}
+                                </div>
+                            ))}
                         </div>
                     </>
                 )}
 
                 <div className='mrts'>
                     <div className={`buttons-containerpp ${!showSubtitles ? "buttons-hidden-subtitles" : ""}`}>
-                        <button onClick={toggleRecording} className={isRecording ? "recording-active" : ""}>
-                            <img src={isRecording ? mic : micno} alt={isRecording ? "중지" : "시작"} style={{ width: '35px', height: '35px' }}/>
+                        <button onClick={toggleRecording}
+                                className={`${isRecording ? "recording-active" : ""} ${isTurningOff ? "tuof" : ""}`}
+                                disabled={isTurningOff}>
+                            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                <img src={isRecording ? mic : micno} alt={isRecording ? "중지" : "시작"}
+                                     style={{width: '35px', height: '35px'}}/>
+                                {isTurningOff && <span style={{fontSize: '10px'}}>대화 생성중..</span>}
+                            </div>
                         </button>
+
                         <button onClick={toggleSubtitles}>
                             <img src={showSubtitles ? subtitle : subtitleno} alt={showSubtitles ? "자막 숨기기" : "자막 보이기"}
-                                 style={{ width: '35px', height: '35px' }}/>
+                                 style={{width: '35px', height: '35px'}}/>
                         </button>
                         <button onClick={() => setIsModal2Open(true)}>
                             {formatTime(timeSpent)}
                             <br/>
-                            <div style={{color : 'blueviolet'}}>대화 종료</div>
+                            <div style={{color: 'blueviolet'}}>대화 종료</div>
                         </button>
                     </div>
                 </div>
             </div>
 
-            <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
-
-                <div className="speechModalCenter">
-                    <img src={loginImg} alt='로그인 이미지' className="speechLoginImg"/>
-                    <h4>로그인 후 이용해 주세요</h4>
-
-                    <button onClick={closeModalAndNavigate} className="modal-custom-button">
-                        닫기
-                    </button>
-                </div>
-
-
-            </Modal>
-
             {isModalOpen && (
                 <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                    {/* 모달의 전체 내용을 여기에 배치 */}
                     <h2 className="modal-title">알림</h2>
                     <div className="modal-body">
                         <p>5분이 지났습니다. 메인 화면으로 돌아갑니다.</p>
                         <p>지정된 시간이 초과되었습니다. 메인 화면으로 돌아가서 다시 시작하세요.</p>
                         <p>현재 진행 시간: {formatTime(timeSpent)}</p>
                     </div>
-                    <button className="modal-button" onClick={handleEndConversation}>확인</button>
+                    <button className="modal-button" onClick={() => {
+                        handleEndConversation();
+                        setIsModalOpen(false);
+                        navigate('/main');
+                    }}>확인
+                    </button>
                 </Modal>
             )}
 
-
             {isModal2Open && (
                 <ModalResult isOpen={isModal2Open} onClose={() => setIsModal2Open(false)}>
-                    {/* 모달창 내용 */}
+
                     <h2 className="modal-title">대화 종료</h2>
                     <div className="modal-body">
                         <p>대화가 종료되었습니다.</p>
-                        {/* 추가 내용 */}
                     </div>
-                    <button className="modal-button" onClick={handleEndConversation}>확인</button>
+                    <button className="modal-button" onClick={() => {
+                        handleEndConversation();
+                        setIsModal2Open(false);
+                        navigate('/main');
+                    }}>확인
+                    </button>
                 </ModalResult>
             )}
-        </>
+        </div>
     );
 }
 

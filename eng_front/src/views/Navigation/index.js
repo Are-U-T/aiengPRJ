@@ -43,8 +43,6 @@ const Navigation = () => {
         navigate('/login');
     };
 
-
-
     return (
         <Navbar expand="lg" sticky="top" className={`custom-navbar mr-auto ${show ? 'visible' : 'hidden'}`}>
             <Navbar.Brand href="/">

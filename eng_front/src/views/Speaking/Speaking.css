@@ -11,8 +11,8 @@
 }
 
 .image-container {
-    margin-top: 40px;
-    padding-left: 10px;
+    margin-top: -5px;
+    padding-left: 70px;
 }
 
 .image-container img {
@@ -73,7 +73,6 @@
     font-weight: bold; /* 텍스트 강조 */
 }
 
-
 /* 반응형 레이아웃 조정 */
 @media (min-width: 768px) {
     .speaking-container {
@@ -89,7 +88,6 @@
         margin: auto; /* 가운데 정렬을 위한 자동 마진 */
     }
 }
-
 
 /* 버튼 컨테이너 스타일링 */
 .buttons-containerpp {
@@ -125,12 +123,11 @@
     position: relative;
 }
 
-
 .recording-active {
-    background-color: transparent;
+    background-colo: transparent;
     border: none;
     transition: transform 0.3s ease;
-    animation: flame-effect 1s ease-in-out infinite, float 2s ease-in-out infinite;
+    animation: flame-effect 1s ease-in-out infinite;
     position: relative;
 }
 
@@ -149,7 +146,6 @@
     }
 }
 
-
 @keyframes blink {
     0%, 100% {
         color: black;
@@ -163,15 +159,13 @@
     animation: blink 0.5s linear infinite;
 }
 
-
-.mrt {
+.mrt{
     margin-top: -140px;
 }
 
-.mrts {
+.mrts{
     margin-top: -105px;
 }
-
 
 @media (min-width: 768px) {
     .speaking-container {
@@ -187,16 +181,14 @@
     }
 }
 
-
 .buttons-hidden-subtitles {
     /*display: flex;           !* Flexbox 레이아웃 적용 *!*/
     /*justify-content: center; !* 가로축 중앙 정렬 *!*/
-    margin-top: 650px; /* 상단 여백 조정 */
+    margin-top: 650px;       /* 상단 여백 조정 */
     /*padding-right: 500px;*/
     /*width: 1000px; !* 버튼의 너비를 자동으로 설정 *!*/
 
 }
-
 
 /* 질문 추천 공간 스타일링 */
 .question-suggestion-container {
@@ -208,7 +200,7 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     color: #333333;
     transition: all 0.3s ease;
-    height: 180px;
+    height : 180px;
 }
 
 /* 오타 수정 공간 스타일링 */
@@ -251,7 +243,6 @@
     border-radius: 0px;
 }
 
-
 .junghunsub {
     max-height: 600px;
     overflow-y: auto;
@@ -275,7 +266,6 @@
     background-color: transparent;
     border-radius: 0px;
 }
-
 
 .junghunerr {
     max-height: 160px;
@@ -301,7 +291,30 @@
     border-radius: 0px;
 }
 
-.vvi {
+.vvi{
     margin-top: 20px;
     padding-right: 150px;
+}
+
+.tuof {
+    background-color: transparent;
+    border: none;
+    transition: transform 0.3s ease;
+    animation: felf 1s ease-in-out infinite;
+    position: relative;
+}
+
+@keyframes felf {
+    0%, 100% {
+        box-shadow: 0 0 60px yellow, 0 0 30px gold, 0 0 15px orange;
+    }
+    25% {
+        box-shadow: 0 0 70px orange, 0 0 35px gold, 0 0 20px yellow;
+    }
+    50% {
+        box-shadow: 0 0 60px gold, 0 0 30px yellow, 0 0 15px orange;
+    }
+    75% {
+        box-shadow: 0 0 70px yellow, 0 0 35px orange, 0 0 20px gold;
+    }
 }
