@@ -76,6 +76,17 @@ public class ChattingController {
         return chattingService.getScript2(crid);
     }
 
+    @PostMapping("/deleteRoom")
+    public int deleteRoom(@RequestBody Map<String, String> request) {
+        String crid = request.get("crid");
+
+        System.out.println("(deleteRoom) crid: " + crid);
+
+        chattingService.deleteResult(crid);
+
+        return chattingService.deleteResult(crid);
+    }
+
 //    @PostMapping("/scriptDto")
 //    public TalkingRoomDto getContentListDto(@RequestBody Map<String, String> request) {
 //        String crid = request.get("crid");

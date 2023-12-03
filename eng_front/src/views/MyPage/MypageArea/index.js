@@ -8,14 +8,11 @@ import ProgressBar from "./ProgressBar";
 export default function MypageArea() {
 
     const [userProfile, setUserProfile] = useState();
-    const [userGender , setGender] = useState();
+    const [userGender, setGender] = useState();
     const [chattingList, setChattingList] = useState([]);
     const navigate = useNavigate();
     const [completed, setCompleted] = useState(0);
 
-    const testData = [
-        { bgcolor: "#17264D", completed }
-    ];
 
     useEffect(() => {
         // 페이지 로드 후 1초마다 completed 상태를 업데이트
@@ -73,17 +70,27 @@ export default function MypageArea() {
     };
 
     const handleClick = (crid) => {
-        navigate('/script', { state: { crid } });
+        navigate('/script', {state: {crid}});
     };
 
     const gender = (userGender) => {
-        if(userGender == 1)
-        {
+        if (userGender == 1) {
             setGender("남성");
         } else {
             setGender("여성");
         }
     }
+
+    const deleteResult = async (crid) => {
+        try {
+            const response = await axios.post('http://localhost/chatting/deleteRoom', {crid});
+            console.log('응답:', response.data);
+            fetchSubtitles();
+            // setGetScript(response.data);
+        } catch (error) {
+            console.error('error: ', error);
+        }
+    };
 
     return (
         <>
@@ -92,7 +99,7 @@ export default function MypageArea() {
                     {userProfile && (
                         <>
                             <div className="MypageContainer" style={{marginRight: '30px'}}>
-                                <div style={{marginBottom:'20px'}}/>
+                                <div style={{marginBottom: '20px'}}/>
                                 <h5 className="MypageName" style={{marginTop: '20px'}}>{userProfile.name}</h5>
                                 <div className="grayline"/>
                                 <h5 className="MypageName">{userProfile.email}</h5>
@@ -101,20 +108,16 @@ export default function MypageArea() {
                                 <div className="grayline"/>
                                 <h5 className="MypageName">{userProfile.lv} Lv</h5>
                                 <div>
-                                    {testData.map((data, index) => (
-                                        <div key={index}>
-                                            <ProgressBar bgcolor={data.bgcolor} completed={data.completed} />
-                                            {data.completed === 100 ? (
-                                                <button className="LevelTestBtn">레벨 테스트 보러 가기</button>
-                                            ) : (
-                                                <>
-                                                    <p>파이팅! 조금만 힘내세요!</p>
-                                                </>
-                                            )}
-                                        </div>
-                                    ))}
+                                    <ProgressBar bgcolor={"#17264D"} completed={userProfile.experience}/>
+                                    {completed === 100 ? (
+                                        <button className="LevelTestBtn">레벨 테스트 보러 가기</button>
+                                    ) : (
+                                        <>
+                                            <p>파이팅! 조금만 힘내세요!</p>
+                                        </>
+                                    )}
                                 </div>
-                                <div className="grayline" style={{marginBottom: '15px', marginTop:'15px'}}/>
+                                <div className="grayline" style={{marginBottom: '15px', marginTop: '15px'}}/>
                                 <div className="MypageBtn">개인정보 수정</div>
                             </div>
                         </>
@@ -140,7 +143,8 @@ export default function MypageArea() {
                         {chattingList.length > 0 ? (
                             chattingList.map((chattingRoom, index) => (
                                 <div key={index} className="MypageListItem">
-                                    <p className="MypageList" style={{ width: '160px', textAlign: 'center', marginRight: '40px' }}>
+                                    <p className="MypageList"
+                                       style={{width: '160px', textAlign: 'center', marginRight: '40px'}}>
                                         {chattingRoom.SITUATION}
                                     </p>
                                     <p className="MypageList">{chattingRoom.USERROLE}</p>
@@ -148,14 +152,19 @@ export default function MypageArea() {
                                     <p className="MypageList">{chattingRoom.LV}</p>
                                     <p className="MypageList">{chattingRoom.COUNTRY}</p>
                                     <p className="MypageList">{formatDate(chattingRoom.REGDATE)}</p>
-                                    <div className="MypageResultBtn" onClick={() => handleClick(chattingRoom.CRID)}>결과보기</div>
-                                    <div className="grayline" />
+                                    <div className="MypageResultBtn"
+                                         onClick={() => handleClick(chattingRoom.CRID)}>결과보기
+                                    </div>
+                                    <div className="ResultDeleteBtn"
+                                         onClick={() => deleteResult(chattingRoom.CRID)}>삭제
+                                    </div>
+                                    <div className="grayline"/>
                                 </div>
                             ))
                         ) : (
                             <div className="ChatListNull">
                                 <div className="ChatListNullContent">
-                                    <img src={emptyChattingList} alt="emptyChattingList" width="250px" height="auto" />
+                                    <img src={emptyChattingList} alt="emptyChattingList" width="250px" height="auto"/>
                                     <p>AI 선생님과 함께 대화를 시작해보세요!</p>
                                 </div>
                             </div>

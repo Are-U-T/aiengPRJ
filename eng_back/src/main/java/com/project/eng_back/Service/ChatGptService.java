@@ -42,15 +42,18 @@ public class ChatGptService {
         chatGPTMapper.save2(question);
     }
 
-    public List<Map<String, String>> getGptContentList(String crid){ chatGPTMapper.getGptContentList(crid);
+    public List<Map<String, String>> getGptContentList(String crid) {
+        chatGPTMapper.getGptContentList(crid);
         return chatGPTMapper.getGptContentList(crid);
     }
 
-    public List<Map<String, String>> getGptContentList2(String crid, String speaker){ chatGPTMapper.getGptContentList2(crid, speaker);
+    public List<Map<String, String>> getGptContentList2(String crid, String speaker) {
+        chatGPTMapper.getGptContentList2(crid, speaker);
         return chatGPTMapper.getGptContentList2(crid, speaker);
     }
 
-    public QuestionRequestDto getGptContentList3(String crid){ chatGPTMapper.getGptContentList3(crid);
+    public QuestionRequestDto getGptContentList3(String crid) {
+        chatGPTMapper.getGptContentList3(crid);
         return chatGPTMapper.getGptContentList3(crid);
     }
 
@@ -93,10 +96,10 @@ public class ChatGptService {
     // 대화 진행
     public ChatGptResponseDto askQuestion(QuestionRequestDto questionRequestDto, StringBuilder conversationHistory) {
 
-        String prompt = "My question is " + questionRequestDto.getQuestion() + "And when answering, answer without your roles. " +
-                "And don't forget our role situation. And our conversation history is '"+ conversationHistory + "'."
-                + "Don't forget that your role is " + questionRequestDto.getGPTRole() + "And my role is "+
-                questionRequestDto.getUserRole();
+        String prompt = "My question is " + questionRequestDto.getQuestion() + ". And when answering, answer without your roles. " +
+                "And don't forget our role situation. And our conversation history is '" + conversationHistory + "'."
+                + " Don't forget that your role is " + questionRequestDto.getGPTRole() + ". And my role is " +
+                questionRequestDto.getUserRole() + ". And answer naturally ";
 
 //        String prompt = "Remember our situation and your role and communicate naturally.";
 
@@ -118,9 +121,9 @@ public class ChatGptService {
     public ChatGptResponseDto grading(String question) {
 
         String prompt = "\n" +
-                "Please correct any grammar mistakes in the '"+question+"', " +
+                "Please correct any grammar mistakes in the '" + question + "', " +
                 "or guess what I said if it is incorrect from our previous conversation."
-                +"There is no need to distinguish between lowercase and lowercase letters.";
+                + "There is no need to distinguish between lowercase and lowercase letters.";
 
 //        String prompt = "Remember our situation and your role and communicate naturally.";
 
@@ -159,7 +162,7 @@ public class ChatGptService {
     public ChatGptResponseDto alternativeExpression(String question) {
 
         String prompt = "\n" +
-                "What you caan say instead of '"+question+"', " +
+                "What you caan say instead of '" + question + "', " +
                 "Give me three examples.";
 
 //        String prompt = "Remember our situation and your role and communicate naturally.";
