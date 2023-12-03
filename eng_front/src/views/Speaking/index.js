@@ -18,6 +18,7 @@ import './ModalStart2.css'
 
 import aimale from  "./images/aimale.mp4";
 import aifemale from  "./images/aifemale.mp4";
+import loginImg from "../Speech/images/loginImg.png";
 
 function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const [timeSpent, setTimeSpent] = useState(300); // 페이지에 머문 시간
@@ -26,9 +27,10 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const [isRecording, setIsRecording] = useState(false);
     const [recorder, setRecorder] = useState(new MicRecorder({bitRate: 128}));
 
-    // 모달  1,2
+    // 모달  1,2,3
     const [isModalOpen, setIsModalOpen] = useState(false); // 대화 5분 채오면 자동으로 나오는 모달
     const [isModal2Open, setIsModal2Open] = useState(false); // 5분 안 채우고 대화 종료 버튼 누르면 나오는 모달
+    const [loginModalOpen , setLoginModalOpen] = useState(false);
 
     // 자막
     const [liveSubtitles, setLiveSubtitles] = useState([]); // 실시간 자막
@@ -56,6 +58,18 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const videoSource = gender === 0 ? aimale : aifemale;
 
     const videoRef = useRef(null);
+
+    useEffect(() => {
+        if (userNum == null) {
+            // 모달 창 띄워서 로그인 하세요 하고 확인 누르면 로그인 창으로 보내기
+            setLoginModalOpen(true);
+        }
+    }, [userNum]);
+
+    const closeModalAndNavigate = () => {
+        setLoginModalOpen(false);
+        navigate('/login');
+    };
 
     useEffect(() => {
         setStartModalOpen2(true);
@@ -353,6 +367,19 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                 </div>
             </div>
 
+            <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
+
+                <div className="speechModalCenter">
+                    <img src={loginImg} alt='로그인 이미지' className="speechLoginImg"/>
+                    <h4>로그인 후 이용해 주세요</h4>
+
+                    <button onClick={closeModalAndNavigate} className="modal-custom-button">
+                        닫기
+                    </button>
+                </div>
+
+
+            </Modal>
 
             {isModalOpen && (
                 <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>

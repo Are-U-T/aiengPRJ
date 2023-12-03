@@ -11,6 +11,7 @@ import ukno from './images/ukno.jpg';
 import '../../App.css';
 import left from './images/left.png';
 import right from './images/right.png';
+import loginImg from './images/loginImg.png';
 import LoadingPage from './LoadingPage';
 import './Modal.css';
 import  './ModalStart.css';
@@ -34,6 +35,7 @@ function Speech() {
     const [loading, setLoading] = useState(false);
 
     const [startModalOpen, setStartModalOpen] = useState(false);
+    const [loginModalOpen , setLoginModalOpen] = useState(false);
 
     const navigate = useNavigate();
 
@@ -42,8 +44,20 @@ function Speech() {
     const [level, setLevel] = useState(null);
 
     useEffect(() => {
+        if (userNum == null) {
+            // 모달 창 띄워서 로그인 하세요 하고 확인 누르면 로그인 창으로 보내기
+            setLoginModalOpen(true);
+        }
+    }, [userNum]);
+
+    const closeModalAndNavigate = () => {
+        setLoginModalOpen(false);
+        navigate('/login');
+    };
+
+    useEffect(() => {
         const fetchInitialLevel = async () => {
-            const userNum = sessionStorage.getItem('userNum');
+            const userNum = sessionStorage.getItem('userNum') || '';
             try {
                 const response = await fetch(`http://localhost/user/getLevel?userNum=${userNum}`);
                 if (response.ok) {
@@ -313,6 +327,20 @@ function Speech() {
                             </button>
                         </div>
                     </div>
+                </Modal>
+
+                <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
+
+                    <div className="speechModalCenter">
+                        <img src={loginImg} alt='로그인 이미지' className="speechLoginImg"/>
+                        <h4>로그인 후 이용해 주세요</h4>
+
+                        <button onClick={closeModalAndNavigate} className="modal-custom-button">
+                            닫기
+                        </button>
+                    </div>
+
+
                 </Modal>
 
 

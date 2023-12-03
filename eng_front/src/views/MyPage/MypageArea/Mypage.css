@@ -21,6 +21,11 @@
     background: #f8f8f8;
 }
 
+.MypageContainer p {
+    font-family: "Noto Sans KR Medium","sans-serif";
+    text-align: center;
+}
+
 .MypageName {
     text-align: center;
     padding: 10px;
@@ -31,7 +36,7 @@
     margin: 0 auto; /* 가운데 정렬을 위한 스타일 추가 */
     display: block; /* 블록 레벨 요소로 설정하여 가운데 정렬이 적용되도록 함 */
     border-radius: 5px;
-    background: #4375DB;
+    background: #959596;
     color: white;
     padding: 10px;
     width: 200px;
@@ -39,12 +44,26 @@
     font-family: "Noto Sans KR Medium","sans-serif";
 }
 
+.LevelTestBtn {
+    margin: 0 auto; /* 가운데 정렬을 위한 스타일 추가 */
+    display: block; /* 블록 레벨 요소로 설정하여 가운데 정렬이 적용되도록 함 */
+    border-radius: 5px;
+    background: white;
+    color: #132650;
+    padding: 5px;
+    width: 150px;
+    border-width: 1.5px;
+    text-align: center;
+    font-family: "Noto Sans KR Medium","sans-serif";
+    font-size: 12px;
+}
+
 .MypageResultBtn {
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 5px;
-    background: #4375DB;
+    background: #1D2B64;
     color: white;
     padding: 10px;
     width: 9%;

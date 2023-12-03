@@ -119,6 +119,7 @@ public class UserController {
         return null;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getLevel")
     public int getLevel(@RequestParam(name = "userNum") String userNum) {
         System.out.println("userNum:"+userNum);
