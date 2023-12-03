@@ -135,7 +135,7 @@ public class UserController {
 
     @PostMapping("/saveLevel")
     public int saveLevel(@RequestBody UserDTO uDto) {
-        uDto.setEx(0);
+        uDto.setExperience(0);
         uService.addExperience(uDto);
 
         System.out.println(uDto);
@@ -149,11 +149,11 @@ public class UserController {
         if(experience>=90){
             saveEx = 100;
         }else {
-            saveEx = experience+10;
+            saveEx = experience+100;
         }
         UserDTO userDTO = new UserDTO();
         userDTO.setNum(userNum);
-        userDTO.setEx(saveEx);
+        userDTO.setExperience(saveEx);
 
 
         return uService.addExperience(userDTO);

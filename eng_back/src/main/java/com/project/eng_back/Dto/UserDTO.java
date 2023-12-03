@@ -32,7 +32,7 @@ public class UserDTO {
 
     private int lv;
 
-    private int ex;
+    private int experience;
 
     private int del;
 

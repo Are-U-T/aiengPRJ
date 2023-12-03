@@ -12,7 +12,7 @@ export default function MypageArea() {
     const [chattingList, setChattingList] = useState([]);
     const navigate = useNavigate();
     const [completed, setCompleted] = useState(0);
-
+    const [userExperience, setUserExperience] = useState(0);
 
     useEffect(() => {
         // 페이지 로드 후 1초마다 completed 상태를 업데이트
@@ -46,6 +46,9 @@ export default function MypageArea() {
         try {
             const response = await axios.post('http://localhost/user/mypage', data);
             setUserProfile(response.data);
+            console.log(response.data);
+            setUserExperience(response.data?.experience || 0);
+            console.log(userExperience);
             gender(response.data.gender);
             console.log('유저 프로필:', response.data); // 응답 로깅
         } catch (error) {
@@ -81,6 +84,10 @@ export default function MypageArea() {
         }
     }
 
+    const goToLevelTest = () => {
+        navigate('/leveltest');
+    }
+
     const deleteResult = async (crid) => {
         try {
             const response = await axios.post('http://localhost/chatting/deleteRoom', {crid});
@@ -108,9 +115,9 @@ export default function MypageArea() {
                                 <div className="grayline"/>
                                 <h5 className="MypageName">{userProfile.lv} Lv</h5>
                                 <div>
-                                    <ProgressBar bgcolor={"#17264D"} completed={userProfile.experience}/>
-                                    {completed === 100 ? (
-                                        <button className="LevelTestBtn">레벨 테스트 보러 가기</button>
+                                    <ProgressBar bgcolor={"#17264D"} completed={userExperience}/>
+                                    {userExperience === 100 ? (
+                                        <button className="LevelTestBtn" onClick={goToLevelTest}>레벨 테스트 보러 가기</button>
                                     ) : (
                                         <>
                                             <p>파이팅! 조금만 힘내세요!</p>

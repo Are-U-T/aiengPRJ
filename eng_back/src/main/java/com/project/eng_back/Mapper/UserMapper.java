@@ -18,7 +18,6 @@ public interface UserMapper {
     @Select("SELECT * FROM USER_T")
     public List<UserDTO> findAll();
 
-
     @Update("update USER_T set name = #{name}, pw = #{pw}, gender = #{gender} where num = #{num}")
     public int editById(UserDTO uDto);
 
@@ -47,6 +46,6 @@ public interface UserMapper {
     @Select("SELECT EXPERIENCE FROM USER_T WHERE num = #{num}")
     public int getExperienceByUserNum(String num);
 
-    @Update("update USER_T set EXPERIENCE = #{ex} where num = #{num}")
+    @Update("update USER_T set EXPERIENCE = #{experience} where num = #{num}")
     public int addExperience(UserDTO uDto);
 }
