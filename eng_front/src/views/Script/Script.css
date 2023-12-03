@@ -1,5 +1,5 @@
 .start {
-    height: 15vh;
+    height: 12vh;
 }
 
 .script-container-main-popup {
@@ -14,10 +14,11 @@
     width: 35.2em;
     height: 42.5em;
     user-select: none;
+    margin-bottom: 150px;
 }
 
 .script-container-popup {
-    margin-top: 20em;
+    margin-top: 8.3em;
 }
 
 .title {
@@ -69,7 +70,7 @@
     background: #1D2B64;
     color: white;
     padding: 3px 10px;
-    margin-left: 15px;
+    /*margin-left: 1px;*/
 }
 
 .title-1 {
@@ -148,9 +149,23 @@
 .popup {
     position: fixed;
     /*right: 350px;*/
-    width: 500px;
+    /*width: 500px;*/
     max-height: 100vh;
     background-color: #ffffff;
     padding: 10px;
     overflow-y: auto;
+    width: 300px;
+}
+
+.scriptRecommend {
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    font-size: 15px;
+    padding: 7px 15px;
+    color: #000000;
+    border-style: solid;
+    border-width: 1.8px;
+    border-color: #17264D;
+    border-radius: 10px;
+    display: inline-block;
+    white-space: pre-wrap;
 }

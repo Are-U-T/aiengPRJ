@@ -51,12 +51,8 @@ export default function Script() {
     const handleClick = async (title) => {
 
         try {
-            var textToConvert = title.CONTENT;
-
-            // if ((title.SPEAKER) === 'Teacher') {
-            //     // textToConvert = index.title.CONTENT;
-            //     // textToConvert = getScript2(index).CONTENT;
-            // }
+            const textToConvert = title;
+            console.log(textToConvert);
 
             const response = await axios.post('http://localhost/api/audio/playAudio', null, {
                 params: {
@@ -79,9 +75,10 @@ export default function Script() {
         }
     };
 
-    const handleClick1 = async () => {
+    const handleClick1 = async (title) => {
         try {
-            const textToConvert = "hello, nice to meet you";
+            const textToConvert = title;
+            console.log(textToConvert);
 
             const response = await axios.post('http://localhost/api/audio/alternativeExpressionOutput', null, {
                 params: {
@@ -161,15 +158,16 @@ export default function Script() {
                                         <>
                                             <div className="scriptContent">
                                                 <p className="sayGPT">{title.SPEAKER}</p>
-                                                <p className="scriptGPT" onClick={() => handleClick(title.CONTENT)}
-                                                >{title.CONTENT}</p>
+                                                <p className="scriptGPT" onClick={() => handleClick(title.CONTENT)}>
+                                                    {title.CONTENT}</p>
                                             </div>
                                         </>
                                     ) : title.SPEAKER === 'User' ? (
                                         <>
                                             <div className="scriptContent">
                                                 <p className="sayUser">{title.SPEAKER}</p>
-                                                <p className="script" onClick={handleClick1}>{title.CONTENT}</p>
+                                                <p className="script" onClick={() => handleClick1(title.CONTENT)}>
+                                                    {title.CONTENT}</p>
                                             </div>
                                         </>
                                     ) : (
@@ -188,7 +186,7 @@ export default function Script() {
                     {showPopup && (
                         <div className="popup">
                             {alternativeExpressions.map((expression, index) => (
-                                <p key={index} className="scriptGPT">{expression}</p>
+                                <p key={index} className="scriptRecommend">{expression}</p>
                             ))}
                             <button id="scriptBtn" onClick={() => setShowPopup(false)}>Close</button>
                         </div>
