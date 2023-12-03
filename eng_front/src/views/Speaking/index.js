@@ -37,6 +37,9 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const [showSubtitles, setShowSubtitles] = useState(true); // 자막 컨테이너들 전체
 
     const [startModalOpen2, setStartModalOpen2] = useState(false);
+
+
+    const [isTurningOff, setIsTurningOff] = useState(false);
     
     // 사진과 자막 컨테이너의 동적 스타일을 위한 클래스
     const imageContainerClass = showSubtitles ? "image-container" : "image-container expanded";
@@ -167,25 +170,6 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
 
 
-    useEffect(() => {
-        let timer;
-        if (isRecording && timeSpent > 0) {
-            // 녹음 중이고 시간이 남아 있을 때만 시간 감소
-            timer = setInterval(() => {
-                setTimeSpent(time => time - 1);
-            }, 1000);
-        } else if (!isRecording || timeSpent === 0) {
-            // 녹음이 중지되거나 시간이 0에 도달했을 때 호출
-            clearInterval(timer);
-            if (timeSpent === 0) {
-                handleTimeLimitReached();
-            }
-        }
-
-        // 컴포넌트가 언마운트 되거나 isRecording, timeSpent가 변경될 때 타이머 정리
-        return () => clearInterval(timer);
-    }, [isRecording, timeSpent]);
-
     // 시간을 분과 초로 변환하는 함수
     const formatTime = (totalSeconds) => {
         const minutes = Math.floor(totalSeconds / 60);
@@ -218,6 +202,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     };
 
     const stopRecording = async () => {
+        setIsTurningOff(true);
+        setIsRecording(false);
         try {
             const [buffer, blob] = await recorder.stop().getMp3();
 
@@ -250,8 +236,9 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
             console.error('Error sending audio:', error);
         }
 
-        setIsRecording(false);
         console.log('Recording stopped');
+
+        setIsTurningOff(false);
     };
 
     const toggleSubtitles = () => {
@@ -276,8 +263,14 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                         <img src={time_finish} alt='time_finish' width='40px' height='35px'/>
                         <p>남은 시간을 확인하며 클릭 시, 대화가 종료됩니다.</p>
 
+                        <div style={{marginTop : '30px'}}/>
+
+                        <p><strong>오타 수정 섹션:</strong> 사용자의 말을 텍스트로 변환하며, 발견된 문법 오류를 자동으로 수정합니다.</p>
+                        <p><strong>질문 추천 섹션:</strong> 사용자가 선택한 상황에 맞는 질문을 2분마다 자동으로 제안합니다.</p>
+
+
                         <div className='redcss'>
-                            <span style={{color : 'black',fontSize : '25px'}}> ※ </span> 대화내용을 끄게 되면 오타섹션과 질문추천 섹션도 함께 닫힙니다.<br/>
+                            <span style={{color : 'black',fontSize : '25px'}}> ※ </span> 대화내용을 끄게 되면 오타 섹션과 질문추천 섹션도 함께 닫힙니다.<br/>
                             <span style={{color : 'black',fontSize : '25px'}}> ※ </span>  마이크를 켜면 시간이 줄어들며, 멈추면 시간이 줄어들지 않습니다.
                         </div>
 
@@ -313,7 +306,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
                         <div className='mrt'>
                             <div className="typo-correction-container junghunerr">
-                                <b>유저의 Speech를 Text로 수정한 문장!<br/>문법이 틀리면 고쳐서 출력돼요</b>
+                                <b style={{color : 'midnightblue'}}>오타 섹션</b>
                                     {correctGrammar.map((subtitle, index) => (
                                         <div key={index}>
                                             {subtitle.CONTENT}
@@ -326,7 +319,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
 
                         <div className="question-suggestion-container junghun">
-                            <b>2분마다 유저가 선택한 상황에<br/>대해 추천 질문이 떠요</b>
+                            <b style={{color : 'midnightblue'}}>질문추천 섹션</b>
                                 {recommendedQuestions.map((subtitle, index) => (
                                     <div key={index}>
                                         {subtitle.CONTENT}
@@ -338,9 +331,14 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
                 <div className='mrts'>
                     <div className={`buttons-containerpp ${!showSubtitles ? "buttons-hidden-subtitles" : ""}`}>
-                        <button onClick={toggleRecording} className={isRecording ? "recording-active" : ""}>
-                            <img src={isRecording ? mic : micno} alt={isRecording ? "중지" : "시작"} style={{ width: '35px', height: '35px' }}/>
+                        <button onClick={toggleRecording} className={`${isRecording ? "recording-active" : ""} ${isTurningOff ? "tuof" : ""}`}
+                                disabled={isTurningOff}>
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <img src={isRecording ? mic : micno} alt={isRecording ? "중지" : "시작"} style={{ width: '35px', height: '35px' }}/>
+                                {isTurningOff && <span style={{ fontSize: '10px' }}>대화 생성중..</span>}
+                            </div>
                         </button>
+
                         <button onClick={toggleSubtitles}>
                             <img src={showSubtitles ? subtitle : subtitleno} alt={showSubtitles ? "자막 숨기기" : "자막 보이기"}
                                  style={{ width: '35px', height: '35px' }}/>

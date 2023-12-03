@@ -135,7 +135,7 @@
     background-color: transparent;
     border: none;
     transition: transform 0.3s ease;
-    animation: flame-effect 1s ease-in-out infinite, float 2s ease-in-out infinite;
+    animation: flame-effect 1s ease-in-out infinite;
     position: relative;
 }
 
@@ -153,7 +153,6 @@
         box-shadow: 0 0 70px deepskyblue, 0 0 35px royalblue, 0 0 20px dodgerblue;
     }
 }
-
 
 
 @keyframes blink {
@@ -311,3 +310,28 @@
     margin-top: 20px;
     padding-right: 150px;
 }
+
+.tuof {
+    background-color: transparent;
+    border: none;
+    transition: transform 0.3s ease;
+    animation: felf 1s ease-in-out infinite;
+    position: relative;
+}
+
+
+@keyframes felf {
+    0%, 100% {
+        box-shadow: 0 0 60px yellow, 0 0 30px gold, 0 0 15px orange;
+    }
+    25% {
+        box-shadow: 0 0 70px orange, 0 0 35px gold, 0 0 20px yellow;
+    }
+    50% {
+        box-shadow: 0 0 60px gold, 0 0 30px yellow, 0 0 15px orange;
+    }
+    75% {
+        box-shadow: 0 0 70px yellow, 0 0 35px orange, 0 0 20px gold;
+    }
+}
+

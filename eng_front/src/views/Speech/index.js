@@ -61,17 +61,6 @@ function Speech() {
     }, []);
 
 
-    const [startModalOpen2, setStartModalOpen2] = useState(false);
-    useEffect(() => {
-        setStartModalOpen2(true);
-    }, []);
-
-    const Close2 = () => {
-        setStartModalOpen2(false);
-    };
-
-
-
     useEffect(() => {
         setStartModalOpen(true);
     }, []);

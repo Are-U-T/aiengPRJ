@@ -1,0 +1,88 @@
+.modal-backdropllx {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(2px);
+    animation: fadeIn 0.7s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-stylellx {
+    padding: 40px;
+    border-radius: 20px;
+    background: skyblue;
+    box-shadow: 10px 10px 20px #cbced1, -10px -10px 20px #ffffff;
+    max-width: 650px;
+    overflow: hidden;
+    animation: slideUp 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.ghx {
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+button.qwex {
+    /* 버튼 스타일링 개선 */
+    padding: 12px 25px;
+    border-radius: 30px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.3s ease, background-color 0.3s;
+}
+
+button.qwex:hover {
+    /* 버튼 호버 효과 개선 */
+    background-color: #2980b9;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+    0% { transform: translateY(30px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+
+.modal-instructionsx {
+    margin: 30px 0;
+    padding: 30px;
+    background-color: white;
+    border: 1px solid #d3d3d3;
+    border-radius: 10px;
+}
+
+.modal-instructionsx p {
+    font-size: 18px;
+    color: #333;
+    line-height: 2.5;
+    margin-bottom: 15px;
+    text-align : left;
+}
+
+.foox {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+
+
+
+
+

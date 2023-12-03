@@ -5,7 +5,8 @@ import LV3 from './images/LV3.png';
 import LV4 from './images/LV4.png';
 import LV5 from './images/LV5.png';
 import LV6 from './images/LV6.png';
-import {useEffect} from "react";
+import React, {useEffect} from "react";
+import Navigation from "../../Navigation";
 
 
 const ResultPage = () => {
@@ -65,6 +66,10 @@ const ResultPage = () => {
 
 
     return (
+        <>
+        <Navigation />
+            <div style={{marginTop : '80px'}}/>
+
         <div style={{ backgroundColor: 'white', height: '100vh',  width: '1024px',margin: 'auto', flexDirection: 'column', justifyContent: 'center'}}>
             {/*<h2>Your Score: {score} / 100</h2>*/}
             {score >= 90 ? (
@@ -81,6 +86,7 @@ const ResultPage = () => {
                 <img src={LV1} style={{ maxWidth: '100%',  width: 'auto', height: 'auto' }}/>
             )}
         </div>
+        </>
 
 
     );
