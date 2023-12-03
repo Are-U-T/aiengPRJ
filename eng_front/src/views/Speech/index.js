@@ -8,6 +8,7 @@ import us from './images/us.png';
 import uk from './images/uk.png';
 import usno from './images/usno.jpg';
 import ukno from './images/ukno.jpg';
+import loginImg from './images/loginImg.png'
 import '../../App.css';
 import left from './images/left.png';
 import right from './images/right.png';
@@ -34,12 +35,25 @@ function Speech() {
     const [loading, setLoading] = useState(false);
 
     const [startModalOpen, setStartModalOpen] = useState(false);
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
 
     const navigate = useNavigate();
 
     const userNum = sessionStorage.getItem('userNum');
 
     const [level, setLevel] = useState(null);
+
+    useEffect(() => {
+        if (userNum == null) {
+            // 모달 창 띄워서 로그인 하세요 하고 확인 누르면 로그인 창으로 보내기
+            setLoginModalOpen(true);
+        }
+    }, [userNum]);
+
+    const closeModalAndNavigate = () => {
+        setLoginModalOpen(false);
+        navigate('/login');
+    };
 
     useEffect(() => {
         const fetchInitialLevel = async () => {
@@ -101,6 +115,8 @@ function Speech() {
             userNum
         };
 
+        const gender = selectedAirole === "남자친구" || selectedAirole === "남자" ? 0 : 1;
+
         try {
             setLoading(true);
             const response = await fetch('http://localhost/talking/newTalkingRoom', {
@@ -119,7 +135,7 @@ function Speech() {
                 const crid = responseData;
 
                 // Speaking 컴포넌트로 이동하면서 crid를 전달
-                navigate('/speaking', {state: {crid, gender: 1}});
+                navigate('/speaking', {state: {crid, gender}});
             } else {
                 const errorMessage = await response.text();
                 console.error('방 생성 failed:', errorMessage);
@@ -307,6 +323,17 @@ function Speech() {
                                 닫기
                             </button>
                         </div>
+                    </div>
+                </Modal>
+
+                <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
+
+                    <div className="speechModalCenter">
+                        <img src={loginImg} alt='로그인 이미지' className="speechLoginImg"/>
+                        <h4>로그인 후 이용해 주세요</h4>
+                        <button onClick={closeModalAndNavigate} className="modal-custom-button">
+                            닫기
+                        </button>
                     </div>
                 </Modal>
 

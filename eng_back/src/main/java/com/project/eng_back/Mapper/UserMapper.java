@@ -43,4 +43,10 @@ public interface UserMapper {
 
     @Select("SELECT LV FROM USER_T WHERE num = #{num}")
     public int getLevelByUserNum(String num);
+
+    @Select("SELECT EXPERIENCE FROM USER_T WHERE num = #{num}")
+    public int getExperienceByUserNum(String num);
+
+    @Update("update USER_T set EXPERIENCE = #{ex} where num = #{num}")
+    public int addExperience(UserDTO uDto);
 }

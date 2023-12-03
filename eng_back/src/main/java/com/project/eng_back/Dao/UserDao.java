@@ -13,4 +13,8 @@ public interface UserDao {
     public UserDTO mypageUser(String num);
 
     public int getLevelByUserNum(String userNum);
+
+    public int getExperienceByUserNum(String userNum);
+
+    public int addExperience(UserDTO userDTO);
 }

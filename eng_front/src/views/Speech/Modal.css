@@ -4,12 +4,15 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.3); /* Increase the alpha value for more opacity */
     display: flex;
     align-items: center;
     justify-content: center;
     animation: fadeIn 0.5s ease;
     z-index: 9999;
+
+    /*블러처리*/
+    backdrop-filter: blur(30px);
 }
 
 .modal-style {
@@ -54,4 +57,46 @@
 @keyframes slideUp {
     from { transform: translateY(50px); }
     to { transform: translateY(0); }
+}
+
+.modal-custom-button {
+    background-color: #17264D;
+    color: white;
+    padding: 10px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+    transition: all 0.3s;
+    font-family: "Noto Sans KR Medium", sans-serif;
+}
+
+.speechModalCenter {
+    margin: 0 auto;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    background: white;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.speechLoginImg {
+    width: 500px;
+    margin: 40px 0;
+    height: auto;
+}
+
+.speechModalCenter h4 {
+    font-family: "Noto Sans KR Medium", sans-serif;
+    color: #17264D;
 }

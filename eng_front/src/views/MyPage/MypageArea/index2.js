@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import './Mypage.css';
-import emptyChattingList from './images/emptyChattingList.png'
+import '../../../../../../../../Desktop/move/MyPage/MypageArea/Mypage.css';
+import emptyChattingList from '../../../../../../../../Desktop/move/MyPage/MypageArea/images/emptyChattingList.png'
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import ProgressBar from "./ProgressBar";
+import ProgressBar from "../../../../../../../../Desktop/move/MyPage/MypageArea/ProgressBar";
 
 export default function MypageArea() {
 
@@ -165,4 +165,5 @@ export default function MypageArea() {
             </div>
         </>
     )
+
 }
