@@ -246,7 +246,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     };
 
     return (
-        <>
+        <div className='App'>
             <Navigation/>
 
             <ModalStart2 isOpen={startModalOpen2} onClose={Close2}>
@@ -384,7 +384,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                     }}>확인</button>
                 </ModalResult>
             )}
-        </>
+        </div>
     );
 }
 

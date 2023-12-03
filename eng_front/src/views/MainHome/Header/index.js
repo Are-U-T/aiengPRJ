@@ -54,9 +54,8 @@ function Header(){
 
 
     return (
-        <>
-
-            <div className='App'>
+        <div className='App'>
+            <div>
                 <header className="masthead">
                     <img src={down} alt='down' onClick={scrollToBottom} className="scrd"/>
                     <div className="container d-flex align-items-center flex-column">
@@ -227,7 +226,7 @@ function Header(){
                         <br/>대형 언어 모델 (LLM)과 이를 기반으로 하는 ChatGPT 등의 소프트웨어를 제공</h4>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

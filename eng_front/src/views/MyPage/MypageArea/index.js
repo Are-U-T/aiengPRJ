@@ -4,6 +4,7 @@ import emptyChattingList from './images/emptyChattingList.png'
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import user from './images/user.png';
+import '../../../App.css';
 
 export default function MypageArea() {
 
@@ -64,8 +65,7 @@ export default function MypageArea() {
     }
 
     return (
-        <>
-            <div>
+            <div className='App'>
                 <div className="MypageCenter" style={{marginTop: '200px'}}>
                     {userProfile && (
                         <>
@@ -129,7 +129,7 @@ export default function MypageArea() {
                     </div>
                 </div>
             </div>
-        </>
+
     )
 
 }

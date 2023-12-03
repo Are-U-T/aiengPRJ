@@ -135,7 +135,7 @@ export default function JoySignInSideTemplate() {
         }
     }
     return (
-        <>
+        <div className='App'>
             <Navigation/>
             <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
                 <CssBaseline />
@@ -326,6 +326,6 @@ export default function JoySignInSideTemplate() {
                     })}
                 />
             </CssVarsProvider>
-        </>
+        </div>
     );
 }

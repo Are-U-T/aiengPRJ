@@ -14,12 +14,7 @@ import right from './images/right.png';
 import LoadingPage from './LoadingPage';
 import './Modal.css';
 import  './ModalStart.css';
-import mic from "../Speaking/images/mic.png";
-import micno from "../Speaking/images/micno.png";
-import subtitle from "../Speaking/images/subtitle.png";
-import subtitleno from "../Speaking/images/subtitleno.png";
-import time_finish from "../Speaking/images/time_finish.png";
-import ModalStart2 from "../Speaking/ModalStart2";
+
 
 
 function Speech() {

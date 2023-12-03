@@ -44,9 +44,8 @@ export default function Footer(){
     }, [isScrolling]);
 
     return(
-        <>
-
-            <div style={{marginTop : '100px'}} className='App'>
+        <div className='App'>
+            <div style={{marginTop : '100px'}}>
                 <img src={up} alt='up' onClick={scrollToTop} className="scru"/>
 
                 <footer className="footer" style={{ backgroundColor: 'black', color: 'white'}}>
@@ -91,12 +90,6 @@ export default function Footer(){
                     </div>
                 </footer>
             </div>
-
-
-
-
-
-
-    </>
+    </div>
     )
 }

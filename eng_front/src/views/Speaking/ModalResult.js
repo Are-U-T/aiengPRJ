@@ -4,7 +4,7 @@ function Modal({ isOpen, children }) {
     if (!isOpen) return null;
 
     return (
-        <div className="modal-overlay">
+        <div className="modal-overlay App">
             <div className="modal-content">
                 {children}
             </div>

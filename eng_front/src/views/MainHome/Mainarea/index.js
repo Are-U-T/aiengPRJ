@@ -48,7 +48,6 @@ const customImage = {
 export default function Mainarea(){
 
     return (
-        <>
         <div className='App'>
 
           <div style={{marginTop : '150px'}}/>
@@ -285,16 +284,9 @@ export default function Mainarea(){
             </a>
           </div>
 
-
-
-
           <div style={{marginTop : '150px'}}/>
           <img src={hugi} alt="후기" style={{ maxWidth: '100%', height: 'auto' }} />
+        </div>
 
-
-
-
-</div>
-        </>
     )
 }
