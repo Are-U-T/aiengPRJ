@@ -1,116 +1,239 @@
 import * as React from 'react';
-import AspectRatio from '@mui/joy/AspectRatio';
-import Box from '@mui/joy/Box';
-import Button from '@mui/joy/Button';
-import Divider from '@mui/joy/Divider';
-import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
-import FormHelperText from '@mui/joy/FormHelperText';
-import Input from '@mui/joy/Input';
-import IconButton from '@mui/joy/IconButton';
-import Textarea from '@mui/joy/Textarea';
-import Stack from '@mui/joy/Stack';
-import Select from '@mui/joy/Select';
-import Option from '@mui/joy/Option';
-import Typography from '@mui/joy/Typography';
-import Tabs from '@mui/joy/Tabs';
-import TabList from '@mui/joy/TabList';
-import Tab, { tabClasses } from '@mui/joy/Tab';
-import Breadcrumbs from '@mui/joy/Breadcrumbs';
-import Link from '@mui/joy/Link';
-import Card from '@mui/joy/Card';
-import CardActions from '@mui/joy/CardActions';
-import CardOverflow from '@mui/joy/CardOverflow';
-
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
-import AccessTimeFilledRoundedIcon from '@mui/icons-material/AccessTimeFilledRounded';
-import VideocamRoundedIcon from '@mui/icons-material/VideocamRounded';
-import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import Navigation from "../Navigation";
 import '../../App.css'
+import {useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormLabel from '@mui/material/FormLabel';
+import { styled } from '@mui/system';
+import $ from "jquery";
+import axios from "axios";
+import userValidation from './Validation';
+
+
+const Container = styled(Box)({
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+    backgroundColor: '#eceff1',
+});
+
+const StyledForm = styled(Box)({
+    width: '100%',
+    maxWidth: '600px', // 수정된 폼 크기
+    padding: '40px', // 수정된 패딩
+    borderRadius: '8px',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    textAlign: 'center',
+});
+
+const StyledRadioGroup = styled(RadioGroup)({
+    flexDirection: 'row',
+});
+
+
+// userValidation();
+
+
 
 export default function MyProfile() {
+    const navigate = useNavigate();
+
+    const [name, setName] = useState('');
+    const [gender, setGender] = useState('');
+    const [password, setPassword] = useState('');
+    const [userProfile, setUserProfile] = useState();
+    const [email, setEmail] = useState('');
+
+    const userNum = sessionStorage.getItem('userNum');
+
+
+    useEffect(() => {
+        profile();
+    }, []);
+
+    const profile = async () => {
+
+
+
+        const data = {
+            userNum
+        };
+
+        try {
+            const response = await axios.post('http://localhost/user/mypage', data);
+            setUserProfile(response.data);
+            setEmail(response.data.email);
+            console.log('유저 프로필:', response.data); // 응답 로깅
+        } catch (error) {
+            console.error('프로필 불러오는 중 오류 발생:', error);
+        }
+    };
+
+    async function sendNum() {
+
+        const mail = document.querySelector("input[id=mail]");
+
+        if (mail.value == "") {
+            alert("이메일을 입력하세요.");
+            mail.focus();
+            return false;
+        }
+
+        // var mailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+        var mailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
+        if (!mailRegExp.test(mail.value)) {
+            alert("올바른 이메일을 입력해주세요.");
+            mail.focus();
+            mail.value = "";
+            return false;
+        }
+
+        const emailData = {
+            email: $("#mail").val(),
+        };
+
+        try {
+            const response = await axios.post('http://localhost/mail', emailData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.status === 200) {
+                console.log('Email sent successfully.');
+            } else {
+                console.error('Failed to send email.');
+            }
+        } catch (error) {
+            console.error('Error during email sending:', error);
+        }
+    }
+
+    function confirmNum() {
+
+        const number = document.querySelector("input[id=number]");
+
+        const num1 = $("#number").val();
+
+        if (num1) {
+            axios.post("http://localhost/confirm", {
+                num1: num1,
+            })
+                .then((response) => {
+                    if (response.data === "success") {
+                        alert("인증 성공");
+                    } else {
+                        alert("인증 실패");
+                        number.focus();
+                        number.value = "";
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }
+
+
+    const handleSubmit = async (event) => {
+
+        // userValidation();
+
+        event.preventDefault();
+
+        const userData = {
+            email: email,
+            pw: password,
+            name: name,
+            gender: gender,
+        };
+
+        try {
+            // 두 번째 요청: 사용자 정보 저장
+            const saveResponse = await fetch('http://localhost/user/editById', {
+                method: 'put',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
+
+            if (saveResponse.ok) {
+                console.log('User registered successfully.');
+                navigate('/mypage');
+            } else {
+                console.error('Failed to register user.');
+            }
+            // } else {
+            //     console.error('Email validation failed.');
+            // }
+        } catch (error) {
+            console.error('Error during registration:', error);
+        }
+    };
+
+
     return (
-        <div className='App'>
-        <Navigation/>
+        <Container>
+            <Navigation />
+            <StyledForm>
+                <Typography variant="h5" sx={{ mb: 4, color: '#0d47a1' }}>개인정보 수정</Typography>
 
-            <div style={{marginTop : '30px'}}/>
+                <TextField
+                    fullWidth
+                    variant="outlined"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    sx={{ mb: 2 }}
+                    id="name"
+                    label="Name"
+                    name="name"
+                    autoComplete="name"
+                    placeholder="이름 입력"
+                />
+
+                <TextField
+                    fullWidth
+                    label="비밀번호"
+                    type="password"
+                    variant="outlined"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    sx={{ mb: 3 }}
+                    name="password"
+                    id="password"
+                    placeholder="영문 + 숫자 + 특수문자 조합으로 8~15글자"
+                />
 
 
-
-            <Box sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '100vh' // 부모 컨테이너의 높이 설정
-            }}>
-                <Card >
-                    <Box sx={{ mb: 1 }}>
-                        <Typography level="title-md">개인정보 수정</Typography>
-                        <Typography level="body-sm">
-                            본인의 정보를 수정하세요.
-                        </Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', mb: 3, textAlign: 'left' }}>
+                    <FormLabel sx={{ mr: 1, color: '#0d47a1' }}>성별:</FormLabel>
+                    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}  aria-label="gender"
+                         name="gender">
+                        <Radio checked={gender === 'male'} onChange={(e) => setGender(e.target.value)} value="male" />
+                        <Typography>남성</Typography>
+                        <Radio checked={gender === 'female'} onChange={(e) => setGender(e.target.value)} value="female" />
+                        <Typography>여성</Typography>
                     </Box>
-                    <Divider />
-                    <Stack
-                        direction="row"
-                        spacing={3}
-                        sx={{ display: { xs: 'none', md: 'flex' }, my: 1 }}
-                    >
+                </Box>
 
-                        <Stack spacing={2} sx={{ flexGrow: 1 }}>
-                            <Stack spacing={1}>
-                                <FormLabel>이름</FormLabel>
-                                <FormControl
-                                    sx={{
-                                        display: {
-                                            sm: 'flex-column',
-                                            md: 'flex-row',
-                                        },
-                                        gap: 2,
-                                    }}
-                                >
-                                    <Input size="sm" />
-                                </FormControl>
-                            </Stack>
+                <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 2 }}>
+                    <Button variant="contained" color="primary" onClick={handleSubmit} sx={{ width: '150px' }}>저장</Button>
+                    <Button variant="outlined" color="primary" onClick={() => navigate('/mypage')} sx={{ width: '150px' }}>닫기</Button>
+                </Box>
+            </StyledForm>
+        </Container>
 
-                            <Stack spacing={1}>
-                                <FormLabel>비밀번호</FormLabel>
-                                <FormControl
-                                    sx={{
-                                        display: {
-                                            sm: 'flex-column',
-                                            md: 'flex-row',
-                                        },
-                                        gap: 2,
-                                    }}
-                                >
-                                    <Input size="sm" />
-                                </FormControl>
-                            </Stack>
 
-                            <Stack spacing={1}>
-                                <FormLabel>성별</FormLabel>
-                                <FormControl
-                                    sx={{
-                                        display: {
-                                            sm: 'flex-column',
-                                            md: 'flex-row',
-                                        },
-                                        gap: 2,
-                                    }}
-                                >
-                                    <Input size="sm" />
-                                </FormControl>
-                            </Stack>
-                        </Stack>
-                    </Stack>
-                </Card>
-            </Box>
 
-           </div>
     );
 }

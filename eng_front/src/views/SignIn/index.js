@@ -19,6 +19,7 @@ import {GoogleOAuthProvider} from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import KakaoLogin from "react-kakao-login";
+import '../../App.css';
 
 function ColorSchemeToggle(props) {
     const { mode, setMode } = useColorScheme();

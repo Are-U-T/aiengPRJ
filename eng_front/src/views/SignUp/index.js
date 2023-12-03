@@ -40,16 +40,6 @@ export default function SignInSide() {
         };
 
         try {
-            // // 첫 번째 요청: 이메일 검증
-            // const validateResponse = await fetch('http://localhost/user/save', {
-            //     method: 'put',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(userData),
-            // });
-            //
-            // if (validateResponse.status === 200) {
                 // 두 번째 요청: 사용자 정보 저장
                 const saveResponse = await fetch('http://localhost/user/save', {
                     method: 'put',
@@ -85,7 +75,6 @@ export default function SignInSide() {
             mail.focus();
             return false;
         }
-        ;
 
         // var mailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
         var mailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
@@ -121,7 +110,6 @@ export default function SignInSide() {
     function confirmNum() {
 
         const number = document.querySelector("input[id=number]");
-
         const num1 = $("#number").val();
 
         if (num1) {

@@ -355,7 +355,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
             {isModalOpen && (
                 <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                    {/* 모달의 전체 내용을 여기에 배치 */}
+
                     <h2 className="modal-title">알림</h2>
                     <div className="modal-body">
                         <p>5분이 지났습니다. 메인 화면으로 돌아갑니다.</p>
@@ -363,8 +363,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                         <p>현재 진행 시간: {formatTime(timeSpent)}</p>
                     </div>
                     <button className="modal-button" onClick={() => {
-                        setIsModalOpen(false); // 모달 상태를 false로 설정하여 닫음
-                        navigate('/main'); // 메인 화면으로 이동
+                        setIsModalOpen(false);
+                        navigate('/main');
                     }}>확인</button>
                 </Modal>
             )}
@@ -372,15 +372,15 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
             {isModal2Open && (
                 <ModalResult isOpen={isModal2Open} onClose={() => setIsModal2Open(false)}>
-                    {/* 모달창 내용 */}
+
                     <h2 className="modal-title">대화 종료</h2>
                     <div className="modal-body">
                         <p>대화가 종료되었습니다.</p>
-                        {/* 추가 내용 */}
+
                     </div>
                     <button className="modal-button" onClick={() => {
-                        setIsModal2Open(false); // 모달 상태를 false로 설정하여 닫음
-                        navigate('/main'); // 메인 화면으로 이동
+                        setIsModal2Open(false);
+                        navigate('/main');
                     }}>확인</button>
                 </ModalResult>
             )}

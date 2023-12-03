@@ -142,3 +142,32 @@
     background-color: transparent;
     border-radius: 0px;
 }
+
+
+.modal-titlea {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* 모달 내용 스타일 */
+.modal-bodya {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* 모달 버튼 스타일 */
+.modal-buttona {
+    font-weight: 500;
+    background-color: #17264D;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}

@@ -19,7 +19,7 @@ import '../../../App.css'
 import studyImg1 from './images/studyImg1.jpg'
 import speakingexam from "./images/speakingexam.png";
 import nationalexam from "./images/nationalexam.png";
-import './exam.css';
+import './style.css';
 import hugi from '../Mainarea/images/후기.png';
 
 

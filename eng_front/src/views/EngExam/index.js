@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Question from './question';
 import Navigation from "../Navigation";
-import '../../App.css'
+import '../../App.css';
 import ModalStart from "../Speech/ModalStart";
 import './ModalStart3.css';
 

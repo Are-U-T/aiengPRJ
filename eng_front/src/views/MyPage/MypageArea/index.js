@@ -5,6 +5,7 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import user from './images/user.png';
 import '../../../App.css';
+import ModalChange from "./ModalChange";
 
 export default function MypageArea() {
 
@@ -15,6 +16,27 @@ export default function MypageArea() {
 
     // 프론트에서 세션 uid 가져오기
     const userNum = sessionStorage.getItem('userNum');
+
+
+    const [modalInfo, setModalInfo] = useState(false);
+
+    const [inputPassword, setInputPassword] = useState('');
+    const [passwordAttempts, setPasswordAttempts] = useState(0);
+
+    const checkPassword = () => {
+        if (inputPassword === userProfile.pw) {
+            navigate('/change');
+        } else {
+            if (passwordAttempts < 3) { // 0, 1, 2 - 총 3번의 기회
+                setPasswordAttempts(passwordAttempts + 1);
+                alert(`비밀번호가 일치하지 않습니다. 다시 시도해주세요. 남은 횟수 : ${3 - passwordAttempts} 회`);
+
+            } else {
+                navigate('/main');
+            }
+        }
+        setModalInfo(false); // 모달창 닫기
+    };
 
     useEffect(() => {
         profile();
@@ -61,11 +83,12 @@ export default function MypageArea() {
     }
 
     const change = () =>{
-        navigate("/change");
+        setModalInfo(true);
     }
 
     return (
             <div className='App'>
+
                 <div className="MypageCenter" style={{marginTop: '200px'}}>
                     {userProfile && (
                         <>
@@ -81,7 +104,8 @@ export default function MypageArea() {
                                 <div className="grayline"/>
                                 <h5 className="MypageName">레벨</h5>
                                 <div className="grayline" style={{marginBottom: '15px'}}/>
-                                <button className="MypageBtn" onClick={change}>개인정보 수정</button>
+                                <button className="MypageBtn" onClick={() => { setModalInfo(true); change(); }}
+                                >개인정보 수정</button>
                             </div>
                         </>
                     )}
@@ -128,6 +152,31 @@ export default function MypageArea() {
                         )}
                     </div>
                 </div>
+
+
+                {modalInfo && (
+                    <ModalChange isOpen={modalInfo} onClose={() => setModalInfo(false)}>
+                        <h2 className="modal-titlea">개인정보 확인</h2>
+                        <div className="modal-bodya">
+                            <p>비밀번호 입력</p>
+                            <input
+                                type="password"
+                                value={inputPassword}
+                                onChange={(e) => setInputPassword(e.target.value)}
+                            />
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
+                        <button className="modal-buttona" onClick={checkPassword}  style={{ marginRight: '10px' }}>확인</button>
+                        <button
+                            onClick={() => setModalInfo(false)}
+                            className="modal-buttona">
+                            닫기
+                        </button>
+                        </div>
+                    </ModalChange>
+                )}
+
+
             </div>
 
     )
