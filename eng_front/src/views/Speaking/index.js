@@ -16,8 +16,8 @@ import ModalStart2 from "./ModalStart2";
 import '../../App.css';
 import './ModalStart2.css'
 
-import aimale from  "./images/aimale.mp4";
-import aifemale from  "./images/aifemale.mp4";
+import aimale from "./images/aimale.mp4";
+import aifemale from "./images/aifemale.mp4";
 
 function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const [timeSpent, setTimeSpent] = useState(300); // 페이지에 머문 시간
@@ -33,11 +33,11 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     // 자막
     const [liveSubtitles, setLiveSubtitles] = useState([]); // 실시간 자막
     const [recommendedQuestions, setRecommendedQuestions] = useState([]); // 상황에 맞는 추천 질문
-    const [correctGrammar , setCorrectGrammer] = useState([]); // 문법 고치는 자막
+    const [correctGrammar, setCorrectGrammer] = useState([]); // 문법 고치는 자막
     const [showSubtitles, setShowSubtitles] = useState(true); // 자막 컨테이너들 전체
 
     const [startModalOpen2, setStartModalOpen2] = useState(false);
-    
+
     // 사진과 자막 컨테이너의 동적 스타일을 위한 클래스
     const imageContainerClass = showSubtitles ? "image-container" : "image-container expanded";
     const subtitlesContainerClass = showSubtitles ? "subtitles-container" : "subtitles-container hidden";
@@ -49,7 +49,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
     const location = useLocation();
     const crid = location.state?.crid; // 채팅방 생성시에 전달 받은 crid 전달 받아서 서버에 넘겨줌
-    const speaker =null;
+    const speaker = null;
 
     // 남자 여자 확인
     const gender = location.state?.gender;
@@ -78,7 +78,6 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     }, [crid]);
 
 
-
     // 올바른 문법 자막 업데이트
     useEffect(() => {
         correctGrammer("Corrected grammar"); // 컴포넌트 마운트 시 자막 가져오기
@@ -98,7 +97,6 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
         }, 200000); // 2분 마다 업데이트
         return () => clearInterval(subtitleInterval);
     }, [crid]);
-
 
 
     // 일정한 간격으로 서버에서 자막을 가져오는 함수
@@ -164,7 +162,6 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
             handleTimeLimitReached();
         }
     }, [timeSpent, isModalOpen]); // 의존성 배열에 isModalOpen을 추가
-
 
 
     useEffect(() => {
@@ -263,22 +260,31 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
             <Navigation/>
 
             <ModalStart2 isOpen={startModalOpen2} onClose={Close2}>
-                <div style={{ maxWidth: '600px', margin: 'auto' }}>
+                <div style={{maxWidth: '600px', margin: 'auto'}}>
                     <h3 className='gh' style={{textAlign: 'center'}}>사용방법 안내</h3>
 
                     <div className="micq">
-                        <img src={mic} alt='mic' width='25px' height='25px'/>  <img src={micno} alt='mic' width='25px' height='25px'/>
+                        <img src={mic} alt='mic' width='25px' height='25px'/> <img src={micno} alt='mic' width='25px'
+                                                                                   height='25px'/>
                         <p>마이크를 켜거나 끌 수 있습니다.</p>
 
-                        <img src={subtitle} alt='subtitle' width='25px' height='25px'/>  <img src={subtitleno} alt='subtitleno' width='32px' height='32px'/>
+                        <img src={subtitle} alt='subtitle' width='25px' height='25px'/> <img src={subtitleno}
+                                                                                             alt='subtitleno'
+                                                                                             width='32px'
+                                                                                             height='32px'/>
                         <p>실시간으로 대화내용을 보거나 끌 수 있습니다.</p>
 
                         <img src={time_finish} alt='time_finish' width='40px' height='35px'/>
                         <p>남은 시간을 확인하며 클릭 시, 대화가 종료됩니다.</p>
 
+                        <p><strong>오타 수정 섹션:</strong> 사용자의 말을 텍스트로 변환하며, 발견된 문법 오류를 자동으로 수정합니다.</p>
+                        <p><strong>질문 추천 섹션:</strong> 사용자가 선택한 상황에 맞는 질문을 2분마다 자동으로 제안합니다.</p>
+
                         <div className='redcss'>
-                            <span style={{color : 'black',fontSize : '25px'}}> ※ </span> 대화내용을 끄게 되면 오타섹션과 질문추천 섹션도 함께 닫힙니다.<br/>
-                            <span style={{color : 'black',fontSize : '25px'}}> ※ </span>  마이크를 켜면 시간이 줄어들며, 멈추면 시간이 줄어들지 않습니다.
+                            <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 대화내용을 끄게 되면 오타섹션과 질문추천 섹션도 함께
+                            닫힙니다.<br/>
+                            <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 마이크를 켜면 시간이 줄어들며, 멈추면 시간이 줄어들지
+                            않습니다.
                         </div>
 
                     </div>
@@ -292,7 +298,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
             <div className="speaking-container">
                 <div className={imageContainerClass}>
                     <video ref={videoRef} width="560" height="420" loop muted autoPlay={false}>
-                        <source src={videoSource} type="video/mp4" />
+                        <source src={videoSource} type="video/mp4"/>
                     </video>
                 </div>
 
@@ -338,16 +344,17 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                 <div className='mrts'>
                     <div className={`buttons-containerpp ${!showSubtitles ? "buttons-hidden-subtitles" : ""}`}>
                         <button onClick={toggleRecording} className={isRecording ? "recording-active" : ""}>
-                            <img src={isRecording ? mic : micno} alt={isRecording ? "중지" : "시작"} style={{ width: '35px', height: '35px' }}/>
+                            <img src={isRecording ? mic : micno} alt={isRecording ? "중지" : "시작"}
+                                 style={{width: '35px', height: '35px'}}/>
                         </button>
                         <button onClick={toggleSubtitles}>
                             <img src={showSubtitles ? subtitle : subtitleno} alt={showSubtitles ? "자막 숨기기" : "자막 보이기"}
-                                 style={{ width: '35px', height: '35px' }}/>
+                                 style={{width: '35px', height: '35px'}}/>
                         </button>
                         <button onClick={() => setIsModal2Open(true)}>
                             {formatTime(timeSpent)}
                             <br/>
-                            <div style={{color : 'blueviolet'}}>대화 종료</div>
+                            <div style={{color: 'blueviolet'}}>대화 종료</div>
                         </button>
                     </div>
                 </div>
@@ -366,7 +373,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                     <button className="modal-button" onClick={() => {
                         setIsModalOpen(false); // 모달 상태를 false로 설정하여 닫음
                         navigate('/main'); // 메인 화면으로 이동
-                    }}>확인</button>
+                    }}>확인
+                    </button>
                 </Modal>
             )}
 
@@ -382,7 +390,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                     <button className="modal-button" onClick={() => {
                         setIsModal2Open(false); // 모달 상태를 false로 설정하여 닫음
                         navigate('/main'); // 메인 화면으로 이동
-                    }}>확인</button>
+                    }}>확인
+                    </button>
                 </ModalResult>
             )}
         </>
