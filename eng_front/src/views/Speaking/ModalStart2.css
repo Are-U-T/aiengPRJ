@@ -30,9 +30,9 @@
 
 }
 
-.redcss{
+.redcss {
     padding-top: 10px;
-    color : red;
+    color: red;
     font-weight: bold;
     font-size: 16px;
 }
@@ -57,15 +57,24 @@ button.qwer:hover {
 }
 
 @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes slideUp {
-    0% { transform: translateY(30px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
+    0% {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
-
 
 .micq {
     margin: 30px 0;
@@ -80,7 +89,7 @@ button.qwer:hover {
     color: #333;
     line-height: 1.5;
     margin-bottom: 15px;
-    text-align : left;
+    text-align: left;
 }
 
 .fooha {
@@ -88,9 +97,3 @@ button.qwer:hover {
     justify-content: center;
     margin-top: 30px;
 }
-
-
-
-
-
-

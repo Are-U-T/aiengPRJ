@@ -1,4 +1,4 @@
-.abc{
+.abc {
     margin-left: 100px;
 }
 
@@ -12,14 +12,14 @@
     background-color: #132650;
 }
 
+
 .navbar-nav {
     display: flex;
     justify-content: center;
     flex-grow: 1;
 }
 
-
-.navbar-brand img{
+.navbar-brand img {
     width: 45px;
     height: 45px;
     border: 2px solid #f8f9fa;
@@ -28,7 +28,7 @@
     transition: transform 0.3s ease;
 }
 
-.dropdown img{
+.dropdown img {
     width: 35px;
     height: 35px;
     border: 2px solid #f8f9fa;
@@ -36,7 +36,6 @@
     box-shadow: 0 0 10px #f8f9fa;
     transition: transform 0.3s ease;
 }
-
 
 .navbar-brand img:hover, .dropdown img:hover {
     transform: scale(1.1);
@@ -108,7 +107,7 @@ nav.hidden {
     margin-right: 10px;
 }
 
-.kkk{
+.kkk {
     display: flex !important;
     align-items: center !important;
 }

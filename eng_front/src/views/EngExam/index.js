@@ -3,11 +3,10 @@ import {useNavigate} from 'react-router-dom';
 import Question from './question';
 import Navigation from "../Navigation";
 import '../../App.css';
-import ModalStart from "../Speech/ModalStart";
-import './ModalStart3.css';
+import ModalStart from '../EngExam/ModalStart3';
+import '../EngExam/ModalStart3.css'
 
 const questionsData = [
-
     {
         id: 1,
         question: (
@@ -148,7 +147,6 @@ function EngExam() {
     const currentQuestion = questionsData[currentQuestionIndex];
     const [score, setScore] = useState(0); // 添加 score 状态
     const [confirmButtonVisible, setConfirmButtonVisible] = useState(true);
-
     const [startModalOpen3, setStartModalOpen3] = useState(false);
 
     useEffect(() => {
@@ -160,7 +158,6 @@ function EngExam() {
     };
 
 
-
     useEffect(() => {
         setStartModalOpen3(true);
     }, []);
@@ -168,8 +165,6 @@ function EngExam() {
     const Close3 = () => {
         setStartModalOpen3(false);
     };
-
-
 
     const handleAnswer = (questionId, option) => {
         setSelectedOption(option);
@@ -193,8 +188,6 @@ function EngExam() {
             } else {
                 navigate('/resultpage', {state: {score: score}});
             }
-
-
         }
     };
 
@@ -211,26 +204,24 @@ function EngExam() {
     return (
         <div className='App'>
             <Navigation/>
-
-
             <ModalStart isOpen={startModalOpen3} onClose={Close3}>
-                <div style={{ textAlign: 'center', maxWidth: '600px', margin: 'auto', padding: '20px' }}>
+                <div style={{textAlign: 'center', maxWidth: '600px', margin: 'auto', padding: '20px'}}>
                     <h3 className='ghx'>사용방법 안내</h3>
 
-                    <div className="modal-instructionsx" style={{ fontSize: '16px', lineHeight: '1.6', margin: '20px 0' }}>
+                    <div className="modal-instructionsx"
+                         style={{fontSize: '16px', lineHeight: '1.6', margin: '20px 0'}}>
                         <p><strong>단계별 지침:</strong> 다음 들어갈 빈칸에 알맞는 단어를 선택합니다. 각 문제에 대한 힌트도 제공됩니다.</p>
-                        <p><strong>진행 상황 확인:</strong> 우측 상단바에서 푼 문제의 수와 진행률을 확인할 수 있습니다. 'Skip' 버튼을 이용해 다음 문제로 넘어갈 수도 있습니다.</p>
+                        <p><strong>진행 상황 확인:</strong> 우측 상단바에서 푼 문제의 수와 진행률을 확인할 수 있습니다. 'Skip' 버튼을 이용해 다음 문제로 넘어갈 수도
+                            있습니다.</p>
                         <p><strong>중간 저장:</strong> 진행 상황은 자동으로 저장되지 않으니, 문제를 마친 후에는 저장 버튼을 꼭 눌러주세요.</p>
                         <p><strong>결과 분석:</strong> 모든 문제를 완료하면, 당신의 역량을 분석한 결과창이 표시됩니다. 자세한 피드백과 개선 사항도 확인하세요!</p>
                     </div>
 
-                    <div className="foox" style={{ marginTop: '20px' }}>
+                    <div className="foox" style={{marginTop: '20px'}}>
                         <button onClick={() => setStartModalOpen3(false)} className="qwex">확인</button>
                     </div>
                 </div>
             </ModalStart>
-
-
             <div style={{marginTop: '110px'}}/>
 
             <div style={{
@@ -242,6 +233,9 @@ function EngExam() {
                 justifyContent: 'center'
             }}>
 
+                <div style={{textAlign: 'center', marginBottom: '10px'}}>
+                    {/*<h2>영어 테스트 {currentQuestionIndex + 1}/{questionsData.length}</h2>*/}
+                </div>
                 <div style={{textAlign: 'right', marginBottom: '30px'}}>
                     <button
                         style={{

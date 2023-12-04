@@ -19,7 +19,7 @@ import '../../../App.css'
 import studyImg1 from './images/studyImg1.jpg'
 import speakingexam from "./images/speakingexam.png";
 import nationalexam from "./images/nationalexam.png";
-import './style.css';
+import './exam.css';
 import hugi from '../Mainarea/images/후기.png';
 
 
@@ -48,6 +48,7 @@ const customImage = {
 export default function Mainarea(){
 
     return (
+        <>
         <div className='App'>
 
           <div style={{marginTop : '150px'}}/>
@@ -284,9 +285,16 @@ export default function Mainarea(){
             </a>
           </div>
 
+
+
+
           <div style={{marginTop : '150px'}}/>
           <img src={hugi} alt="후기" style={{ maxWidth: '100%', height: 'auto' }} />
-        </div>
 
+
+
+
+</div>
+        </>
     )
 }

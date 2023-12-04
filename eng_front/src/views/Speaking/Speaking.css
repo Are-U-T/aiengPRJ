@@ -15,7 +15,6 @@
     padding-left: 70px;
 }
 
-
 .image-container img {
     width: 90%; /* 이미지 자체는 컨테이너의 너비에 맞춤 */
     height: auto; /* 높이는 자동으로 조절 */
@@ -31,8 +30,6 @@
 .image-container.hidden img {
     width: 90%; /* 원래의 너비를 유지 */
 }
-
-
 
 .subtitles-container {
     /*background: #f0f0f0; !* 밝은 회색 배경 *!*/
@@ -76,7 +73,6 @@
     font-weight: bold; /* 텍스트 강조 */
 }
 
-
 /* 반응형 레이아웃 조정 */
 @media (min-width: 768px) {
     .speaking-container {
@@ -92,7 +88,6 @@
         margin: auto; /* 가운데 정렬을 위한 자동 마진 */
     }
 }
-
 
 /* 버튼 컨테이너 스타일링 */
 .buttons-containerpp {
@@ -128,11 +123,8 @@
     position: relative;
 }
 
-
-
-
 .recording-active {
-    background-color: transparent;
+    background-colo: transparent;
     border: none;
     transition: transform 0.3s ease;
     animation: flame-effect 1s ease-in-out infinite;
@@ -154,7 +146,6 @@
     }
 }
 
-
 @keyframes blink {
     0%, 100% {
         color: black;
@@ -168,7 +159,6 @@
     animation: blink 0.5s linear infinite;
 }
 
-
 .mrt{
     margin-top: -140px;
 }
@@ -176,7 +166,6 @@
 .mrts{
     margin-top: -105px;
 }
-
 
 @media (min-width: 768px) {
     .speaking-container {
@@ -192,7 +181,6 @@
     }
 }
 
-
 .buttons-hidden-subtitles {
     /*display: flex;           !* Flexbox 레이아웃 적용 *!*/
     /*justify-content: center; !* 가로축 중앙 정렬 *!*/
@@ -201,7 +189,6 @@
     /*width: 1000px; !* 버튼의 너비를 자동으로 설정 *!*/
 
 }
-
 
 /* 질문 추천 공간 스타일링 */
 .question-suggestion-container {
@@ -256,7 +243,6 @@
     border-radius: 0px;
 }
 
-
 .junghunsub {
     max-height: 600px;
     overflow-y: auto;
@@ -280,7 +266,6 @@
     background-color: transparent;
     border-radius: 0px;
 }
-
 
 .junghunerr {
     max-height: 160px;
@@ -319,7 +304,6 @@
     position: relative;
 }
 
-
 @keyframes felf {
     0%, 100% {
         box-shadow: 0 0 60px yellow, 0 0 30px gold, 0 0 15px orange;
@@ -334,4 +318,3 @@
         box-shadow: 0 0 70px yellow, 0 0 35px orange, 0 0 20px gold;
     }
 }
-

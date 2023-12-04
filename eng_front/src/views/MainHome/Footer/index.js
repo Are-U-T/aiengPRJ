@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import  './style.css'
 import '../../../App.css'
-import up from './images/up.png';
-
+import up from './images/up.png'
 
 export default function Footer(){
 

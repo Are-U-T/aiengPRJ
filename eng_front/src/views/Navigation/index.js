@@ -7,7 +7,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import './Navigation.css'
 import { useNavigate } from 'react-router-dom';
 
-
 const Navigation = () => {
     const [userName, setUserName] = useState(null);
     const [show, setShow] = useState(true);
@@ -43,8 +42,6 @@ const Navigation = () => {
         setUserName(null);
         navigate('/login');
     };
-
-
 
     return (
         <Navbar expand="lg" sticky="top" className={`custom-navbar mr-auto ${show ? 'visible' : 'hidden'}`}>

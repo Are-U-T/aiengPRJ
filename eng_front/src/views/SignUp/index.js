@@ -18,7 +18,6 @@ import Radio from '@mui/material/Radio';
 import {useNavigate} from 'react-router-dom';
 import axios from "axios";
 import userValidation from './Validation';
-import '../../App.css';
 
 const defaultTheme = createTheme();
 
@@ -40,6 +39,16 @@ export default function SignInSide() {
         };
 
         try {
+            // // 첫 번째 요청: 이메일 검증
+            // const validateResponse = await fetch('http://localhost/user/save', {
+            //     method: 'put',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(userData),
+            // });
+            //
+            // if (validateResponse.status === 200) {
                 // 두 번째 요청: 사용자 정보 저장
                 const saveResponse = await fetch('http://localhost/user/save', {
                     method: 'put',
@@ -75,6 +84,7 @@ export default function SignInSide() {
             mail.focus();
             return false;
         }
+        ;
 
         // var mailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
         var mailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
@@ -110,6 +120,7 @@ export default function SignInSide() {
     function confirmNum() {
 
         const number = document.querySelector("input[id=number]");
+
         const num1 = $("#number").val();
 
         if (num1) {
@@ -133,7 +144,7 @@ export default function SignInSide() {
 
 
     return (
-        <div className='App'>
+        <>
             <ThemeProvider theme={defaultTheme}>
                 <Grid container component="main" sx={{ height: '100vh' }}>
                     <CssBaseline />
@@ -286,6 +297,6 @@ export default function SignInSide() {
                     </Grid>
                 </Grid>
             </ThemeProvider>
-        </div>
+        </>
     );
 }

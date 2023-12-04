@@ -24,4 +24,18 @@ public class ChattingService {
     public List<Map<String, String>> getGptContentList2(String crid , String speaker) {
         return chatGPTMapper.getGptContentList2(crid, speaker);
     }
+
+    public List<Map<String, String>> getScript(String crid) {
+        return chatGPTMapper.getScript(crid);
+    }
+
+//    public TalkingRoomDto getScriptDto(String crid) {
+//        return chatGPTMapper.getScriptDto(crid);
+//    }
+
+    public List<Map<String, String>> getScript2(String crid) {
+        return chatGPTMapper.getScript2(crid);
+    }
+
+    public int deleteResult(String crid) { return chatGPTMapper.deleteResult(crid); }
 }

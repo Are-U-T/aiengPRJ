@@ -1,0 +1,172 @@
+.start {
+    height: 12vh;
+}
+
+.script-container-main-popup {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 40em;
+}
+
+.script-container-main {
+    /*margin: 0 auto;*/
+    /*display: block;*/
+    width: 35.2em;
+    height: 42.5em;
+    user-select: none;
+    margin-bottom: 150px;
+}
+
+.script-container-popup {
+    margin-top: 8.3em;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.date {
+    font-family: "Noto Sans KR Black", sans-serif;
+    font-size: 20px;
+    color: #17264D;
+    margin-bottom: 0;
+}
+
+.scriptContainer {
+    margin: 0 auto;
+    display: block;
+    width: 35em;
+    height: 45em;
+    border-color: #17264D;
+    border-radius: 3px;
+    border-style: solid;
+}
+
+.container-sub1 {
+    background-color: #17264D;
+    width: 34.8em;
+    height: 5em;
+    padding: 8px 0;
+}
+
+.container-sub2 {
+    width: 30.7em;
+    height: 37em;
+    margin: 2em 0 2em 2em;
+    overflow-y: auto;
+}
+
+.scroll-container::-webkit-scrollbar {
+    width: 1px;
+}
+
+#scriptBtn {
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    font-size: 15px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    background: #1D2B64;
+    color: white;
+    padding: 3px 10px;
+    border: none;
+    /*margin-left: 1px;*/
+}
+
+.title-1 {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    font-size: 15px;
+    padding: 0 30px;
+    color: #ffffff;
+}
+
+.sayGPT {
+    font-family: "Noto Sans KR Black", sans-serif;
+    font-size: 17px;
+    margin-bottom: 2px;
+}
+
+.sayUser {
+    text-align: right;
+    font-family: "Noto Sans KR Black", sans-serif;
+    font-size: 17px;
+    margin-bottom: 2px;
+    height: 25px;
+}
+
+.sayCorrect {
+    text-align: right;
+    font-family: "Noto Sans KR Black", sans-serif;
+    font-size: 17px;
+    margin-bottom: 2px;
+}
+
+.script {
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    font-size: 15px;
+    padding: 7px 15px;
+    color: #ffffff;
+    background-color: #17264D;
+    border-radius: 10px;
+    display: inline-block;
+    max-width: 80%;
+    margin-bottom: 7px;
+    float: right;
+}
+
+.scriptGPT {
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    font-size: 15px;
+    padding: 7px 15px;
+    color: #000000;
+    border-style: solid;
+    border-width: 1.8px;
+    border-color: #17264D;
+    border-radius: 10px;
+    display: inline-block;
+    max-width: 80%;
+}
+
+.scriptCorrect {
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    font-size: 15px;
+    color: #ffffff;
+    padding: 7px 15px;
+    background-color: #E46565;
+    border-radius: 10px;
+    display: inline-block;
+    max-width: 80%;
+    float: right;
+}
+
+.scriptContent {
+    width: 100%;
+    float: right;
+}
+
+.popup {
+    position: fixed;
+    /*right: 350px;*/
+    /*width: 500px;*/
+    max-height: 100vh;
+    background-color: #ffffff;
+    padding: 10px;
+    overflow-y: auto;
+    width: 300px;
+}
+
+.scriptRecommend {
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    font-size: 15px;
+    padding: 7px 15px;
+    color: #000000;
+    border-style: solid;
+    border-width: 1.8px;
+    border-color: #17264D;
+    border-radius: 10px;
+    display: inline-block;
+    white-space: pre-wrap;
+}
