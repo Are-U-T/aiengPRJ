@@ -47,126 +47,41 @@ export default function MyProfile() {
     const [email, setEmail] = useState('');
     const userNum = sessionStorage.getItem('userNum');
 
-    useEffect(() => {
-        profile();
-    }, []);
 
-    const profile = async () => {
-
-        const data = {
-            userNum
-        };
-
-        try {
-            const response = await axios.post('http://localhost/user/mypage', data);
-            setUserProfile(response.data);
-            setEmail(response.data.email);
-            console.log('유저 프로필:', response.data); // 응답 로깅
-        } catch (error) {
-            console.error('프로필 불러오는 중 오류 발생:', error);
-        }
-    };
-
-    async function sendNum() {
-
-        const mail = document.querySelector("input[id=mail]");
-
-        if (mail.value == "") {
-            alert("이메일을 입력하세요.");
-            mail.focus();
-            return false;
-        }
-
-        // var mailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
-        var mailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
-        if (!mailRegExp.test(mail.value)) {
-            alert("올바른 이메일을 입력해주세요.");
-            mail.focus();
-            mail.value = "";
-            return false;
-        }
-
-        const emailData = {
-            email: $("#mail").val(),
-        };
-
-        try {
-            const response = await axios.post('http://localhost/mail', emailData, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (response.status === 200) {
-                console.log('Email sent successfully.');
-            } else {
-                console.error('Failed to send email.');
-            }
-        } catch (error) {
-            console.error('Error during email sending:', error);
-        }
-    }
-
-    function confirmNum() {
-
-        const number = document.querySelector("input[id=number]");
-
-        const num1 = $("#number").val();
-
-        if (num1) {
-            axios.post("http://localhost/confirm", {
-                num1: num1,
-            })
-                .then((response) => {
-                    if (response.data === "success") {
-                        alert("인증 성공");
-                    } else {
-                        alert("인증 실패");
-                        number.focus();
-                        number.value = "";
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-    }
-
-    const handleSubmit = async (event) => {
-        // userValidation();
+    async function handleSubmit(event) {
         event.preventDefault();
+        if (userValidation(name, password, email)) {
+            let sex = (gender === "female") ? 0 : 1;
 
-        const userData = {
-            email: email,
-            pw: password,
-            name: name,
-            gender: gender,
-            num: userNum
-        };
+            const userData = {
+                email: email,
+                pw: password,
+                name: name,
+                gender: sex,
+                num: userNum
+            };
 
-        try {
-            // 두 번째 요청: 사용자 정보 저장
-            const saveResponse = await fetch('http://localhost/user/editById', {
-                method: 'put',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData),
-            });
+            try {
+                const saveResponse = await fetch('http://localhost/user/editById', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData),
+                });
 
-            if (saveResponse.ok) {
-                console.log('User registered successfully.');
-                navigate('/mypage');
-            } else {
-                console.error('Failed to register user.');
+                if (saveResponse.ok) {
+                    console.log('User registered successfully.');
+                    navigate('/mypage');
+                } else {
+                    console.error('Failed to register user.');
+                }
+            } catch (error) {
+                console.error('Error during registration:', error);
             }
-            // } else {
-            //     console.error('Email validation failed.');
-            // }
-        } catch (error) {
-            console.error('Error during registration:', error);
         }
-    };
+    }
+
 
     return (
         <Container>
