@@ -72,7 +72,10 @@ export default function MyProfile() {
 
                 if (saveResponse.ok) {
                     console.log('User registered successfully.');
+                    sessionStorage.setItem('userName', name);
                     navigate('/mypage');
+
+
                 } else {
                     console.error('Failed to register user.');
                 }
