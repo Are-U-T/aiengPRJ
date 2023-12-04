@@ -65,6 +65,13 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
         }
     }, [userNum]);
 
+    useEffect(() => {
+        if (userNum == null) {
+            // 모달 창 띄워서 로그인 하세요 하고 확인 누르면 로그인 창으로 보내기
+            setLoginModalOpen(true);
+        }
+    }, [userNum]);
+
     const closeModalAndNavigate = () => {
         setLoginModalOpen(false);
         navigate('/login');
@@ -432,6 +439,18 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                     </button>
                 </ModalResult>
             )}
+
+            <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
+
+                <div className="speechModalCenter">
+                    <img src={loginImg} alt='로그인 이미지' className="speechLoginImg"/>
+                    <h4>로그인 후 이용해 주세요</h4>
+                    <button onClick={closeModalAndNavigate} className="modal-custom-button">
+                        닫기
+                    </button>
+                </div>
+            </Modal>
+
         </div>
     );
 }
