@@ -34,4 +34,6 @@ public interface ChatGPTMapper {
 //    @Select("SELECT CRID, SITUATION, LV, GPTROLE, USERROLE, REGDATE FROM CHAT_ROOM WHERE CRID = #{crid}")
 //    TalkingRoomDto getScriptDto(@Param("crid") String crid);
 
+    @Delete("DELETE FROM CHAT_ROOM WHERE CRID = #{crid}")
+    int deleteResult(@Param("crid") String crid);
 }

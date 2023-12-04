@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import profile from './images/user.png';
+import profile from '../MyPage/MypageArea/images/user.png';
 import logo from './images/logo.png'
 import Dropdown from 'react-bootstrap/Dropdown';
 import './Navigation.css'
@@ -43,8 +43,6 @@ const Navigation = () => {
         navigate('/login');
     };
 
-
-
     return (
         <Navbar expand="lg" sticky="top" className={`custom-navbar mr-auto ${show ? 'visible' : 'hidden'}`}>
             <Navbar.Brand href="/">
@@ -67,7 +65,6 @@ const Navigation = () => {
                                 <img src={profile} alt="Profile" />
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
-                                <Dropdown.Item href="/change">개인정보 수정</Dropdown.Item>
                                 <Dropdown.Item href="/mypage">마이페이지</Dropdown.Item>
                                 <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
                             </Dropdown.Menu>

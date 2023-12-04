@@ -47,4 +47,14 @@ public class UserServiceImp implements UserService{
         return uDao.editLevel(uDto);
     }
 
+    @Override
+    public int getExperienceByUserNum(String userNum) {
+        return uDao.getExperienceByUserNum(userNum);
+    }
+
+    @Override
+    public int addExperience(UserDTO userDTO) {
+        return uDao.addExperience(userDTO);
+    }
+
 }

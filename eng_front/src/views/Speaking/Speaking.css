@@ -15,7 +15,6 @@
     padding-left: 70px;
 }
 
-
 .image-container img {
     width: 90%; /* 이미지 자체는 컨테이너의 너비에 맞춤 */
     height: auto; /* 높이는 자동으로 조절 */
@@ -31,8 +30,6 @@
 .image-container.hidden img {
     width: 90%; /* 원래의 너비를 유지 */
 }
-
-
 
 .subtitles-container {
     /*background: #f0f0f0; !* 밝은 회색 배경 *!*/
@@ -76,7 +73,6 @@
     font-weight: bold; /* 텍스트 강조 */
 }
 
-
 /* 반응형 레이아웃 조정 */
 @media (min-width: 768px) {
     .speaking-container {
@@ -93,43 +89,14 @@
     }
 }
 
-
-/* 질문 추천 공간 스타일링 */
-.question-suggestion-container {
-    padding: 25px;
-    margin-top: 20px;
-    border: 2px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    color: #333333;
-    transition: all 0.3s ease;
-}
-
-/* 오타 수정 공간 스타일링 */
-.typo-correction-container {
-    padding: 25px;
-    margin-top: 50px;
-    border: 2px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    color: #333333;
-    transition: all 0.3s ease;
-    width: 450px;
-    margin-left: 75px;
-
-}
-
-
 /* 버튼 컨테이너 스타일링 */
 .buttons-containerpp {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 50px;
-    margin-top: 30px;
-    margin-left: 20px;
+    gap: 70px;
+    margin-top: 40px;
+    margin-right: 60px;
 }
 
 /* 버튼 스타일링 */
@@ -156,14 +123,11 @@
     position: relative;
 }
 
-
-
-
 .recording-active {
-    background-color: transparent;
+    background-colo: transparent;
     border: none;
     transition: transform 0.3s ease;
-    animation: flame-effect 1s ease-in-out infinite, float 2s ease-in-out infinite;
+    animation: flame-effect 1s ease-in-out infinite;
     position: relative;
 }
 
@@ -182,8 +146,6 @@
     }
 }
 
-
-
 @keyframes blink {
     0%, 100% {
         color: black;
@@ -197,19 +159,13 @@
     animation: blink 0.5s linear infinite;
 }
 
-
-
-
-
-
 .mrt{
     margin-top: -140px;
 }
 
 .mrts{
-    margin-top: -125px;
+    margin-top: -105px;
 }
-
 
 @media (min-width: 768px) {
     .speaking-container {
@@ -225,7 +181,6 @@
     }
 }
 
-
 .buttons-hidden-subtitles {
     /*display: flex;           !* Flexbox 레이아웃 적용 *!*/
     /*justify-content: center; !* 가로축 중앙 정렬 *!*/
@@ -233,5 +188,133 @@
     /*padding-right: 500px;*/
     /*width: 1000px; !* 버튼의 너비를 자동으로 설정 *!*/
 
+}
 
+/* 질문 추천 공간 스타일링 */
+.question-suggestion-container {
+    padding: 15px;
+    margin-top: 20px;
+    border: 2px;
+    border-radius: 10px;
+    text-align: left;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    color: #333333;
+    transition: all 0.3s ease;
+    height : 180px;
+}
+
+/* 오타 수정 공간 스타일링 */
+.typo-correction-container {
+    padding: 15px;
+    margin-top: 120px;
+    border: 2px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    color: #333333;
+    transition: all 0.3s ease;
+    width: 500px;
+    height: 240px;
+    margin-left: 40px;
+    text-align: left;
+
+}
+
+.junghun {
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+.junghun::-webkit-scrollbar {
+    width: 1px;
+    background-color: transparent;
+}
+
+.junghun::-webkit-scrollbar-thumb {
+    background-color: #d0d0d0;
+    border-radius: 4px;
+}
+
+.junghun::-webkit-scrollbar-thumb:hover {
+    background-color: #a0a0a0;
+}
+
+.junghun::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 0px;
+}
+
+.junghunsub {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.junghunsub::-webkit-scrollbar {
+    width: 1px;
+    background-color: transparent;
+}
+
+.junghunsub::-webkit-scrollbar-thumb {
+    background-color: #d0d0d0;
+    border-radius: 4px;
+}
+
+.junghunsub::-webkit-scrollbar-thumb:hover {
+    background-color: #a0a0a0;
+}
+
+.junghunsub::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 0px;
+}
+
+.junghunerr {
+    max-height: 160px;
+    overflow-y: auto;
+}
+
+.junghunerr::-webkit-scrollbar {
+    width: 1px;
+    background-color: transparent;
+}
+
+.junghunerr::-webkit-scrollbar-thumb {
+    background-color: #d0d0d0;
+    border-radius: 4px;
+}
+
+.junghunerr::-webkit-scrollbar-thumb:hover {
+    background-color: #a0a0a0;
+}
+
+.junghunerr::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 0px;
+}
+
+.vvi{
+    margin-top: 20px;
+    padding-right: 150px;
+}
+
+.tuof {
+    background-color: transparent;
+    border: none;
+    transition: transform 0.3s ease;
+    animation: felf 1s ease-in-out infinite;
+    position: relative;
+}
+
+@keyframes felf {
+    0%, 100% {
+        box-shadow: 0 0 60px yellow, 0 0 30px gold, 0 0 15px orange;
+    }
+    25% {
+        box-shadow: 0 0 70px orange, 0 0 35px gold, 0 0 20px yellow;
+    }
+    50% {
+        box-shadow: 0 0 60px gold, 0 0 30px yellow, 0 0 15px orange;
+    }
+    75% {
+        box-shadow: 0 0 70px yellow, 0 0 35px orange, 0 0 20px gold;
+    }
 }

@@ -119,7 +119,6 @@ public class UserController {
         return null;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getLevel")
     public int getLevel(@RequestParam(name = "userNum") String userNum) {
         System.out.println("userNum:"+userNum);
@@ -136,7 +135,32 @@ public class UserController {
 
     @PostMapping("/saveLevel")
     public int saveLevel(@RequestBody UserDTO uDto) {
+        uDto.setExperience(0);
+        uService.addExperience(uDto);
+
         System.out.println(uDto);
         return uService.editLevel(uDto);
+    }
+
+    @PostMapping("/addExperience")
+    public int addExperience(@RequestParam(name = "userNum") String userNum) {
+        int experience = uService.getExperienceByUserNum(userNum);
+        int saveEx;
+        if(experience>=90){
+            saveEx = 100;
+        }else {
+            saveEx = experience+10;
+        }
+        UserDTO userDTO = new UserDTO();
+        userDTO.setNum(userNum);
+        userDTO.setExperience(saveEx);
+
+
+        return uService.addExperience(userDTO);
+    }
+
+    @GetMapping("/getExperience")
+    public int getExperience(@RequestParam(name = "userNum") String userNum) {
+        return uService.getExperienceByUserNum(userNum);
     }
 }

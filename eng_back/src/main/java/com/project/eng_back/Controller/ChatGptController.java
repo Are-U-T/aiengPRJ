@@ -78,8 +78,9 @@ public class ChatGptController {
             // 이미 추천 받은 질문 제외하고 다른 질문 받기
             recommended = String.format("You're my %s, and I'm your %s. " +
                             "We're in a situation is '%s'. " +
-                            "Apart from previous questions such as " + recommendedList.toString()
-                            + "And answer only recommended question.",
+                            "Apart from previous questions such as " + recommendedList.toString() +
+                            ", please recommend other one questions."
+                            + "And answer without the number.",
                     questionRequestDto.getGPTRole(), questionRequestDto.getUserRole(), questionRequestDto.getSituation());
         }
 
@@ -113,7 +114,7 @@ public class ChatGptController {
                         "And when answering, answer without your roles. " +
                         "You just have to play the role of the %s. " +
                         "And when conversing, please only use ‘%s’",
-                gptRole, userRole, situation, gptRole, level);
+                gptRole, userRole, situation, gptRole, userRole, level);
 
         ChatGptResponseDto gptResponseDto = chatGptService.setSituation(new QuestionRequestDto(initialQuestion));
 
@@ -234,6 +235,23 @@ public class ChatGptController {
         } else {
             return null;
         }
+    }
+
+    public Choice alternativeExpression(String textToConvert) {
+
+        ChatGptResponseDto gptResponseDto = chatGptService.alternativeExpression(textToConvert);
+        Choice answer = extractChoiceFromResponse(gptResponseDto, textToConvert);
+        return answer;
+    }
+
+    public String alternativeExpressionOutput(String textToConvert) {
+        ChatGptResponseDto gptResponseDto = chatGptService.askQuestion(questionRequestDto, conversationHistory);
+        Choice gptResponseChoice = extractChoiceFromResponse(gptResponseDto, textToConvert);
+        gptResponseChoice = alternativeExpression(textToConvert);
+        String output = gptResponseChoice.getText();
+
+
+        return output;
     }
 
     // 아래부터는 파이썬에 open ai 에 요청 보내는 코드들임 ,, 근데 실패함 ㅋ

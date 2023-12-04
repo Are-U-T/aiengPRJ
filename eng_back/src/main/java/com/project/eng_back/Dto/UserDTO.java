@@ -32,6 +32,8 @@ public class UserDTO {
 
     private int lv;
 
+    private int experience;
+
     private int del;
 
     private LocalDateTime regDate;

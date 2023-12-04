@@ -36,4 +36,6 @@ public class ChattingService {
     public List<Map<String, String>> getScript2(String crid) {
         return chatGPTMapper.getScript2(crid);
     }
+
+    public int deleteResult(String crid) { return chatGPTMapper.deleteResult(crid); }
 }

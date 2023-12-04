@@ -21,7 +21,6 @@ import { jwtDecode } from 'jwt-decode';
 import KakaoLogin from "react-kakao-login";
 import Frame3 from "./images/Frame3.png";
 import Frame4 from "./images/Frame4.png";
-import mic from "../Speaking/images/mic.png";
 
 function ColorSchemeToggle(props) {
     const { mode, setMode } = useColorScheme();

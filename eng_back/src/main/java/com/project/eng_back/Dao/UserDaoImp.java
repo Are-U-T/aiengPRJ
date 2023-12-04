@@ -44,4 +44,14 @@ public class UserDaoImp implements UserDao {
     public int getLevelByUserNum(String userNum) {
         return uMapper.getLevelByUserNum(userNum);
     }
+
+    @Override
+    public int getExperienceByUserNum(String userNum) {
+        return uMapper.getExperienceByUserNum(userNum);
+    }
+
+    @Override
+    public int addExperience(UserDTO userDTO) {
+        return uMapper.addExperience(userDTO);
+    }
 }

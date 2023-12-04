@@ -30,7 +30,6 @@ public class ChattingController {
         String crid = request.get("crid");
         String speaker = request.get("speaker");
         String unum = request.get("unum");
-//        System.out.println("speaker: " + speaker);
         return chattingService.getGptContentList2(crid, speaker);
     }
 
@@ -77,6 +76,17 @@ public class ChattingController {
         return chattingService.getScript2(crid);
     }
 
+    @PostMapping("/deleteRoom")
+    public int deleteRoom(@RequestBody Map<String, String> request) {
+        String crid = request.get("crid");
+
+        System.out.println("(deleteRoom) crid: " + crid);
+
+        chattingService.deleteResult(crid);
+
+        return chattingService.deleteResult(crid);
+    }
+
 //    @PostMapping("/scriptDto")
 //    public TalkingRoomDto getContentListDto(@RequestBody Map<String, String> request) {
 //        String crid = request.get("crid");
@@ -90,5 +100,4 @@ public class ChattingController {
 //
 //        return talkingRoomDto;
 //    }
-
 }
