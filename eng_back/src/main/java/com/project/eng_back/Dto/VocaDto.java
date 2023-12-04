@@ -13,6 +13,8 @@ public class VocaDto {
 
     private String word;
 
+    private String resultWord;
+
     public void setCrid(String crid) {
         this.crid = crid;
     }
@@ -23,5 +25,9 @@ public class VocaDto {
 
     public void setWord(String word) {
         this.word = word;
+    }
+
+    public void setResultWord(String resultWord) {
+        this.resultWord = resultWord;
     }
 }

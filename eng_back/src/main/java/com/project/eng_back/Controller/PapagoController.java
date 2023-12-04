@@ -19,12 +19,15 @@ public class PapagoController {
     @Autowired
     NaverPapagoService naverPapagoService;
 
-    @GetMapping("/papago")
-    public String papagoAPI(@RequestParam String search) {
+    @PostMapping("/papago")
+    public String papagoAPI(@RequestBody String search) {
 
         logger.info("***** *****");
         logger.info("papago 사용 전 text: {}", search);
+
         naverPapagoService.getTransSentence(search);
+        logger.info("***** *****");
+        logger.info("papago: {}", naverPapagoService.getTransSentence(search));
 
         return naverPapagoService.getTransSentence(search);
     }

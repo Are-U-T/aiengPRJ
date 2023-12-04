@@ -16,8 +16,6 @@ import '../../App.css';
 import './ModalStart2.css'
 import aimale from "./images/aimale.mp4";
 import aifemale from "./images/aifemale.mp4";
-import loginImg from "../Speech/images/loginImg.png";
-import userValidation from "../SignUp/Validation";
 
 
 function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
@@ -107,12 +105,12 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     }, [crid]);
 
     // 대화 업데이트 시 추천 질문도 업데이트
-    useEffect(() => {
-        const subtitleInterval = setInterval(() => {
-            updateRecommendedQuestions("recommend");
-        }, 200000); // 2분 마다 업데이트
-        return () => clearInterval(subtitleInterval);
-    }, [crid]);
+    // useEffect(() => {
+    //     const subtitleInterval = setInterval(() => {
+    //         updateRecommendedQuestions("recommend");
+    //     }, 200000); // 2분 마다 업데이트
+    //     return () => clearInterval(subtitleInterval);
+    // }, [crid]);
 
 
     // 일정한 간격으로 서버에서 자막을 가져오는 함수
@@ -299,44 +297,47 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
     const searchBtn = async (event) => {
 
-            event.preventDefault();
+        event.preventDefault();
 
-            const userData = {};
+        try {
+            // papago API
+            const response = await fetch('http://localhost/api/papago', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(inputSearch),
+            });
+            console.log(response);
 
-            try {
-                // papago API
-                const response = await fetch(`http://localhost/api/papago?search=${inputSearch}`);
+            if (response.ok) {
+                const searchData = await response.text();
 
-                if (response.ok) {
-                    const searchData = await response.json();
-
-                    const data = {
-                        crid,
-                        unum: userNum,
-                        word: inputSearch
-                    }
-
-                    const saveResponse = await fetch('http://localhost/voca/insert', {
-                        method: 'post',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data),
-                    });
-                    if (saveResponse.ok) {
-                        console.log('successfully.');
-                    } else {
-                        console.error('Failed.');
-                    }
-
+                const data = {
+                    crid,
+                    unum: userNum,
+                    word: inputSearch,
+                    resultWord: searchData
                 }
-            } catch
-                (error) {
-                console.error('papago Error:', error);
-            }
-        }
-    ;
 
+                const saveResponse = await fetch('http://localhost/voca/insert', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+                if (saveResponse.ok) {
+                    console.log('successfully.');
+                } else {
+                    console.error('Failed.');
+                }
+            }
+        } catch
+            (error) {
+            console.error('papago Error:', error);
+        }
+    };
 
     return (
         <div className='App'>
@@ -482,12 +483,17 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
             )}
 
             <div>
+                <div className="wordSearch">
                 <input
                     type="text"
                     value={inputSearch}
                     onChange={(e) => setInputSearch(e.target.value)}
                 />
                 <button onClick={searchBtn}>검색</button>
+                </div>
+                <div className="wordList">
+
+                </div>
             </div>
         </div>
     );

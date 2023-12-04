@@ -7,6 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface VocaMapper {
 
-    @Insert("insert into VOCA (CRID, UNUM, WORD) values (#{crid}, #{unum},#{word})")
+    @Insert("insert into VOCA (CRID, UNUM, WORD, RESULTWORD) values (#{crid}, #{unum}, #{word}, #{resultWord})")
     int save(VocaDto vocaDto);
 }
