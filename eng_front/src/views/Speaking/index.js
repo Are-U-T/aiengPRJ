@@ -17,6 +17,8 @@ import './ModalStart2.css'
 import aimale from "./images/aimale.mp4";
 import aifemale from "./images/aifemale.mp4";
 import loginImg from "../Speech/images/loginImg.png";
+import userValidation from "../SignUp/Validation";
+
 
 function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const [timeSpent, setTimeSpent] = useState(300); // 페이지에 머문 시간
@@ -38,6 +40,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
     const [startModalOpen2, setStartModalOpen2] = useState(false);
     const [isTurningOff, setIsTurningOff] = useState(false);
+    const [inputSearch, setInputSearch] = useState('');
 
     // 사진과 자막 컨테이너의 동적 스타일을 위한 클래스
     const imageContainerClass = showSubtitles ? "image-container" : "image-container expanded";
@@ -294,6 +297,47 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
         }
     };
 
+    const searchBtn = async (event) => {
+
+            event.preventDefault();
+
+            const userData = {};
+
+            try {
+                // papago API
+                const response = await fetch(`http://localhost/api/papago?search=${inputSearch}`);
+
+                if (response.ok) {
+                    const searchData = await response.json();
+
+                    const data = {
+                        crid,
+                        unum: userNum,
+                        word: inputSearch
+                    }
+
+                    const saveResponse = await fetch('http://localhost/voca/insert', {
+                        method: 'post',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    });
+                    if (saveResponse.ok) {
+                        console.log('successfully.');
+                    } else {
+                        console.error('Failed.');
+                    }
+
+                }
+            } catch
+                (error) {
+                console.error('papago Error:', error);
+            }
+        }
+    ;
+
+
     return (
         <div className='App'>
             <Navigation/>
@@ -301,7 +345,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                 <div style={{maxWidth: '600px', margin: 'auto'}}>
                     <h3 className='gh' style={{textAlign: 'center'}}>사용방법 안내</h3>
                     <div className="micq">
-                        <img src={mic} alt='mic' width='25px' height='25px'/> <img src={micno} alt='mic' width='25px'
+                        <img src={mic} alt='mic' width='25px' height='25px'/> <img src={micno} alt='mic'
+                                                                                   width='25px'
                                                                                    height='25px'/>
                         <p>마이크를 켜거나 끌 수 있습니다.</p>
 
@@ -320,9 +365,11 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                         <p><strong>질문 추천 섹션:</strong> 사용자가 선택한 상황에 맞는 질문을 2분마다 자동으로 제안합니다.</p>
 
                         <div className='redcss'>
-                            <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 대화내용을 끄게 되면 오타 섹션과 질문추천 섹션도 함께
+                            <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 대화내용을 끄게 되면 오타 섹션과 질문추천 섹션도
+                            함께
                             닫힙니다.<br/>
-                            <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 마이크를 켜면 시간이 줄어들며, 멈추면 시간이 줄어들지
+                            <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 마이크를 켜면 시간이 줄어들며, 멈추면 시간이
+                            줄어들지
                             않습니다.
                         </div>
                     </div>
@@ -388,7 +435,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                         </button>
 
                         <button onClick={toggleSubtitles}>
-                            <img src={showSubtitles ? subtitle : subtitleno} alt={showSubtitles ? "자막 숨기기" : "자막 보이기"}
+                            <img src={showSubtitles ? subtitle : subtitleno}
+                                 alt={showSubtitles ? "자막 숨기기" : "자막 보이기"}
                                  style={{width: '35px', height: '35px'}}/>
                         </button>
                         <button onClick={() => setIsModal2Open(true)}>
@@ -432,6 +480,15 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                     </button>
                 </ModalResult>
             )}
+
+            <div>
+                <input
+                    type="text"
+                    value={inputSearch}
+                    onChange={(e) => setInputSearch(e.target.value)}
+                />
+                <button onClick={searchBtn}>검색</button>
+            </div>
         </div>
     );
 }
