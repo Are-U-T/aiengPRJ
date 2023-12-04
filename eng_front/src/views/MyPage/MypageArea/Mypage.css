@@ -12,10 +12,11 @@
     border-color: #1D2B64;
     width: 250px;
     height: 550px;
-    max-width: 1200px;
+    max-width: 1300px;
     max-height: 95vh;
     overflow: auto;
     position: relative;
+    animation: slideUp 0.3s;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     background: #f8f8f8;
 }
@@ -65,11 +66,13 @@
     background: #1D2B64;
     color: white;
     padding: 10px;
-    width: 9%;
+    width: 75px;
     height: 40px;
     text-align: center;
     font-size: 12px;
-    font-family: "Noto Sans KR Medium", "sans-serif";
+    font-family: "Noto Sans KR Medium","sans-serif";
+    margin-right: 10px;
+    float: left;
 }
 
 .MypageListItem p {
@@ -144,15 +147,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 5px;
-    background: #E46565;
-    color: white;
-    padding: 10px;
-    width: 45px;
+    width: 40px;
     height: 40px;
-    text-align: center;
-    font-size: 12px;
-    font-family: "Noto Sans KR Medium", "sans-serif";
+    margin-right: 10px;
+    background-color: #E46565;
+    border-radius: 5px;
+    border: none;
+    margin-left: 2px;
 }
 
 .modal-titlea {

@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 import ProgressBar from "./ProgressBar";
 import ModalChange from './ModalChange';
 import '../../../App.css'
+import trash1 from './images/trash1.png';
 
 export default function MypageArea() {
 
@@ -165,7 +166,7 @@ export default function MypageArea() {
                         </>
                     )}
 
-                    <div className="MypageContainer" style={{width: '1200px'}}>
+                    <div className="MypageContainer" style={{width: '1250px'}}>
                         <div style={{
                             marginTop: '20px',
                             justifyContent: "space-around",
@@ -190,15 +191,17 @@ export default function MypageArea() {
                                         {chattingRoom.SITUATION}
                                     </p>
                                     <p className="MypageList">{chattingRoom.USERROLE}</p>
-                                    <p className="MypageList">{chattingRoom.GPTROLE}</p>
-                                    <p className="MypageList">{chattingRoom.LV}</p>
-                                    <p className="MypageList">{chattingRoom.COUNTRY}</p>
-                                    <p className="MypageList">{formatDate(chattingRoom.REGDATE)}</p>
-                                    <div className="MypageResultBtn"
-                                         onClick={() => handleClick(chattingRoom.CRID)}>결과보기
-                                    </div>
-                                    <div className="ResultDeleteBtn"
-                                         onClick={() => deleteResult(chattingRoom.CRID)}>삭제
+                                    <p className="MypageList" style={{paddingLeft : '13px'}}>{chattingRoom.GPTROLE}</p>
+                                    <p className="MypageList" style={{paddingLeft : '13px'}}>{chattingRoom.LV}</p>
+                                    <p className="MypageList" style={{paddingRight : '15px'}}>{chattingRoom.COUNTRY}</p>
+                                    <p className="MypageList" style={{paddingRight : '40px'}}>{formatDate(chattingRoom.REGDATE)}</p>
+                                    <div className="butt">
+                                        <button className="MypageResultBtn"
+                                                onClick={() => handleClick(chattingRoom.CRID)}>결과보기
+                                        </button>
+                                        <button className="ResultDeleteBtn"  onClick={() => deleteResult(chattingRoom.CRID)}>
+                                            <img src={trash1} width='18px' height='20px'></img>
+                                        </button>
                                     </div>
                                     <div className="grayline"/>
                                 </div>

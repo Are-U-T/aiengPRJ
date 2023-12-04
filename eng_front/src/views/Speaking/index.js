@@ -64,6 +64,64 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
     const videoRef = useRef(null);
 
+    const [timeSpent2, setTimeSpent2] = useState(5000);
+
+    useEffect(() => {
+        const activationThreshold = 0; // 閾值，1 秒為 1000 毫秒
+        const intervalId = setInterval(() => {
+            if (timeSpent2 <= activationThreshold) {
+                handleMicActivation();
+                setTimeSpent2(5000); // 重設時間
+            } else {
+                // 減少時間
+                setTimeSpent2((prevTime) => prevTime - 5000);
+            }
+        }, 5000); // 每秒觸發一次
+
+        // 在組件卸載時清理計時器
+        return () => clearInterval(intervalId);
+    }, [timeSpent2]);
+
+
+    const handleMicActivation = async () => {
+        // 在這裡實現向後端發送消息的邏輯
+        console.log('麥克風在 30 秒內未啟用。向後端發送消息。');
+
+        try {
+
+            // 发送音频数据到后台
+            const response = await axios.post('http://localhost/api/audio/autoQuestion', null, {
+                params: {
+                    text: "ask me a question",
+                    userNum: userNum,
+                },
+                responseType: 'arraybuffer', // 设置响应类型为二进制数组
+            });
+
+            if (response.status === 200) {
+                const audioBlob = new Blob([response.data], {type: 'audio/mp3'});
+                const url = URL.createObjectURL(audioBlob);
+                console.log('Audio sent successfully:', url);
+
+                // 直接播放音频
+                const audioElement = new Audio(url);
+                audioElement.play();
+
+                videoRef.current.play();
+                audioElement.addEventListener('ended', () => {
+                    videoRef.current.pause();
+                });
+            } else {
+                console.error('Failed to send audio. Status code:', response.status);
+            }
+        } catch (error) {
+            console.error('Error sending audio:', error);
+        }
+
+        setIsTurningOff(false);
+        console.log('Recording stopped');
+    };
+
     useEffect(() => {
         if (userNum == null) {
             // 모달 창 띄워서 로그인 하세요 하고 확인 누르면 로그인 창으로 보내기
@@ -110,12 +168,12 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     }, [crid]);
 
     // 대화 업데이트 시 추천 질문도 업데이트
-    // useEffect(() => {
-    //     const subtitleInterval = setInterval(() => {
-    //         updateRecommendedQuestions("recommend");
-    //     }, 200000); // 2분 마다 업데이트
-    //     return () => clearInterval(subtitleInterval);
-    // }, [crid]);
+    useEffect(() => {
+        const subtitleInterval = setInterval(() => {
+            updateRecommendedQuestions("recommend");
+        }, 200000); // 2분 마다 업데이트
+        return () => clearInterval(subtitleInterval);
+    }, [crid]);
 
 
     // 일정한 간격으로 서버에서 자막을 가져오는 함수
@@ -182,26 +240,6 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
         }
     }, [timeSpent, isModalOpen]); // 의존성 배열에 isModalOpen을 추가
 
-
-    useEffect(() => {
-        let timer;
-        if (isRecording && timeSpent > 0) {
-            // 녹음 중이고 시간이 남아 있을 때만 시간 감소
-            timer = setInterval(() => {
-                setTimeSpent(time => time - 1);
-            }, 1000);
-        } else if (!isRecording || timeSpent === 0) {
-            // 녹음이 중지되거나 시간이 0에 도달했을 때 호출
-            clearInterval(timer);
-            if (timeSpent === 0) {
-                handleTimeLimitReached();
-            }
-        }
-
-        // 컴포넌트가 언마운트 되거나 isRecording, timeSpent가 변경될 때 타이머 정리
-        return () => clearInterval(timer);
-    }, [isRecording, timeSpent]);
-
     // 시간을 분과 초로 변환하는 함수
     const formatTime = (totalSeconds) => {
         const minutes = Math.floor(totalSeconds / 60);
@@ -228,6 +266,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     };
 
     const startRecording = () => {
+        setTimeSpent2(50000);
+
         recorder.start().then(() => {
             setIsRecording(true);
         }).catch((e) => console.error(e));

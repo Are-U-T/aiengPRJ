@@ -90,6 +90,7 @@ const ResultPage = () => {
                     <img src={LV1} style={{maxWidth: '100%', width: 'auto', height: 'auto'}}/>
                 )}
             </div>
+
         </>
     );
 };
