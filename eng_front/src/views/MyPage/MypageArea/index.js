@@ -96,6 +96,10 @@ export default function MypageArea() {
         navigate('/script', {state: {crid}});
     };
 
+    const handleVoca = () => {
+        navigate('/voca');
+    };
+
     const gender = (userGender) => {
         if (userGender == 1) {
             setGender("남성");
@@ -126,12 +130,12 @@ export default function MypageArea() {
     return (
         <>
             <div className='App'>
-                <div className="MypageCenter" style={{marginTop: '200px'}}>
+                <div className="MypageCenter" style={{marginTop: '150px'}}>
                     {userProfile && (
                         <>
                             <div className="MypageContainer" style={{marginRight: '30px'}}>
-                                <div style={{marginBottom: '30px'}}/>
-                                <h5 className="MypageName" style={{marginTop: '20px'}}>{userProfile.name}</h5>
+                                <div style={{marginBottom: '20px'}}/>
+                                <h4 className="MypageName" style={{marginTop: '10px'}}>{userProfile.name}</h4>
                                 <div className="grayline"/>
                                 <h5 className="MypageName">{userProfile.email}</h5>
                                 <div className="grayline"/>
@@ -148,7 +152,9 @@ export default function MypageArea() {
                                         </>
                                     )}
                                 </div>
-                                <div className="grayline" style={{marginBottom: '15px', marginTop: '15px'}}/>
+                                <div className="grayline" style={{marginBottom: '20px', marginTop: '20px'}}/>
+                                <button className="MypageBtn" onClick={handleVoca}>단어장 복습</button>
+                                <div className="grayline" style={{marginBottom: '20px', marginTop: '20px'}}/>
                                 <button className="MypageBtn" onClick={() => {
                                     setModalInfo(true);
                                     change();

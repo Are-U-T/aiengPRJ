@@ -16,7 +16,7 @@ import '../../App.css';
 import './ModalStart2.css'
 import aimale from "./images/aimale.mp4";
 import aifemale from "./images/aifemale.mp4";
-
+import loginImg from "../Speech/images/loginImg.png";
 
 function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const [timeSpent, setTimeSpent] = useState(300); // 페이지에 머문 시간
@@ -56,6 +56,11 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     // 남자 여자 확인
     const gender = location.state?.gender;
     const videoSource = gender === 0 ? aimale : aifemale;
+
+    // 단어장
+    const [getWord, setGetWord] = useState([]);
+    const [sourceLang, setSourceLang] = useState("ko");
+    const [targetLang, setTargetLang] = useState("en");
 
     const videoRef = useRef(null);
 
@@ -306,7 +311,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(inputSearch),
+                body: JSON.stringify({sourceLang, targetLang, search: inputSearch}),
             });
             console.log(response);
 
@@ -328,16 +333,36 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                     body: JSON.stringify(data),
                 });
                 if (saveResponse.ok) {
+                    userWord();
                     console.log('successfully.');
                 } else {
                     console.error('Failed.');
                 }
+                setInputSearch('');
             }
         } catch
             (error) {
             console.error('papago Error:', error);
         }
     };
+
+    // 단어장
+    const userWord = async () => {
+        try {
+            const response = await axios.post('http://localhost/voca/getWord', {crid});
+            console.log('응답:', response.data);
+            setGetWord(response.data);
+        } catch (error) {
+            console.error('error: ', error);
+        }
+    };
+
+    const changeLang = () => {
+        // 현재 sourceLang이 'ko'인 경우, 'en'으로 변경하고 targetLang도 'ko'로 변경
+        // 현재 sourceLang이 'en'인 경우, 'ko'로 변경하고 targetLang도 'en'으로 변경
+        setSourceLang((prevLang) => (prevLang === 'ko' ? 'en' : 'ko'));
+        setTargetLang((prevLang) => (prevLang === 'ko' ? 'en' : 'ko'));
+    }
 
     return (
         <div className='App'>
@@ -484,17 +509,34 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
             <div>
                 <div className="wordSearch">
-                <input
-                    type="text"
-                    value={inputSearch}
-                    onChange={(e) => setInputSearch(e.target.value)}
-                />
-                <button onClick={searchBtn}>검색</button>
+                    <input
+                        type="text"
+                        value={inputSearch}
+                        onChange={(e) => setInputSearch(e.target.value)}
+                    />
+                    <button onClick={searchBtn}>검색</button>
                 </div>
                 <div className="wordList">
-
+                    {getWord.map((title, index) => (
+                        <div key={index}>
+                            {title.RESULTWORD}
+                        </div>
+                    ))}
+                    <button onClick={changeLang}>한글/영어 전환</button>
                 </div>
             </div>
+
+            <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
+
+                <div className="speechModalCenter">
+                    <img src={loginImg} alt='로그인 이미지' className="speechLoginImg"/>
+                    <h4>로그인 후 이용해 주세요</h4>
+                    <button onClick={closeModalAndNavigate} className="modal-custom-button">
+                        닫기
+                    </button>
+                </div>
+            </Modal>
+
         </div>
     );
 }

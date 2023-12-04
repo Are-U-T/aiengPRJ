@@ -47,7 +47,6 @@ export default function Script() {
     const [showPopup, setShowPopup] = useState(false);
     const [alternativeExpressions, setAlternativeExpressions] = useState([]);
 
-
     const handleClick = async (title) => {
 
         try {

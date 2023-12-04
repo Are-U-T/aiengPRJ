@@ -5,6 +5,8 @@ import Navigation from "../Navigation";
 import '../../App.css';
 import ModalStart from '../EngExam/ModalStart3';
 import '../EngExam/ModalStart3.css'
+import Modal from "../Speech/Modal";
+import loginImg from "../Speech/images/loginImg.png";
 
 const questionsData = [
     {
@@ -149,6 +151,21 @@ function EngExam() {
     const [confirmButtonVisible, setConfirmButtonVisible] = useState(true);
     const [startModalOpen3, setStartModalOpen3] = useState(false);
 
+    const userNum = sessionStorage.getItem('userNum');
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
+
+    const closeModalAndNavigate = () => {
+        setLoginModalOpen(false);
+        navigate('/login');
+    };
+
+    useEffect(() => {
+        if (userNum == null) {
+            // 모달 창 띄워서 로그인 하세요 하고 확인 누르면 로그인 창으로 보내기
+            setLoginModalOpen(true);
+        }
+    }, [userNum]);
+
     useEffect(() => {
         setStartModalOpen3(true);
     }, []);
@@ -282,6 +299,18 @@ function EngExam() {
                     </button>
                 </div>
             </div>
+
+            <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
+
+                <div className="speechModalCenter">
+                    <img src={loginImg} alt='로그인 이미지' className="speechLoginImg"/>
+                    <h4>로그인 후 이용해 주세요</h4>
+                    <button onClick={closeModalAndNavigate} className="modal-custom-button">
+                        닫기
+                    </button>
+                </div>
+            </Modal>
+
         </div>
     );
 }

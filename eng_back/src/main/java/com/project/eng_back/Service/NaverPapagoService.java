@@ -17,7 +17,7 @@ public class NaverPapagoService {
 
     public Logger logger = LoggerFactory.getLogger(TalkingRoomController.class);
 
-    public String getTransSentence(String search) {
+    public String getTransSentence(String search, String sourceLang, String targetLang) {
 
         String textContent;
         String clientId = "";
@@ -31,12 +31,11 @@ public class NaverPapagoService {
             throw new RuntimeException("papago API 인코딩 에러" + e);
         }
 
-
         Map<String, String> requestHeader = new HashMap<>();
         requestHeader.put("X-Naver-Client-Id", clientId);
         requestHeader.put("X-Naver-Client-Secret", clientSecret);
 
-        String resonseBody = post(apiURL, requestHeader, textContent);
+        String resonseBody = post(apiURL, requestHeader, textContent, sourceLang, targetLang);
 
         logger.info("responseBody = {}", resonseBody);
 
@@ -52,15 +51,21 @@ public class NaverPapagoService {
             JsonNode resultNode = jsonNode.get("message").get("result");
             String translatedText = resultNode.get("translatedText").asText();
 
+            translatedText = translatedText.replace("\"", "");
+
             return translatedText;
         } catch (Exception e) {
             throw new RuntimeException("API 응답 데이터를 처리하는데 실패했습니다.", e);
         }
     }
 
-    private String post(String apiUrl, Map<String, String> requestHeaders, String text) {
+    private String post(String apiUrl, Map<String, String> requestHeaders, String text, String sourceLang, String targetLang) {
+
         HttpURLConnection con = connect(apiUrl);
-        String postParams = "source=ko&target=en&text=" + text; //원본언어: 한국어 (ko) -> 목적언어: 영어 (en)
+
+        // String postParams = "source=ko&target=en&text=" + text;
+        String postParams = "source=" + sourceLang + "&target=" + targetLang + "&text=" + text;
+
         try {
             con.setRequestMethod("POST");
             for (Map.Entry<String, String> header : requestHeaders.entrySet()) {
@@ -76,7 +81,7 @@ public class NaverPapagoService {
             int responseCode = con.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 응답
                 return readBody(con.getInputStream());
-            } else {  // 에러 응답
+            } else {
                 return readBody(con.getErrorStream());
             }
         } catch (IOException e) {

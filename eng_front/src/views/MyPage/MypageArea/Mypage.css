@@ -11,25 +11,24 @@
     border-radius: 5px;
     border-color: #1D2B64;
     width: 250px;
-    height: 450px;
+    height: 550px;
     max-width: 1200px;
     max-height: 95vh;
     overflow: auto;
     position: relative;
-    animation: slideUp 0.3s;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     background: #f8f8f8;
 }
 
 .MypageContainer p {
-    font-family: "Noto Sans KR Medium","sans-serif";
+    font-family: "Noto Sans KR Medium", "sans-serif";
     text-align: center;
 }
 
 .MypageName {
     text-align: center;
     padding: 10px;
-    font-family: "Noto Sans KR Medium","sans-serif";
+    font-family: "Noto Sans KR Medium", "sans-serif";
 }
 
 .MypageBtn {
@@ -41,7 +40,7 @@
     padding: 10px;
     width: 200px;
     text-align: center;
-    font-family: "Noto Sans KR Medium","sans-serif";
+    font-family: "Noto Sans KR Medium", "sans-serif";
 }
 
 .LevelTestBtn {
@@ -54,7 +53,7 @@
     width: 150px;
     border-width: 1.5px;
     text-align: center;
-    font-family: "Noto Sans KR Medium","sans-serif";
+    font-family: "Noto Sans KR Medium", "sans-serif";
     font-size: 12px;
 }
 
@@ -70,7 +69,7 @@
     height: 40px;
     text-align: center;
     font-size: 12px;
-    font-family: "Noto Sans KR Medium","sans-serif";
+    font-family: "Noto Sans KR Medium", "sans-serif";
 }
 
 .MypageListItem p {
@@ -89,10 +88,10 @@
 
 .MypageListT {
     float: left;
-    text-align:center;
+    text-align: center;
     font-size: 18px;
     font-weight: bold;
-    font-family: "Noto Sans KR Black","sans-serif";
+    font-family: "Noto Sans KR Black", "sans-serif";
 }
 
 .MypageListItem {
@@ -104,11 +103,11 @@
 
 .MypageList {
     float: left;
-    text-align:center;
+    text-align: center;
     font-size: 14px;
     margin: 0 auto;
     width: 10%;
-    font-family: "Noto Sans KR Medium","sans-serif";
+    font-family: "Noto Sans KR Medium", "sans-serif";
 }
 
 .grayline {
@@ -131,9 +130,9 @@
     text-align: center;
 }
 
-.ChatListNull p{
+.ChatListNull p {
     font-size: 30px;
-    font-family: "Noto Sans KR Black","sans-serif";
+    font-family: "Noto Sans KR Black", "sans-serif";
     text-align: center;
 }
 
@@ -153,7 +152,7 @@
     height: 40px;
     text-align: center;
     font-size: 12px;
-    font-family: "Noto Sans KR Medium","sans-serif";
+    font-family: "Noto Sans KR Medium", "sans-serif";
 }
 
 .modal-titlea {
