@@ -19,6 +19,9 @@ import {GoogleOAuthProvider} from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import KakaoLogin from "react-kakao-login";
+import Frame3 from "./images/Frame3.png";
+import Frame4 from "./images/Frame4.png";
+import mic from "../Speaking/images/mic.png";
 
 function ColorSchemeToggle(props) {
     const { mode, setMode } = useColorScheme();
@@ -317,11 +320,13 @@ export default function JoySignInSideTemplate() {
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',
-                        backgroundImage:
-                            'url(https://images.unsplash.com/photo-1527181152855-fc03fc7949c8?auto=format&w=1000&dpr=2)',
+                        // backgroundImage:
+                        //     'url(https://images.unsplash.com/photo-1527181152855-fc03fc7949c8?auto=format&w=1000&dpr=2)',
+                        backgroundImage: `url(${Frame3})`,
                         [theme.getColorSchemeSelector('dark')]: {
-                            backgroundImage:
-                                'url(https://images.unsplash.com/photo-1572072393749-3ca9c8ea0831?auto=format&w=1000&dpr=2)',
+                            // backgroundImage:
+                            //     'url(https://images.unsplash.com/photo-1572072393749-3ca9c8ea0831?auto=format&w=1000&dpr=2)',
+                            backgroundImage: `url(${Frame4})`,
                         },
                     })}
                 />
