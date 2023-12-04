@@ -10,6 +10,7 @@ import LevelTest from "./views/EngExam";
 import Speech from "./views/Speech";
 import Speaking from "./views/Speaking";
 import Mypage from "./views/MyPage";
+import Voca from "./views/Voca"
 // import EngExam from "./views/EngExam";
 import ResultPage from "./views/EngExam/ResultPage";
 import Script from "./views/Script";
@@ -29,6 +30,7 @@ function App() {
          <Route path="/mypage" element={<Mypage/>}/>
          <Route path="/resultpage" element={<ResultPage/>}/>
          <Route path="/script" element={<Script/>}/>
+         <Route path="/voca" element={<Voca/>}/>
     </Routes>
   );
 }

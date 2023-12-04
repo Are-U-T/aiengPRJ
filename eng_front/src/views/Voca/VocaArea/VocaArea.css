@@ -1,0 +1,155 @@
+.VocaCenter {
+    display: flex;
+    justify-content: center;
+}
+
+.VocaCenter2 {
+    width: 30px;
+    height: 550px;
+    max-width: 1200px;
+    max-height: 95vh;
+    background: #17264D;
+    overflow: auto;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    margin-top: 150px;
+}
+
+.VocaContainerR {
+    border-style: solid;
+    border-width: 2px;
+    /*border-radius: 0 5px 5px 0;*/
+    border-color: #1D2B64;
+    width: 400px;
+    height: 550px;
+    max-width: 1200px;
+    max-height: 95vh;
+    overflow: auto;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    padding: 25px 30px;
+}
+
+.VocaContainerL {
+    border-style: solid;
+    border-width: 2px;
+    /*border-radius: 5px 0 0 5px;*/
+    border-color: #1D2B64;
+    width: 400px;
+    height: 550px;
+    max-width: 1200px;
+    max-height: 95vh;
+    overflow: auto;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    padding: 25px 30px;
+}
+
+.vocaL {
+    height: 93%;
+}
+
+.vocaBtn {
+    background: #17264D;
+    color: white;
+    /*margin: 5px 0;*/
+}
+
+.vocaXBtn {
+    background: white;
+    color: #17264D;
+    float: right;
+    border-width: 1px;
+    border-color: #17264D;
+}
+
+.voca {
+    height: 93%;
+    min-height: 93%;
+}
+
+.vocaList {
+    width: 100%;
+    height: 30px;
+    /*float: right;*/
+}
+
+.vocaList p {
+    margin: 0 30px;
+}
+
+.vocaPageR {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.vocaPageR p {
+    text-align: right;
+}
+
+.grayline {
+    border-bottom: 1px solid #ccc;
+    margin: 5px auto;
+    width: 90%;
+}
+
+.vocaModalBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(15px);
+    background-color: rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.7s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.vocaModal {
+    padding: 40px;
+    border-radius: 8px;
+    background: #E6EAF3;
+    max-width: 800px;
+    overflow: hidden;
+    width: 650px;
+    height: 350px;
+    text-align: center;
+    align-content: center;
+}
+
+.vocaModalBtn {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s;
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    font-size: 15px;
+    margin-bottom: 5px;
+    background: #1D2B64;
+    color: white;
+}
+
+.voca-modal-instructions {
+    padding: 10px 50px;
+}
+
+.voca-modal-instructions p {
+    font-size: 18px;
+    line-height: 2.5;
+    text-align: center;
+    width: 470px;
+    background-color: #ffffff;
+    height: 50px;
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    color: #17264D;
+}
+
+.voca-modal-instructions h3 {
+    font-family: "Noto Sans KR Black", sans-serif;
+    margin-bottom: 30px;
+}
