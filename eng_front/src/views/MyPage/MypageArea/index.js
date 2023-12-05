@@ -16,6 +16,7 @@ export default function MypageArea() {
     const [completed, setCompleted] = useState(0);
     const [userExperience, setUserExperience] = useState(0);
     const [modalInfo, setModalInfo] = useState(false);
+    const [modalAddFriend, setMdalAddFriend] = useState(false);
     const [inputPassword, setInputPassword] = useState('');
     const [passwordAttempts, setPasswordAttempts] = useState(0);
 
@@ -153,6 +154,11 @@ export default function MypageArea() {
                                     )}
                                 </div>
                                 <div className="grayline" style={{marginBottom: '20px', marginTop: '20px'}}/>
+                                <button className="MypageBtn" onClick={() => {
+                                    setMdalAddFriend(true);
+                                }}
+                                >친구 추가</button>
+                                <div className="grayline" style={{marginBottom: '20px', marginTop: '20px'}}/>
                                 <button className="MypageBtn" onClick={handleVoca}>단어장 복습</button>
                                 <div className="grayline" style={{marginBottom: '20px', marginTop: '20px'}}/>
                                 <button className="MypageBtn" onClick={() => {
@@ -229,6 +235,29 @@ export default function MypageArea() {
                             </button>
                             <button
                                 onClick={() => setModalInfo(false)}
+                                className="modal-buttona">
+                                닫기
+                            </button>
+                        </div>
+                    </ModalChange>
+                )}
+
+                {modalAddFriend && (
+                    <ModalChange isOpen={modalAddFriend} onClose={() => setModalInfo(false)}>
+                        <h2 className="modal-titlea">친구 추가</h2>
+                        <div className="modal-bodya">
+                            <p>친구 추가할 아이디를 입력하세요</p>
+                            <input
+                                type="password"
+                                value={inputPassword}
+                                onChange={(e) => setInputPassword(e.target.value)}
+                            />
+                        </div>
+                        <div style={{display: 'flex', justifyContent: 'center', marginTop: '30px'}}>
+                            <button className="modal-buttona" onClick={checkPassword} style={{marginRight: '10px'}}>검색
+                            </button>
+                            <button
+                                onClick={() => setMdalAddFriend(false)}
                                 className="modal-buttona">
                                 닫기
                             </button>

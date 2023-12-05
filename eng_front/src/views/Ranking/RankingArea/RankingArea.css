@@ -12,7 +12,7 @@
 }
 
 .rankingCenter h4 {
-    font-family: "Noto Sans KR Black",sans-serif;
+    font-family: "Noto Sans KR Medium",sans-serif;
     letter-spacing: 7px;
     margin: 20px 0px;
 }
@@ -43,9 +43,9 @@
     margin: 0 40px;
 }
 
-.rankingContainer {
+.rankingContainer{
     width: 70%;
-    height: 60%;
+    height: 550px;
     border-width: 2px;
     border-radius: 10px;
     border-style: solid;
@@ -59,6 +59,77 @@
     width: 95%;
 }
 
-.ranking-85 {
-    width: 85%;
+.ranking-40 {
+    width: 600px;
+    text-align: center;
+    margin-right:10px;
+}
+
+.ranking-30L {
+    width: 200px;
+    text-align: left;
+    margin-left: 200px;
+}
+
+.ranking-30R {
+    width: 400px;
+    text-align: left;
+    margin-right: 10px;
+}
+
+.ranking-scroll-container {
+    overflow-y: auto;
+    max-height: 540px; /* 원하는 높이로 조절하세요. */
+}
+
+/* 스크롤바를 숨김 */
+.ranking-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.ranking1 {
+    width: 65px;
+    height: 30px;
+    background: gold;
+}
+
+.ranking2 {
+    width: 30px;
+    height: 30px;
+    background: #ced4da;
+}
+
+.ranking-aa {
+    width: 90px;
+    height: 30px;
+    text-align: center;
+    margin-left: 200px;
+}
+
+.rankMonthC {
+    width: 80px;
+    height: 50px;
+    background: #132650;
+    color: white;
+}
+
+.rankMonthN {
+    width: 80px;
+    height: 50px;
+    background: #dee2e6;
+    color: #959596;
+}
+
+.rankDayC {
+    width: 80px;
+    height: 50px;
+    background: #132650;
+    color: white;
+}
+
+.rankDayN {
+    width: 80px;
+    height: 50px;
+    background: #dee2e6;
+    color: #959596;
 }
