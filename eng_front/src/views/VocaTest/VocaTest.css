@@ -1,0 +1,49 @@
+.start {
+    height: 12vh;
+}
+
+.vocaTestContainer {
+    margin: 20px auto;
+    display: block;
+    width: 800px;
+    height: 700px;
+    /*background-color: #2b6cc4;*/
+    padding: 0 35px;
+}
+
+.vocaTestTitleContainer {
+    display: flex;
+    justify-content: center;
+}
+.vocaLine {
+    width: 280px;
+    border-top: 1px solid #8E8E8E;
+    margin-top: 20px;
+}
+
+.vocaTestTitle {
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    font-size: 25px;
+    text-align: center;
+    margin: 0 15px 10px 15px;
+    color: #8E8E8E;
+}
+
+.vocaBoxNameContainer {
+    display: flex;
+}
+
+.vocaTestBoxFlex {
+    display: flex;
+}
+
+.vocaBoxName {
+    width: 182px;
+    height: 40px;
+    border: 1px solid #cccccc;
+    text-align: center;
+    padding-top: 5px;
+    color: #727272;
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    font-size: 18px;
+}

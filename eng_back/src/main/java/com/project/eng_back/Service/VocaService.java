@@ -14,4 +14,6 @@ public interface VocaService {
     List<Map<String, String>> getWord(String crid);
 
     List<Map<String, String>> getVocaList(String crid);
+
+    List<Map<String, String>> vocaTest(String unum);
 }

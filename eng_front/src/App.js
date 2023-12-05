@@ -3,7 +3,6 @@ import MainHome from "./views/MainHome";
 import SignIn from "./views/SignIn";
 import SignUp from "./views/SignUp";
 import Developer from "./views/Developer";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import HeroLeft09 from "./views/Start/HeroLeft09";
 import Change from "./views/InformationChange";
 import LevelTest from "./views/EngExam";
@@ -13,6 +12,8 @@ import Mypage from "./views/MyPage";
 import Voca from "./views/Voca"
 import ResultPage from "./views/EngExam/ResultPage";
 import Script from "./views/Script";
+import VocaTest from "./views/VocaTest";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
     return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/resultpage" element={<ResultPage/>}/>
             <Route path="/script" element={<Script/>}/>
             <Route path="/voca" element={<Voca/>}/>
+            <Route path="/vocaTest" element={<VocaTest/>}/>
         </Routes>
     );
 }

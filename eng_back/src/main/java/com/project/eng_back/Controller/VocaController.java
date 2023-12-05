@@ -50,4 +50,14 @@ public class VocaController {
 
         return vocaService.getVocaList(unum);
     }
+
+    @PostMapping("/test")
+    public List<Map<String, String>> vocaTest(@RequestBody Map<String, String> request) {
+
+        String unum = request.get("userNum");
+
+        logger.info("(test) unum: {}", unum);
+
+        return vocaService.vocaTest(unum);
+    }
 }
