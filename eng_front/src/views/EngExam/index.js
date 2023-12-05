@@ -1,10 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Question from './question';
 import Navigation from "../Navigation";
 import '../../App.css';
 import ModalStart from '../EngExam/ModalStart3';
 import '../EngExam/ModalStart3.css'
+import correctSound  from './정답.mp3';
+import wrongSound  from './오답.mp3';
+import './Style.css';
 
 const questionsData = [
     {
@@ -139,6 +142,61 @@ const questionsData = [
     },
 ];
 
+
+const VisualFeedback = ({ isCorrect }) => {
+    const canvasRef = useRef(null);
+    let startAngle = 0.5 * Math.PI; // 18시 방향에서 시작
+    let endAngle = 2.5 * Math.PI; // 18시 방향에서 끝
+    let currentAngle = startAngle;
+
+    // 오답일 경우 대각선 그리기를 위한 상태
+    let startX = 140, startY = 0, endX = 0, endY = 140;
+    let currentX = startX, currentY = startY;
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        const context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        const draw = () => {
+            context.lineWidth = 3 + Math.random(); // 선의 불규칙한 굵기
+            context.lineCap = 'round';
+            context.lineJoin = 'round';
+            context.strokeStyle = 'red';
+
+            context.beginPath();
+
+            if (isCorrect) {
+                // 정답일 경우 원 그리기
+                if (currentAngle < endAngle) {
+                    currentAngle += 0.05; // 속도 조절
+                    context.arc(100, 100, 50, startAngle, currentAngle); // 반지름을 50으로 변경
+                    requestAnimationFrame(draw);
+                }
+            } else {
+                if (currentX > endX) {
+                    currentX -= 2; // X 좌표 이동 속도
+                    currentY += 2; // Y 좌표 이동 속도
+                    context.moveTo(startX, startY);
+                    context.lineTo(currentX, currentY);
+                    requestAnimationFrame(draw);
+                }
+            }
+
+            context.stroke();
+        };
+
+        draw();
+    }, [isCorrect]);
+
+    return <canvas ref={canvasRef} width={200} height={200} style={{position: 'absolute', top: 100, left: 400}} />;
+};
+
+
+
+
+
+
 function EngExam() {
     const navigate = useNavigate();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -148,6 +206,9 @@ function EngExam() {
     const [score, setScore] = useState(0); // 添加 score 状态
     const [confirmButtonVisible, setConfirmButtonVisible] = useState(true);
     const [startModalOpen3, setStartModalOpen3] = useState(false);
+
+    const [buttonState, setButtonState] = useState('확인');
+
 
     useEffect(() => {
         setStartModalOpen3(true);
@@ -174,27 +235,46 @@ function EngExam() {
         }));
     };
 
+    const [isAnswerCorrect, setIsAnswerCorrect] = useState(null);  // 답이 맞았는지 틀렸는지
+
     const handleSendAns = () => {
-        if (selectedOption && currentQuestionIndex < questionsData.length - 1) {
-            setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-            setConfirmButtonVisible(false);
-            if (selectedOption === currentQuestion.answer) {
+        if (buttonState === '확인') {
+            const isCorrect = selectedOption === currentQuestion.answer;
+            setIsAnswerCorrect(isCorrect);
+
+            if (isCorrect) {
+                new Audio(correctSound).play();
                 setScore((prevScore) => prevScore + 10);
+            } else {
+                new Audio(wrongSound).play();
             }
-            setSelectedOption(null);
-        } else if (currentQuestionIndex === questionsData.length - 1) {
-            if (selectedOption === currentQuestion.answer) {
-                navigate('/resultpage', {state: {score: score + 10}});
+
+            setButtonState('다음 문제');
+        } else {
+
+            if (currentQuestionIndex < questionsData.length - 1) {
+                setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+                setIsAnswerCorrect(null);
+                setSelectedOption(null);
+                setButtonState('확인');
             } else {
                 navigate('/resultpage', {state: {score: score}});
             }
         }
     };
 
+
+    // 다음 문제로 넘어갈 때 상태를 초기화하는 함수 추가
+    const moveToNextQuestion = () => {
+        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+        setIsAnswerCorrect(null);
+        setSelectedOption(null);
+    };
+
+    // handleSkipButtonClick 함수를 moveToNextQuestion을 사용하도록 업데이트
     const handleSkipButtonClick = () => {
         if (currentQuestionIndex < questionsData.length - 1) {
-            setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-            setSelectedOption(null);
+            moveToNextQuestion();
             // setConfirmButtonVisible(true);
         } else if (currentQuestionIndex === questionsData.length - 1) {
             navigate('/resultpage', {state: {score: score}});
@@ -252,16 +332,29 @@ function EngExam() {
                         Skip {currentQuestionIndex + 1}/{questionsData.length}
                     </button>
                 </div>
+
+
+
                 <div style={{textAlign: 'center', marginBottom: '120px', marginLeft: '80px', marginRight: '80px'}}>
                     {currentQuestion && (
-                        <Question
-                            key={currentQuestion.id}
-                            question={currentQuestion}
-                            onAnswer={handleAnswer}
-                            selectedOption={selectedOption}
-                        />
+                        <div>
+
+                            {/* 시각적 피드백을 여기에 렌더링 */}
+                            {isAnswerCorrect !== null && (
+                                <VisualFeedback isCorrect={isAnswerCorrect}/>
+                            )}
+                            <Question
+                                key={currentQuestion.id}
+                                question={currentQuestion}
+                                onAnswer={handleAnswer}
+                                selectedOption={selectedOption}
+                            />
+
+
+                        </div>
                     )}
                 </div>
+
                 <div style={{textAlign: 'center'}}>
                     <button
                         style={{
@@ -269,7 +362,6 @@ function EngExam() {
                             height: '40px',
                             cursor: Object.keys(answers).length > 0 ? 'pointer' : 'not-allowed',
                             backgroundColor: selectedOption ? '#1E90FF' : '#c0bfbf',
-                            // display: confirmButtonVisible ? 'block' : 'none',
                             borderRadius: '20px',
                             fontSize: '16px',
                             color: '#FEFCFF',
@@ -278,7 +370,7 @@ function EngExam() {
                         onClick={handleSendAns}
                         disabled={Object.keys(answers).length === 0}
                     >
-                        확인
+                        {buttonState}
                     </button>
                 </div>
             </div>

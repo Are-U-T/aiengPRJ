@@ -147,28 +147,6 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
         }
     };
 
-
-    // 페이지에 머문 시간을 추적하는 useEffect
-    useEffect(() => {
-        let timer;
-        if (isRecording && timeSpent > 0) {
-            // 녹음 중이고 시간이 남아 있을 때만 시간 감소
-            timer = setInterval(() => {
-                setTimeSpent(time => time - 1);
-            }, 1000);
-        } else if (!isRecording || timeSpent === 0) {
-            // 녹음이 중지되거나 시간이 0에 도달했을 때 호출
-            clearInterval(timer);
-            if (timeSpent === 0) {
-                handleTimeLimitReached();
-            }
-        }
-
-        // 컴포넌트가 언마운트 되거나 isRecording, timeSpent가 변경될 때 타이머 정리
-        return () => clearInterval(timer);
-    }, [isRecording, timeSpent]);
-
-
     useEffect(() => {
         // 시간이 0초가 되면 모달창을 띄우는 로직
         if (timeSpent === 0 && !isModalOpen) {
