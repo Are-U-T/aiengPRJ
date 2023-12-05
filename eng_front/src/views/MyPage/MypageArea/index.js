@@ -17,8 +17,14 @@ export default function MypageArea() {
     const [userExperience, setUserExperience] = useState(0);
     const [modalInfo, setModalInfo] = useState(false);
     const [modalAddFriend, setMdalAddFriend] = useState(false);
+    const [modalFriendList, setModalFriendList] = useState(false);
     const [inputPassword, setInputPassword] = useState('');
     const [passwordAttempts, setPasswordAttempts] = useState(0);
+    const [userFriend , setUserFriend] = useState();
+    const userNum = sessionStorage.getItem('userNum');
+    const [FriendEmail, setFriendEmail] = useState('');
+    const [friendProfile , setFriendProfile] = useState();
+    const [getFriendList , setGetFriendList] = useState([]);
 
     const checkPassword = () => {
         if (inputPassword === userProfile.pw) {
@@ -35,6 +41,21 @@ export default function MypageArea() {
         setModalInfo(false); // 모달창 닫기
     };
 
+    const searchFriend= async (email) => {
+        try {
+            const response = await fetch(`http://localhost/ranking/search-friend?email=${email}`);
+            if (response.ok) {
+                const data = await response.json();
+                setFriendProfile(data);
+                console.log('가져온 친구 정보: ', data);
+            } else {
+                console.error('Failed');
+            }
+        } catch (error) {
+            console.error('Error :', error);
+        }
+    };
+
     useEffect(() => {
         // 페이지 로드 후 1초마다 completed 상태를 업데이트
         const interval = setInterval(() => {
@@ -49,9 +70,6 @@ export default function MypageArea() {
         }, 10); // 10ms 마다 1씩 증가
         return () => clearInterval(interval); // 컴포넌트 언마운트 시 interval 정리
     }, []);
-
-    // 프론트에서 세션 uid 가져오기
-    const userNum = sessionStorage.getItem('userNum');
 
     useEffect(() => {
         profile();
@@ -128,6 +146,52 @@ export default function MypageArea() {
         }
     };
 
+    const addFriend = async (friendNum) => {
+        // Assuming you have userNum stored in a variable
+        const userNum = sessionStorage.getItem('userNum');
+
+        try {
+            const response = await axios.post('http://localhost/ranking/friend-add', null, {
+                params: {
+                    user1Id: userNum,
+                    user2Id: friendNum
+                }
+            });
+
+            console.log(response.data);
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    const deleteFriend = async (friendNum) => {
+        const userNum = sessionStorage.getItem('userNum');
+        try {
+            const response = await axios.delete('http://localhost/ranking/friend-delete', {
+                params: {
+                    user1Id: userNum,
+                    user2Id: friendNum
+                }
+            });
+            console.log(response.data);
+            friendList(userNum);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    const friendList = async (userNum) => {
+        try {
+            const response = await axios.post('http://localhost/ranking/friend-list', {userNum});
+            console.log('응답:', response.data);
+            fetchSubtitles();
+            setGetFriendList(response.data);
+        } catch (error) {
+            console.error('error: ', error);
+        }
+    };
+
     return (
         <>
             <div className='App'>
@@ -154,10 +218,17 @@ export default function MypageArea() {
                                     )}
                                 </div>
                                 <div className="grayline" style={{marginBottom: '20px', marginTop: '20px'}}/>
-                                <button className="MypageBtn" onClick={() => {
-                                    setMdalAddFriend(true);
-                                }}
-                                >친구 추가</button>
+                                <div className="MypageFriendBtnContainer">
+                                    <button className="MypageFriendBtn" onClick={() => setMdalAddFriend(true)}>
+                                        친구 추가
+                                    </button>
+                                    <button className="MypageFriendBtn" onClick={() => {
+                                        setModalFriendList(true);
+                                        friendList(userNum);
+                                    }}>
+                                        친구 목록
+                                    </button>
+                                </div>
                                 <div className="grayline" style={{marginBottom: '20px', marginTop: '20px'}}/>
                                 <button className="MypageBtn" onClick={handleVoca}>단어장 복습</button>
                                 <div className="grayline" style={{marginBottom: '20px', marginTop: '20px'}}/>
@@ -248,20 +319,53 @@ export default function MypageArea() {
                         <div className="modal-bodya">
                             <p>친구 추가할 아이디를 입력하세요</p>
                             <input
-                                type="password"
-                                value={inputPassword}
-                                onChange={(e) => setInputPassword(e.target.value)}
+                                type="text"
+                                value={FriendEmail}
+                                onChange={(e) => setFriendEmail(e.target.value)}
                             />
                         </div>
-                        <div style={{display: 'flex', justifyContent: 'center', marginTop: '30px'}}>
-                            <button className="modal-buttona" onClick={checkPassword} style={{marginRight: '10px'}}>검색
+
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '30px' }}>
+                            {friendProfile && (
+                                <div>
+                                    <p>이름: {friendProfile.name}</p>
+                                    <div style={{ display: 'grid', gridTemplateColumns: 'auto auto', columnGap: '10px', alignItems: 'center' }}>
+                                        <p style={{ marginBottom: '10px' }}>이메일: {friendProfile.email}</p>
+                                        <button className='modal-buttona2' onClick={()=> addFriend(friendProfile.num)}>추가</button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                            <button className="modal-buttona" onClick={() => searchFriend(FriendEmail)} style={{marginRight: '10px'}}>검색
                             </button>
                             <button
                                 onClick={() => setMdalAddFriend(false)}
                                 className="modal-buttona">
                                 닫기
                             </button>
+                    </ModalChange>
+                )}
+
+                {modalFriendList && (
+                    <ModalChange isOpen={modalFriendList} onClose={() => setModalInfo(false)}>
+                        <h2 className="modal-titlea">친구 목록</h2>
+                        <div className="modal-bodya">
+                            <p>삭제 버튼을 누르면 친구가 삭제 돼요</p>
                         </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '30px' }}>
+                            {getFriendList.map((friendList, index) => (
+                                <div key={index}>
+                                    <p>이름: {friendList.USERID2}</p>
+                                    <button onClick={()=>deleteFriend(friendList.USERID2)}>삭제</button>
+                                </div>
+                            ))}
+                        </div>
+                        <button
+                            onClick={() => setModalFriendList(false)}
+                            className="modal-buttona">
+                            닫기
+                        </button>
                     </ModalChange>
                 )}
             </div>

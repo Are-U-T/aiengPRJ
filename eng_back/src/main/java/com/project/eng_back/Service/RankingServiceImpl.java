@@ -1,11 +1,13 @@
 package com.project.eng_back.Service;
 
 import com.project.eng_back.Dao.RankingDao;
+import com.project.eng_back.Dto.UserDTO;
 import com.project.eng_back.Dto.UserScoreDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RankingServiceImpl implements RankingService{
@@ -30,4 +32,23 @@ public class RankingServiceImpl implements RankingService{
     public List<UserScoreDTO> getUserScoresWithRankD() {
         return rankingDao.getUserScoresWithRankD();
     }
+
+    public int areFriends(String user1Id, String user2Id) {
+        return rankingDao.areFriends(user1Id, user2Id);
+    }
+
+    @Override
+    public void addFriendship(String user1Id, String user2Id) {
+        rankingDao.addFriendship(user1Id, user2Id);
+    }
+    @Override
+    public void deleteFriendship(String user1Id, String user2Id) {
+        rankingDao.deleteFriendship(user1Id, user2Id);
+    }
+
+    @Override
+    public UserDTO searchFriend(String friend) { return rankingDao.searchFriend(friend); }
+
+    @Override
+    public List<Map<String, String>> friendList(String unum) { return rankingDao.friendList(unum); }
 }

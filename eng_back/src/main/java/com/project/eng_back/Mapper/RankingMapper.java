@@ -2,10 +2,10 @@ package com.project.eng_back.Mapper;
 
 import com.project.eng_back.Dto.UserDTO;
 import com.project.eng_back.Dto.UserScoreDTO;
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.*;
+
 import java.util.List;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
+import java.util.Map;
 
 @Mapper
 public interface RankingMapper {
@@ -64,4 +64,25 @@ public interface RankingMapper {
             "GROUP BY " +
             "  UT.NUM, UT.NAME")
     List<UserScoreDTO> getDailyScoresAndRanks();
+
+    @Select("SELECT COUNT(*)" +
+            "FROM Friendships " +
+            "WHERE (USERID1 = #{user1Id} AND USERID2 = #{user2Id})")
+    int areFriends(@Param("user1Id") String user1Id, @Param("user2Id") String user2Id);
+
+
+    @Insert("INSERT INTO Friendships (USERID1, USERID2, FRIENDSHIP_DATE) " +
+            "VALUES (#{user1Id}, #{user2Id}, CURRENT_TIMESTAMP)")
+    void addFriendship(@Param("user1Id") String user1Id, @Param("user2Id") String user2Id);
+
+    @Delete("DELETE FROM Friendships " +
+            "WHERE (USERID1 = #{user1Id} AND USERID2 = #{user2Id}) " +
+            "   OR (USERID1 = #{user2Id} AND USERID2 = #{user1Id})")
+    void deleteFriendship(@Param("user1Id") String user1Id, @Param("user2Id") String user2Id);
+
+    @Select("SELECT NUM, NAME, EMAIL FROM USER_T WHERE EMAIL = #{friend}")
+    UserDTO searchFriend(@Param("friend") String friend);
+
+    @Select("SELECT USERID2 FROM FRIENDSHIPS WHERE USERID1 = #{userNum}")
+    List<Map<String, String>> friendList(@Param("userNum") String userNum);
 }

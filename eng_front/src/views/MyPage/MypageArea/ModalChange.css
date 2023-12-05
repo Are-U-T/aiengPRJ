@@ -18,9 +18,12 @@
     border-radius: 20px;
     background: #E6EAF3;
     /*box-shadow: 10px 10px 20px #cbced1, -10px -10px 20px #ffffff;*/
-    max-width: 650px;
+    max-width: 800px;
+    max-height: 700px;
+    /*width: 400px;*/
     overflow: hidden;
     animation: slideUp 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+    margin: 0 auto;
 }
 
 .ghxn {
