@@ -1,0 +1,64 @@
+.rankingCenter {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.rankingCenter h2 {
+    font-family: "Noto Sans KR Black",sans-serif;
+    /*글자 간격*/
+    letter-spacing: 5px;
+    margin: 20px 0;
+}
+
+.rankingCenter h4 {
+    font-family: "Noto Sans KR Black",sans-serif;
+    letter-spacing: 7px;
+    margin: 20px 0px;
+}
+
+.rankingCenter h6 {
+    font-family: "Noto Sans KR Black",sans-serif;
+    letter-spacing: 2px;
+    margin: 7px 0 0 10px;
+}
+
+.ranking-flex-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.ranking-flex-container2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+}
+
+.ranking-king {
+    width: 50px;
+    height: auto;
+    margin: 0 40px;
+}
+
+.rankingContainer {
+    width: 70%;
+    height: 60%;
+    border-width: 2px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #17264D;
+    margin: 0 auto;
+}
+
+.ranking-grayline {
+    border-bottom: 1px solid #ccc;
+    margin: 0 auto 10px auto;
+    width: 95%;
+}
+
+.ranking-85 {
+    width: 85%;
+}
