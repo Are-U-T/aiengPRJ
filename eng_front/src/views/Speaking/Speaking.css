@@ -318,3 +318,13 @@
         box-shadow: 0 0 70px yellow, 0 0 35px orange, 0 0 20px gold;
     }
 }
+
+.wordList {
+    width: 280px;
+    height: 500px;
+    margin-top: 20px;
+    /*background-color: #a0a0a0;*/
+    border-radius: 1px;
+    border-color: #1abc9c;
+    border-style: solid;
+}

@@ -14,8 +14,6 @@ const Navigation = () => {
     const navigate = useNavigate();
     let lastScrollY = window.scrollY;
 
-    const [name, setName] = useState('');
-
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
@@ -36,8 +34,6 @@ const Navigation = () => {
     useEffect(() => {
         const storedUserName = sessionStorage.getItem('userName');
         setUserName(storedUserName);
-
-
     }, []);
 
     const handleLogout = () => {

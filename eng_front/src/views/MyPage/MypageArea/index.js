@@ -7,7 +7,6 @@ import ProgressBar from "./ProgressBar";
 import ModalChange from './ModalChange';
 import '../../../App.css'
 import trash1 from './images/trash1.png';
-import trash2 from './images/trash2.png';
 
 export default function MypageArea() {
 
@@ -98,6 +97,10 @@ export default function MypageArea() {
         navigate('/script', {state: {crid}});
     };
 
+    const handleVoca = () => {
+        navigate('/voca');
+    };
+
     const gender = (userGender) => {
         if (userGender == 1) {
             setGender("남성");
@@ -128,12 +131,12 @@ export default function MypageArea() {
     return (
         <>
             <div className='App'>
-                <div className="MypageCenter" style={{marginTop: '200px'}}>
+                <div className="MypageCenter" style={{marginTop: '150px'}}>
                     {userProfile && (
                         <>
                             <div className="MypageContainer" style={{marginRight: '30px'}}>
-                                <div style={{marginBottom: '30px'}}/>
-                                <h5 className="MypageName" style={{marginTop: '20px'}}>{userProfile.name}</h5>
+                                <div style={{marginBottom: '20px'}}/>
+                                <h4 className="MypageName" style={{marginTop: '10px'}}>{userProfile.name}</h4>
                                 <div className="grayline"/>
                                 <h5 className="MypageName">{userProfile.email}</h5>
                                 <div className="grayline"/>
@@ -150,7 +153,9 @@ export default function MypageArea() {
                                         </>
                                     )}
                                 </div>
-                                <div className="grayline" style={{marginBottom: '15px', marginTop: '15px'}}/>
+                                <div className="grayline" style={{marginBottom: '20px', marginTop: '20px'}}/>
+                                <button className="MypageBtn" onClick={handleVoca}>단어장 복습</button>
+                                <div className="grayline" style={{marginBottom: '20px', marginTop: '20px'}}/>
                                 <button className="MypageBtn" onClick={() => {
                                     setModalInfo(true);
                                     change();
@@ -161,7 +166,7 @@ export default function MypageArea() {
                         </>
                     )}
 
-                    <div className="MypageContainer" style={{width: '1200px'}}>
+                    <div className="MypageContainer" style={{width: '1250px'}}>
                         <div style={{
                             marginTop: '20px',
                             justifyContent: "space-around",
@@ -191,12 +196,11 @@ export default function MypageArea() {
                                     <p className="MypageList" style={{paddingRight : '15px'}}>{chattingRoom.COUNTRY}</p>
                                     <p className="MypageList" style={{paddingRight : '40px'}}>{formatDate(chattingRoom.REGDATE)}</p>
                                     <div className="butt">
-                                    <button className="MypageResultBtn"
-                                         onClick={() => handleClick(chattingRoom.CRID)}>결과보기
-                                    </button>
+                                        <button className="MypageResultBtn"
+                                                onClick={() => handleClick(chattingRoom.CRID)}>결과보기
+                                        </button>
                                         <button className="ResultDeleteBtn"  onClick={() => deleteResult(chattingRoom.CRID)}>
-                                    <img src={trash1} width='18px' height='20px'>
-                                    </img>
+                                            <img src={trash1} width='18px' height='20px'></img>
                                         </button>
                                     </div>
                                     <div className="grayline"/>

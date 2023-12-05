@@ -3,8 +3,8 @@ import {useNavigate} from 'react-router-dom';
 import Question from './question';
 import Navigation from "../Navigation";
 import '../../App.css';
-import ModalStart from '../EngExam/ModalStart3';
-import '../EngExam/ModalStart3.css'
+import ModalStart from './ModalStart3';
+import './ModalStart3.css'
 import correctSound  from './정답.mp3';
 import wrongSound  from './오답.mp3';
 import './Style.css';

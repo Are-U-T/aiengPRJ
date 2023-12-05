@@ -1,5 +1,3 @@
-
-
 export default function userValidation(name, password, email) {
     // 이름 검사
     if (name === "") {

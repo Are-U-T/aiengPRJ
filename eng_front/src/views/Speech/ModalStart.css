@@ -65,12 +65,12 @@ button.qwe:hover {
 
 
 .modal-instructions {
-    padding: 30px;
-
+    padding: 30px
 }
 
 .modal-instructions p {
     font-size: 18px;
+    /*color: #333;*/
     line-height: 2.5;
     text-align : left;
     width: 420px;
