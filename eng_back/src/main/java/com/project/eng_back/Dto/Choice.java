@@ -3,7 +3,6 @@ package com.project.eng_back.Dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -46,7 +45,11 @@ public class Choice implements Serializable {
         this.crid = crid;
     }
 
-    public void setSpeaker(String speaker) { this.speaker = speaker; }
+    public void setSpeaker(String speaker) {
+        this.speaker = speaker;
+    }
 
-    public void setUid(String uid){ this.uid = uid; }
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 }

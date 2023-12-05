@@ -21,7 +21,9 @@ public class VocaController {
     private VocaServiceImp vocaService;
 
     @PostMapping("/insert")
-    public int save(@RequestBody VocaDto vocaDto){return vocaService.save(vocaDto);}
+    public int save(@RequestBody VocaDto vocaDto) {
+        return vocaService.save(vocaDto);
+    }
 
     @PostMapping("/delete")
     public int delete(@RequestBody Map<String, String> request) {

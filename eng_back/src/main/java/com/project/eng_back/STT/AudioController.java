@@ -1,12 +1,10 @@
 package com.project.eng_back.STT;
 
-import com.google.api.client.util.Value;
 import com.project.eng_back.Controller.ChatGptController;
 import com.project.eng_back.TTS.PlayAudio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,21 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-
-import static com.google.api.ResourceProto.resource;
-
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/audio")
-//@RequestMapping("/api/speech-to-text")
 public class AudioController {
 
     private ChatGptController chatGptController;
@@ -83,7 +69,7 @@ public class AudioController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ByteArrayResource(new byte[0]));
         }
     }
-    
+
     // 다른 표현 문장 3개 추천
     @PostMapping("/alternativeExpressionOutput")
     public ResponseEntity<String> alternativeExpressionOutput(@RequestParam("text") String textToConvert) {

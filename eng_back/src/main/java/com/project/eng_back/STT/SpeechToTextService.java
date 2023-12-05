@@ -1,13 +1,9 @@
 package com.project.eng_back.STT;
 
-
-import com.google.api.gax.longrunning.OperationFuture;
 import com.google.cloud.speech.v1.*;
 import com.google.protobuf.ByteString;
 import com.google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.util.List;
 
 public class SpeechToTextService {
@@ -45,5 +41,3 @@ public class SpeechToTextService {
         return transcription.toString();
     }
 }
-
-

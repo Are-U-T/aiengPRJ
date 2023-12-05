@@ -2,7 +2,6 @@ package com.project.eng_back.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.eng_back.Controller.TalkingRoomController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,7 @@ import java.util.Map;
 @Service
 public class NaverPapagoService {
 
-    public Logger logger = LoggerFactory.getLogger(TalkingRoomController.class);
+    public Logger logger = LoggerFactory.getLogger(NaverPapagoService.class);
 
     public String getTransSentence(String search, String sourceLang, String targetLang) {
 

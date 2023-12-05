@@ -80,7 +80,7 @@ public class TalkingRoomController {
         System.out.println("---------------------------------------");
 
         // 한국어에서 영어로 바꾸는 메서드
-        questionRequestDto = translateToEnglish(situation,gptRole,userRole,country,lv);
+        questionRequestDto = translateToEnglish(situation, gptRole, userRole, country, lv);
 
         String crid = UUID.randomUUID().toString().replaceAll("-", "");
         System.out.println("crid: " + crid);
@@ -111,78 +111,77 @@ public class TalkingRoomController {
         return encodedCrid;
     }
 
-    // 있는 상황들에 대해서만 . . . 변역
-    public QuestionRequestDto translateToEnglish(String situation , String gptRole, String userRole, String country, String lv){
+    // 있는 상황들에 대해서만 . . . 번역
+    public QuestionRequestDto translateToEnglish(String situation, String gptRole, String userRole, String country, String lv) {
         int voice;
         String level;
-        if(lv.equals("레벨 1")){
+        if (lv.equals("레벨 1")) {
             level = "middle school level vocabulary";
-        } else if(lv.equals("레벨 2")) {
+        } else if (lv.equals("레벨 2")) {
             level = "middle school level vocabulary";
-        } else if(lv.equals("레벨 3")) {
+        } else if (lv.equals("레벨 3")) {
             level = "high school level vocabulary";
-        } else if(lv.equals("레벨 4")) {
+        } else if (lv.equals("레벨 4")) {
             level = "high school level vocabulary";
-        } else if(lv.equals("레벨 5")) {
+        } else if (lv.equals("레벨 5")) {
             level = "college level vocabulary";
         } else {
-            level ="college level vocabulary";
+            level = "college level vocabulary";
         }
 
-        if(situation.equals("주말 데이트 계획 세우기"))
-        {
+        if (situation.equals("주말 데이트 계획 세우기")) {
             situation = "Plan a weekend date";
-            if(gptRole.equals("여자친구")){
+            if (gptRole.equals("여자친구")) {
                 gptRole = "girfriend";
                 userRole = "boyfriend";
-                if(country.equals("영국")){
+                if (country.equals("영국")) {
                     voice = 4;
                 } else {
                     voice = 8;
                 }
 
-            } else{
+            } else {
                 gptRole = "boyfriend";
                 userRole = "girfriend";
-                if(country.equals("영국")){
+                if (country.equals("영국")) {
                     voice = 3;
                 } else {
                     voice = 7;
                 }
             }
-        } else if(situation.equals("일본 여행 2박 3일 일정 정하기")){
-            situation="Decide on a 3-day, 2-night trip to Japan";
-            if(gptRole.equals("엄마")){
+        } else if (situation.equals("일본 여행 2박 3일 일정 정하기")) {
+            situation = "Decide on a 3-day, 2-night trip to Japan";
+            if (gptRole.equals("엄마")) {
                 gptRole = "mom";
                 userRole = "daughter";
-                if(country.equals("영국")){
+                if (country.equals("영국")) {
                     voice = 2;
                 } else {
                     voice = 6;
                 }
-            } else{
+            } else {
                 gptRole = "daughter";
                 userRole = "mom";
-                if(country.equals("영국")){
+                if (country.equals("영국")) {
                     voice = 4;
                 } else {
                     voice = 8;
                 }
             }
         } else {
-            situation="Recommend favorite movies to each other";
-            if(gptRole.equals("남자")){
+            situation = "Recommend favorite movies to each other";
+            if (gptRole.equals("남자")) {
                 gptRole = "man";
                 userRole = "woman";
-                if(country.equals("영국")){
+                if (country.equals("영국")) {
                     voice = 1;
                 } else {
                     voice = 5;
                 }
-            } else{
+            } else {
                 gptRole = "woman";
                 userRole = "man";
-                if(country.equals("영국")){
+                if (country.equals("영국")) {
                     voice = 2;
                 } else {
                     voice = 5;

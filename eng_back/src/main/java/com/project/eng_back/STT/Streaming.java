@@ -1,17 +1,20 @@
 package com.project.eng_back.STT;
 
-
 import com.google.api.gax.rpc.ClientStream;
 import com.google.api.gax.rpc.ResponseObserver;
 import com.google.api.gax.rpc.StreamController;
 import com.google.cloud.speech.v1.*;
 import com.google.protobuf.ByteString;
+
 import javax.sound.sampled.*;
 import java.util.ArrayList;
-public class Streaming {
-    public static boolean stopRecordingRequested ;
 
-    /** Performs microphone streaming speech recognition with a duration of 1 minute. */
+public class Streaming {
+    public static boolean stopRecordingRequested;
+
+    /**
+     * Performs microphone streaming speech recognition with a duration of 1 minute.
+     */
     public static void streamingMicRecognize() throws Exception {
 
         ResponseObserver<StreamingRecognizeResponse> responseObserver = null;
@@ -21,7 +24,8 @@ public class Streaming {
                     new ResponseObserver<StreamingRecognizeResponse>() {
                         ArrayList<StreamingRecognizeResponse> responses = new ArrayList<>();
 
-                        public void onStart(StreamController controller) {}
+                        public void onStart(StreamController controller) {
+                        }
 
                         public void onResponse(StreamingRecognizeResponse response) {
                             responses.add(response);
