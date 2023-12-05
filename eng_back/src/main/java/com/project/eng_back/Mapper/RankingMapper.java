@@ -83,6 +83,6 @@ public interface RankingMapper {
     @Select("SELECT NUM, NAME, EMAIL FROM USER_T WHERE EMAIL = #{friend}")
     UserDTO searchFriend(@Param("friend") String friend);
 
-    @Select("SELECT USERID2 FROM FRIENDSHIPS WHERE USERID1 = #{userNum}")
+    @Select("SELECT UT.NUM, UT.NAME, UT.EMAIL FROM FRIENDSHIPS FS JOIN USER_T UT ON FS.USERID2 = UT.NUM WHERE FS.USERID1 = #{userNum}")
     List<Map<String, String>> friendList(@Param("userNum") String userNum);
 }

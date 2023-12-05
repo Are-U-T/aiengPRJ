@@ -356,8 +356,10 @@ export default function MypageArea() {
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '30px' }}>
                             {getFriendList.map((friendList, index) => (
                                 <div key={index}>
-                                    <p>이름: {friendList.USERID2}</p>
-                                    <button onClick={()=>deleteFriend(friendList.USERID2)}>삭제</button>
+                                    <div style={{ display: 'grid', gridTemplateColumns: 'auto auto', columnGap: '10px', alignItems: 'center' }}>
+                                        <p>이름: {friendList.NAME}</p>
+                                        <button onClick={()=>deleteFriend(friendList.NUM)}>삭제</button>
+                                    </div>
                                 </div>
                             ))}
                         </div>
