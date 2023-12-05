@@ -44,7 +44,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const imageContainerClass = showSubtitles ? "image-container" : "image-container expanded";
     const subtitlesContainerClass = showSubtitles ? "subtitles-container" : "subtitles-container hidden";
 
-    const navigate = useNavigate(); // useNavigate 훅 사용
+    const navigate = useNavigate();
 
     // 프론트에서 세션 uid 가져오기
     const userNum = sessionStorage.getItem('userNum');
@@ -52,6 +52,10 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const location = useLocation();
     const crid = location.state?.crid; // 채팅방 생성시에 전달 받은 crid 전달 받아서 서버에 넘겨줌
     const speaker = null;
+
+
+    const [placeholder, setPlaceholder] = useState('한국어 입력');
+
 
     // 남자 여자 확인
     const gender = location.state?.gender;
@@ -71,16 +75,20 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
         const intervalId = setInterval(() => {
             if (timeSpent2 <= activationThreshold) {
                 handleMicActivation();
-                setTimeSpent2(5000); // 重設時間
+                setTimeSpent2(60000); // 重設時間
             } else {
                 // 減少時間
-                setTimeSpent2((prevTime) => prevTime - 5000);
+                setTimeSpent2((prevTime) => prevTime - 60000);
             }
-        }, 5000); // 每秒觸發一次
+        }, 60000); // 每秒觸發一次
 
         // 在組件卸載時清理計時器
         return () => clearInterval(intervalId);
     }, [timeSpent2]);
+
+
+    const [currentSearchResults, setCurrentSearchResults] = useState([]);
+    const [previousSearchResults, setPreviousSearchResults] = useState([]);
 
 
     const handleMicActivation = async () => {
@@ -266,7 +274,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     };
 
     const startRecording = () => {
-        setTimeSpent2(50000);
+        // setTimeSpent2(50000);
 
         recorder.start().then(() => {
             setIsRecording(true);
@@ -341,11 +349,10 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     };
 
     const searchBtn = async (event) => {
-
         event.preventDefault();
 
         try {
-            // papago API
+            // Papago API 호출
             const response = await fetch('http://localhost/api/papago', {
                 method: 'post',
                 headers: {
@@ -353,17 +360,28 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                 },
                 body: JSON.stringify({sourceLang, targetLang, search: inputSearch}),
             });
-            console.log(response);
 
             if (response.ok) {
                 const searchData = await response.text();
 
+                // 새로운 검색 결과 저장
+                const newResult = {query: inputSearch, result: searchData};
+
+                // 이전 검색 결과 업데이트 (현재 검색 결과의 첫 번째 항목만 저장)
+                if (currentSearchResults.length > 0) {
+                    setPreviousSearchResults([currentSearchResults[0]]);
+                }
+
+                // 현재 검색 결과 업데이트 (새로운 결과를 맨 앞에 추가)
+                setCurrentSearchResults([newResult]);
+
+                // 검색 결과 저장 API 호출
                 const data = {
                     crid,
                     unum: userNum,
                     word: inputSearch,
                     resultWord: searchData
-                }
+                };
 
                 const saveResponse = await fetch('http://localhost/voca/insert', {
                     method: 'post',
@@ -372,6 +390,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                     },
                     body: JSON.stringify(data),
                 });
+
                 if (saveResponse.ok) {
                     userWord();
                     console.log('successfully.');
@@ -380,9 +399,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                 }
                 setInputSearch('');
             }
-        } catch
-            (error) {
-            console.error('papago Error:', error);
+        } catch (error) {
+            console.error('Papago Error:', error);
         }
     };
 
@@ -398,10 +416,10 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     };
 
     const changeLang = () => {
-        // 현재 sourceLang이 'ko'인 경우, 'en'으로 변경하고 targetLang도 'ko'로 변경
-        // 현재 sourceLang이 'en'인 경우, 'ko'로 변경하고 targetLang도 'en'으로 변경
+
         setSourceLang((prevLang) => (prevLang === 'ko' ? 'en' : 'ko'));
         setTargetLang((prevLang) => (prevLang === 'ko' ? 'en' : 'ko'));
+        setPlaceholder((prevLang) => (prevLang === '한국어 입력' ? '영어 입력' : '한국어 입력'));
     }
 
     return (
@@ -427,11 +445,11 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
                         <div style={{marginTop: '30px'}}/>
 
-                        <p><strong>오타 수정 섹션:</strong> 사용자의 말을 텍스트로 변환하며, 발견된 문법 오류를 자동으로 수정합니다.</p>
+                        <p><strong>검색 섹션:</strong> 사용자가 한글 또는 영어 단어를 검색할 수 있는 기능을 제공합니다.</p>
                         <p><strong>질문 추천 섹션:</strong> 사용자가 선택한 상황에 맞는 질문을 2분마다 자동으로 제안합니다.</p>
 
                         <div className='redcss'>
-                            <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 대화내용을 끄게 되면 오타 섹션과 질문추천 섹션도
+                            <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 대화내용을 끄게 되면 검색 섹션과 질문추천 섹션도
                             함께
                             닫힙니다.<br/>
                             <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 마이크를 켜면 시간이 줄어들며, 멈추면 시간이
@@ -466,16 +484,39 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                             </ul>
                         </div>
 
+
                         <div className='mrt'>
-                            <div className="typo-correction-container junghunerr">
-                                <b style={{color: 'midnightblue'}}>오타 섹션</b>
-                                {correctGrammar.map((subtitle, index) => (
-                                    <div key={index}>
-                                        {subtitle.CONTENT}
-                                    </div>
-                                ))}
+                            <div className="typo-correction-container">
+                                <b style={{color: 'midnightblue'}}>검색 섹션</b>
+                                <div className="search-container">
+                                    <input
+                                        type="text"
+                                        value={inputSearch}
+                                        onChange={(e) => setInputSearch(e.target.value)}
+                                        className="search-input"
+                                        placeholder={placeholder}
+                                    />
+                                    <button onClick={searchBtn} className="search-btn">검색</button>
+                                    <button onClick={changeLang} className="lang-toggle-btn">한글/영어 전환</button>
+                                </div>
+
+                                <div className='searchResults'>
+                                    {currentSearchResults.map((currentItem, index) => {
+                                        const previousItem = previousSearchResults[index];
+                                        return (
+                                            <div key={index} className='resultRow'>
+                                                <div
+                                                    className='currentResult'> {currentItem.query} : {currentItem.result}</div>
+
+                                                {previousItem && <div
+                                                    className='previousResult'> {previousItem.query} : {previousItem.result}</div>}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         </div>
+
 
                         <div className="question-suggestion-container junghun">
                             <b style={{color: 'midnightblue'}}>질문추천 섹션</b>
@@ -546,25 +587,6 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                     </button>
                 </ModalResult>
             )}
-
-            <div>
-                <div className="wordSearch">
-                    <input
-                        type="text"
-                        value={inputSearch}
-                        onChange={(e) => setInputSearch(e.target.value)}
-                    />
-                    <button onClick={searchBtn}>검색</button>
-                </div>
-                <div className="wordList">
-                    {getWord.map((title, index) => (
-                        <div key={index}>
-                            {title.RESULTWORD}
-                        </div>
-                    ))}
-                    <button onClick={changeLang}>한글/영어 전환</button>
-                </div>
-            </div>
 
             <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
 

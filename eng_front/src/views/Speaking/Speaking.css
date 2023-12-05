@@ -160,11 +160,12 @@
 }
 
 .mrt{
-    margin-top: -140px;
+    margin-top: -150px;
 }
 
 .mrts{
-    margin-top: -105px;
+    margin-top: -115px;
+    margin-left: -40px;
 }
 
 @media (min-width: 768px) {
@@ -203,7 +204,7 @@
     height : 180px;
 }
 
-/* 오타 수정 공간 스타일링 */
+
 .typo-correction-container {
     padding: 15px;
     margin-top: 120px;
@@ -213,7 +214,7 @@
     color: #333333;
     transition: all 0.3s ease;
     width: 500px;
-    height: 240px;
+    height: 170px;
     margin-left: 40px;
     text-align: left;
 
@@ -267,30 +268,6 @@
     border-radius: 0px;
 }
 
-.junghunerr {
-    max-height: 160px;
-    overflow-y: auto;
-}
-
-.junghunerr::-webkit-scrollbar {
-    width: 1px;
-    background-color: transparent;
-}
-
-.junghunerr::-webkit-scrollbar-thumb {
-    background-color: #d0d0d0;
-    border-radius: 4px;
-}
-
-.junghunerr::-webkit-scrollbar-thumb:hover {
-    background-color: #a0a0a0;
-}
-
-.junghunerr::-webkit-scrollbar-track {
-    background-color: transparent;
-    border-radius: 0px;
-}
-
 .vvi{
     margin-top: 20px;
     padding-right: 150px;
@@ -319,12 +296,80 @@
     }
 }
 
-.wordList {
-    width: 280px;
-    height: 500px;
-    margin-top: 20px;
-    /*background-color: #a0a0a0;*/
-    border-radius: 1px;
-    border-color: #1abc9c;
-    border-style: solid;
+
+.search-container {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 10px;
+    padding: 20px;
 }
+
+.search-input {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 10px 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-size: 14px;
+}
+
+.search-input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+.search-btn, .lang-toggle-btn {
+    border: none;
+    border-radius: 20px;
+    padding: 10px 15px;
+    background-color: #4a90e2;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 14px;
+}
+
+.search-btn:hover, .lang-toggle-btn:hover {
+    background-color: #357abd;
+    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+    .search-container {
+        grid-template-columns: 1fr;
+    }
+
+    .search-btn, .lang-toggle-btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+
+.searchResults {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    color: deeppink;
+    width: 420px;
+    height: 100px;
+}
+
+.resultRow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.currentResult {
+    font-size: 15px;
+    padding-left: 20px;
+}
+
+.previousResult{
+    font-size: 15px;
+}
+
+
+
+

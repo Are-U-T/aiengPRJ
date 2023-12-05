@@ -20,8 +20,8 @@ public class NaverPapagoService {
     public String getTransSentence(String search, String sourceLang, String targetLang) {
 
         String textContent;
-        String clientId = "";
-        String clientSecret = "";
+        String clientId = "yg5uC1j_5kASjzm6BG3z";
+        String clientSecret = "lHXyweida2";
 
         String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
 

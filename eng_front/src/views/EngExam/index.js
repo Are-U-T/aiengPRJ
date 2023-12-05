@@ -5,8 +5,8 @@ import Navigation from "../Navigation";
 import '../../App.css';
 import ModalStart from './ModalStart3';
 import './ModalStart3.css'
-import correctSound  from './정답.mp3';
-import wrongSound  from './오답.mp3';
+import correctSound from './정답.mp3';
+import wrongSound from './오답.mp3';
 import './Style.css';
 
 const questionsData = [
@@ -142,8 +142,7 @@ const questionsData = [
     },
 ];
 
-
-const VisualFeedback = ({ isCorrect }) => {
+const VisualFeedback = ({isCorrect}) => {
     const canvasRef = useRef(null);
     let startAngle = 0.5 * Math.PI; // 18시 방향에서 시작
     let endAngle = 2.5 * Math.PI; // 18시 방향에서 끝
@@ -159,7 +158,7 @@ const VisualFeedback = ({ isCorrect }) => {
         context.clearRect(0, 0, canvas.width, canvas.height);
 
         const draw = () => {
-            context.lineWidth = 3 + Math.random(); // 선의 불규칙한 굵기
+            context.lineWidth = 3 + Math.random();
             context.lineCap = 'round';
             context.lineJoin = 'round';
             context.strokeStyle = 'red';
@@ -167,16 +166,16 @@ const VisualFeedback = ({ isCorrect }) => {
             context.beginPath();
 
             if (isCorrect) {
-                // 정답일 경우 원 그리기
+
                 if (currentAngle < endAngle) {
-                    currentAngle += 0.05; // 속도 조절
-                    context.arc(100, 100, 50, startAngle, currentAngle); // 반지름을 50으로 변경
+                    currentAngle += 0.05;
+                    context.arc(100, 100, 50, startAngle, currentAngle);
                     requestAnimationFrame(draw);
                 }
             } else {
                 if (currentX > endX) {
-                    currentX -= 2; // X 좌표 이동 속도
-                    currentY += 2; // Y 좌표 이동 속도
+                    currentX -= 2;
+                    currentY += 2;
                     context.moveTo(startX, startY);
                     context.lineTo(currentX, currentY);
                     requestAnimationFrame(draw);
@@ -189,13 +188,8 @@ const VisualFeedback = ({ isCorrect }) => {
         draw();
     }, [isCorrect]);
 
-    return <canvas ref={canvasRef} width={200} height={200} style={{position: 'absolute', top: 100, left: 400}} />;
+    return <canvas ref={canvasRef} width={200} height={200} style={{position: 'absolute', top: 100, left: 400}}/>;
 };
-
-
-
-
-
 
 function EngExam() {
     const navigate = useNavigate();
@@ -235,7 +229,7 @@ function EngExam() {
         }));
     };
 
-    const [isAnswerCorrect, setIsAnswerCorrect] = useState(null);  // 답이 맞았는지 틀렸는지
+    const [isAnswerCorrect, setIsAnswerCorrect] = useState(null);
 
     const handleSendAns = () => {
         if (buttonState === '확인') {
@@ -263,19 +257,16 @@ function EngExam() {
         }
     };
 
-
-    // 다음 문제로 넘어갈 때 상태를 초기화하는 함수 추가
     const moveToNextQuestion = () => {
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
         setIsAnswerCorrect(null);
         setSelectedOption(null);
     };
 
-    // handleSkipButtonClick 함수를 moveToNextQuestion을 사용하도록 업데이트
     const handleSkipButtonClick = () => {
         if (currentQuestionIndex < questionsData.length - 1) {
             moveToNextQuestion();
-            // setConfirmButtonVisible(true);
+
         } else if (currentQuestionIndex === questionsData.length - 1) {
             navigate('/resultpage', {state: {score: score}});
         }
@@ -314,7 +305,6 @@ function EngExam() {
             }}>
 
                 <div style={{textAlign: 'center', marginBottom: '10px'}}>
-                    {/*<h2>영어 테스트 {currentQuestionIndex + 1}/{questionsData.length}</h2>*/}
                 </div>
                 <div style={{textAlign: 'right', marginBottom: '30px'}}>
                     <button
@@ -334,12 +324,10 @@ function EngExam() {
                 </div>
 
 
-
                 <div style={{textAlign: 'center', marginBottom: '120px', marginLeft: '80px', marginRight: '80px'}}>
                     {currentQuestion && (
                         <div>
 
-                            {/* 시각적 피드백을 여기에 렌더링 */}
                             {isAnswerCorrect !== null && (
                                 <VisualFeedback isCorrect={isAnswerCorrect}/>
                             )}
@@ -349,7 +337,6 @@ function EngExam() {
                                 onAnswer={handleAnswer}
                                 selectedOption={selectedOption}
                             />
-
 
                         </div>
                     )}
