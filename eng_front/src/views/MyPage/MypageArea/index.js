@@ -7,6 +7,8 @@ import ProgressBar from "./ProgressBar";
 import ModalChange from './ModalChange';
 import '../../../App.css'
 import trash1 from './images/trash1.png';
+import Modal from "../../Speech/Modal";
+import loginImg from "../../Speech/images/loginImg.png";
 
 export default function MypageArea() {
 
@@ -26,7 +28,20 @@ export default function MypageArea() {
     const [friendAdded, setFriendAdded] = useState(false);
     const [modalAddFriend, setMdalAddFriend] = useState(false);
     const [modalFriendList, setModalFriendList] = useState(false);
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
     const userNum = sessionStorage.getItem('userNum');
+
+    useEffect(() => {
+        if (userNum == null) {
+            // 모달 창 띄워서 로그인 하세요 하고 확인 누르면 로그인 창으로 보내기
+            setLoginModalOpen(true);
+        }
+    }, [userNum]);
+
+    const closeModalAndNavigate = () => {
+        setLoginModalOpen(false);
+        navigate('/login');
+    };
 
     const checkPassword = () => {
         if (inputPassword === userProfile.pw) {
@@ -386,6 +401,17 @@ export default function MypageArea() {
                         </button>
                     </ModalChange>
                 )}
+
+                <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
+
+                    <div className="speechModalCenter">
+                        <img src={loginImg} alt='로그인 이미지' className="speechLoginImg"/>
+                        <h4>로그인 후 이용해 주세요</h4>
+                        <button onClick={closeModalAndNavigate} className="modal-custom-button">
+                            닫기
+                        </button>
+                    </div>
+                </Modal>
 
             </div>
         </>
