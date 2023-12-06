@@ -36,6 +36,8 @@ public class UserDTO {
 
     private int del;
 
+    private int photo;
+
     private LocalDateTime regDate;
 
     public UserDTO() {
