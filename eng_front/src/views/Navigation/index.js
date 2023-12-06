@@ -74,7 +74,7 @@ const Navigation = () => {
                         <Nav.Link href="/login" className="custom-login-link">Login</Nav.Link>
                     )}
                 </Nav>
-                {/*랭킹이랑 이것저것 추가할 예정*/}
+
             </Navbar.Collapse>
         </Navbar>
         </div>
