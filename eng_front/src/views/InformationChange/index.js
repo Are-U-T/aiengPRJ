@@ -88,8 +88,8 @@ export default function MyProfile() {
 
     return (
         <div className='App'>
+            <Navigation/>
             <Container>
-                <Navigation/>
                 <StyledForm>
                     <Typography variant="h5" sx={{mb: 4, color: '#0d47a1'}}>개인정보 수정</Typography>
                     <TextField

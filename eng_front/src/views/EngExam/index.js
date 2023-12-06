@@ -144,18 +144,25 @@ const questionsData = [
 
 const VisualFeedback = ({isCorrect}) => {
     const canvasRef = useRef(null);
-    let startAngle = 0.5 * Math.PI; // 18시 방향에서 시작
-    let endAngle = 2.5 * Math.PI; // 18시 방향에서 끝
-    let currentAngle = startAngle;
-
-    // 오답일 경우 대각선 그리기를 위한 상태
-    let startX = 140, startY = 0, endX = 0, endY = 140;
-    let currentX = startX, currentY = startY;
+    let startAngle = 0.5 * Math.PI;
+    let endAngle = 2.5 * Math.PI;
 
     useEffect(() => {
+        // canvasRef.current가 존재하는지 확인
+        if (!canvasRef.current) {
+            return;
+        }
+
         const canvas = canvasRef.current;
         const context = canvas.getContext('2d');
         context.clearRect(0, 0, canvas.width, canvas.height);
+
+        let currentAngle = startAngle;
+        let startX = canvas.width - 5;
+        let startY = 50;
+        let endX = canvas.width / 2;
+        let endY = canvas.height - 200;
+        let currentX = startX, currentY = startY;
 
         const draw = () => {
             context.lineWidth = 3 + Math.random();
@@ -166,16 +173,15 @@ const VisualFeedback = ({isCorrect}) => {
             context.beginPath();
 
             if (isCorrect) {
-
                 if (currentAngle < endAngle) {
-                    currentAngle += 0.05;
-                    context.arc(100, 100, 50, startAngle, currentAngle);
+                    currentAngle += 0.1;
+                    context.arc(canvas.width * 3 / 4, 100, 50, startAngle, currentAngle); // 원의 중심 좌표 수정
                     requestAnimationFrame(draw);
                 }
             } else {
-                if (currentX > endX) {
-                    currentX -= 2;
-                    currentY += 2;
+                if (currentX > endX && currentY < endY) {
+                    currentX -= 3;
+                    currentY += 3;
                     context.moveTo(startX, startY);
                     context.lineTo(currentX, currentY);
                     requestAnimationFrame(draw);
@@ -188,8 +194,9 @@ const VisualFeedback = ({isCorrect}) => {
         draw();
     }, [isCorrect]);
 
-    return <canvas ref={canvasRef} width={200} height={200} style={{position: 'absolute', top: 100, left: 400}}/>;
+    return <canvas ref={canvasRef} width={400} height={400} style={{position: 'absolute', top: 80, left: 400}}/>;
 };
+
 
 function EngExam() {
     const navigate = useNavigate();

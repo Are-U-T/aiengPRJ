@@ -37,21 +37,21 @@ function Header() {
         setIsScrolling(true); // 스크롤 시작
     };
 
-    useEffect(() => {
-        if (isScrolling) {
-            document.addEventListener('wheel', stopScrolling);
-            document.addEventListener('click', stopScrolling);
-        } else {
-            document.removeEventListener('wheel', stopScrolling);
-            document.removeEventListener('click', stopScrolling);
-        }
-
-        return () => {
-            clearInterval(scrollInterval); // 컴포넌트 언마운트 시 인터벌 정리
-            document.removeEventListener('wheel', stopScrolling);
-            document.removeEventListener('click', stopScrolling);
-        };
-    }, [isScrolling, scrollInterval]);
+    // useEffect(() => {
+    //     if (isScrolling) {
+    //         document.addEventListener('wheel', stopScrolling);
+    //         document.addEventListener('click', stopScrolling);
+    //     } else {
+    //         document.removeEventListener('wheel', stopScrolling);
+    //         document.removeEventListener('click', stopScrolling);
+    //     }
+    //
+    //     return () => {
+    //         clearInterval(scrollInterval); // 컴포넌트 언마운트 시 인터벌 정리
+    //         document.removeEventListener('wheel', stopScrolling);
+    //         document.removeEventListener('click', stopScrolling);
+    //     };
+    // }, [isScrolling, scrollInterval]);
 
     return (
         <div className='App'>
