@@ -50,6 +50,7 @@ export default function MypageArea() {
                 const data = await response.json();
                 setFriendProfile(data);
                 console.log('가져온 친구 정보: ', data);
+                setFriendAdded(false);
             } else {
                 console.error('Failed');
             }

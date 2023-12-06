@@ -144,6 +144,7 @@ export default function RankingArea() {
                     </div>
                 )}
             </div>
+            <div style={{marginBottom: '50px'}}/>
         </div>
     )
 }
