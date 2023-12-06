@@ -5,6 +5,7 @@ import com.project.eng_back.Mapper.VocaMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,5 +36,7 @@ public class VocaServiceImp implements VocaService {
     }
 
     @Override
-    public List<Map<String, String>> vocaTest(String unum) { return vocaMapper.vocaTest(unum);}
+    public List<Map<String, String>> vocaTest(String unum) {
+        return vocaMapper.vocaTest(unum);
+    }
 }

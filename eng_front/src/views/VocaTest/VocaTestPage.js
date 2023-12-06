@@ -1,13 +1,24 @@
 import './VocaTest.css'
 import axios from "axios";
 import React, {useEffect, useState} from "react";
+import {useNavigate} from 'react-router-dom';
+import ModalChange from "../MyPage/MypageArea/ModalChange";
 
 export default function VocaTestPage() {
 
     const userNum = sessionStorage.getItem('userNum');
 
     const [voca, setVoca] = useState([]);
+    const [modal, setModal] = useState(false);
+    const [correctCount, setCorrectCount] = useState(0);
+    const [wrongCount, setWrongCount] = useState(0);
 
+    const navigate = useNavigate();
+
+    const move = () => {
+        setModal(false);
+        navigate('/mypage');
+    }
     // word, mean box
     const vocaBox = () => {
         const vocaBoxes = [
@@ -24,12 +35,10 @@ export default function VocaTestPage() {
         ));
     }
 
-    // voca test box
-    const vocaTestBox1 = () => {
+    const generateVocaTestBoxes = (startIndex, endIndex) => {
         const vocaTestBoxes = [];
 
-        // 좌
-        for (let j = 0; j < 15; j++) {
+        for (let j = startIndex; j < endIndex; j++) {
             const vocaBoxes = [];
 
             for (let i = 0; i < 2; i++) {
@@ -58,42 +67,10 @@ export default function VocaTestPage() {
         }
 
         return vocaTestBoxes;
-    }
+    };
 
-    const vocaTestBox2 = () => {
-        const vocaTestBoxes2 = [];
-
-        // 우
-        for (let j = 15; j < 30; j++) {
-            const vocaBoxes2 = [];
-
-            for (let i = 0; i < 2; i++) {
-                if (i % 2 === 1) {
-                    vocaBoxes2.push(<input key={i} type="text" className="vocaBoxName"/>);
-                } else {
-                    const wordIndex = j
-                    vocaBoxes2.push(
-                        <div key={i} className="vocaBoxName">
-                            {voca[wordIndex] && (
-                                <div key={i}>
-                                    {voca[wordIndex].WORD}
-                                </div>
-                            )}
-                        </div>
-                    );
-                }
-            }
-
-            // vocaTestBoxes에 한 줄 추가
-            vocaTestBoxes2.push(
-                <div key={j} className="vocaBoxNameContainer">
-                    {vocaBoxes2}
-                </div>
-            );
-        }
-
-        return vocaTestBoxes2;
-    }
+    const vocaTestBox1 = generateVocaTestBoxes(0, 15);
+    const vocaTestBox2 = generateVocaTestBoxes(15, 30);
 
     // get voca
     const getVoca = async () => {
@@ -115,6 +92,36 @@ export default function VocaTestPage() {
         getVoca();
     }, [])
 
+    const vocaSend = async () => {
+
+        const inputElements = document.querySelectorAll("input");
+        console.log("(inputElements): ", inputElements);
+
+        const inputData = Array.from(inputElements).map((input) => input.value);
+
+        console.log("(Input Data): ", inputData);
+
+        const data = {
+            userNum: userNum,
+            vocaData: inputData,
+        }
+
+        try {
+            const response = await axios.post('http://localhost/voca/send', data)
+            console.log("(vocaTestSend Front response): ", response.data);
+
+            const correctCount = response.data[0];
+            const wrongCount = response.data[1];
+
+            setCorrectCount(correctCount);
+            setWrongCount(wrongCount);
+
+            setModal(true);
+        } catch (error) {
+            console.log("(vocaTestSend Front error): ", error);
+        }
+    }
+
     return (
         <>
             <div className="start"></div>
@@ -126,9 +133,24 @@ export default function VocaTestPage() {
                 </div>
                 <div className="vocaBoxNameContainer">{vocaBox()}</div>
                 <div className="vocaTestBoxFlex">
-                    <div className="vocaTestBox1">{vocaTestBox1()}</div>
-                    <div className="vocaTestBox2">{vocaTestBox2()}</div>
+                    <div className="vocaTestBox1">{vocaTestBox1}</div>
+                    <div className="vocaTestBox2">{vocaTestBox2}</div>
+                    <button type="submit" className="vocaSendBtn" onClick={() => vocaSend()}>제출</button>
                 </div>
+
+                {modal && (
+                    <ModalChange isOpen={modal} onClose={() => setModal(false)}>
+                        <p>정답: {correctCount}</p>
+                        <p>오답: {wrongCount}</p>
+                        <button className="modal-buttona" onClick={() => {
+                            setModal(false);
+                            move();
+                        }}>
+                            닫기
+                        </button>
+                    </ModalChange>
+                )}
+
             </div>
         </>
     )

@@ -28,6 +28,6 @@ public interface VocaMapper {
     @Select("SELECT WORD, RESULTWORD FROM VOCA WHERE UNUM = #{unum}")
     List<Map<String, String>> getVocaList(@Param("unum") String unum);
 
-    @Select("SELECT * FROM (SELECT * FROM VOCA ORDER BY DBMS_RANDOM.RANDOM) WHERE ROWNUM <= 30")
+    @Select("SELECT WORD, RESULTWORD FROM (SELECT * FROM VOCA ORDER BY DBMS_RANDOM.RANDOM) WHERE ROWNUM <= 30")
     List<Map<String, String>> vocaTest(@Param("unum") String unum);
 }

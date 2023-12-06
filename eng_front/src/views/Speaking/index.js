@@ -66,21 +66,21 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
     const [timeSpent2, setTimeSpent2] = useState(5000);
 
-    useEffect(() => {
-        const activationThreshold = 0; // 閾值，1 秒為 1000 毫秒
-        const intervalId = setInterval(() => {
-            if (timeSpent2 <= activationThreshold) {
-                handleMicActivation();
-                setTimeSpent2(5000); // 重設時間
-            } else {
-                // 減少時間
-                setTimeSpent2((prevTime) => prevTime - 5000);
-            }
-        }, 5000); // 每秒觸發一次
-
-        // 在組件卸載時清理計時器
-        return () => clearInterval(intervalId);
-    }, [timeSpent2]);
+    // useEffect(() => {
+    //     const activationThreshold = 0; // 閾值，1 秒為 1000 毫秒
+    //     const intervalId = setInterval(() => {
+    //         if (timeSpent2 <= activationThreshold) {
+    //             handleMicActivation();
+    //             setTimeSpent2(5000); // 重設時間
+    //         } else {
+    //             // 減少時間
+    //             setTimeSpent2((prevTime) => prevTime - 5000);
+    //         }
+    //     }, 5000); // 每秒觸發一次
+    //
+    //     // 在組件卸載時清理計時器
+    //     return () => clearInterval(intervalId);
+    // }, [timeSpent2]);
 
 
     const handleMicActivation = async () => {
@@ -168,12 +168,12 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     }, [crid]);
 
     // 대화 업데이트 시 추천 질문도 업데이트
-    useEffect(() => {
-        const subtitleInterval = setInterval(() => {
-            updateRecommendedQuestions("recommend");
-        }, 200000); // 2분 마다 업데이트
-        return () => clearInterval(subtitleInterval);
-    }, [crid]);
+    // useEffect(() => {
+    //     const subtitleInterval = setInterval(() => {
+    //         updateRecommendedQuestions("recommend");
+    //     }, 200000); // 2분 마다 업데이트
+    //     return () => clearInterval(subtitleInterval);
+    // }, [crid]);
 
 
     // 일정한 간격으로 서버에서 자막을 가져오는 함수

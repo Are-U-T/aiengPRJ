@@ -15,6 +15,7 @@
     display: flex;
     justify-content: center;
 }
+
 .vocaLine {
     width: 280px;
     border-top: 1px solid #8E8E8E;
@@ -46,4 +47,15 @@
     color: #727272;
     font-family: "Noto Sans KR Medium", "sans-serif";
     font-size: 18px;
+}
+
+.vocaSendBtn {
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    font-size: 15px;
+    border-radius: 4px;
+    width: 50px;
+    height: 35px;
+    background: #1D2B64;
+    color: white;
+    border: none;
 }
