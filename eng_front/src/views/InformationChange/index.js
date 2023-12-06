@@ -25,6 +25,7 @@ import P8 from '../MyPage/MypageArea/images/8.png';
 import P9 from '../MyPage/MypageArea/images/9.png';
 import ModalSeico from './ModalResult';
 import './ModalResult.css';
+import Footer from './Footer/index';
 
 const Container = styled(Box)({
     display: 'flex',
@@ -215,17 +216,28 @@ export default function MyProfile() {
 
             {modalKorean && (
                 <ModalSeico isOpen={modalKorean} onClose={() => setModalKorean(false)}>
-                  프로필 변경
-                    <div className="modal-body">
-                        {photos.map((photo, index) => {
-                            return (
-                                <img key={index} src={photo} alt={`Profile ${index}`} onClick={() => handlePhotoSelect(index)} style={{ margin: '10px', width: '50px', height: '50px', borderRadius: '50%' }}/>
-                            );
-                        })}
+                    <div className="modal-text" style={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold' }}>
+                        프로필 변경
+                    </div>
+                    <div className="modal-photo">
+                        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+                            {photos.map((photo, index) => (
+                                <img
+                                    key={index}
+                                    src={photo}
+                                    alt={`Profile ${index}`}
+                                    onClick={() => handlePhotoSelect(index)}
+                                    style={{ margin: '10px', width: '150px', height: '150px', borderRadius: '50%' }}
+                                />
+                            ))}
+                        </div>
+
                     </div>
                     <button className="modal-button" onClick={() => setModalKorean(false)}>닫기</button>
                 </ModalSeico>
             )}
+
+            <Footer/>
 
         </div>
     );

@@ -3,7 +3,7 @@ import './RankingArea.css';
 import '../../../App.css'
 import king from './images/kingImg.webp';
 import axios from "axios";
-
+import Footer from './Footer/index';
 export default function RankingArea() {
 
     const [rankList, setRankList] = useState([]);

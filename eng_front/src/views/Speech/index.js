@@ -15,6 +15,7 @@ import right from './images/right.png';
 import LoadingPage from './LoadingPage';
 import './Modal.css';
 import './ModalStart.css';
+import Footer from './Footer/index';
 
 
 function Speech() {
@@ -350,6 +351,7 @@ function Speech() {
 
 
             </div>
+            <Footer/>
         </div>
     );
 }
