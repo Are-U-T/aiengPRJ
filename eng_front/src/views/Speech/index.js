@@ -15,14 +15,19 @@ import right from './images/right.png';
 import LoadingPage from './LoadingPage';
 import './Modal.css';
 import './ModalStart.css';
-
+import mic from "../Speaking/images/mic.png";
+import micno from "../Speaking/images/micno.png";
+import subtitle from "../Speaking/images/subtitle.png";
+import subtitleno from "../Speaking/images/subtitleno.png";
+import time_finish from "../Speaking/images/time_finish.png";
+import ModalStart2 from "../Speaking/ModalStart2";
 
 function Speech() {
     const [selectedItem, setSelectedItem] = useState(null);
     const [selectedAirole, setSelectedAirole] = useState(null);
     const [selectedMyrole, setSelectedMyrole] = useState(null);
     const [selectedCountry, setSelectedCountry] = useState(null);
-    const [selectedLv, setselectedLv] = useState(0);
+    const [selectedLv, setselectedLv] = useState("중학교");
     const [availableRoles, setAvailableRoles] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 

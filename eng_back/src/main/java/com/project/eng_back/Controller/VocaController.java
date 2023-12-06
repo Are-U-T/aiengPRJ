@@ -15,27 +15,18 @@ import java.util.Map;
 @RequestMapping("/voca")
 public class VocaController {
 
-    public Logger logger = LoggerFactory.getLogger(VocaController.class);
-
     @Autowired
     private VocaServiceImp vocaService;
 
+    public Logger logger = LoggerFactory.getLogger(VocaController.class);
+
     @PostMapping("/insert")
     public int save(@RequestBody VocaDto vocaDto){return vocaService.save(vocaDto);}
-
-    @PostMapping("/delete")
-    public int delete(@RequestBody Map<String, String> request) {
-        String word = request.get("word");
-        String unum = request.get("userNum");
-
-        return vocaService.delete(word, unum);
-    }
 
     @PostMapping("/getWord")
     public List<Map<String, String>> getWord(@RequestBody Map<String, String> request) {
         String crid = request.get("crid");
 
-        logger.info("***** *****");
         logger.info("(getWord) crid: {}", crid);
 
         return vocaService.getWord(crid);
@@ -47,5 +38,13 @@ public class VocaController {
         logger.info("(getWord) unum: {}", unum);
 
         return vocaService.getVocaList(unum);
+    }
+
+    @PostMapping("/delete")
+    public int delete(@RequestBody Map<String, String> request) {
+        String word = request.get("word");
+        String unum = request.get("userNum");
+
+        return vocaService.delete(word, unum);
     }
 }

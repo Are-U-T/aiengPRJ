@@ -150,24 +150,4 @@ public class AudioController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ByteArrayResource(new byte[0]));
         }
     }
-
-    @PostMapping("/autoQuestion")
-    public ResponseEntity<Resource> autoQuestion(@RequestParam("text") String textToConvert, @RequestParam("userNum") String userNum) {
-        try {
-
-            byte[] audioData = chatGptController.conversation(textToConvert, userNum);
-            // 创建 ByteArrayResource
-            ByteArrayResource resource = new ByteArrayResource(audioData);
-
-            // 返回 ResponseEntity，设置响应头以指示资源类型和文件名
-            return ResponseEntity.ok()
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"audio.mp3\"")
-                    .body(resource);
-        } catch (Exception e) {
-            e.printStackTrace();
-            // 返回带错误信息的 ResponseEntity
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ByteArrayResource(new byte[0]));
-        }
-    }
 }

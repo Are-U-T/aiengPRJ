@@ -1,5 +1,5 @@
 import Navigation from "../Navigation";
-import MypageArea from "./MypageArea";
+import RankingArea from "./RankingArea";
 import React from "react";
 
 export default function MyPage(){
@@ -8,7 +8,7 @@ export default function MyPage(){
         <>
             <div style={{backgroundColor : 'white'}}>
                 <Navigation/>
-                <MypageArea/>
+                <RankingArea/>
             </div>
         </>
     )

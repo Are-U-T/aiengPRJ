@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import './style.css'
+import  './style.css'
 import '../../../App.css'
 import up from './images/up.png'
 
-export default function Footer() {
+export default function Footer(){
 
     const [isScrolling, setIsScrolling] = useState(false);
     let scrollInterval; // 스크롤 인터벌을 저장할 변수
@@ -19,13 +19,13 @@ export default function Footer() {
 
         scrollInterval = setInterval(() => {
             if (window.scrollY > 0) {
-                window.scrollBy(0, -scrollStep);
+                window.scrollBy(0, -scrollStep); // 위로 스크롤
             } else {
-                stopScrolling();
+                stopScrolling(); // 스크롤 중단
             }
         }, 100);
 
-        setIsScrolling(true);
+        setIsScrolling(true); // 스크롤 시작
     };
 
     useEffect(() => {
@@ -42,12 +42,12 @@ export default function Footer() {
         };
     }, [isScrolling]);
 
-    return (
+    return(
         <div className='App'>
-            <div style={{marginTop: '100px'}}>
+            <div style={{marginTop : '100px'}}>
                 <img src={up} alt='up' onClick={scrollToTop} className="scru"/>
 
-                <footer className="footer" style={{backgroundColor: 'black', color: 'white'}}>
+                <footer className="footer" style={{ backgroundColor: 'black', color: 'white'}}>
                     <div className="footer-container">
                         <div className="row">
 
@@ -71,23 +71,16 @@ export default function Footer() {
 
                             <div className="col-lg-3 col-md-6 mb-2">
                                 <h5 className="uu">Follow Us</h5>
-                                <p style={{marginTop: '-15px', fontSize: '11px'}}>Are U T 공식채널</p>
-                                <div className="social-links" style={{marginTop: '-10px'}}>
-                                    <a className="social-icon facebook-icon"
-                                       href="https://www.facebook.com/sunmoonuniversity/?locale=ko_KR"><i
-                                        className="fab fa-facebook-f"/></a>
-                                    <a className="social-icon instagram-icon"
-                                       href="https://www.instagram.com/sunmoonuniv/?hl=ko"><i
-                                        className="fab fa-instagram"/></a>
-                                    <a className="social-icon youtube-icon"
-                                       href="https://www.youtube.com/channel/UCwK3hT2ah8OA9Hzjmiq4TmQ/videos"><i
-                                        className="fab fa-youtube"/></a>
+                                <p style={{marginTop : '-15px',fontSize :'11px'}}>Are U T 공식채널</p>
+                                <div className="social-links" style={{marginTop : '-10px'}}>
+                                    <a className="social-icon facebook-icon" href="https://www.facebook.com/sunmoonuniversity/?locale=ko_KR"><i className="fab fa-facebook-f" /></a>
+                                    <a className="social-icon instagram-icon" href="https://www.instagram.com/sunmoonuniv/?hl=ko"><i className="fab fa-instagram" /></a>
+                                    <a className="social-icon youtube-icon" href="https://www.youtube.com/channel/UCwK3hT2ah8OA9Hzjmiq4TmQ/videos"><i className="fab fa-youtube" /></a>
                                     <a className="social-icon github-icon" href="https://github.com/Are-U-T/aiengPRJ">
                                         <i className="fab fa-github"></i>
                                     </a>
 
-                                    <a className="social-icon notion-icon"
-                                       href="https://www.notion.so/a93a058a1f6449849a0f394bfe12f75a">
+                                    <a className="social-icon notion-icon" href="https://www.notion.so/a93a058a1f6449849a0f394bfe12f75a">
                                         <i className="fab fa-notion"></i>
                                     </a>
                                 </div>
@@ -96,6 +89,6 @@ export default function Footer() {
                     </div>
                 </footer>
             </div>
-        </div>
+    </div>
     )
 }

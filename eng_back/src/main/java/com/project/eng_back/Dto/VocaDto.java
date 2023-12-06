@@ -27,7 +27,5 @@ public class VocaDto {
         this.word = word;
     }
 
-    public void setResultWord(String resultWord) {
-        this.resultWord = resultWord;
-    }
+    public void setResultWord(String resultWord) { this.resultWord = resultWord; }
 }

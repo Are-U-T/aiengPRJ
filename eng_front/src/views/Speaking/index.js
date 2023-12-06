@@ -38,13 +38,12 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
     const [startModalOpen2, setStartModalOpen2] = useState(false);
     const [isTurningOff, setIsTurningOff] = useState(false);
-    const [inputSearch, setInputSearch] = useState('');
 
     // 사진과 자막 컨테이너의 동적 스타일을 위한 클래스
     const imageContainerClass = showSubtitles ? "image-container" : "image-container expanded";
     const subtitlesContainerClass = showSubtitles ? "subtitles-container" : "subtitles-container hidden";
 
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // useNavigate 훅 사용
 
     // 프론트에서 세션 uid 가져오기
     const userNum = sessionStorage.getItem('userNum');
@@ -53,82 +52,18 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     const crid = location.state?.crid; // 채팅방 생성시에 전달 받은 crid 전달 받아서 서버에 넘겨줌
     const speaker = null;
 
-
-    const [placeholder, setPlaceholder] = useState('한국어 입력');
-
-
     // 남자 여자 확인
     const gender = location.state?.gender;
     const videoSource = gender === 0 ? aimale : aifemale;
 
-    // 단어장
-    const [getWord, setGetWord] = useState([]);
-    const [sourceLang, setSourceLang] = useState("ko");
-    const [targetLang, setTargetLang] = useState("en");
-
     const videoRef = useRef(null);
 
-    const [timeSpent2, setTimeSpent2] = useState(5000);
-
     useEffect(() => {
-        const activationThreshold = 0; // 閾值，1 秒為 1000 毫秒
-        const intervalId = setInterval(() => {
-            if (timeSpent2 <= activationThreshold) {
-                handleMicActivation();
-                setTimeSpent2(60000); // 重設時間
-            } else {
-                // 減少時間
-                setTimeSpent2((prevTime) => prevTime - 60000);
-            }
-        }, 60000); // 每秒觸發一次
-
-        // 在組件卸載時清理計時器
-        return () => clearInterval(intervalId);
-    }, [timeSpent2]);
-
-
-    const [currentSearchResults, setCurrentSearchResults] = useState([]);
-    const [previousSearchResults, setPreviousSearchResults] = useState([]);
-
-
-    const handleMicActivation = async () => {
-        // 在這裡實現向後端發送消息的邏輯
-        console.log('麥克風在 30 秒內未啟用。向後端發送消息。');
-
-        try {
-
-            // 发送音频数据到后台
-            const response = await axios.post('http://localhost/api/audio/autoQuestion', null, {
-                params: {
-                    text: "ask me a question",
-                    userNum: userNum,
-                },
-                responseType: 'arraybuffer', // 设置响应类型为二进制数组
-            });
-
-            if (response.status === 200) {
-                const audioBlob = new Blob([response.data], {type: 'audio/mp3'});
-                const url = URL.createObjectURL(audioBlob);
-                console.log('Audio sent successfully:', url);
-
-                // 直接播放音频
-                const audioElement = new Audio(url);
-                audioElement.play();
-
-                videoRef.current.play();
-                audioElement.addEventListener('ended', () => {
-                    videoRef.current.pause();
-                });
-            } else {
-                console.error('Failed to send audio. Status code:', response.status);
-            }
-        } catch (error) {
-            console.error('Error sending audio:', error);
+        if (userNum == null) {
+            // 모달 창 띄워서 로그인 하세요 하고 확인 누르면 로그인 창으로 보내기
+            setLoginModalOpen(true);
         }
-
-        setIsTurningOff(false);
-        console.log('Recording stopped');
-    };
+    }, [userNum]);
 
     useEffect(() => {
         if (userNum == null) {
@@ -248,6 +183,26 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
         }
     }, [timeSpent, isModalOpen]); // 의존성 배열에 isModalOpen을 추가
 
+
+    useEffect(() => {
+        let timer;
+        if (isRecording && timeSpent > 0) {
+            // 녹음 중이고 시간이 남아 있을 때만 시간 감소
+            timer = setInterval(() => {
+                setTimeSpent(time => time - 1);
+            }, 1000);
+        } else if (!isRecording || timeSpent === 0) {
+            // 녹음이 중지되거나 시간이 0에 도달했을 때 호출
+            clearInterval(timer);
+            if (timeSpent === 0) {
+                handleTimeLimitReached();
+            }
+        }
+
+        // 컴포넌트가 언마운트 되거나 isRecording, timeSpent가 변경될 때 타이머 정리
+        return () => clearInterval(timer);
+    }, [isRecording, timeSpent]);
+
     // 시간을 분과 초로 변환하는 함수
     const formatTime = (totalSeconds) => {
         const minutes = Math.floor(totalSeconds / 60);
@@ -274,8 +229,6 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
     };
 
     const startRecording = () => {
-        // setTimeSpent2(50000);
-
         recorder.start().then(() => {
             setIsRecording(true);
         }).catch((e) => console.error(e));
@@ -348,80 +301,6 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
         }
     };
 
-    const searchBtn = async (event) => {
-        event.preventDefault();
-
-        try {
-            // Papago API 호출
-            const response = await fetch('http://localhost/api/papago', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({sourceLang, targetLang, search: inputSearch}),
-            });
-
-            if (response.ok) {
-                const searchData = await response.text();
-
-                // 새로운 검색 결과 저장
-                const newResult = {query: inputSearch, result: searchData};
-
-                // 이전 검색 결과 업데이트 (현재 검색 결과의 첫 번째 항목만 저장)
-                if (currentSearchResults.length > 0) {
-                    setPreviousSearchResults([currentSearchResults[0]]);
-                }
-
-                // 현재 검색 결과 업데이트 (새로운 결과를 맨 앞에 추가)
-                setCurrentSearchResults([newResult]);
-
-                // 검색 결과 저장 API 호출
-                const data = {
-                    crid,
-                    unum: userNum,
-                    word: inputSearch,
-                    resultWord: searchData
-                };
-
-                const saveResponse = await fetch('http://localhost/voca/insert', {
-                    method: 'post',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                });
-
-                if (saveResponse.ok) {
-                    userWord();
-                    console.log('successfully.');
-                } else {
-                    console.error('Failed.');
-                }
-                setInputSearch('');
-            }
-        } catch (error) {
-            console.error('Papago Error:', error);
-        }
-    };
-
-    // 단어장
-    const userWord = async () => {
-        try {
-            const response = await axios.post('http://localhost/voca/getWord', {crid});
-            console.log('응답:', response.data);
-            setGetWord(response.data);
-        } catch (error) {
-            console.error('error: ', error);
-        }
-    };
-
-    const changeLang = () => {
-
-        setSourceLang((prevLang) => (prevLang === 'ko' ? 'en' : 'ko'));
-        setTargetLang((prevLang) => (prevLang === 'ko' ? 'en' : 'ko'));
-        setPlaceholder((prevLang) => (prevLang === '한국어 입력' ? '영어 입력' : '한국어 입력'));
-    }
-
     return (
         <div className='App'>
             <Navigation/>
@@ -429,8 +308,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                 <div style={{maxWidth: '600px', margin: 'auto'}}>
                     <h3 className='gh' style={{textAlign: 'center'}}>사용방법 안내</h3>
                     <div className="micq">
-                        <img src={mic} alt='mic' width='25px' height='25px'/> <img src={micno} alt='mic'
-                                                                                   width='25px'
+                        <img src={mic} alt='mic' width='25px' height='25px'/> <img src={micno} alt='mic' width='25px'
                                                                                    height='25px'/>
                         <p>마이크를 켜거나 끌 수 있습니다.</p>
 
@@ -445,15 +323,13 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
                         <div style={{marginTop: '30px'}}/>
 
-                        <p><strong>검색 섹션:</strong> 사용자가 한글 또는 영어 단어를 검색할 수 있는 기능을 제공합니다.</p>
+                        <p><strong>오타 수정 섹션:</strong> 사용자의 말을 텍스트로 변환하며, 발견된 문법 오류를 자동으로 수정합니다.</p>
                         <p><strong>질문 추천 섹션:</strong> 사용자가 선택한 상황에 맞는 질문을 2분마다 자동으로 제안합니다.</p>
 
                         <div className='redcss'>
-                            <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 대화내용을 끄게 되면 검색 섹션과 질문추천 섹션도
-                            함께
+                            <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 대화내용을 끄게 되면 오타 섹션과 질문추천 섹션도 함께
                             닫힙니다.<br/>
-                            <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 마이크를 켜면 시간이 줄어들며, 멈추면 시간이
-                            줄어들지
+                            <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 마이크를 켜면 시간이 줄어들며, 멈추면 시간이 줄어들지
                             않습니다.
                         </div>
                     </div>
@@ -484,39 +360,16 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                             </ul>
                         </div>
 
-
                         <div className='mrt'>
-                            <div className="typo-correction-container">
-                                <b style={{color: 'midnightblue'}}>검색 섹션</b>
-                                <div className="search-container">
-                                    <input
-                                        type="text"
-                                        value={inputSearch}
-                                        onChange={(e) => setInputSearch(e.target.value)}
-                                        className="search-input"
-                                        placeholder={placeholder}
-                                    />
-                                    <button onClick={searchBtn} className="search-btn">검색</button>
-                                    <button onClick={changeLang} className="lang-toggle-btn">한글/영어 전환</button>
-                                </div>
-
-                                <div className='searchResults'>
-                                    {currentSearchResults.map((currentItem, index) => {
-                                        const previousItem = previousSearchResults[index];
-                                        return (
-                                            <div key={index} className='resultRow'>
-                                                <div
-                                                    className='currentResult'> {currentItem.query} : {currentItem.result}</div>
-
-                                                {previousItem && <div
-                                                    className='previousResult'> {previousItem.query} : {previousItem.result}</div>}
-                                            </div>
-                                        );
-                                    })}
-                                </div>
+                            <div className="typo-correction-container junghunerr">
+                                <b style={{color: 'midnightblue'}}>오타 섹션</b>
+                                {correctGrammar.map((subtitle, index) => (
+                                    <div key={index}>
+                                        {subtitle.CONTENT}
+                                    </div>
+                                ))}
                             </div>
                         </div>
-
 
                         <div className="question-suggestion-container junghun">
                             <b style={{color: 'midnightblue'}}>질문추천 섹션</b>
@@ -542,8 +395,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                         </button>
 
                         <button onClick={toggleSubtitles}>
-                            <img src={showSubtitles ? subtitle : subtitleno}
-                                 alt={showSubtitles ? "자막 숨기기" : "자막 보이기"}
+                            <img src={showSubtitles ? subtitle : subtitleno} alt={showSubtitles ? "자막 숨기기" : "자막 보이기"}
                                  style={{width: '35px', height: '35px'}}/>
                         </button>
                         <button onClick={() => setIsModal2Open(true)}>

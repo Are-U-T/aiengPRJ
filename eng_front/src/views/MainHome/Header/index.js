@@ -21,10 +21,8 @@ function Header() {
     };
 
     const scrollToBottom = () => {
-        clearInterval(scrollInterval); // 기존 인터벌 정리
-
         let totalScrollDistance = document.body.scrollHeight - window.scrollY;
-        let scrollStep = 100; // 고정된 스크롤 단계 값
+        let scrollStep = totalScrollDistance / 100; // 스크롤 단계를 10배 빠르게 설정
 
         scrollInterval = setInterval(() => {
             if (window.scrollY < document.body.scrollHeight - window.innerHeight) {
@@ -37,21 +35,19 @@ function Header() {
         setIsScrolling(true); // 스크롤 시작
     };
 
-    // useEffect(() => {
-    //     if (isScrolling) {
-    //         document.addEventListener('wheel', stopScrolling);
-    //         document.addEventListener('click', stopScrolling);
-    //     } else {
-    //         document.removeEventListener('wheel', stopScrolling);
-    //         document.removeEventListener('click', stopScrolling);
-    //     }
-    //
-    //     return () => {
-    //         clearInterval(scrollInterval); // 컴포넌트 언마운트 시 인터벌 정리
-    //         document.removeEventListener('wheel', stopScrolling);
-    //         document.removeEventListener('click', stopScrolling);
-    //     };
-    // }, [isScrolling, scrollInterval]);
+    useEffect(() => {
+        // 스크롤 중에는 이벤트 리스너를 추가
+        if (isScrolling) {
+            document.addEventListener('wheel', stopScrolling);
+            document.addEventListener('click', stopScrolling);
+        }
+
+        // 컴포넌트 언마운트 시 또는 스크롤이 중단될 때 이벤트 리스너 제거
+        return () => {
+            document.removeEventListener('wheel', stopScrolling);
+            document.removeEventListener('click', stopScrolling);
+        };
+    }, [isScrolling]);
 
     return (
         <div className='App'>
@@ -73,6 +69,7 @@ function Header() {
 
             <div style={{marginTop: '100px'}}/>
 
+            {/*<div style={{ background : 'linear-gradient(to right, #89C4F4, #1D2B64)'}}>*/}
             <div style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -162,7 +159,7 @@ function Header() {
             <div style={{maxWidth: '1200px', margin: 'auto', padding: '0 40px'}}>
                 <div className="process-grid-container"
                      style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '20px'}}>
-
+                    {/* 첫 번째 행 */}
                     <div style={{
                         alignContent: 'center',
                         width: '600px',
@@ -185,6 +182,7 @@ function Header() {
                         <i className="fas fa-arrow-right" style={{fontSize: '24px', color: '#4A90E2'}}></i>
                     </div>
 
+                    {/* 두 번째 행 */}
                     <div style={{
                         alignContent: 'center',
                         width: '600px',
@@ -207,6 +205,7 @@ function Header() {
                         <i className="fas fa-arrow-right" style={{fontSize: '24px', color: '#4A90E2'}}></i>
                     </div>
 
+                    {/* 세 번째 행 */}
                     <div style={{
                         alignContent: 'center',
                         width: '600px',
@@ -229,6 +228,7 @@ function Header() {
                         <i className="fas fa-arrow-right" style={{fontSize: '24px', color: '#4A90E2'}}></i>
                     </div>
 
+                    {/* 네 번째 행 */}
                     <div style={{
                         alignContent: 'center',
                         width: '600px',

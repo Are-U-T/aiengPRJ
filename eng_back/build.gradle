@@ -49,7 +49,6 @@ dependencies {
 	// valid
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.2'
 }
 
 tasks.named('bootBuildImage') {
