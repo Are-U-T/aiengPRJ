@@ -56,6 +56,7 @@ const Navigation = () => {
                     <Nav.Link href="/leveltest" className="custom-nav-link">Level Test</Nav.Link>
                     <Nav.Link href="/speech" className="custom-nav-link">Speech</Nav.Link>
                     <Nav.Link href="/developer" className="custom-nav-link">Developer</Nav.Link>
+                    <Nav.Link href="/ranking" className="custom-nav-link">Ranking</Nav.Link>
                 </Nav>
 
                 <Nav>

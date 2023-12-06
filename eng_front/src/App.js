@@ -13,6 +13,7 @@ import Mypage from "./views/MyPage";
 import Voca from "./views/Voca"
 import ResultPage from "./views/EngExam/ResultPage";
 import Script from "./views/Script";
+import Ranking from "./views/Ranking"
 import './App.css';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             <Route path="/resultpage" element={<ResultPage/>}/>
             <Route path="/script" element={<Script/>}/>
             <Route path="/voca" element={<Voca/>}/>
+            <Route path="/ranking" element={<Ranking/>}/>
         </Routes>
         </div>
     );
