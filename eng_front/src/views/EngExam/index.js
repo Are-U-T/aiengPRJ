@@ -175,7 +175,7 @@ const VisualFeedback = ({isCorrect}) => {
             if (isCorrect) {
                 if (currentAngle < endAngle) {
                     currentAngle += 0.1;
-                    context.arc(canvas.width * 3 / 4, 100, 50, startAngle, currentAngle); // 원의 중심 좌표 수정
+                    context.arc(canvas.width * 3 / 4, 100, 50, startAngle, currentAngle);
                     requestAnimationFrame(draw);
                 }
             } else {
@@ -207,7 +207,6 @@ function EngExam() {
     const [score, setScore] = useState(0); // 添加 score 状态
     const [confirmButtonVisible, setConfirmButtonVisible] = useState(true);
     const [startModalOpen3, setStartModalOpen3] = useState(false);
-
     const [buttonState, setButtonState] = useState('확인');
 
 

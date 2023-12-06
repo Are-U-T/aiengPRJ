@@ -18,7 +18,7 @@ public interface UserMapper {
     @Select("SELECT * FROM USER_T")
     public List<UserDTO> findAll();
 
-    @Update("update USER_T set name = #{name}, pw = #{pw}, gender = #{gender} where num = #{num}")
+    @Update("update USER_T set name = #{name}, pw = #{pw}, gender = #{gender}, photo = #{photo} where num = #{num}")
     public int editById(UserDTO uDto);
 
     @Update("update USER_T set del = 1 where num = #{num}")

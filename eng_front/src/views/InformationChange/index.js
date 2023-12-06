@@ -14,6 +14,17 @@ import {styled} from '@mui/system';
 import $ from "jquery";
 import axios from "axios";
 import userValidation from './Validation';
+import P1 from '../MyPage/MypageArea/images/1.png';
+import P2 from '../MyPage/MypageArea/images/2.png';
+import P3 from '../MyPage/MypageArea/images/3.png';
+import P4 from '../MyPage/MypageArea/images/4.png';
+import P5 from '../MyPage/MypageArea/images/5.png';
+import P6 from '../MyPage/MypageArea/images/6.png';
+import P7 from '../MyPage/MypageArea/images/7.png';
+import P8 from '../MyPage/MypageArea/images/8.png';
+import P9 from '../MyPage/MypageArea/images/9.png';
+import ModalSeico from './ModalResult';
+import './ModalResult.css';
 
 const Container = styled(Box)({
     display: 'flex',
@@ -38,14 +49,66 @@ const StyledRadioGroup = styled(RadioGroup)({
     flexDirection: 'row',
 });
 
+const photos = [P1, P2, P3, P4, P5, P6, P7, P8, P9];
+
 export default function MyProfile() {
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [gender, setGender] = useState('');
     const [password, setPassword] = useState('');
-    const [userProfile, setUserProfile] = useState();
+    const [profile, setProfile] = useState(null);
     const [email, setEmail] = useState('');
     const userNum = sessionStorage.getItem('userNum');
+    const [modalKorean,setModalKorean] = useState(false);
+
+    const userPhotoNumber = parseInt(sessionStorage.getItem('userPhoto')) || 1;
+    let [PhotoNo,setPhotoNo] = useState();
+    const [selectedPhoto,setSelectedPhoto] = useState();
+
+    useEffect(() => {
+    switch (userPhotoNumber) {
+        case 1:
+            setSelectedPhoto(P1);
+            break;
+        case 2:
+            setSelectedPhoto(P2);
+            break;
+        case 3:
+            setSelectedPhoto(P3);
+            break;
+        case 4:
+            setSelectedPhoto(P4);
+            break;
+        case 5:
+            setSelectedPhoto(P5);
+            break;
+        case 6:
+            setSelectedPhoto(P6);
+            break;
+        case 7:
+            setSelectedPhoto(P7);
+            break;
+        case 8:
+            setSelectedPhoto(P8);
+            break;
+        case 9:
+            setSelectedPhoto(P9);
+            break;
+        default:
+            setSelectedPhoto(profile);
+    }
+}, [userPhotoNumber, profile]);
+
+    const handlePhotoSelect = (index) => {
+        setSelectedPhoto(photos[index]);
+        setPhotoNo(index+1);
+
+
+
+
+        setModalKorean(false);
+    };
+
 
 
     async function handleSubmit(event) {
@@ -58,9 +121,10 @@ export default function MyProfile() {
                 pw: password,
                 name: name,
                 gender: sex,
-                num: userNum
+                num: userNum,
+                photo: PhotoNo,
             };
-
+            console.log(userData);
             try {
                 const saveResponse = await fetch('http://localhost/user/editById', {
                     method: 'post',
@@ -73,6 +137,8 @@ export default function MyProfile() {
                 if (saveResponse.ok) {
                     console.log('User registered successfully.');
                     sessionStorage.setItem('userName', name);
+                    sessionStorage.setItem('userPhoto', PhotoNo);
+
                     navigate('/mypage');
 
 
@@ -85,6 +151,9 @@ export default function MyProfile() {
         }
     }
 
+    const korean = () =>{
+        setModalKorean(true);
+    }
 
     return (
         <div className='App'>
@@ -92,6 +161,11 @@ export default function MyProfile() {
             <Container>
                 <StyledForm>
                     <Typography variant="h5" sx={{mb: 4, color: '#0d47a1'}}>개인정보 수정</Typography>
+
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mb: 3 }}>
+                        <img src={selectedPhoto} alt="Profile" style={{ width: '150px', height: '150px', borderRadius: '50%' }} onClick={() => setModalKorean(true)}/>
+                    </Box>
+
                     <TextField
                         fullWidth
                         variant="outlined"
@@ -138,6 +212,21 @@ export default function MyProfile() {
                     </Box>
                 </StyledForm>
             </Container>
+
+            {modalKorean && (
+                <ModalSeico isOpen={modalKorean} onClose={() => setModalKorean(false)}>
+                  프로필 변경
+                    <div className="modal-body">
+                        {photos.map((photo, index) => {
+                            return (
+                                <img key={index} src={photo} alt={`Profile ${index}`} onClick={() => handlePhotoSelect(index)} style={{ margin: '10px', width: '50px', height: '50px', borderRadius: '50%' }}/>
+                            );
+                        })}
+                    </div>
+                    <button className="modal-button" onClick={() => setModalKorean(false)}>닫기</button>
+                </ModalSeico>
+            )}
+
         </div>
     );
 }
