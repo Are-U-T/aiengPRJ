@@ -33,4 +33,9 @@ public class VocaServiceImp implements VocaService {
     public List<Map<String, String>> getVocaList(String unum) {
         return vocaMapper.getVocaList(unum);
     }
+
+    @Override
+    public List<Map<String, String>> vocaTest(String unum) {
+        return vocaMapper.vocaTest(unum);
+    }
 }
