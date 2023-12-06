@@ -8,6 +8,7 @@ import './ModalStart3.css'
 import correctSound from './정답.mp3';
 import wrongSound from './오답.mp3';
 import './Style.css';
+import Footer from './Footer/index';
 
 const questionsData = [
     {
@@ -367,6 +368,8 @@ function EngExam() {
                     </button>
                 </div>
             </div>
+            <div style={{marginTop : '-300px'}}/>
+            <Footer/>
         </div>
     );
 }

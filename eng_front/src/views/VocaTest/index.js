@@ -1,6 +1,7 @@
 import React from "react";
 import Navigation from "../Navigation";
 import VocaTestPage from "./VocaTestPage";
+import Footer from './Footer/index';
 
 export default function VocaTest() {
 
@@ -10,6 +11,7 @@ export default function VocaTest() {
                 <Navigation/>
                 <VocaTestPage/>
             </div>
+            <Footer/>
         </>
     )
 }

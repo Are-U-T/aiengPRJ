@@ -1,241 +1,225 @@
 import * as React from 'react';
-import Navigation from "../Navigation";
+import AspectRatio from '@mui/joy/AspectRatio';
+import Box from '@mui/joy/Box';
+import Button from '@mui/joy/Button';
+import Divider from '@mui/joy/Divider';
+import FormControl from '@mui/joy/FormControl';
+import FormLabel from '@mui/joy/FormLabel';
+import FormHelperText from '@mui/joy/FormHelperText';
+import Input from '@mui/joy/Input';
+import IconButton from '@mui/joy/IconButton';
+import Textarea from '@mui/joy/Textarea';
+import Stack from '@mui/joy/Stack';
+import Select from '@mui/joy/Select';
+import Option from '@mui/joy/Option';
+import Typography from '@mui/joy/Typography';
+import Tabs from '@mui/joy/Tabs';
+import TabList from '@mui/joy/TabList';
+import Tab, { tabClasses } from '@mui/joy/Tab';
+import Breadcrumbs from '@mui/joy/Breadcrumbs';
+import Link from '@mui/joy/Link';
+import Card from '@mui/joy/Card';
+import CardActions from '@mui/joy/CardActions';
+import CardOverflow from '@mui/joy/CardOverflow';
+
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import AccessTimeFilledRoundedIcon from '@mui/icons-material/AccessTimeFilledRounded';
+import VideocamRoundedIcon from '@mui/icons-material/VideocamRounded';
+import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded';
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+
+import DropZone from './DropZone';
+import FileUpload from './FileUpload';
+import CountrySelector from './CountrySelector';
+import EditorToolbar from './EditorToolbar';
+import Navigation from "../../../../../../../Desktop/옮기는용/Navigation";
 import '../../App.css'
-import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormLabel from '@mui/material/FormLabel';
-import {styled} from '@mui/system';
-import $ from "jquery";
-import axios from "axios";
-import userValidation from './Validation';
-import P1 from '../MyPage/MypageArea/images/1.png';
-import P2 from '../MyPage/MypageArea/images/2.png';
-import P3 from '../MyPage/MypageArea/images/3.png';
-import P4 from '../MyPage/MypageArea/images/4.png';
-import P5 from '../MyPage/MypageArea/images/5.png';
-import P6 from '../MyPage/MypageArea/images/6.png';
-import P7 from '../MyPage/MypageArea/images/7.png';
-import P8 from '../MyPage/MypageArea/images/8.png';
-import P9 from '../MyPage/MypageArea/images/9.png';
-import ModalSeico from './ModalResult';
-import './ModalResult.css';
-
-const Container = styled(Box)({
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    backgroundColor: '#eceff1',
-});
-
-const StyledForm = styled(Box)({
-    width: '100%',
-    maxWidth: '600px', // 수정된 폼 크기
-    padding: '40px', // 수정된 패딩
-    borderRadius: '8px',
-    backgroundColor: '#ffffff',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    textAlign: 'center',
-});
-
-const StyledRadioGroup = styled(RadioGroup)({
-    flexDirection: 'row',
-});
-
-const photos = [P1, P2, P3, P4, P5, P6, P7, P8, P9];
+import user from './images/user.png';
 
 export default function MyProfile() {
-    const navigate = useNavigate();
-    const [name, setName] = useState('');
-    const [gender, setGender] = useState('');
-    const [password, setPassword] = useState('');
-    const [profile, setProfile] = useState(null);
-    const [email, setEmail] = useState('');
-    const userNum = sessionStorage.getItem('userNum');
-    const [modalKorean,setModalKorean] = useState(false);
-
-    const userPhotoNumber = parseInt(sessionStorage.getItem('userPhoto')) || 1;
-    let [PhotoNo,setPhotoNo] = useState();
-    const [selectedPhoto,setSelectedPhoto] = useState();
-
-    useEffect(() => {
-        switch (userPhotoNumber) {
-            case 1:
-                setSelectedPhoto(P1);
-                break;
-            case 2:
-                setSelectedPhoto(P2);
-                break;
-            case 3:
-                setSelectedPhoto(P3);
-                break;
-            case 4:
-                setSelectedPhoto(P4);
-                break;
-            case 5:
-                setSelectedPhoto(P5);
-                break;
-            case 6:
-                setSelectedPhoto(P6);
-                break;
-            case 7:
-                setSelectedPhoto(P7);
-                break;
-            case 8:
-                setSelectedPhoto(P8);
-                break;
-            case 9:
-                setSelectedPhoto(P9);
-                break;
-            default:
-                setSelectedPhoto(profile);
-        }
-    }, [userPhotoNumber, profile]);
-
-    const handlePhotoSelect = (index) => {
-        setSelectedPhoto(photos[index]);
-        setPhotoNo(index+1);
-
-
-
-
-        setModalKorean(false);
-    };
-
-
-
-    async function handleSubmit(event) {
-        event.preventDefault();
-        if (userValidation(name, password, email)) {
-            let sex = (gender === "female") ? 0 : 1;
-
-            const userData = {
-                email: email,
-                pw: password,
-                name: name,
-                gender: sex,
-                num: userNum,
-                photo: PhotoNo,
-            };
-            console.log(userData);
-            try {
-                const saveResponse = await fetch('http://localhost/user/editById', {
-                    method: 'post',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(userData),
-                });
-
-                if (saveResponse.ok) {
-                    console.log('User registered successfully.');
-                    sessionStorage.setItem('userName', name);
-                    sessionStorage.setItem('userPhoto', PhotoNo);
-
-                    navigate('/mypage');
-
-
-                } else {
-                    console.error('Failed to register user.');
-                }
-            } catch (error) {
-                console.error('Error during registration:', error);
-            }
-        }
-    }
-
-    const korean = () =>{
-        setModalKorean(true);
-    }
-
     return (
         <div className='App'>
-            <Navigation/>
-            <Container>
-                <StyledForm>
-                    <Typography variant="h5" sx={{mb: 4, color: '#0d47a1'}}>개인정보 수정</Typography>
+        <Navigation/>
 
-                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mb: 3 }}>
-                        <img src={selectedPhoto} alt="Profile" style={{ width: '150px', height: '150px', borderRadius: '50%' }} onClick={() => setModalKorean(true)}/>
+            <div style={{marginTop : '30px'}}/>
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100vh' // 부모 컨테이너의 높이 설정
+            }}>
+                <Card >
+                    <Box sx={{ mb: 1 }}>
+                        <Typography level="title-md">개인정보 수정</Typography>
+                        <Typography level="body-sm">
+                            본인의 정보를 수정하세요.
+                        </Typography>
                     </Box>
-
-                    <TextField
-                        fullWidth
-                        variant="outlined"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        sx={{mb: 2}}
-                        id="name"
-                        label="Name"
-                        name="name"
-                        autoComplete="name"
-                        placeholder="이름 입력"
-                    />
-                    <TextField
-                        fullWidth
-                        label="비밀번호"
-                        type="password"
-                        variant="outlined"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        sx={{mb: 3}}
-                        name="password"
-                        id="password"
-                        placeholder="영문 + 숫자 + 특수문자 조합으로 8~15글자"
-                    />
-
-                    <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', mb: 3, textAlign: 'left'}}>
-                        <FormLabel sx={{mr: 1, color: '#0d47a1'}}>성별:</FormLabel>
-                        <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}} aria-label="gender"
-                             name="gender">
-                            <Radio checked={gender === 'male'} onChange={(e) => setGender(e.target.value)}
-                                   value="male"/>
-                            <Typography>남성</Typography>
-                            <Radio checked={gender === 'female'} onChange={(e) => setGender(e.target.value)}
-                                   value="female"/>
-                            <Typography>여성</Typography>
-                        </Box>
-                    </Box>
-
-                    <Box sx={{display: 'flex', justifyContent: 'center', gap: 2, mt: 2}}>
-                        <Button variant="contained" color="primary" onClick={handleSubmit}
-                                sx={{width: '150px'}}>저장</Button>
-                        <Button variant="outlined" color="primary" onClick={() => navigate('/mypage')}
-                                sx={{width: '150px'}}>닫기</Button>
-                    </Box>
-                </StyledForm>
-            </Container>
-
-            {modalKorean && (
-                <ModalSeico isOpen={modalKorean} onClose={() => setModalKorean(false)}>
-                    <div className="modal-text" style={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold' }}>
-                        프로필 변경
-                    </div>
-                    <div className="modal-photo">
-                        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-                            {photos.map((photo, index) => (
+                    <Divider />
+                    <Stack
+                        direction="row"
+                        spacing={3}
+                        sx={{ display: { xs: 'none', md: 'flex' }, my: 1 }}
+                    >
+                        <Stack direction="column" spacing={1}>
+                            <AspectRatio
+                                ratio="1"
+                                maxHeight={200}
+                                sx={{ flex: 1, minWidth: 120, borderRadius: '100%' }}
+                            >
                                 <img
-                                    key={index}
-                                    src={photo}
-                                    alt={`Profile ${index}`}
-                                    onClick={() => handlePhotoSelect(index)}
-                                    style={{ margin: '10px', width: '150px', height: '150px', borderRadius: '50%' }}
+                                    src={user}
+                                    srcSet={`${user} 1x`}
+                                    loading="lazy"
+                                    alt=""
                                 />
-                            ))}
+                            </AspectRatio>
+                            <IconButton
+                                aria-label="upload new picture"
+                                size="sm"
+                                variant="outlined"
+                                color="neutral"
+                                sx={{
+                                    bgcolor: 'background.body',
+                                    position: 'absolute',
+                                    zIndex: 2,
+                                    borderRadius: '50%',
+                                    left: 100,
+                                    top: 170,
+                                    boxShadow: 'sm',
+                                }}
+                            >
+                                <EditRoundedIcon />
+                            </IconButton>
+                        </Stack>
+                        <Stack spacing={2} sx={{ flexGrow: 1 }}>
+                            <Stack spacing={1}>
+                                <FormLabel>이름</FormLabel>
+                                <FormControl
+                                    sx={{
+                                        display: {
+                                            sm: 'flex-column',
+                                            md: 'flex-row',
+                                        },
+                                        gap: 2,
+                                    }}
+                                >
+                                    <Input size="sm" placeholder="First name" />
+                                    <Input size="sm" placeholder="Last name" sx={{ flexGrow: 1 }} />
+                                </FormControl>
+                            </Stack>
+                            <Stack direction="row" spacing={2}>
+                                <FormControl>
+                                    <FormLabel>직업</FormLabel>
+                                    <Input size="sm" defaultValue="UI Developer" />
+                                </FormControl>
+                                <FormControl sx={{ flexGrow: 1 }}>
+                                    <FormLabel>이메일</FormLabel>
+                                    <Input
+                                        size="sm"
+                                        type="email"
+                                        startDecorator={<EmailRoundedIcon />}
+                                        placeholder="email"
+                                        defaultValue="siriwatk@test.com"
+                                        sx={{ flexGrow: 1 }}
+                                    />
+                                </FormControl>
+                            </Stack>
+                            <div>
+                                <CountrySelector />
+                            </div>
+                        </Stack>
+                    </Stack>
+                    <Stack
+                        direction="column"
+                        spacing={2}
+                        sx={{ display: { xs: 'flex', md: 'none' }, my: 1 }}
+                    >
+                        <Stack direction="row" spacing={2}>
+                            <Stack direction="column" spacing={1}>
+                                <AspectRatio
+                                    ratio="1"
+                                    maxHeight={108}
+                                    sx={{ flex: 1, minWidth: 108, borderRadius: '100%' }}
+                                >
+                                    <img
+                                        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
+                                        srcSet="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286&dpr=2 2x"
+                                        loading="lazy"
+                                        alt=""
+                                    />
+                                </AspectRatio>
+                                <IconButton
+                                    aria-label="upload new picture"
+                                    size="sm"
+                                    variant="outlined"
+                                    color="neutral"
+                                    sx={{
+                                        bgcolor: 'background.body',
+                                        position: 'absolute',
+                                        zIndex: 2,
+                                        borderRadius: '50%',
+                                        left: 85,
+                                        top: 180,
+                                        boxShadow: 'sm',
+                                    }}
+                                >
+                                    <EditRoundedIcon />
+                                </IconButton>
+                            </Stack>
+                            <Stack spacing={1} sx={{ flexGrow: 1 }}>
+                                <FormLabel>이름</FormLabel>
+                                <FormControl
+                                    sx={{
+                                        display: {
+                                            sm: 'flex-column',
+                                            md: 'flex-row',
+                                        },
+                                        gap: 2,
+                                    }}
+                                >
+                                    <Input size="sm" placeholder="First name" />
+                                    <Input size="sm" placeholder="Last name" />
+                                </FormControl>
+                            </Stack>
+                        </Stack>
+
+                        <FormControl>
+                            <FormLabel>Role</FormLabel>
+                            <Input size="sm" defaultValue="UI Developer" />
+                        </FormControl>
+                        <FormControl sx={{ flexGrow: 1 }}>
+                            <FormLabel>Email</FormLabel>
+                            <Input
+                                size="sm"
+                                type="email"
+                                startDecorator={<EmailRoundedIcon />}
+                                placeholder="email"
+                                defaultValue="siriwatk@test.com"
+                                sx={{ flexGrow: 1 }}
+                            />
+                        </FormControl>
+
+                        <div>
+                            <CountrySelector />
                         </div>
 
-                    </div>
-                    <button className="modal-button" onClick={() => setModalKorean(false)}>닫기</button>
-                </ModalSeico>
-            )}
+                    </Stack>
+                    <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
+                        <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
+                            <Button size="sm" variant="outlined" color="neutral">
+                                Cancel
+                            </Button>
+                            <Button size="sm" variant="solid">
+                                Save
+                            </Button>
+                        </CardActions>
+                    </CardOverflow>
+                </Card>
+            </Box>
 
-        </div>
+           </div>
     );
 }

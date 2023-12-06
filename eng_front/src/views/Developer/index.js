@@ -12,7 +12,7 @@ import jhImage from "./images/jh.jpg";
 import syImage from "./images/sy.jpg";
 import cgImage from "./images/cg.jpg";
 import '../../App.css';
-import Footer from './Footer/index';
+import Footer from './Footer';
 
 const ProjectIntro = () => (
     <div className='App'>

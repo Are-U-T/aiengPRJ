@@ -3,7 +3,7 @@ import './RankingArea.css';
 import '../../../App.css'
 import king from './images/kingImg.webp';
 import axios from "axios";
-
+import Footer from './Footer/index';
 export default function RankingArea() {
 
     const [rankList, setRankList] = useState([]);
@@ -144,7 +144,6 @@ export default function RankingArea() {
                     </div>
                 )}
             </div>
-            <div style={{marginBottom: '50px'}}/>
         </div>
     )
 }
