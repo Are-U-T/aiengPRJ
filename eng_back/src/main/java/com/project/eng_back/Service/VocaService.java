@@ -9,9 +9,9 @@ public interface VocaService {
 
     int save(VocaDto vocaDto);
 
+    int delete(String word,String unum);
+
     List<Map<String, String>> getWord(String crid);
 
     List<Map<String, String>> getVocaList(String crid);
-
-    int delete(String word,String unum);
 }

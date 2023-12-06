@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Question from './question';
 import Navigation from "../Navigation";
 import '../../App.css';
-import ModalStart from '../EngExam/ModalStart3';
-import '../EngExam/ModalStart3.css'
-import Modal from "../Speech/Modal";
-import loginImg from "../Speech/images/loginImg.png";
+import ModalStart from './ModalStart3';
+import './ModalStart3.css'
+import correctSound from './정답.mp3';
+import wrongSound from './오답.mp3';
+import './Style.css';
 
 const questionsData = [
     {
@@ -141,6 +142,62 @@ const questionsData = [
     },
 ];
 
+const VisualFeedback = ({isCorrect}) => {
+    const canvasRef = useRef(null);
+    let startAngle = 0.5 * Math.PI;
+    let endAngle = 2.5 * Math.PI;
+
+    useEffect(() => {
+        // canvasRef.current가 존재하는지 확인
+        if (!canvasRef.current) {
+            return;
+        }
+
+        const canvas = canvasRef.current;
+        const context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        let currentAngle = startAngle;
+        let startX = canvas.width - 5;
+        let startY = 50;
+        let endX = canvas.width / 2;
+        let endY = canvas.height - 200;
+        let currentX = startX, currentY = startY;
+
+        const draw = () => {
+            context.lineWidth = 3 + Math.random();
+            context.lineCap = 'round';
+            context.lineJoin = 'round';
+            context.strokeStyle = 'red';
+
+            context.beginPath();
+
+            if (isCorrect) {
+                if (currentAngle < endAngle) {
+                    currentAngle += 0.1;
+                    context.arc(canvas.width * 3 / 4, 100, 50, startAngle, currentAngle); // 원의 중심 좌표 수정
+                    requestAnimationFrame(draw);
+                }
+            } else {
+                if (currentX > endX && currentY < endY) {
+                    currentX -= 3;
+                    currentY += 3;
+                    context.moveTo(startX, startY);
+                    context.lineTo(currentX, currentY);
+                    requestAnimationFrame(draw);
+                }
+            }
+
+            context.stroke();
+        };
+
+        draw();
+    }, [isCorrect]);
+
+    return <canvas ref={canvasRef} width={400} height={400} style={{position: 'absolute', top: 80, left: 400}}/>;
+};
+
+
 function EngExam() {
     const navigate = useNavigate();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -150,21 +207,9 @@ function EngExam() {
     const [score, setScore] = useState(0); // 添加 score 状态
     const [confirmButtonVisible, setConfirmButtonVisible] = useState(true);
     const [startModalOpen3, setStartModalOpen3] = useState(false);
-    const [loginModalOpen, setLoginModalOpen] = useState(false);
 
-    const userNum = sessionStorage.getItem('userNum');
+    const [buttonState, setButtonState] = useState('확인');
 
-    useEffect(() => {
-        if (userNum == null) {
-            // 모달 창 띄워서 로그인 하세요 하고 확인 누르면 로그인 창으로 보내기
-            setLoginModalOpen(true);
-        }
-    }, [userNum]);
-
-    const closeModalAndNavigate = () => {
-        setLoginModalOpen(false);
-        navigate('/login');
-    };
 
     useEffect(() => {
         setStartModalOpen3(true);
@@ -191,28 +236,44 @@ function EngExam() {
         }));
     };
 
+    const [isAnswerCorrect, setIsAnswerCorrect] = useState(null);
+
     const handleSendAns = () => {
-        if (selectedOption && currentQuestionIndex < questionsData.length - 1) {
-            setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-            setConfirmButtonVisible(false);
-            if (selectedOption === currentQuestion.answer) {
+        if (buttonState === '확인') {
+            const isCorrect = selectedOption === currentQuestion.answer;
+            setIsAnswerCorrect(isCorrect);
+
+            if (isCorrect) {
+                new Audio(correctSound).play();
                 setScore((prevScore) => prevScore + 10);
+            } else {
+                new Audio(wrongSound).play();
             }
-            setSelectedOption(null);
-        } else if (currentQuestionIndex === questionsData.length - 1) {
-            if (selectedOption === currentQuestion.answer) {
-                navigate('/resultpage', {state: {score: score + 10}});
+
+            setButtonState('다음 문제');
+        } else {
+
+            if (currentQuestionIndex < questionsData.length - 1) {
+                setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+                setIsAnswerCorrect(null);
+                setSelectedOption(null);
+                setButtonState('확인');
             } else {
                 navigate('/resultpage', {state: {score: score}});
             }
         }
     };
 
+    const moveToNextQuestion = () => {
+        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+        setIsAnswerCorrect(null);
+        setSelectedOption(null);
+    };
+
     const handleSkipButtonClick = () => {
         if (currentQuestionIndex < questionsData.length - 1) {
-            setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-            setSelectedOption(null);
-            // setConfirmButtonVisible(true);
+            moveToNextQuestion();
+
         } else if (currentQuestionIndex === questionsData.length - 1) {
             navigate('/resultpage', {state: {score: score}});
         }
@@ -251,7 +312,6 @@ function EngExam() {
             }}>
 
                 <div style={{textAlign: 'center', marginBottom: '10px'}}>
-                    {/*<h2>영어 테스트 {currentQuestionIndex + 1}/{questionsData.length}</h2>*/}
                 </div>
                 <div style={{textAlign: 'right', marginBottom: '30px'}}>
                     <button
@@ -269,16 +329,26 @@ function EngExam() {
                         Skip {currentQuestionIndex + 1}/{questionsData.length}
                     </button>
                 </div>
+
+
                 <div style={{textAlign: 'center', marginBottom: '120px', marginLeft: '80px', marginRight: '80px'}}>
                     {currentQuestion && (
-                        <Question
-                            key={currentQuestion.id}
-                            question={currentQuestion}
-                            onAnswer={handleAnswer}
-                            selectedOption={selectedOption}
-                        />
+                        <div>
+
+                            {isAnswerCorrect !== null && (
+                                <VisualFeedback isCorrect={isAnswerCorrect}/>
+                            )}
+                            <Question
+                                key={currentQuestion.id}
+                                question={currentQuestion}
+                                onAnswer={handleAnswer}
+                                selectedOption={selectedOption}
+                            />
+
+                        </div>
                     )}
                 </div>
+
                 <div style={{textAlign: 'center'}}>
                     <button
                         style={{
@@ -286,7 +356,6 @@ function EngExam() {
                             height: '40px',
                             cursor: Object.keys(answers).length > 0 ? 'pointer' : 'not-allowed',
                             backgroundColor: selectedOption ? '#1E90FF' : '#c0bfbf',
-                            // display: confirmButtonVisible ? 'block' : 'none',
                             borderRadius: '20px',
                             fontSize: '16px',
                             color: '#FEFCFF',
@@ -295,22 +364,10 @@ function EngExam() {
                         onClick={handleSendAns}
                         disabled={Object.keys(answers).length === 0}
                     >
-                        확인
+                        {buttonState}
                     </button>
                 </div>
             </div>
-
-            <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
-
-                <div className="speechModalCenter">
-                    <img src={loginImg} alt='로그인 이미지' className="speechLoginImg"/>
-                    <h4>로그인 후 이용해 주세요</h4>
-                    <button onClick={closeModalAndNavigate} className="modal-custom-button">
-                        닫기
-                    </button>
-                </div>
-            </Modal>
-
         </div>
     );
 }

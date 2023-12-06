@@ -44,6 +44,7 @@ const Navigation = () => {
     };
 
     return (
+        <div className='App'>
         <Navbar expand="lg" sticky="top" className={`custom-navbar mr-auto ${show ? 'visible' : 'hidden'}`}>
             <Navbar.Brand href="/">
                 <img src={logo} alt="Logo" className="abc"/>
@@ -73,8 +74,10 @@ const Navigation = () => {
                         <Nav.Link href="/login" className="custom-login-link">Login</Nav.Link>
                     )}
                 </Nav>
+
             </Navbar.Collapse>
         </Navbar>
+        </div>
     );
 }
 

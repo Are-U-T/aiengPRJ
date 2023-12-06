@@ -7,7 +7,8 @@
         <option name="delegatedBuild" value="false" />
         <option name="testRunner" value="PLATFORM" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/eng_back" />
-        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Program Files/gradle-8.2.1" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Program Files/Gradle" />
+        <option name="gradleJvm" value="11" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/eng_back" />
