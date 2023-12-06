@@ -19,6 +19,8 @@ public class RankingController {
     @Autowired
     RankingService rankingService;
 
+
+
     @PostMapping("/insert")
     public void insertUserScore(@RequestBody UserScoreDTO userScoreDTO) {
         rankingService.insertUserScore(userScoreDTO);

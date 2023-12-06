@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 import ProgressBar from "./ProgressBar";
 import ModalChange from './ModalChange';
 import '../../../App.css'
+import trash1 from './images/trash1.png';
 
 export default function MypageArea() {
 
@@ -16,16 +17,16 @@ export default function MypageArea() {
     const [completed, setCompleted] = useState(0);
     const [userExperience, setUserExperience] = useState(0);
     const [modalInfo, setModalInfo] = useState(false);
-    const [modalAddFriend, setMdalAddFriend] = useState(false);
-    const [modalFriendList, setModalFriendList] = useState(false);
     const [inputPassword, setInputPassword] = useState('');
     const [passwordAttempts, setPasswordAttempts] = useState(0);
     const [userFriend , setUserFriend] = useState();
-    const userNum = sessionStorage.getItem('userNum');
     const [FriendEmail, setFriendEmail] = useState('');
     const [friendProfile , setFriendProfile] = useState();
     const [getFriendList , setGetFriendList] = useState([]);
     const [friendAdded, setFriendAdded] = useState(false);
+    const [modalAddFriend, setMdalAddFriend] = useState(false);
+    const [modalFriendList, setModalFriendList] = useState(false);
+    const userNum = sessionStorage.getItem('userNum');
 
     const checkPassword = () => {
         if (inputPassword === userProfile.pw) {
@@ -57,6 +58,9 @@ export default function MypageArea() {
         }
     };
 
+
+
+
     useEffect(() => {
         // 페이지 로드 후 1초마다 completed 상태를 업데이트
         const interval = setInterval(() => {
@@ -71,6 +75,7 @@ export default function MypageArea() {
         }, 10); // 10ms 마다 1씩 증가
         return () => clearInterval(interval); // 컴포넌트 언마운트 시 interval 정리
     }, []);
+
 
     useEffect(() => {
         profile();
@@ -218,6 +223,7 @@ export default function MypageArea() {
                                         </>
                                     )}
                                 </div>
+
                                 <div className="grayline" style={{marginBottom: '20px', marginTop: '20px'}}/>
                                 <div className="MypageFriendBtnContainer">
                                     <button className="MypageFriendBtn" onClick={() => setMdalAddFriend(true)}>
@@ -230,6 +236,8 @@ export default function MypageArea() {
                                         친구 목록
                                     </button>
                                 </div>
+
+
                                 <div className="grayline" style={{marginBottom: '20px', marginTop: '20px'}}/>
                                 <button className="MypageBtn" onClick={handleVoca}>단어장 복습</button>
                                 <div className="grayline" style={{marginBottom: '20px', marginTop: '20px'}}/>
@@ -243,7 +251,7 @@ export default function MypageArea() {
                         </>
                     )}
 
-                    <div className="MypageContainer" style={{width: '1200px'}}>
+                    <div className="MypageContainer" style={{width: '1250px'}}>
                         <div style={{
                             marginTop: '20px',
                             justifyContent: "space-around",
@@ -268,15 +276,17 @@ export default function MypageArea() {
                                         {chattingRoom.SITUATION}
                                     </p>
                                     <p className="MypageList">{chattingRoom.USERROLE}</p>
-                                    <p className="MypageList">{chattingRoom.GPTROLE}</p>
-                                    <p className="MypageList">{chattingRoom.LV}</p>
-                                    <p className="MypageList">{chattingRoom.COUNTRY}</p>
-                                    <p className="MypageList">{formatDate(chattingRoom.REGDATE)}</p>
-                                    <div className="MypageResultBtn"
-                                         onClick={() => handleClick(chattingRoom.CRID)}>결과보기
-                                    </div>
-                                    <div className="ResultDeleteBtn"
-                                         onClick={() => deleteResult(chattingRoom.CRID)}>삭제
+                                    <p className="MypageList" style={{paddingLeft : '13px'}}>{chattingRoom.GPTROLE}</p>
+                                    <p className="MypageList" style={{paddingLeft : '13px'}}>{chattingRoom.LV}</p>
+                                    <p className="MypageList" style={{paddingRight : '15px'}}>{chattingRoom.COUNTRY}</p>
+                                    <p className="MypageList" style={{paddingRight : '40px'}}>{formatDate(chattingRoom.REGDATE)}</p>
+                                    <div className="butt">
+                                        <button className="MypageResultBtn"
+                                                onClick={() => handleClick(chattingRoom.CRID)}>결과보기
+                                        </button>
+                                        <button className="ResultDeleteBtn"  onClick={() => deleteResult(chattingRoom.CRID)}>
+                                            <img src={trash1} width='15px' height='18px'></img>
+                                        </button>
                                     </div>
                                     <div className="grayline"/>
                                 </div>
@@ -335,19 +345,19 @@ export default function MypageArea() {
                                         {friendAdded ? (
                                                 <div className='friendAdd'><p>추가완료</p></div>
                                             ) :
-                                        <button className='modal-buttona2' onClick={()=> addFriend(friendProfile.num)}>추가</button>
-                                            }
+                                            <button className='modal-buttona2' onClick={()=> addFriend(friendProfile.num)}>추가</button>
+                                        }
                                     </div>
                                 </div>
                             )}
                         </div>
-                            <button className="modal-buttona" onClick={() => searchFriend(FriendEmail)} style={{marginRight: '10px'}}>검색
-                            </button>
-                            <button
-                                onClick={() => setMdalAddFriend(false)}
-                                className="modal-buttona">
-                                닫기
-                            </button>
+                        <button className="modal-buttona" onClick={() => searchFriend(FriendEmail)} style={{marginRight: '10px'}}>검색
+                        </button>
+                        <button
+                            onClick={() => setMdalAddFriend(false)}
+                            className="modal-buttona">
+                            닫기
+                        </button>
                     </ModalChange>
                 )}
 
@@ -375,6 +385,7 @@ export default function MypageArea() {
                         </button>
                     </ModalChange>
                 )}
+
             </div>
         </>
     )

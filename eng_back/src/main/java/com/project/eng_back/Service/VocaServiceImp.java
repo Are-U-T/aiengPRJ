@@ -15,7 +15,14 @@ public class VocaServiceImp implements VocaService {
     private VocaMapper vocaMapper;
 
     @Override
-    public int save(VocaDto vocaDto) { return vocaMapper.save(vocaDto); }
+    public int save(VocaDto vocaDto) {
+        return vocaMapper.save(vocaDto);
+    }
+
+    @Override
+    public int delete(String word, String unum) {
+        return vocaMapper.delete(word, unum);
+    }
 
     @Override
     public List<Map<String, String>> getWord(String crid) {
@@ -28,5 +35,7 @@ public class VocaServiceImp implements VocaService {
     }
 
     @Override
-    public int delete(String word, String unum) { return vocaMapper.delete(word,unum); }
+    public List<Map<String, String>> vocaTest(String unum) {
+        return vocaMapper.vocaTest(unum);
+    }
 }

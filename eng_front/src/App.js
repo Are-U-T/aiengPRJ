@@ -11,13 +11,15 @@ import Speech from "./views/Speech";
 import Speaking from "./views/Speaking";
 import Mypage from "./views/MyPage";
 import Voca from "./views/Voca"
-// import EngExam from "./views/EngExam";
-import Ranking from "./views/Ranking"
 import ResultPage from "./views/EngExam/ResultPage";
 import Script from "./views/Script";
+import Ranking from "./views/Ranking"
+import './App.css';
+import VocaTest from "./views/VocaTest";
 
 function App() {
     return (
+        <div className='App'>
         <Routes>
             <Route path="/" element={<HeroLeft09/>}/>
             <Route path="/main" element={<MainHome/>}/>
@@ -33,7 +35,9 @@ function App() {
             <Route path="/script" element={<Script/>}/>
             <Route path="/voca" element={<Voca/>}/>
             <Route path="/ranking" element={<Ranking/>}/>
+            <Route path="/vocaTest" element={<VocaTest/>}/>
         </Routes>
+        </div>
     );
 }
 

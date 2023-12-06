@@ -3,7 +3,6 @@ package com.project.eng_back.Dao;
 import com.project.eng_back.Dto.UserDTO;
 import com.project.eng_back.Dto.UserScoreDTO;
 import com.project.eng_back.Mapper.RankingMapper;
-import com.project.eng_back.Mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -14,6 +14,17 @@ import {styled} from '@mui/system';
 import $ from "jquery";
 import axios from "axios";
 import userValidation from './Validation';
+import P1 from '../MyPage/MypageArea/images/1.png';
+import P2 from '../MyPage/MypageArea/images/2.png';
+import P3 from '../MyPage/MypageArea/images/3.png';
+import P4 from '../MyPage/MypageArea/images/4.png';
+import P5 from '../MyPage/MypageArea/images/5.png';
+import P6 from '../MyPage/MypageArea/images/6.png';
+import P7 from '../MyPage/MypageArea/images/7.png';
+import P8 from '../MyPage/MypageArea/images/8.png';
+import P9 from '../MyPage/MypageArea/images/9.png';
+import ModalSeico from './ModalResult';
+import './ModalResult.css';
 
 const Container = styled(Box)({
     display: 'flex',
@@ -38,184 +49,184 @@ const StyledRadioGroup = styled(RadioGroup)({
     flexDirection: 'row',
 });
 
+const photos = [P1, P2, P3, P4, P5, P6, P7, P8, P9];
+
 export default function MyProfile() {
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [gender, setGender] = useState('');
     const [password, setPassword] = useState('');
-    const [userProfile, setUserProfile] = useState();
+    const [profile, setProfile] = useState(null);
     const [email, setEmail] = useState('');
     const userNum = sessionStorage.getItem('userNum');
+    const [modalKorean,setModalKorean] = useState(false);
+
+    const userPhotoNumber = parseInt(sessionStorage.getItem('userPhoto')) || 1;
+    let [PhotoNo,setPhotoNo] = useState();
+    const [selectedPhoto,setSelectedPhoto] = useState();
 
     useEffect(() => {
-        profile();
-    }, []);
+    switch (userPhotoNumber) {
+        case 1:
+            setSelectedPhoto(P1);
+            break;
+        case 2:
+            setSelectedPhoto(P2);
+            break;
+        case 3:
+            setSelectedPhoto(P3);
+            break;
+        case 4:
+            setSelectedPhoto(P4);
+            break;
+        case 5:
+            setSelectedPhoto(P5);
+            break;
+        case 6:
+            setSelectedPhoto(P6);
+            break;
+        case 7:
+            setSelectedPhoto(P7);
+            break;
+        case 8:
+            setSelectedPhoto(P8);
+            break;
+        case 9:
+            setSelectedPhoto(P9);
+            break;
+        default:
+            setSelectedPhoto(profile);
+    }
+}, [userPhotoNumber, profile]);
 
-    const profile = async () => {
+    const handlePhotoSelect = (index) => {
+        setSelectedPhoto(photos[index]);
+        setPhotoNo(index+1);
 
-        const data = {
-            userNum
-        };
 
-        try {
-            const response = await axios.post('http://localhost/user/mypage', data);
-            setUserProfile(response.data);
-            setEmail(response.data.email);
-            console.log('유저 프로필:', response.data); // 응답 로깅
-        } catch (error) {
-            console.error('프로필 불러오는 중 오류 발생:', error);
-        }
+
+
+        setModalKorean(false);
     };
 
-    async function sendNum() {
 
-        const mail = document.querySelector("input[id=mail]");
 
-        if (mail.value == "") {
-            alert("이메일을 입력하세요.");
-            mail.focus();
-            return false;
-        }
-
-        // var mailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
-        var mailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
-        if (!mailRegExp.test(mail.value)) {
-            alert("올바른 이메일을 입력해주세요.");
-            mail.focus();
-            mail.value = "";
-            return false;
-        }
-
-        const emailData = {
-            email: $("#mail").val(),
-        };
-
-        try {
-            const response = await axios.post('http://localhost/mail', emailData, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (response.status === 200) {
-                console.log('Email sent successfully.');
-            } else {
-                console.error('Failed to send email.');
-            }
-        } catch (error) {
-            console.error('Error during email sending:', error);
-        }
-    }
-
-    function confirmNum() {
-
-        const number = document.querySelector("input[id=number]");
-
-        const num1 = $("#number").val();
-
-        if (num1) {
-            axios.post("http://localhost/confirm", {
-                num1: num1,
-            })
-                .then((response) => {
-                    if (response.data === "success") {
-                        alert("인증 성공");
-                    } else {
-                        alert("인증 실패");
-                        number.focus();
-                        number.value = "";
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-    }
-
-    const handleSubmit = async (event) => {
-        // userValidation();
+    async function handleSubmit(event) {
         event.preventDefault();
+        if (userValidation(name, password, email)) {
+            let sex = (gender === "female") ? 0 : 1;
 
-        const userData = {
-            email: email,
-            pw: password,
-            name: name,
-            gender: gender,
-            num: userNum
-        };
+            const userData = {
+                email: email,
+                pw: password,
+                name: name,
+                gender: sex,
+                num: userNum,
+                photo: PhotoNo,
+            };
+            console.log(userData);
+            try {
+                const saveResponse = await fetch('http://localhost/user/editById', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData),
+                });
 
-        try {
-            // 두 번째 요청: 사용자 정보 저장
-            const saveResponse = await fetch('http://localhost/user/editById', {
-                method: 'put',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData),
-            });
+                if (saveResponse.ok) {
+                    console.log('User registered successfully.');
+                    sessionStorage.setItem('userName', name);
+                    sessionStorage.setItem('userPhoto', PhotoNo);
 
-            if (saveResponse.ok) {
-                console.log('User registered successfully.');
-                navigate('/mypage');
-            } else {
-                console.error('Failed to register user.');
+                    navigate('/mypage');
+
+
+                } else {
+                    console.error('Failed to register user.');
+                }
+            } catch (error) {
+                console.error('Error during registration:', error);
             }
-            // } else {
-            //     console.error('Email validation failed.');
-            // }
-        } catch (error) {
-            console.error('Error during registration:', error);
         }
-    };
+    }
+
+    const korean = () =>{
+        setModalKorean(true);
+    }
 
     return (
-        <Container>
+        <div className='App'>
             <Navigation/>
-            <StyledForm>
-                <Typography variant="h5" sx={{mb: 4, color: '#0d47a1'}}>개인정보 수정</Typography>
-                <TextField
-                    fullWidth
-                    variant="outlined"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    sx={{mb: 2}}
-                    id="name"
-                    label="Name"
-                    name="name"
-                    autoComplete="name"
-                    placeholder="이름 입력"
-                />
-                <TextField
-                    fullWidth
-                    label="비밀번호"
-                    type="password"
-                    variant="outlined"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    sx={{mb: 3}}
-                    name="password"
-                    id="password"
-                    placeholder="영문 + 숫자 + 특수문자 조합으로 8~15글자"
-                />
+            <Container>
+                <StyledForm>
+                    <Typography variant="h5" sx={{mb: 4, color: '#0d47a1'}}>개인정보 수정</Typography>
 
-                <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', mb: 3, textAlign: 'left'}}>
-                    <FormLabel sx={{mr: 1, color: '#0d47a1'}}>성별:</FormLabel>
-                    <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}} aria-label="gender"
-                         name="gender">
-                        <Radio checked={gender === 'male'} onChange={(e) => setGender(e.target.value)} value="male"/>
-                        <Typography>남성</Typography>
-                        <Radio checked={gender === 'female'} onChange={(e) => setGender(e.target.value)}
-                               value="female"/>
-                        <Typography>여성</Typography>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mb: 3 }}>
+                        <img src={selectedPhoto} alt="Profile" style={{ width: '150px', height: '150px', borderRadius: '50%' }} onClick={() => setModalKorean(true)}/>
                     </Box>
-                </Box>
 
-                <Box sx={{display: 'flex', justifyContent: 'center', gap: 2, mt: 2}}>
-                    <Button variant="contained" color="primary" onClick={handleSubmit} sx={{width: '150px'}}>저장</Button>
-                    <Button variant="outlined" color="primary" onClick={() => navigate('/mypage')}
-                            sx={{width: '150px'}}>닫기</Button>
-                </Box>
-            </StyledForm>
-        </Container>
+                    <TextField
+                        fullWidth
+                        variant="outlined"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        sx={{mb: 2}}
+                        id="name"
+                        label="Name"
+                        name="name"
+                        autoComplete="name"
+                        placeholder="이름 입력"
+                    />
+                    <TextField
+                        fullWidth
+                        label="비밀번호"
+                        type="password"
+                        variant="outlined"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        sx={{mb: 3}}
+                        name="password"
+                        id="password"
+                        placeholder="영문 + 숫자 + 특수문자 조합으로 8~15글자"
+                    />
+
+                    <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', mb: 3, textAlign: 'left'}}>
+                        <FormLabel sx={{mr: 1, color: '#0d47a1'}}>성별:</FormLabel>
+                        <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}} aria-label="gender"
+                             name="gender">
+                            <Radio checked={gender === 'male'} onChange={(e) => setGender(e.target.value)}
+                                   value="male"/>
+                            <Typography>남성</Typography>
+                            <Radio checked={gender === 'female'} onChange={(e) => setGender(e.target.value)}
+                                   value="female"/>
+                            <Typography>여성</Typography>
+                        </Box>
+                    </Box>
+
+                    <Box sx={{display: 'flex', justifyContent: 'center', gap: 2, mt: 2}}>
+                        <Button variant="contained" color="primary" onClick={handleSubmit}
+                                sx={{width: '150px'}}>저장</Button>
+                        <Button variant="outlined" color="primary" onClick={() => navigate('/mypage')}
+                                sx={{width: '150px'}}>닫기</Button>
+                    </Box>
+                </StyledForm>
+            </Container>
+
+            {modalKorean && (
+                <ModalSeico isOpen={modalKorean} onClose={() => setModalKorean(false)}>
+                  프로필 변경
+                    <div className="modal-body">
+                        {photos.map((photo, index) => {
+                            return (
+                                <img key={index} src={photo} alt={`Profile ${index}`} onClick={() => handlePhotoSelect(index)} style={{ margin: '10px', width: '50px', height: '50px', borderRadius: '50%' }}/>
+                            );
+                        })}
+                    </div>
+                    <button className="modal-button" onClick={() => setModalKorean(false)}>닫기</button>
+                </ModalSeico>
+            )}
+
+        </div>
     );
 }

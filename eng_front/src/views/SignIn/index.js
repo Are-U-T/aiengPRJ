@@ -21,6 +21,7 @@ import { jwtDecode } from 'jwt-decode';
 import KakaoLogin from "react-kakao-login";
 import Frame3 from "./images/Frame3.png";
 import Frame4 from "./images/Frame4.png";
+import '../../App.css';
 
 function ColorSchemeToggle(props) {
     const { mode, setMode } = useColorScheme();
@@ -90,6 +91,7 @@ export default function JoySignInSideTemplate() {
                 console.log('User data from backend:', data);
                 sessionStorage.setItem('userNum', data.num);
                 sessionStorage.setItem('userName', data.name);
+                sessionStorage.setItem('userPhoto', data.photo);
                 navigate('/main');
             } else {
                 console.error('Failed to log in with Google.');
@@ -126,6 +128,7 @@ export default function JoySignInSideTemplate() {
                 console.log('Login successful:', responseData);
                 sessionStorage.setItem('userNum', responseData.num);
                 sessionStorage.setItem('userName', responseData.name);
+                sessionStorage.setItem('userPhoto', responseData.photo);
                 navigate('/main');
             } else {
                 const errorMessage = await response.text();
@@ -137,7 +140,7 @@ export default function JoySignInSideTemplate() {
         }
     }
     return (
-        <>
+        <div className='App'>
             <Navigation/>
             <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
                 <CssBaseline />
@@ -284,6 +287,7 @@ export default function JoySignInSideTemplate() {
                                                             console.log('User data from backend:', data);
                                                             sessionStorage.setItem('userNum', data.num);
                                                             sessionStorage.setItem('userName', data.name);
+                                                            sessionStorage.setItem('userPhoto', data.photo);
                                                             navigate('/main');
                                                         } else {
                                                             console.error('Failed to log in with Google.');
@@ -330,6 +334,6 @@ export default function JoySignInSideTemplate() {
                     })}
                 />
             </CssVarsProvider>
-        </>
+        </div>
     );
 }

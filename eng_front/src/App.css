@@ -13,7 +13,21 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'appleE';
+    src: url('./fonts/NotoSans-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'appleE';
+    src: url('./fonts/NotoSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
 
 .App {
-    font-family: 'apple', Arial, sans-serif;
+    font-family: 'apple', 'appleE', sans-serif;
 }
