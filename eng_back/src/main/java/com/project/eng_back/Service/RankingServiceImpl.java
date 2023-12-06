@@ -33,6 +33,19 @@ public class RankingServiceImpl implements RankingService{
         return rankingDao.getUserScoresWithRankD();
     }
 
+    @Override
+    public List<UserScoreDTO> getFriendsRankD(String userId) {
+        return rankingDao.getFriendsRankD(userId);
+    }
+    @Override
+    public List<UserScoreDTO> getFriendsRankM(String userId) {
+        return rankingDao.getFriendsRankM(userId);
+    }
+    @Override
+    public List<UserScoreDTO> getFriendsRankT(String userId) {
+        return rankingDao.getFriendsRankT(userId);
+    }
+
     public int areFriends(String user1Id, String user2Id) {
         return rankingDao.areFriends(user1Id, user2Id);
     }

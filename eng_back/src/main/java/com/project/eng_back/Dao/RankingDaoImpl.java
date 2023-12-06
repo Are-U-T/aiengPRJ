@@ -36,6 +36,21 @@ public class RankingDaoImpl implements RankingDao{
     }
 
     @Override
+    public List<UserScoreDTO> getFriendsRankD(String userId) {
+        return rankingMapper.getFriendsRankD(userId);
+    }
+
+    @Override
+    public List<UserScoreDTO> getFriendsRankM(String userId) {
+        return rankingMapper.getFriendsRankM(userId);
+    }
+
+    @Override
+    public List<UserScoreDTO> getFriendsRankT(String userId) {
+        return rankingMapper.getFriendsRankT(userId);
+    }
+
+    @Override
     public int areFriends(String user1Id, String user2Id) {
         return rankingMapper.areFriends(user1Id, user2Id);
     }

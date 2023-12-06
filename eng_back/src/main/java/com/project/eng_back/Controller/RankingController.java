@@ -46,6 +46,20 @@ public class RankingController {
         return rankingService.searchFriend(email);
     }
 
+    @GetMapping("/friend-rank-day")
+    public List<UserScoreDTO> getFriendsRankD(@RequestParam String userId) {
+        return rankingService.getFriendsRankD(userId);
+    }
+
+    @GetMapping("/friend-rank-month")
+    public List<UserScoreDTO> getFriendsRankM(@RequestParam String userId) {
+        return rankingService.getFriendsRankM(userId);
+    }
+    @GetMapping("/friend-rank-all")
+    public List<UserScoreDTO> getFriendsRankT(@RequestParam String userId) {
+        return rankingService.getFriendsRankT(userId);
+    }
+
     @PostMapping("/friend-add")
     public ResponseEntity<String> addFriendship(
             @RequestParam String user1Id,

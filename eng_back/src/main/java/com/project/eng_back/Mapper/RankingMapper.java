@@ -65,6 +65,44 @@ public interface RankingMapper {
             "  UT.NUM, UT.NAME")
     List<UserScoreDTO> getDailyScoresAndRanks();
 
+    @Select("SELECT UT.NUM AS USER_NUM, " +
+            "UT.NAME AS USER_NAME, " +
+            "SUM(US.SCORE) AS TOTAL_SCORE, " +
+            "RANK() OVER (ORDER BY SUM(US.SCORE) DESC) AS RANK " +
+            "FROM LASTTEAM.USER_SCORES US " +
+            "JOIN LASTTEAM.USER_T UT ON US.USER_NUM = UT.NUM " +
+            "JOIN LASTTEAM.FRIENDSHIPS F ON UT.NUM = F.USERID2 " +
+            "WHERE EXTRACT(MONTH FROM US.SCORE_DATE) = EXTRACT(MONTH FROM SYSDATE) " +
+            "AND (F.USERID1 = #{userId} OR UT.NUM = #{userId}) " +
+            "GROUP BY UT.NUM, UT.NAME " +
+            "ORDER BY TOTAL_SCORE DESC")
+    List<UserScoreDTO> getFriendsRankM(@Param("userId") String userId);
+
+    @Select("SELECT UT.NUM AS USER_NUM, " +
+            "UT.NAME AS USER_NAME, " +
+            "SUM(US.SCORE) AS TOTAL_SCORE, " +
+            "RANK() OVER (ORDER BY SUM(US.SCORE) DESC) AS RANK " +
+            "FROM LASTTEAM.USER_SCORES US " +
+            "JOIN LASTTEAM.USER_T UT ON US.USER_NUM = UT.NUM " +
+            "JOIN LASTTEAM.FRIENDSHIPS F ON UT.NUM = F.USERID2 " +
+            "WHERE EXTRACT(DAY FROM US.SCORE_DATE) = EXTRACT(DAY FROM SYSDATE) " +
+            "AND (F.USERID1 = #{userId} OR UT.NUM = #{userId}) " +
+            "GROUP BY UT.NUM, UT.NAME " +
+            "ORDER BY TOTAL_SCORE DESC")
+    List<UserScoreDTO> getFriendsRankD(@Param("userId") String userId);
+
+    @Select("SELECT UT.NUM AS USER_NUM, " +
+            "UT.NAME AS USER_NAME, " +
+            "SUM(US.SCORE) AS TOTAL_SCORE, " +
+            "RANK() OVER (ORDER BY SUM(US.SCORE) DESC) AS RANK " +
+            "FROM LASTTEAM.USER_SCORES US " +
+            "JOIN LASTTEAM.USER_T UT ON US.USER_NUM = UT.NUM " +
+            "JOIN LASTTEAM.FRIENDSHIPS F ON UT.NUM = F.USERID2 " +
+            "WHERE (F.USERID1 = #{userId} OR UT.NUM = #{userId}) " +
+            "GROUP BY UT.NUM, UT.NAME " +
+            "ORDER BY TOTAL_SCORE DESC")
+    List<UserScoreDTO> getFriendsRankT(@Param("userId") String userId);
+
     @Select("SELECT COUNT(*)" +
             "FROM Friendships " +
             "WHERE (USERID1 = #{user1Id} AND USERID2 = #{user2Id})")

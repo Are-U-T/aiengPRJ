@@ -25,6 +25,7 @@ export default function MypageArea() {
     const [FriendEmail, setFriendEmail] = useState('');
     const [friendProfile , setFriendProfile] = useState();
     const [getFriendList , setGetFriendList] = useState([]);
+    const [friendAdded, setFriendAdded] = useState(false);
 
     const checkPassword = () => {
         if (inputPassword === userProfile.pw) {
@@ -157,7 +158,7 @@ export default function MypageArea() {
                     user2Id: friendNum
                 }
             });
-
+            setFriendAdded(true);
             console.log(response.data);
 
         } catch (error) {
@@ -331,7 +332,11 @@ export default function MypageArea() {
                                     <p>이름: {friendProfile.name}</p>
                                     <div style={{ display: 'grid', gridTemplateColumns: 'auto auto', columnGap: '10px', alignItems: 'center' }}>
                                         <p style={{ marginBottom: '10px' }}>이메일: {friendProfile.email}</p>
+                                        {friendAdded ? (
+                                                <div className='friendAdd'><p>추가완료</p></div>
+                                            ) :
                                         <button className='modal-buttona2' onClick={()=> addFriend(friendProfile.num)}>추가</button>
+                                            }
                                     </div>
                                 </div>
                             )}

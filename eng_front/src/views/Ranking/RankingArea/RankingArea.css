@@ -125,6 +125,7 @@
     height: 50px;
     background: #132650;
     color: white;
+    margin-right: 10px;
 }
 
 .rankDayN {
@@ -133,3 +134,19 @@
     background: #dee2e6;
     color: #959596;
 }
+
+.rankFriendsC {
+    width: 80px;
+    height: 50px;
+    background: #e6dbb9;
+    color: black;
+    margin-right: 10px;
+}
+
+.rankFriendsN {
+    width: 80px;
+    height: 50px;
+    background: #dee2e6;
+    color: #959596;
+}
+

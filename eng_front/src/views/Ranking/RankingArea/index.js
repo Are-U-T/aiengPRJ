@@ -7,19 +7,26 @@ import axios from "axios";
 export default function RankingArea() {
 
     const [rankList, setRankList] = useState([]);
+    const [rankList2, setRankList2] = useState([]);
     const [isMonthly, setIsMonthly] = useState(true);
+    const [showFriendsOnly, setShowFriendsOnly] = useState(true);
     const userNum = sessionStorage.getItem('userNum');
 
     useEffect(() => {
-        fetchRankListMonth();
-    }, []);
+        if (showFriendsOnly) {
+            fetchFriendRankListMonth();
+        } else {
+            fetchRankListMonth();
+        }
+    }, [showFriendsOnly]);
 
     const fetchRankListMonth = async () => {
         try {
             const response = await axios.get('http://localhost/ranking/monthly-rank');
-            console.log('답:', response.data); // 응답 로깅
+            console.log('월별 답:', response.data); // 응답 로깅
             // setRankList(response.data.slice(0, 20));
             setRankList(response.data);
+            setRankList2(response.data);
             setIsMonthly(true); // 추가
         } catch (error) {
             console.error('랭킹 리스트 불러오는 중 오류 발생:', error);
@@ -29,7 +36,7 @@ export default function RankingArea() {
     const fetchRankListDay = async () => {
         try {
             const response = await axios.get('http://localhost/ranking/day-rank');
-            console.log('답:', response.data); // 응답 로깅
+            console.log('일별 답:', response.data); // 응답 로깅
             // setRankList(response.data.slice(0, 20));
             setRankList(response.data);
             setIsMonthly(false); // 추가
@@ -38,17 +45,55 @@ export default function RankingArea() {
         }
     };
 
+    const fetchFriendRankListMonth = async () => {
+        try {
+            const response = await axios.get('http://localhost/ranking/friend-rank-month', {
+                params: {
+                    userId: userNum,
+                }
+            });
+            console.log('친구 월별 답:', response.data); // 응답 로깅
+            // setRankList(response.data.slice(0, 20));
+            setRankList(response.data);
+            setRankList2(response.data);
+            setIsMonthly(true); // 추가
+        } catch (error) {
+            console.error('랭킹 리스트 불러오는 중 오류 발생:', error);
+        }
+    };
+
+    const fetchFriendRankListDay = async () => {
+        try {
+            const response = await axios.get('http://localhost/ranking/friend-rank-month', {
+                params: {
+                    userId: userNum,
+                }
+            });
+            console.log('친구 일별 답:', response.data); // 응답 로깅
+            // setRankList(response.data.slice(0, 20));
+            setRankList(response.data);
+            setIsMonthly(false); // 추가
+        } catch (error) {
+            console.error('랭킹 리스트 불러오는 중 오류 발생:', error);
+        }
+    };
+
+    const toggleShowFriendsOnly = () => {
+        setShowFriendsOnly(!showFriendsOnly);
+        console.log(showFriendsOnly);
+    };
+
     return (
         <div className='App'>
             <div style={{marginTop: '150px'}}/>
             <div className='rankingCenter'>
 
-                <h4>지난 달 명예의 전당</h4>
+                <h4>이번 달 명예의 전당</h4>
                 <div className="ranking-flex-container">
                     <img className="ranking-king" src={king} alt="..."/>
-                    {rankList.length > 0 && (
+                    {rankList2.length > 0 && (
                         <>
-                            <h2>{rankList[0].user_name} 님</h2>
+                            <h2>{rankList2[0].user_name} 님</h2>
                             {/*<h4>{rankList[0].total_score} 점</h4>*/}
                         </>
                     )}
@@ -60,15 +105,21 @@ export default function RankingArea() {
                 <div className="ranking-flex-container">
                     <div
                         className={`rankMonthC ${isMonthly ? '' : 'rankMonthN'}`}
-                        onClick={fetchRankListMonth}
+                        onClick={showFriendsOnly ? fetchFriendRankListMonth :fetchRankListMonth }
                     >
                         <p>월별</p>
                     </div>
                     <div
                         className={`rankDayC ${!isMonthly ? '' : 'rankDayN'}`}
-                        onClick={fetchRankListDay}
+                        onClick={showFriendsOnly ?  fetchFriendRankListDay : fetchRankListDay}
                     >
                         <p>일별</p>
+                    </div>
+                    <div
+                        className={`rankFriendsC ${showFriendsOnly ? '' : 'rankFriendsN'}`}
+                        onClick={toggleShowFriendsOnly}
+                    >
+                        <p>친구만</p>
                     </div>
                 </div>
                 {/*선택에 따라 전송 받은 데이터로 랭킹 리스트 띄우기*/}

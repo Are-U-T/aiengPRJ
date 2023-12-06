@@ -12,6 +12,10 @@ public interface RankingDao {
     List<UserScoreDTO> getUserScoresWithRankT();
     List<UserScoreDTO> getUserScoresWithRankD();
 
+    List<UserScoreDTO> getFriendsRankD(String userId);
+    List<UserScoreDTO> getFriendsRankM(String userId);
+    List<UserScoreDTO> getFriendsRankT(String userId);
+
     int areFriends(String user1Id, String user2Id);
     void addFriendship(String user1Id, String user2Id);
     void deleteFriendship(String user1Id, String user2Id);

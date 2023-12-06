@@ -15,6 +15,10 @@ public interface RankingService {
 
     List<UserScoreDTO> getUserScoresWithRankD();
 
+    List<UserScoreDTO> getFriendsRankD(String userId);
+    List<UserScoreDTO> getFriendsRankM(String userId);
+    List<UserScoreDTO> getFriendsRankT(String userId);
+
     int areFriends(String user1Id, String user2Id);
 
     void addFriendship(String user1Id, String user2Id);
