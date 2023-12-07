@@ -82,7 +82,7 @@ export default function RankingArea() {
 
     const fetchFriendRankListDay = async () => {
         try {
-            const response = await axios.get('http://localhost/ranking/friend-rank-month', {
+            const response = await axios.get('http://localhost/ranking/friend-rank-day', {
                 params: {
                     userId: userNum,
                 }

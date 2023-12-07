@@ -66,7 +66,7 @@ export default function VocaArea() {
     const handleNextPage = () => {
         const totalPages = chunkedVocaList.length;
 
-        if (currentPage <= chunkedVocaList.length / 2) {
+        if (nextPage  <= totalPages) {
             setCurrentPage(currentPage + 2);
             setNextPage(nextPage + 2);
         }

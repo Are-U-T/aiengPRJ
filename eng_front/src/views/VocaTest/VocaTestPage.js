@@ -3,6 +3,8 @@ import axios from "axios";
 import React, {useEffect, useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import ModalChange from "../MyPage/MypageArea/ModalChange";
+import Modal from "../Speech/Modal";
+import loginImg from "../Speech/images/loginImg.png";
 
 
 export default function VocaTestPage() {
@@ -15,6 +17,19 @@ export default function VocaTestPage() {
     const [wrongCount, setWrongCount] = useState(0);
 
     const navigate = useNavigate();
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
+
+    useEffect(() => {
+        if (userNum == null) {
+            // 모달 창 띄워서 로그인 하세요 하고 확인 누르면 로그인 창으로 보내기
+            setLoginModalOpen(true);
+        }
+    }, [userNum]);
+
+    const closeModalAndNavigate = () => {
+        setLoginModalOpen(false);
+        navigate('/login');
+    };
 
     const move = () => {
         setModal(false);
@@ -137,6 +152,18 @@ export default function VocaTestPage() {
                     <div className="vocaTestBox1">{vocaTestBox1}</div>
                     <div className="vocaTestBox2">{vocaTestBox2}</div>
                 </div>
+
+
+                <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
+
+                    <div className="speechModalCenter">
+                        <img src={loginImg} alt='로그인 이미지' className="speechLoginImg"/>
+                        <h4>로그인 후 이용해 주세요</h4>
+                        <button onClick={closeModalAndNavigate} className="modal-custom-button">
+                            닫기
+                        </button>
+                    </div>
+                </Modal>
 
                 {modal && (
                     <ModalChange isOpen={modal} onClose={() => setModal(false)}>

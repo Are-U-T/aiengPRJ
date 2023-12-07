@@ -155,7 +155,7 @@ public class AudioController {
     public ResponseEntity<Resource> autoQuestion(@RequestParam("text") String textToConvert, @RequestParam("userNum") String userNum) {
         try {
 
-            byte[] audioData = chatGptController.conversation(textToConvert, userNum);
+            byte[] audioData = chatGptController.conversation2(textToConvert, userNum);
             // 创建 ByteArrayResource
             ByteArrayResource resource = new ByteArrayResource(audioData);
 

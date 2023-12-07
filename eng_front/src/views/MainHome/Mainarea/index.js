@@ -47,13 +47,13 @@ const customImage = {
 
 export default function Mainarea(){
 
-    return (
-        <>
+  return (
+      <>
         <div className='App'>
 
           <div style={{marginTop : '150px'}}/>
 
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '10px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '280px', marginBottom : '10px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>학습 효과</h5>
           </div>
@@ -95,7 +95,7 @@ export default function Mainarea(){
 
 
 
-          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '180px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '280px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>사용 대상</h5>
           </div>
@@ -172,7 +172,7 @@ export default function Mainarea(){
             </Container>
           </Box>
 
-          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '180px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '280px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>사용하는 이유</h5>
           </div>
@@ -220,7 +220,7 @@ export default function Mainarea(){
                   <Grid item xs={6}>
                     <Box sx={{ ...customItem, borderRight: 'none' }}> {/* 여기서는 경계선 제거 */}
                       <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}>
-                       능력에 따른 효과적이고 맞춤형 학습
+                        능력에 따른 효과적이고 맞춤형 학습
                       </Typography>
                     </Box>
                   </Grid>
@@ -270,7 +270,7 @@ export default function Mainarea(){
 
           <div style={{marginTop : '150px'}}/>
 
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '10px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '280px', marginBottom : '10px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}> 시험 정보, 알고 계셨나요?</h5>
           </div>
@@ -294,7 +294,7 @@ export default function Mainarea(){
 
 
 
-</div>
-        </>
-    )
+        </div>
+      </>
+  )
 }

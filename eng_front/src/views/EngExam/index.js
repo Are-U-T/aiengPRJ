@@ -200,7 +200,6 @@ const VisualFeedback = ({isCorrect}) => {
     return <canvas ref={canvasRef} width={400} height={400} style={{position: 'absolute', top: 80, left: 400}}/>;
 };
 
-
 function EngExam() {
     const navigate = useNavigate();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -299,19 +298,17 @@ function EngExam() {
         <div className='App'>
             <Navigation/>
             <ModalStart isOpen={startModalOpen3} onClose={Close3}>
-                <div style={{textAlign: 'center', maxWidth: '600px', margin: 'auto', padding: '20px'}}>
+                <div style={{textAlign: 'center', maxWidth: '600px'}}>
                     <h3 className='ghx'>사용방법 안내</h3>
-
-                    <div className="modal-instructionsx"
-                         style={{fontSize: '16px', lineHeight: '1.6', margin: '20px 0'}}>
-                        <p><strong>단계별 지침:</strong> 다음 들어갈 빈칸에 알맞는 단어를 선택합니다. 각 문제에 대한 힌트도 제공됩니다.</p>
-                        <p><strong>진행 상황 확인:</strong> 우측 상단바에서 푼 문제의 수와 진행률을 확인할 수 있습니다. 'Skip' 버튼을 이용해 다음 문제로 넘어갈 수도
-                            있습니다.</p>
-                        <p><strong>중간 저장:</strong> 진행 상황은 자동으로 저장되지 않으니, 문제를 마친 후에는 저장 버튼을 꼭 눌러주세요.</p>
-                        <p><strong>결과 분석:</strong> 모든 문제를 완료하면, 당신의 역량을 분석한 결과창이 표시됩니다. 자세한 피드백과 개선 사항도 확인하세요!</p>
+                    <h3 className='ghx2'>레벨테스트</h3>
+                    <div className="modal-instructionsx">
+                        <p><b>Step 1</b> 빈칸에 알맞는 단어를 선택</p>
+                        <p><b>Step 2</b> 우측 상단에서 푼 문제의 수와 진행률 확인</p>
+                        <p><b>Step 3</b> Skip 버튼을 눌러 다음 문제로 넘어가기</p>
+                        <p><b>Step 4</b> 모든 문제를 완료하면, 역량 분석 결과 확인</p>
                     </div>
 
-                    <div className="foox" style={{marginTop: '20px'}}>
+                    <div className="foox">
                         <button onClick={() => setStartModalOpen3(false)} className="qwex">확인</button>
                     </div>
                 </div>
@@ -384,11 +381,10 @@ function EngExam() {
                     </button>
                 </div>
             </div>
-            <div style={{marginTop : '-300px'}}/>
+            <div style={{marginTop: '-300px'}}/>
             <Footer/>
 
             <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
-
                 <div className="speechModalCenter">
                     <img src={loginImg} alt='로그인 이미지' className="speechLoginImg"/>
                     <h4>로그인 후 이용해 주세요</h4>
@@ -397,7 +393,6 @@ function EngExam() {
                     </button>
                 </div>
             </Modal>
-
         </div>
     );
 }

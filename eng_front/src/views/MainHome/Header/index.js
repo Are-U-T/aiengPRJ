@@ -78,7 +78,7 @@ function Header() {
                 display: 'flex',
                 alignItems: 'center',
                 marginTop: '40px',
-                marginLeft: '180px',
+                marginLeft: '280px',
                 marginBottom: '10px'
             }}>
                 <img src={logo} alt="..." style={{marginRight: '1px', width: '80px', height: '80px'}}/>
@@ -174,7 +174,7 @@ function Header() {
                 display: 'flex',
                 alignItems: 'center',
                 marginTop: '40px',
-                marginLeft: '180px',
+                marginLeft: '280px',
                 marginBottom: '50px'
             }}>
                 <img src={logo} alt="..." style={{marginRight: '1px', width: '80px', height: '80px'}}/>
