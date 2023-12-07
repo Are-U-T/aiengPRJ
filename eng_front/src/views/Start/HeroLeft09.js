@@ -28,28 +28,29 @@ export default function HeroLeft09() {
                         fontWeight="xl"
                         fontSize="clamp(1.575rem, 1.3636rem + 1.4818vw, 3rem)"
                         textColor="#132650"
+                        sx={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}
                     >
                         AI 영어 회화 학습에<br /> 오신 것을 환영합니다!
                     </Typography>
 
-                    <Typography level="h4" marginTop="20px">
+                    <Typography level="h4" marginTop="20px" sx={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                         실제 사람과 대화하듯
                     </Typography>
-                    <Typography level="h4">
+                    <Typography level="h4" sx={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                         대화해보세요!
                     </Typography>
 
                     <Button
                         size="lg"
                         endDecorator={<ArrowForward fontSize="xl" />}
-                        sx={{ mt: 2, mb: 1 }}
+                        sx={{ mt: 2, mb: 1 , fontFamily: "'NotoSansKR-Medium', sans-serif"}}
                         onClick={handleButtonClick}
                     >
                         시작하기
                     </Button>
-                    <Typography>
+                    <Typography sx={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                         회원인가요?{' '}
-                        <MuiLink component={RouterLink} to="/login" fontWeight="lg">
+                        <MuiLink component={RouterLink} to="/login" fontWeight="lg" sx={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                             로그인 하러가기
                         </MuiLink>
                     </Typography>

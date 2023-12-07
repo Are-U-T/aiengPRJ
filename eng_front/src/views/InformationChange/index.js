@@ -161,7 +161,7 @@ export default function MyProfile() {
             <Navigation/>
             <Container>
                 <StyledForm>
-                    <Typography variant="h5" sx={{mb: 4, color: '#0d47a1'}}>개인정보 수정</Typography>
+                    <Typography variant="h5" sx={{mb: 4, color: '#0d47a1' , fontFamily: "Noto Sans KR Medium"}}>개인정보 수정</Typography>
 
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mb: 3 }}>
                         <img src={selectedPhoto} alt="Profile" style={{ width: '150px', height: '150px', borderRadius: '50%' }} onClick={() => setModalKorean(true)}/>
@@ -193,23 +193,23 @@ export default function MyProfile() {
                     />
 
                     <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', mb: 3, textAlign: 'left'}}>
-                        <FormLabel sx={{mr: 1, color: '#0d47a1'}}>성별:</FormLabel>
+                        <FormLabel sx={{mr: 1, color: '#0d47a1', fontFamily: "Noto Sans KR Medium"}}>성별:</FormLabel>
                         <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}} aria-label="gender"
                              name="gender">
                             <Radio checked={gender === 'male'} onChange={(e) => setGender(e.target.value)}
                                    value="male"/>
-                            <Typography>남성</Typography>
+                            <Typography sx={{fontFamily: "Noto Sans KR Medium"}}>남성</Typography>
                             <Radio checked={gender === 'female'} onChange={(e) => setGender(e.target.value)}
                                    value="female"/>
-                            <Typography>여성</Typography>
+                            <Typography sx={{fontFamily: "Noto Sans KR Medium"}}>여성</Typography>
                         </Box>
                     </Box>
 
                     <Box sx={{display: 'flex', justifyContent: 'center', gap: 2, mt: 2}}>
                         <Button variant="contained" color="primary" onClick={handleSubmit}
-                                sx={{width: '150px'}}>저장</Button>
+                                sx={{width: '150px',fontFamily: "Noto Sans KR Medium"}}>저장</Button>
                         <Button variant="outlined" color="primary" onClick={() => navigate('/mypage')}
-                                sx={{width: '150px'}}>닫기</Button>
+                                sx={{width: '150px',fontFamily: "Noto Sans KR Medium"}}>닫기</Button>
                     </Box>
                 </StyledForm>
             </Container>

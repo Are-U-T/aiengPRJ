@@ -20,9 +20,9 @@ const ProjectIntro = () => (
         <div style={{textAlign: 'center'}} className='App'>
             <div style={{textAlign: 'center'}} className='App'>
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60vh'}}>
-                    <div>
-                        <h1 style={{fontSize: '36px', color: '#132650', fontWeight: 'bold'}}>왜? Are You T일까?</h1>
-                        <p style={{fontSize: '18px', color: '#333', marginTop: '10px'}}>
+                    <div style={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
+                        <h1 style={{fontSize: '36px', color: '#132650', fontWeight: 'bold',fontFamily: "'NotoSansKR-Medium', sans-serif"}}>왜? Are You T일까?</h1>
+                        <p style={{fontSize: '18px', color: '#333', marginTop: '25px',fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                             저희 팀의 메인 로고인 'T'는 "너 T야?"를 상징하며,
                             '선생님(teacher)'을 의미합니다. <br/>이는 최고 수준의 영어 학습 지도를 제공하겠다는 저희의 약속을 나타냅니다.
                         </p>
@@ -67,11 +67,11 @@ const ProjectIntro = () => (
                         />
 
                         <CardContent sx={{textAlign: 'center'}}>
-                            <Typography variant="h5" component="div">
+                            <Typography gutterBottom variant="h5" component="div" sx={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                                 박서윤
                             </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                취업 하고 싶어요 *^^*
+                            <Typography variant="body2" color="text.secondary" sx={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
+                               취업 하고 싶어요!
                             </Typography>
                         </CardContent>
 
@@ -101,10 +101,10 @@ const ProjectIntro = () => (
                         />
 
                         <CardContent sx={{textAlign: 'center'}}>
-                            <Typography gutterBottom variant="h5" component="div">
+                            <Typography gutterBottom variant="h5" component="div" sx={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                                 정경희
                             </Typography>
-                            <Typography variant="body2" color="text.secondary">
+                            <Typography variant="body2" color="text.secondary" sx={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                                 현재 취업준비 중이에요!
                             </Typography>
                         </CardContent>
@@ -135,10 +135,10 @@ const ProjectIntro = () => (
                         />
 
                         <CardContent sx={{textAlign: 'center'}}>
-                            <Typography gutterBottom variant="h5" component="div">
+                            <Typography gutterBottom variant="h5" component="div" sx={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                                 서정훈
                             </Typography>
-                            <Typography variant="body2" color="text.secondary">
+                            <Typography variant="body2" color="text.secondary" sx={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                                 비트코인 올해안의 1억 갈 수 있을까요?
                             </Typography>
                         </CardContent>
@@ -168,10 +168,10 @@ const ProjectIntro = () => (
                         />
 
                         <CardContent sx={{textAlign: 'center'}}>
-                            <Typography gutterBottom variant="h5" component="div">
+                            <Typography gutterBottom variant="h5" component="div" sx={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                                 왕장령
                             </Typography>
-                            <Typography variant="body2" color="text.secondary">
+                            <Typography variant="body2" color="text.secondary" sx={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                                 창작의 고통은 즐거움입니다.<br/> -왕선생-
                             </Typography>
                         </CardContent>

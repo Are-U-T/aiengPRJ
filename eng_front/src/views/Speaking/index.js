@@ -426,7 +426,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
         <div className='App'>
             <Navigation/>
             <ModalStart2 isOpen={startModalOpen2} onClose={Close2}>
-                <div style={{maxWidth: '600px', margin: 'auto'}}>
+                <div style={{maxWidth: '600px', margin: 'auto'}} >
                     <h3 className='gh' style={{textAlign: 'center'}}>사용방법 안내</h3>
                     <div className="micq">
                         <img src={mic} alt='mic' width='25px' height='25px'/> <img src={micno} alt='mic'
@@ -445,14 +445,14 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
                         <div style={{marginTop: '30px'}}/>
 
-                        <p><strong>검색 섹션:</strong> 사용자가 한글 또는 영어 단어를 검색할 수 있는 기능을 제공합니다.</p>
-                        <p><strong>질문 추천 섹션:</strong> 사용자가 선택한 상황에 맞는 질문을 2분마다 자동으로 제안합니다.</p>
+                        <strong style={{fontSize : '16px'}}>검색 섹션:</strong> 사용자가 한글 또는 영어 단어를 검색할 수 있는 기능을 제공합니다.
+                        <strong style={{fontSize : '16px'}}>질문 추천 섹션:</strong> 사용자가 선택한 상황에 맞는 질문을 2분마다 자동으로 제안합니다.
 
                         <div className='redcss'>
-                            <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 대화내용을 끄게 되면 검색 섹션과 질문추천 섹션도
+                            <span style={{color: 'black', fontSize: '23px'}}> ※ </span> 대화내용을 끄게 되면 검색 섹션과 질문추천 섹션도
                             함께
                             닫힙니다.<br/>
-                            <span style={{color: 'black', fontSize: '25px'}}> ※ </span> 마이크를 켜면 시간이 줄어들며, 멈추면 시간이
+                            <span style={{color: 'black', fontSize: '23px'}}> ※ </span> 마이크를 켜면 시간이 줄어들며, 멈추면 시간이
                             줄어들지
                             않습니다.
                         </div>
@@ -474,7 +474,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                 {showSubtitles && (
                     <>
                         <div className={`${subtitlesContainerClass} junghunsub`}>
-                            <h3>실시간 자막</h3>
+                            <h3 style={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>실시간 자막</h3>
                             <ul>
                                 {liveSubtitles.map((subtitle, index) => (
                                     <li key={index}>
@@ -485,7 +485,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                         </div>
 
 
-                        <div className='mrt'>
+                        <div className='mrt' style={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                             <div className="typo-correction-container">
                                 <b style={{color: 'midnightblue'}}>검색 섹션</b>
                                 <div className="search-container">
@@ -518,8 +518,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                         </div>
 
 
-                        <div className="question-suggestion-container junghun">
-                            <b style={{color: 'midnightblue'}}>질문추천 섹션</b>
+                        <div className="question-suggestion-container junghun" style={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
+                            <b style={{color: 'midnightblue' }}>질문추천 섹션</b>
                             {recommendedQuestions.map((subtitle, index) => (
                                 <div key={index}>
                                     {subtitle.CONTENT}
@@ -529,7 +529,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                     </>
                 )}
 
-                <div className='mrts'>
+                <div className='mrts' style={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                     <div className={`buttons-containerpp ${!showSubtitles ? "buttons-hidden-subtitles" : ""}`}>
                         <button onClick={toggleRecording}
                                 className={`${isRecording ? "recording-active" : ""} ${isTurningOff ? "tuof" : ""}`}
@@ -557,8 +557,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
             {isModalOpen && (
                 <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                    <h2 className="modal-title">알림</h2>
-                    <div className="modal-body">
+                    <h2 className="modal-title" style={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>알림</h2>
+                    <div className="modal-body" style={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                         <p>5분이 지났습니다. 메인 화면으로 돌아갑니다.</p>
                         <p>지정된 시간이 초과되었습니다. 메인 화면으로 돌아가서 다시 시작하세요.</p>
                         <p>현재 진행 시간: {formatTime(timeSpent)}</p>

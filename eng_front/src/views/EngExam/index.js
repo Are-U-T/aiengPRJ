@@ -308,7 +308,8 @@ function EngExam() {
                 width: '1024px',
                 margin: 'auto',
                 flexDirection: 'column',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                fontFamily: "'NotoSansKR-Medium', sans-serif"
             }}>
 
                 <div style={{textAlign: 'center', marginBottom: '10px'}}>
@@ -322,7 +323,8 @@ function EngExam() {
                             borderRadius: '30px',
                             border: "none",
                             color: '#686A6C',
-                            backgroundColor: '#f5f5f5'
+                            backgroundColor: '#f5f5f5',
+                            fontFamily: "'NotoSansKR-Medium', sans-serif"
                         }}
                         onClick={handleSkipButtonClick}
                     >
@@ -331,9 +333,9 @@ function EngExam() {
                 </div>
 
 
-                <div style={{textAlign: 'center', marginBottom: '120px', marginLeft: '80px', marginRight: '80px'}}>
+                <div style={{textAlign: 'center', marginBottom: '120px', marginLeft: '80px', marginRight: '80px',fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                     {currentQuestion && (
-                        <div>
+                        <div style={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
 
                             {isAnswerCorrect !== null && (
                                 <VisualFeedback isCorrect={isAnswerCorrect}/>

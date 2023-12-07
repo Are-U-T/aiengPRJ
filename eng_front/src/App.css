@@ -29,5 +29,5 @@
 
 
 .App {
-    font-family: 'apple', 'appleE', sans-serif;
+    font-family: 'apple', 'appleE', sans-serif !important;
 }
