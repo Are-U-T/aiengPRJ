@@ -4,7 +4,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(15px);
+    background-color: rgba(0, 0, 0, 0.3);
     animation: fadeIn 0.7s ease;
     display: flex;
     align-items: center;
@@ -14,75 +15,83 @@
 
 .modal-stylellx {
     padding: 40px;
-    border-radius: 20px;
-    background: skyblue;
-    box-shadow: 10px 10px 20px #cbced1, -10px -10px 20px #ffffff;
+    border-radius: 8px;
+    background: #E6EAF3;
     max-width: 650px;
     overflow: hidden;
     animation: slideUp 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .ghx {
-    color: white;
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 25px;
+    font-family: "Noto Sans KR ExtraBold", "sans-serif";
+    color: #17264D;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.ghx2 {
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    color: #17264D;
+    font-size: 20px;
 }
 
 button.qwex {
-    /* 버튼 스타일링 개선 */
-    padding: 12px 25px;
-    border-radius: 30px;
-    background-color: #3498db;
-    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
     border: none;
+    background-color: #1D2B64;
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: #ffffff;
     cursor: pointer;
     font-weight: bold;
     transition: transform 0.3s ease, background-color 0.3s;
 }
 
 button.qwex:hover {
-    /* 버튼 호버 효과 개선 */
-    background-color: #2980b9;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background-color: #7482A6;
+    transform: translateY(-1px);
 }
 
 @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes slideUp {
-    0% { transform: translateY(30px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
+    0% {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 
 .modal-instructionsx {
-    margin: 30px 0;
-    padding: 30px;
-    background-color: white;
-    border: 1px solid #d3d3d3;
-    border-radius: 10px;
+    padding: 30px 30px 0 30px;
 }
 
 .modal-instructionsx p {
     font-size: 18px;
-    color: #333;
     line-height: 2.5;
-    margin-bottom: 15px;
-    text-align : left;
+    text-align: left;
+    width: 420px;
+    padding-left: 25px;
+    background-color: #ffffff;
+    height: 50px;
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    color: #17264D;
 }
 
 .foox {
-    display: flex;
+    margin-top: 0;
     justify-content: center;
-    margin-top: 30px;
 }
-
-
-
-
-
-

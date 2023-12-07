@@ -181,7 +181,7 @@ export default function MypageArea() {
             });
             setFriendAdded(true);
             console.log(response.data);
-
+            setFriendEmail("");
         } catch (error) {
             console.error('Error:', error);
         }
@@ -389,7 +389,7 @@ export default function MypageArea() {
                                 <div key={index}>
                                     <div style={{ display: 'grid', gridTemplateColumns: 'auto auto', columnGap: '10px', alignItems: 'center' }}>
                                         <p>이름: {friendList.NAME}</p>
-                                        <button onClick={()=>deleteFriend(friendList.NUM)}>삭제</button>
+                                        <button className="friendRemoveBtn" onClick={()=>deleteFriend(friendList.NUM)}>삭제</button>
                                     </div>
                                 </div>
                             ))}

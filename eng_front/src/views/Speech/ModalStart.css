@@ -70,7 +70,6 @@ button.qwe:hover {
 
 .modal-instructions p {
     font-size: 18px;
-    /*color: #333;*/
     line-height: 2.5;
     text-align : left;
     width: 420px;
@@ -82,7 +81,10 @@ button.qwe:hover {
 }
 
 .foo {
-    /*display: flex;*/
-    /*justify-content: center;*/
     margin-top: -25px;
+}
+
+.micq-flex {
+    display: flex;
+    width: 520px;
 }

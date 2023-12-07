@@ -22,7 +22,6 @@ import nationalexam from "./images/nationalexam.png";
 import './exam.css';
 import hugi from '../Mainarea/images/후기.png';
 
-
 const item = {
   display: 'flex',
   flexDirection: 'column',
@@ -53,7 +52,7 @@ export default function Mainarea(){
 
           <div style={{marginTop : '150px'}}/>
 
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '10px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '280px', marginBottom : '10px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>학습 효과</h5>
           </div>
@@ -95,7 +94,7 @@ export default function Mainarea(){
 
 
 
-          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '180px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '280px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>사용 대상</h5>
           </div>
@@ -120,11 +119,10 @@ export default function Mainarea(){
                       어린이
                     </Typography>
 
-                    <Typography variant="h6" sx={{ mt: 2}}>
+                    <Typography variant="h6" sx={{ mt: 2, className: 'fontMedium'}}>
                       {
                         '유아기부터 영어 경쟁력을 키울 수 있도록 모국어 환경에서 맞춤형 1:1 행복한 학습'
                       }
-
                     </Typography>
                   </Box>
 
@@ -172,7 +170,7 @@ export default function Mainarea(){
             </Container>
           </Box>
 
-          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '180px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '280px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>사용하는 이유</h5>
           </div>
@@ -270,7 +268,7 @@ export default function Mainarea(){
 
           <div style={{marginTop : '150px'}}/>
 
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '10px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '280px', marginBottom : '10px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}> 시험 정보, 알고 계셨나요?</h5>
           </div>
