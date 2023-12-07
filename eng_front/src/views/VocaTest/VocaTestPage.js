@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import ModalChange from "../MyPage/MypageArea/ModalChange";
 
+
 export default function VocaTestPage() {
 
     const userNum = sessionStorage.getItem('userNum');
@@ -135,7 +136,6 @@ export default function VocaTestPage() {
                 <div className="vocaTestBoxFlex">
                     <div className="vocaTestBox1">{vocaTestBox1}</div>
                     <div className="vocaTestBox2">{vocaTestBox2}</div>
-                    <button type="submit" className="vocaSendBtn" onClick={() => vocaSend()}>제출</button>
                 </div>
 
                 {modal && (
@@ -152,6 +152,7 @@ export default function VocaTestPage() {
                 )}
 
             </div>
+            <button type="submit" className="vocaSendBtn" onClick={() => vocaSend()}>제출</button>
         </>
     )
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+//import java.time.LocalDateTime;
 
 @Data
 @Getter
@@ -16,7 +17,7 @@ public class TalkingRoomDto {
 
     private String unum;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private LocalDate regdate;
 
     private String lv;

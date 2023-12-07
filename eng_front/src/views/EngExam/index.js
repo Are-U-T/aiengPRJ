@@ -5,9 +5,12 @@ import Navigation from "../Navigation";
 import '../../App.css';
 import ModalStart from './ModalStart3';
 import './ModalStart3.css'
-import correctSound  from './정답.mp3';
-import wrongSound  from './오답.mp3';
+import correctSound from './정답.mp3';
+import wrongSound from './오답.mp3';
 import './Style.css';
+import Footer from './Footer/index';
+import Modal from "../Speech/Modal";
+import loginImg from "../Speech/images/loginImg.png";
 
 const questionsData = [
     {
@@ -142,24 +145,30 @@ const questionsData = [
     },
 ];
 
-
-const VisualFeedback = ({ isCorrect }) => {
+const VisualFeedback = ({isCorrect}) => {
     const canvasRef = useRef(null);
-    let startAngle = 0.5 * Math.PI; // 18시 방향에서 시작
-    let endAngle = 2.5 * Math.PI; // 18시 방향에서 끝
-    let currentAngle = startAngle;
-
-    // 오답일 경우 대각선 그리기를 위한 상태
-    let startX = 140, startY = 0, endX = 0, endY = 140;
-    let currentX = startX, currentY = startY;
+    let startAngle = 0.5 * Math.PI;
+    let endAngle = 2.5 * Math.PI;
 
     useEffect(() => {
+        // canvasRef.current가 존재하는지 확인
+        if (!canvasRef.current) {
+            return;
+        }
+
         const canvas = canvasRef.current;
         const context = canvas.getContext('2d');
         context.clearRect(0, 0, canvas.width, canvas.height);
 
+        let currentAngle = startAngle;
+        let startX = canvas.width - 5;
+        let startY = 50;
+        let endX = canvas.width / 2;
+        let endY = canvas.height - 200;
+        let currentX = startX, currentY = startY;
+
         const draw = () => {
-            context.lineWidth = 3 + Math.random(); // 선의 불규칙한 굵기
+            context.lineWidth = 3 + Math.random();
             context.lineCap = 'round';
             context.lineJoin = 'round';
             context.strokeStyle = 'red';
@@ -167,16 +176,15 @@ const VisualFeedback = ({ isCorrect }) => {
             context.beginPath();
 
             if (isCorrect) {
-                // 정답일 경우 원 그리기
                 if (currentAngle < endAngle) {
-                    currentAngle += 0.05; // 속도 조절
-                    context.arc(100, 100, 50, startAngle, currentAngle); // 반지름을 50으로 변경
+                    currentAngle += 0.1;
+                    context.arc(canvas.width * 3 / 4, 100, 50, startAngle, currentAngle);
                     requestAnimationFrame(draw);
                 }
             } else {
-                if (currentX > endX) {
-                    currentX -= 2; // X 좌표 이동 속도
-                    currentY += 2; // Y 좌표 이동 속도
+                if (currentX > endX && currentY < endY) {
+                    currentX -= 3;
+                    currentY += 3;
                     context.moveTo(startX, startY);
                     context.lineTo(currentX, currentY);
                     requestAnimationFrame(draw);
@@ -189,12 +197,8 @@ const VisualFeedback = ({ isCorrect }) => {
         draw();
     }, [isCorrect]);
 
-    return <canvas ref={canvasRef} width={200} height={200} style={{position: 'absolute', top: 100, left: 400}} />;
+    return <canvas ref={canvasRef} width={400} height={400} style={{position: 'absolute', top: 80, left: 400}}/>;
 };
-
-
-
-
 
 
 function EngExam() {
@@ -206,8 +210,21 @@ function EngExam() {
     const [score, setScore] = useState(0); // 添加 score 状态
     const [confirmButtonVisible, setConfirmButtonVisible] = useState(true);
     const [startModalOpen3, setStartModalOpen3] = useState(false);
-
     const [buttonState, setButtonState] = useState('확인');
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
+    const userNum = sessionStorage.getItem('userNum');
+
+    useEffect(() => {
+        if (userNum == null) {
+            // 모달 창 띄워서 로그인 하세요 하고 확인 누르면 로그인 창으로 보내기
+            setLoginModalOpen(true);
+        }
+    }, [userNum]);
+
+    const closeModalAndNavigate = () => {
+        setLoginModalOpen(false);
+        navigate('/login');
+    };
 
 
     useEffect(() => {
@@ -235,7 +252,7 @@ function EngExam() {
         }));
     };
 
-    const [isAnswerCorrect, setIsAnswerCorrect] = useState(null);  // 답이 맞았는지 틀렸는지
+    const [isAnswerCorrect, setIsAnswerCorrect] = useState(null);
 
     const handleSendAns = () => {
         if (buttonState === '확인') {
@@ -263,19 +280,16 @@ function EngExam() {
         }
     };
 
-
-    // 다음 문제로 넘어갈 때 상태를 초기화하는 함수 추가
     const moveToNextQuestion = () => {
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
         setIsAnswerCorrect(null);
         setSelectedOption(null);
     };
 
-    // handleSkipButtonClick 함수를 moveToNextQuestion을 사용하도록 업데이트
     const handleSkipButtonClick = () => {
         if (currentQuestionIndex < questionsData.length - 1) {
             moveToNextQuestion();
-            // setConfirmButtonVisible(true);
+
         } else if (currentQuestionIndex === questionsData.length - 1) {
             navigate('/resultpage', {state: {score: score}});
         }
@@ -314,7 +328,6 @@ function EngExam() {
             }}>
 
                 <div style={{textAlign: 'center', marginBottom: '10px'}}>
-                    {/*<h2>영어 테스트 {currentQuestionIndex + 1}/{questionsData.length}</h2>*/}
                 </div>
                 <div style={{textAlign: 'right', marginBottom: '30px'}}>
                     <button
@@ -334,12 +347,10 @@ function EngExam() {
                 </div>
 
 
-
                 <div style={{textAlign: 'center', marginBottom: '120px', marginLeft: '80px', marginRight: '80px'}}>
                     {currentQuestion && (
                         <div>
 
-                            {/* 시각적 피드백을 여기에 렌더링 */}
                             {isAnswerCorrect !== null && (
                                 <VisualFeedback isCorrect={isAnswerCorrect}/>
                             )}
@@ -349,7 +360,6 @@ function EngExam() {
                                 onAnswer={handleAnswer}
                                 selectedOption={selectedOption}
                             />
-
 
                         </div>
                     )}
@@ -374,6 +384,20 @@ function EngExam() {
                     </button>
                 </div>
             </div>
+            <div style={{marginTop : '-300px'}}/>
+            <Footer/>
+
+            <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
+
+                <div className="speechModalCenter">
+                    <img src={loginImg} alt='로그인 이미지' className="speechLoginImg"/>
+                    <h4>로그인 후 이용해 주세요</h4>
+                    <button onClick={closeModalAndNavigate} className="modal-custom-button">
+                        닫기
+                    </button>
+                </div>
+            </Modal>
+
         </div>
     );
 }

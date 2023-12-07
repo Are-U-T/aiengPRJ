@@ -9,6 +9,7 @@ import Typography from "@mui/joy/Typography";
 import down from './images/down.png'
 import leveltest from './images/leveltest.png';
 import speech from './images/speech.png';
+import wordtest from './images/wordtest.png';
 
 function Header() {
     const [isModalOpen, setModalOpen] = useState(false);
@@ -21,8 +22,10 @@ function Header() {
     };
 
     const scrollToBottom = () => {
+        clearInterval(scrollInterval); // 기존 인터벌 정리
+
         let totalScrollDistance = document.body.scrollHeight - window.scrollY;
-        let scrollStep = totalScrollDistance / 100; // 스크롤 단계를 10배 빠르게 설정
+        let scrollStep = 100; // 고정된 스크롤 단계 값
 
         scrollInterval = setInterval(() => {
             if (window.scrollY < document.body.scrollHeight - window.innerHeight) {
@@ -35,19 +38,21 @@ function Header() {
         setIsScrolling(true); // 스크롤 시작
     };
 
-    useEffect(() => {
-        // 스크롤 중에는 이벤트 리스너를 추가
-        if (isScrolling) {
-            document.addEventListener('wheel', stopScrolling);
-            document.addEventListener('click', stopScrolling);
-        }
-
-        // 컴포넌트 언마운트 시 또는 스크롤이 중단될 때 이벤트 리스너 제거
-        return () => {
-            document.removeEventListener('wheel', stopScrolling);
-            document.removeEventListener('click', stopScrolling);
-        };
-    }, [isScrolling]);
+    // useEffect(() => {
+    //     if (isScrolling) {
+    //         document.addEventListener('wheel', stopScrolling);
+    //         document.addEventListener('click', stopScrolling);
+    //     } else {
+    //         document.removeEventListener('wheel', stopScrolling);
+    //         document.removeEventListener('click', stopScrolling);
+    //     }
+    //
+    //     return () => {
+    //         clearInterval(scrollInterval); // 컴포넌트 언마운트 시 인터벌 정리
+    //         document.removeEventListener('wheel', stopScrolling);
+    //         document.removeEventListener('click', stopScrolling);
+    //     };
+    // }, [isScrolling, scrollInterval]);
 
     return (
         <div className='App'>
@@ -69,7 +74,6 @@ function Header() {
 
             <div style={{marginTop: '100px'}}/>
 
-            {/*<div style={{ background : 'linear-gradient(to right, #89C4F4, #1D2B64)'}}>*/}
             <div style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -83,22 +87,21 @@ function Header() {
 
             <div className="grid-container" style={{maxWidth: '1200px', margin: 'auto', padding: '0 40px'}}>
                 <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', padding: '20px', gap: '100px'}}>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: '30vh',
-                        flexDirection: 'column'
-                    }}>
-                        <Typography level="h1" fontWeight="xl" fontSize="clamp(1rem, 0.9rem + 0.8vw, 2rem)"
-                                    className="rainbow-text">
-                            간단한 레벨테스트와<br/> 내 맞춤 AI선생님이<br/> 항시 대기
-                        </Typography>
-                        <img src={smile} alt='smile' width='80px' height='auto'
-                             style={{marginTop: '-15px', marginLeft: '95px'}}/>
-                    </div>
+                    {/*<div style={{*/}
+                    {/*    display: 'flex',*/}
+                    {/*    alignItems: 'center',*/}
+                    {/*    justifyContent: 'center',*/}
+                    {/*    height: '30vh',*/}
+                    {/*    flexDirection: 'column'*/}
+                    {/*}}>*/}
+                    {/*    <Typography level="h1" fontWeight="xl" fontSize="clamp(1rem, 0.9rem + 0.8vw, 2rem)"*/}
+                    {/*                className="rainbow-text">*/}
+                    {/*        간단한 레벨테스트와<br/> 내 맞춤 AI선생님이<br/> 항시 대기*/}
+                    {/*    </Typography>*/}
+                    {/*    <img src={smile} alt='smile' width='80px' height='auto'*/}
+                    {/*         style={{marginTop: '-15px', marginLeft: '95px'}}/>*/}
+                    {/*</div>*/}
 
-                    {/* 첫 번째 행 */}
                     <Link to='/leveltest' style={{textDecoration: 'none', color: 'inherit'}}>
                         <div style={{
                             border: '2px solid #132650',
@@ -111,7 +114,7 @@ function Header() {
                             backgroundColor: 'white'
                         }}>
                             <div style={{padding: '15px', textAlign: 'center'}}>
-                                <h5 style={{marginBottom: '25px'}}>레벨 테스트</h5>
+                                <h5 style={{marginBottom: '25px', fontStyle : 'bold'}}>레벨 테스트</h5>
                                 <img src={leveltest} alt="Speech"
                                      style={{width: '80px', height: '80px', objectFit: 'cover', margin: '0 auto'}}/>
                                 <p style={{marginTop: '25px', color: '#132650', fontSize: '13px'}}>당신의 레벨을 테스트 할 수
@@ -120,7 +123,7 @@ function Header() {
                         </div>
                     </Link>
 
-                    {/* 두 번째 행 */}
+
                     <Link to='/speech' style={{textDecoration: 'none', color: 'inherit'}} className="grid-item">
                         <div onClick={() => setModalOpen(true)} style={{
                             border: '2px solid #132650',
@@ -133,13 +136,35 @@ function Header() {
                             backgroundColor: 'white'
                         }}>
                             <div style={{padding: '15px', textAlign: 'center'}}>
-                                <h5 style={{marginBottom: '25px'}}>Speech</h5>
+                                <h5 style={{marginBottom: '25px', fontStyle : 'bold'}}>스피치</h5>
                                 <img src={speech} alt="Speech"
                                      style={{width: '80px', height: '80px', objectFit: 'cover', margin: '0 auto'}}/>
-                                <p style={{marginTop: '25px', color: '#132650', fontSize: '14px'}}>스피킹을 합니다!</p>
+                                <p style={{marginTop: '23px', color: '#132650', fontSize: '14px'}}>스피킹을 합니다!</p>
                             </div>
                         </div>
                     </Link>
+
+
+                    <Link to='/vocaTest' style={{textDecoration: 'none', color: 'inherit'}}>
+                        <div style={{
+                            border: '2px solid #132650',
+                            borderRadius: '10px',
+                            boxShadow: '0 6px 10px rgba(0,0,0,0.1)',
+                            overflow: 'hidden',
+                            cursor: 'pointer',
+                            aspectRatio: '1 / 1',
+                            width: '80%',
+                            backgroundColor: 'white'
+                        }}>
+                            <div style={{padding: '15px', textAlign: 'center'}}>
+                                <h5 style={{marginBottom: '25px', fontStyle : 'bold'}}>단어 시험</h5>
+                                <img src={wordtest} alt="Speech"
+                                     style={{width: '80px', height: '80px', objectFit: 'cover', margin: '0 auto'}}/>
+                                <p style={{marginTop: '25px', color: '#132650', fontSize: '14px'}}>검색을 통한 단어로 시험을 봅니다.</p>
+                            </div>
+                        </div>
+                    </Link>
+
                 </div>
             </div>
 
@@ -159,7 +184,7 @@ function Header() {
             <div style={{maxWidth: '1200px', margin: 'auto', padding: '0 40px'}}>
                 <div className="process-grid-container"
                      style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '20px'}}>
-                    {/* 첫 번째 행 */}
+
                     <div style={{
                         alignContent: 'center',
                         width: '600px',
@@ -182,7 +207,6 @@ function Header() {
                         <i className="fas fa-arrow-right" style={{fontSize: '24px', color: '#4A90E2'}}></i>
                     </div>
 
-                    {/* 두 번째 행 */}
                     <div style={{
                         alignContent: 'center',
                         width: '600px',
@@ -205,7 +229,6 @@ function Header() {
                         <i className="fas fa-arrow-right" style={{fontSize: '24px', color: '#4A90E2'}}></i>
                     </div>
 
-                    {/* 세 번째 행 */}
                     <div style={{
                         alignContent: 'center',
                         width: '600px',
@@ -228,7 +251,6 @@ function Header() {
                         <i className="fas fa-arrow-right" style={{fontSize: '24px', color: '#4A90E2'}}></i>
                     </div>
 
-                    {/* 네 번째 행 */}
                     <div style={{
                         alignContent: 'center',
                         width: '600px',

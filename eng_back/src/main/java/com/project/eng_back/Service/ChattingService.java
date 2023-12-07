@@ -1,5 +1,6 @@
 package com.project.eng_back.Service;
 
+import com.project.eng_back.Dto.Choice;
 import com.project.eng_back.Mapper.ChatGPTMapper;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.Map;
 public class ChattingService {
 
     private final ChatGPTMapper chatGPTMapper;
+
 
     public ChattingService(ChatGPTMapper chatGPTMapper) {
         this.chatGPTMapper = chatGPTMapper;
@@ -26,6 +28,10 @@ public class ChattingService {
     public List<Map<String, String>> getScript(String crid) {
         return chatGPTMapper.getScript(crid);
     }
+
+//    public TalkingRoomDto getScriptDto(String crid) {
+//        return chatGPTMapper.getScriptDto(crid);
+//    }
 
     public List<Map<String, String>> getScript2(String crid) {
         return chatGPTMapper.getScript2(crid);

@@ -1,15 +1,24 @@
 package com.project.eng_back.Controller;
 
+import com.google.gson.Gson;
 import com.project.eng_back.Dto.ChatGptResponseDto;
 import com.project.eng_back.Dto.Choice;
 import com.project.eng_back.Dto.QuestionRequestDto;
 import com.project.eng_back.Service.ChatGptService;
 import com.project.eng_back.TTS.QuickstartSample;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -119,11 +128,11 @@ public class ChatGptController {
 
         byte[] audioBytes = quickstartSample.run(gptResponseChoice, initiationRequestDto.getCountry()).getBody();
         // Add log to check if the audio data is generated and returned correctly
-        // System.out.println("GPT audio file. Size: " + audioBytes.length + " bytes");
+//        System.out.println("GPT audio file. Size: " + audioBytes.length + " bytes");
 
         gptResponseChoice.setSpeaker("Teacher");
 
-        // quickstartSample.run(gptResponseChoice);
+//        quickstartSample.run(gptResponseChoice);
 
         questionRequestDto.setGPTRole(initiationRequestDto.getGPTRole());
         questionRequestDto.setUserRole(initiationRequestDto.getUserRole());

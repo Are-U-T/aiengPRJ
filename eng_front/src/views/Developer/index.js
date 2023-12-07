@@ -12,66 +12,62 @@ import jhImage from "./images/jh.jpg";
 import syImage from "./images/sy.jpg";
 import cgImage from "./images/cg.jpg";
 import '../../App.css';
-
-
+import Footer from './Footer';
 
 const ProjectIntro = () => (
     <div className='App'>
-        <Navigation />
-        <div style={{ textAlign: 'center'}} className='App'>
-            <div style={{ textAlign: 'center' }} className='App'>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60vh' }}>
+        <Navigation/>
+        <div style={{textAlign: 'center'}} className='App'>
+            <div style={{textAlign: 'center'}} className='App'>
+                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60vh'}}>
                     <div>
-                        <h1 style={{ fontSize: '36px', color: '#132650', fontWeight: 'bold' }}>왜? Are You T일까?</h1>
-                        <p style={{ fontSize: '18px', color: '#333', marginTop: '10px' }}>
+                        <h1 style={{fontSize: '36px', color: '#132650', fontWeight: 'bold'}}>왜? Are You T일까?</h1>
+                        <p style={{fontSize: '18px', color: '#333', marginTop: '10px'}}>
                             저희 팀의 메인 로고인 'T'는 "너 T야?"를 상징하며,
-                            '선생님(teacher)'을 의미합니다. <br />이는 최고 수준의 영어 학습 지도를 제공하겠다는 저희의 약속을 나타냅니다.
+                            '선생님(teacher)'을 의미합니다. <br/>이는 최고 수준의 영어 학습 지도를 제공하겠다는 저희의 약속을 나타냅니다.
                         </p>
                     </div>
                 </div>
             </div>
 
-
-
-            <div style={{marginTop : '-100px'}}></div>
-            <div style={{ display: 'flex', alignItems: 'center', marginLeft: '150px', marginBottom : '10px'}}>
-                {/*<h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650'}}>Team</h5>*/}
+            <div style={{marginTop: '-100px'}}></div>
+            <div style={{display: 'flex', alignItems: 'center', marginLeft: '150px', marginBottom: '10px'}}>
             </div>
 
-
-            <Container maxWidth="lg" id="team"> {/* maxWidth를 설정하여 최대 너비를 조절할 수 있습니다. */}
+            <Container maxWidth="lg" id="team">
                 <Box className="team-container" sx={{
                     display: 'flex',
-                    flexDirection: { xs: 'column', md: 'row' },
+                    flexDirection: {xs: 'column', md: 'row'},
                     gap: 2,
-                    justifyContent: 'space-around', // 여기서 간격을 균등하게 설정합니다.
-                    margin: 'auto', // 이를 통해 Box를 가운데 정렬할 수 있습니다.
+                    justifyContent: 'space-around',
+                    margin: 'auto',
                 }}>
 
-                    <Card sx={{ maxWidth: 345,
-                        boxShadow: 'none', // 박스 쉐도우 제거
-                        backgroundColor: 'white', // 현재 배경색으로 고정
+                    <Card sx={{
+                        maxWidth: 345,
+                        boxShadow: 'none',
+                        backgroundColor: 'white',
                         '&:hover': {
-                            backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
-                            // 다른 마우스 오버 효과를 추가적으로 제거할 수 있습니다.
-                            boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
-                            transform: 'none' // 마우스 오버 시 변형 효과 제거
-                        }}}>
+                            backgroundColor: 'white',
+                            boxShadow: 'none',
+                            transform: 'none'
+                        }
+                    }}>
 
                         <CardMedia
                             component="img"
                             sx={{
-                                height: 200, // MUI에서는 단위를 생략하고 숫자만 적어도 px로 취급합니다.
+                                height: 200,
                                 width: 200,
                                 borderRadius: '50%',
-                                margin: 'auto' // 이미지를 가운데로 정렬합니다.
+                                margin: 'auto'
                             }}
                             image={syImage}
                             alt="jh"
                         />
 
-                        <CardContent sx={{ textAlign: 'center' }}>
-                            <Typography  variant="h5" component="div">
+                        <CardContent sx={{textAlign: 'center'}}>
+                            <Typography variant="h5" component="div">
                                 박서윤
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
@@ -81,106 +77,102 @@ const ProjectIntro = () => (
 
                     </Card>
 
-
-
-
-
-                    <Card sx={{ maxWidth: 345,
-                        boxShadow: 'none', // 박스 쉐도우 제거
-                        backgroundColor: 'white', // 현재 배경색으로 고정
+                    <Card sx={{
+                        maxWidth: 345,
+                        boxShadow: 'none',
+                        backgroundColor: 'white',
                         '&:hover': {
-                            backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
-                            // 다른 마우스 오버 효과를 추가적으로 제거할 수 있습니다.
-                            boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
-                            transform: 'none' // 마우스 오버 시 변형 효과 제거
-                        }}}>
+                            backgroundColor: 'white',
+                            boxShadow: 'none',
+                            transform: 'none'
+                        }
+                    }}>
 
                         <CardMedia
                             component="img"
                             sx={{
-                                height: 200, // MUI에서는 단위를 생략하고 숫자만 적어도 px로 취급합니다.
+                                height: 200,
                                 width: 200,
                                 borderRadius: '50%',
-                                margin: 'auto' // 이미지를 가운데로 정렬합니다.
+                                margin: 'auto'
                             }}
                             image={khImage}
                             alt="jh"
                         />
 
-                        <CardContent sx={{ textAlign: 'center' }}>
+                        <CardContent sx={{textAlign: 'center'}}>
                             <Typography gutterBottom variant="h5" component="div">
                                 정경희
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+                                현재 취업준비 중이에요!
                             </Typography>
                         </CardContent>
                     </Card>
 
 
-
-                    <Card sx={{ maxWidth: 345,
-                        boxShadow: 'none', // 박스 쉐도우 제거
-                        backgroundColor: 'white', // 현재 배경색으로 고정
+                    <Card sx={{
+                        maxWidth: 345,
+                        boxShadow: 'none',
+                        backgroundColor: 'white',
                         '&:hover': {
-                            backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
-                            // 다른 마우스 오버 효과를 추가적으로 제거할 수 있습니다.
-                            boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
-                            transform: 'none' // 마우스 오버 시 변형 효과 제거
-                        }}}>
+                            backgroundColor: 'white',
+                            boxShadow: 'none',
+                            transform: 'none'
+                        }
+                    }}>
 
                         <CardMedia
                             component="img"
                             sx={{
-                                height: 200, // MUI에서는 단위를 생략하고 숫자만 적어도 px로 취급합니다.
+                                height: 200,
                                 width: 200,
                                 borderRadius: '50%',
-                                margin: 'auto' // 이미지를 가운데로 정렬합니다.
+                                margin: 'auto'
                             }}
                             image={jhImage}
                             alt="jh"
                         />
 
-                        <CardContent sx={{ textAlign: 'center' }}>
+                        <CardContent sx={{textAlign: 'center'}}>
                             <Typography gutterBottom variant="h5" component="div">
                                 서정훈
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                안녕하세요!!
+                                비트코인 올해안의 1억 갈 수 있을까요?
                             </Typography>
                         </CardContent>
                     </Card>
 
 
-
-
-                    <Card sx={{ maxWidth: 345,
-                        boxShadow: 'none', // 박스 쉐도우 제거
-                        backgroundColor: 'white', // 현재 배경색으로 고정
+                    <Card sx={{
+                        maxWidth: 345,
+                        boxShadow: 'none',
+                        backgroundColor: 'white',
                         '&:hover': {
-                            backgroundColor: 'white', // 마우스 오버 시에도 배경색을 동일하게 유지
-                            // 다른 마우스 오버 효과를 추가적으로 제거할 수 있습니다.
-                            boxShadow: 'none', // 마우스 오버 시 그림자 효과 제거
-                            transform: 'none' // 마우스 오버 시 변형 효과 제거
-                        }}}>
+                            backgroundColor: 'white',
+                            boxShadow: 'none',
+                            transform: 'none'
+                        }
+                    }}>
                         <CardMedia
                             component="img"
                             sx={{
-                                height: 200, // MUI에서는 단위를 생략하고 숫자만 적어도 px로 취급합니다.
+                                height: 200,
                                 width: 200,
                                 borderRadius: '50%',
-                                margin: 'auto' // 이미지를 가운데로 정렬합니다.
+                                margin: 'auto'
                             }}
                             image={cgImage}
                             alt="jh"
                         />
 
-                        <CardContent sx={{ textAlign: 'center' }}>
+                        <CardContent sx={{textAlign: 'center'}}>
                             <Typography gutterBottom variant="h5" component="div">
                                 왕장령
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                히히힣
+                                창작의 고통은 즐거움입니다.<br/> -왕선생-
                             </Typography>
                         </CardContent>
                     </Card>
@@ -189,6 +181,7 @@ const ProjectIntro = () => (
 
 
         </div>
+        <Footer/>
     </div>
 );
 

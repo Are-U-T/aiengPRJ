@@ -51,11 +51,16 @@
 
 .vocaSendBtn {
     font-family: "Noto Sans KR Medium", "sans-serif";
-    font-size: 15px;
-    border-radius: 4px;
-    width: 50px;
-    height: 35px;
+    font-size: 20px;
+    border-radius: 15px;
+    width: 100px;
+    height: 60px;
     background: #1D2B64;
     color: white;
     border: none;
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+    position: absolute;
+    left: 47%;
 }

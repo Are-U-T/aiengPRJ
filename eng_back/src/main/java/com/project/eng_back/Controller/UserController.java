@@ -1,5 +1,6 @@
 package com.project.eng_back.Controller;
 
+import com.google.api.Http;
 import com.project.eng_back.Dto.GoogleUserDTO;
 import com.project.eng_back.Dto.UserDTO;
 import com.project.eng_back.Mapper.UserMapper;
@@ -9,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
@@ -18,7 +21,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
     @GetMapping("/data")
     public String home() {
         return "data 준비 중 ....";

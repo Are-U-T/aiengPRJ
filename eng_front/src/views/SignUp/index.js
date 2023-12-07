@@ -18,6 +18,7 @@ import Radio from '@mui/material/Radio';
 import {useNavigate} from 'react-router-dom';
 import axios from "axios";
 import userValidation from './Validation';
+import '../../App.css';
 
 const defaultTheme = createTheme();
 
@@ -144,7 +145,7 @@ export default function SignInSide() {
 
 
     return (
-        <>
+        <div className='App'>
             <ThemeProvider theme={defaultTheme}>
                 <Grid container component="main" sx={{ height: '100vh' }}>
                     <CssBaseline />
@@ -297,6 +298,6 @@ export default function SignInSide() {
                     </Grid>
                 </Grid>
             </ThemeProvider>
-        </>
+        </div>
     );
 }
