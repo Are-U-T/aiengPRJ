@@ -323,7 +323,7 @@
     border: none;
     border-radius: 20px;
     padding: 10px 15px;
-    background-color: #4a90e2;
+    background-color: #1D2B64;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
@@ -331,7 +331,7 @@
 }
 
 .search-btn:hover, .lang-toggle-btn:hover {
-    background-color: #357abd;
+    background-color: #7482A6;
     transform: scale(1.05);
 }
 
@@ -368,8 +368,5 @@
 
 .previousResult{
     font-size: 15px;
+    color: #959596;
 }
-
-
-
-

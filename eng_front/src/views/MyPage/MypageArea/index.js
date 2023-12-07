@@ -7,6 +7,8 @@ import ProgressBar from "./ProgressBar";
 import ModalChange from './ModalChange';
 import '../../../App.css'
 import trash1 from './images/trash1.png';
+import Modal from "../../Speech/Modal";
+import loginImg from "../../Speech/images/loginImg.png";
 
 export default function MypageArea() {
 
@@ -26,7 +28,20 @@ export default function MypageArea() {
     const [friendAdded, setFriendAdded] = useState(false);
     const [modalAddFriend, setMdalAddFriend] = useState(false);
     const [modalFriendList, setModalFriendList] = useState(false);
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
     const userNum = sessionStorage.getItem('userNum');
+
+    useEffect(() => {
+        if (userNum == null) {
+            // 모달 창 띄워서 로그인 하세요 하고 확인 누르면 로그인 창으로 보내기
+            setLoginModalOpen(true);
+        }
+    }, [userNum]);
+
+    const closeModalAndNavigate = () => {
+        setLoginModalOpen(false);
+        navigate('/login');
+    };
 
     const checkPassword = () => {
         if (inputPassword === userProfile.pw) {
@@ -50,6 +65,7 @@ export default function MypageArea() {
                 const data = await response.json();
                 setFriendProfile(data);
                 console.log('가져온 친구 정보: ', data);
+                setFriendAdded(false);
             } else {
                 console.error('Failed');
             }
@@ -57,8 +73,6 @@ export default function MypageArea() {
             console.error('Error :', error);
         }
     };
-
-
 
 
     useEffect(() => {
@@ -165,7 +179,7 @@ export default function MypageArea() {
             });
             setFriendAdded(true);
             console.log(response.data);
-
+            setFriendEmail("");
         } catch (error) {
             console.error('Error:', error);
         }
@@ -374,7 +388,7 @@ export default function MypageArea() {
                                 <div key={index}>
                                     <div style={{ display: 'grid', gridTemplateColumns: 'auto auto', columnGap: '10px', alignItems: 'center' }}>
                                         <p>이름: {friendList.NAME}</p>
-                                        <button onClick={()=>deleteFriend(friendList.NUM)}>삭제</button>
+                                        <button className="friendRemoveBtn" onClick={()=>deleteFriend(friendList.NUM)}>삭제</button>
                                     </div>
                                 </div>
                             ))}
@@ -386,6 +400,17 @@ export default function MypageArea() {
                         </button>
                     </ModalChange>
                 )}
+
+                <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
+
+                    <div className="speechModalCenter">
+                        <img src={loginImg} alt='로그인 이미지' className="speechLoginImg"/>
+                        <h4>로그인 후 이용해 주세요</h4>
+                        <button onClick={closeModalAndNavigate} className="modal-custom-button">
+                            닫기
+                        </button>
+                    </div>
+                </Modal>
 
             </div>
         </>

@@ -426,35 +426,33 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
         <div className='App'>
             <Navigation/>
             <ModalStart2 isOpen={startModalOpen2} onClose={Close2}>
-                <div style={{maxWidth: '600px', margin: 'auto'}} >
+                <div style={{maxWidth: '600px'}}>
                     <h3 className='gh' style={{textAlign: 'center'}}>사용방법 안내</h3>
+                    <h3 className='gh3'>AI와 함께하는 회화 공부</h3>
                     <div className="micq">
-                        <img src={mic} alt='mic' width='25px' height='25px'/> <img src={micno} alt='mic'
-                                                                                   width='25px'
-                                                                                   height='25px'/>
-                        <p>마이크를 켜거나 끌 수 있습니다.</p>
-
-                        <img src={subtitle} alt='subtitle' width='25px' height='25px'/> <img src={subtitleno}
-                                                                                             alt='subtitleno'
-                                                                                             width='32px'
-                                                                                             height='32px'/>
-                        <p>실시간으로 대화내용을 보거나 끌 수 있습니다.</p>
-
-                        <img src={time_finish} alt='time_finish' width='40px' height='35px'/>
-                        <p>남은 시간을 확인하며 클릭 시, 대화가 종료됩니다.</p>
-
-                        <div style={{marginTop: '30px'}}/>
-
-                        <strong style={{fontSize : '16px'}}>검색 섹션:</strong> 사용자가 한글 또는 영어 단어를 검색할 수 있는 기능을 제공합니다.
-                        <strong style={{fontSize : '16px'}}>질문 추천 섹션:</strong> 사용자가 선택한 상황에 맞는 질문을 2분마다 자동으로 제안합니다.
-
+                        <div className="micq-flex">
+                            <div style={{display: "flex", marginTop: "10px"}}>
+                                <img src={mic} alt='mic' width='30px' height='30px'/>
+                                <img src={micno} alt='mic' width='30px' height='30px'/>
+                            </div>
+                            <p>마이크 ON/OFF</p>
+                        </div>
+                        <div className="micq-flex">
+                            <div style={{display: "flex", marginTop: "10px"}}>
+                                <img src={subtitle} alt='subtitle' width='30px' height='30px'/>
+                                <img src={subtitleno} alt='subtitleno' width='30px' height='30px'/>
+                            </div>
+                            <p>실시간 자막 확인 가능</p>
+                        </div>
+                        <div className="micq-flex">
+                            <img src={time_finish} alt='time_finish' width='60px' height='60px'/>
+                            <p>남은 시간 확인 및 클릭 시 대화 종료</p>
+                            <div/>
+                        </div>
+                        <p>한글 또는 영어 단어 검색 가능</p>
+                        <p>상황에 맞는 질문을 2분마다 제시</p>
                         <div className='redcss'>
-                            <span style={{color: 'black', fontSize: '23px'}}> ※ </span> 대화내용을 끄게 되면 검색 섹션과 질문추천 섹션도
-                            함께
-                            닫힙니다.<br/>
-                            <span style={{color: 'black', fontSize: '23px'}}> ※ </span> 마이크를 켜면 시간이 줄어들며, 멈추면 시간이
-                            줄어들지
-                            않습니다.
+                            자막을 닫으면 검색 섹션과 질문 추천 섹션도 닫힙니다<br/>
                         </div>
                     </div>
 

@@ -4,13 +4,31 @@ import '../../../App.css'
 import king from './images/kingImg.webp';
 import axios from "axios";
 import Footer from './Footer/index';
+import Modal from "../../Speech/Modal";
+import loginImg from "../../Speech/images/loginImg.png";
+import {useNavigate} from "react-router-dom";
 export default function RankingArea() {
 
     const [rankList, setRankList] = useState([]);
     const [rankList2, setRankList2] = useState([]);
     const [isMonthly, setIsMonthly] = useState(true);
     const [showFriendsOnly, setShowFriendsOnly] = useState(true);
+    const navigate = useNavigate();
     const userNum = sessionStorage.getItem('userNum');
+
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
+
+    useEffect(() => {
+        if (userNum == null) {
+            // 모달 창 띄워서 로그인 하세요 하고 확인 누르면 로그인 창으로 보내기
+            setLoginModalOpen(true);
+        }
+    }, [userNum]);
+
+    const closeModalAndNavigate = () => {
+        setLoginModalOpen(false);
+        navigate('/login');
+    };
 
     useEffect(() => {
         if (showFriendsOnly) {
@@ -64,7 +82,7 @@ export default function RankingArea() {
 
     const fetchFriendRankListDay = async () => {
         try {
-            const response = await axios.get('http://localhost/ranking/friend-rank-month', {
+            const response = await axios.get('http://localhost/ranking/friend-rank-day', {
                 params: {
                     userId: userNum,
                 }
@@ -144,6 +162,19 @@ export default function RankingArea() {
                     </div>
                 )}
             </div>
+
+            <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
+
+                <div className="speechModalCenter">
+                    <img src={loginImg} alt='로그인 이미지' className="speechLoginImg"/>
+                    <h4>로그인 후 이용해 주세요</h4>
+                    <button onClick={closeModalAndNavigate} className="modal-custom-button">
+                        닫기
+                    </button>
+                </div>
+            </Modal>
+        <Footer/>
+
         </div>
     )
 }

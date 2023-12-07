@@ -145,7 +145,7 @@ public class TalkingRoomController {
                 gptRole = "boyfriend";
                 userRole = "girfriend";
                 if(country.equals("영국")){
-                    voice = 3;
+                    voice = 4;
                 } else {
                     voice = 7;
                 }
@@ -183,9 +183,9 @@ public class TalkingRoomController {
                 gptRole = "woman";
                 userRole = "man";
                 if(country.equals("영국")){
-                    voice = 2;
+                    voice = 4;
                 } else {
-                    voice = 5;
+                    voice = 8;
                 }
             }
 

@@ -3,6 +3,7 @@ package com.project.eng_back.Controller;
 import com.google.api.Http;
 import com.project.eng_back.Dto.GoogleUserDTO;
 import com.project.eng_back.Dto.UserDTO;
+import com.project.eng_back.Dto.UserScoreDTO;
 import com.project.eng_back.Mapper.UserMapper;
 import com.project.eng_back.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class UserController {
 
     @Autowired
     UserService uService;
+
+    @Autowired
+    private RankingController rankingController;
 
     @GetMapping("/findAll")
     public List<UserDTO> findAll() {
@@ -142,8 +146,16 @@ public class UserController {
         return uService.editLevel(uDto);
     }
 
+
     @PostMapping("/addExperience")
-    public int addExperience(@RequestParam(name = "userNum") String userNum) {
+    public int addExperience(@RequestParam(name = "userNum") String userNum, @RequestParam(name = "score") int score) {
+//        RankingController rankingController = new RankingController();
+        UserScoreDTO userScoreDTO = new UserScoreDTO();
+        userScoreDTO.setUser_num(userNum);
+        userScoreDTO.setScore(score);
+        System.out.println(userScoreDTO);
+        rankingController.insertUserScore(userScoreDTO);
+        System.out.println("test score: "+score);
         int experience = uService.getExperienceByUserNum(userNum);
         int saveEx;
         if(experience>=90){

@@ -276,7 +276,6 @@ export default function Mainarea(){
             <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650', fontFamily: "Noto Sans KR Medium" }}> 시험 정보, 알고 계셨나요?</h5>
           </div>
 
-
           <div className="im">
             <a href="https://www.opic.or.kr/opics/jsp/senior/index.jsp">
               <img src={speakingexam} alt="스피킹시험" className="ei"/>
@@ -285,16 +284,8 @@ export default function Mainarea(){
               <img src={nationalexam} alt="국가시험" className="ei"/>
             </a>
           </div>
-
-
-
-
           <div style={{marginTop : '150px'}}/>
           <img src={hugi} alt="후기" style={{ maxWidth: '100%', height: 'auto' }} />
-
-
-
-
 </div>
         </>
     )
