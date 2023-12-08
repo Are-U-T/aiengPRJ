@@ -72,13 +72,21 @@ export default function VocaArea() {
         }
     };
 
+    const goToBack = () => {
+        navigate('/mypage');
+    }
+
     const chunkedVocaList = chunkArray(vocaList, 10);
 
     return (
         <div className='App'>
+            <div style={{marginBottom:'100px'}}/>
+            <div className='vocaDiv'>
+                <button className='vocaBackBtn' onClick={goToBack}>이전</button>
+            </div>
             <div className="VocaCenter">
                 {/*왼쪽 페이지 div*/}
-                <div className="VocaContainerL" style={{marginTop: '150px'}}>
+                <div className="VocaContainerL">
                     {chunkedVocaList[currentPage - 1] && (
                         <div className="voca">
                             <div><p>{currentPage}p</p></div>
@@ -102,7 +110,7 @@ export default function VocaArea() {
                 <div className="VocaCenter2"></div>
 
                 {/*오른쪽 페이지 div*/}
-                <div className="VocaContainerR" style={{marginTop: '150px'}}>
+                <div className="VocaContainerR">
                     {chunkedVocaList[nextPage - 1] && (
                         <div className="voca">
                             <div className="vocaPageR"><p>{nextPage}p</p></div>

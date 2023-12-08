@@ -3,6 +3,12 @@
     justify-content: center;
 }
 
+.vocaDiv {
+    margin: 0 auto;
+    justify-content: center;
+    width: 830px;
+}
+
 .VocaCenter2 {
     width: 30px;
     height: 550px;
@@ -12,7 +18,6 @@
     overflow: auto;
     position: relative;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-    margin-top: 150px;
 }
 
 .VocaContainerR {
@@ -43,6 +48,18 @@
     position: relative;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     padding: 25px 30px;
+}
+
+.vocaBackBtn {
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    font-size: 15px;
+    border-radius: 4px;
+    background: #1D2B64;
+    color: white;
+    padding: 3px 10px;
+    border: none;
+    width: 10%;
+    margin-bottom: 5px;
 }
 
 .vocaL {
