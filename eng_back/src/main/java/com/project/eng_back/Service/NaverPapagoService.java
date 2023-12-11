@@ -51,7 +51,7 @@ public class NaverPapagoService {
             JsonNode resultNode = jsonNode.get("message").get("result");
             String translatedText = resultNode.get("translatedText").asText();
 
-            translatedText = translatedText.replace("\"", "");
+            translatedText = translatedText.replace("\"", "").replace(".", "");
 
             return translatedText;
         } catch (Exception e) {
