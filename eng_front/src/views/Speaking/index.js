@@ -333,7 +333,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
         try {
             const response = await axios.post('http://localhost/user/addExperience', null, {
                 params: {
-                    userNum: userNum
+                    userNum: userNum,
+                    score: 300-timeSpent
                 }
             });
 
