@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import './Script.css';
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 export default function Script() {
@@ -11,6 +11,7 @@ export default function Script() {
 
     const [getScript, setGetScript] = useState([]);
     const [getScript2, setGetScript2] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         script();
@@ -37,6 +38,10 @@ export default function Script() {
             console.error('ScriptPage error: ', error);
         }
     };
+
+    const goToBack = () => {
+        navigate('/mypage');
+    }
 
     function formatDate(dataTimeString) {
         const getDate = new Date(dataTimeString);
@@ -106,6 +111,7 @@ export default function Script() {
                 <div className="script-container-main">
                     <div className="title">
                         <p className="date">
+                            <button className='scriptBackBtn' onClick={goToBack}>이전</button>
                             {getScript.map((title, index) => (
                                 <p className="date" key={index}>
                                     {formatDate(title.REGDATE)}

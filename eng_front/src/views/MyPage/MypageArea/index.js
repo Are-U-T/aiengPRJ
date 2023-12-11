@@ -75,8 +75,6 @@ export default function MypageArea() {
     };
 
 
-
-
     useEffect(() => {
         // 페이지 로드 후 1초마다 completed 상태를 업데이트
         const interval = setInterval(() => {
@@ -319,7 +317,7 @@ export default function MypageArea() {
                 </div>
                 {modalInfo && (
                     <ModalChange isOpen={modalInfo} onClose={() => setModalInfo(false)}>
-                        <h2 className="modal-titlea">개인정보 확인</h2>
+                        <h2 className="modal-titlea" style={{fontFamily: "Noto Sans KR Medium"}}>개인정보 확인</h2>
                         <div className="modal-bodya">
                             <p>비밀번호 입력</p>
                             <input
@@ -329,11 +327,12 @@ export default function MypageArea() {
                             />
                         </div>
                         <div style={{display: 'flex', justifyContent: 'center', marginTop: '30px'}}>
-                            <button className="modal-buttona" onClick={checkPassword} style={{marginRight: '10px'}}>확인
+                            <button className="modal-buttona" onClick={checkPassword} style={{marginRight: '10px',fontFamily: "Noto Sans KR Medium"}}>확인
                             </button>
                             <button
                                 onClick={() => setModalInfo(false)}
-                                className="modal-buttona">
+                                className="modal-buttona"
+                                style={{marginRight: '10px',fontFamily: "Noto Sans KR Medium"}}>
                                 닫기
                             </button>
                         </div>

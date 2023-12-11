@@ -472,7 +472,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                 {showSubtitles && (
                     <>
                         <div className={`${subtitlesContainerClass} junghunsub`}>
-                            <h3>실시간 자막</h3>
+                            <h3 style={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>실시간 자막</h3>
                             <ul>
                                 {liveSubtitles.map((subtitle, index) => (
                                     <li key={index}>
@@ -482,7 +482,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                             </ul>
                         </div>
 
-                        <div className='mrt'>
+
+                        <div className='mrt' style={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                             <div className="typo-correction-container">
                                 <b style={{color: 'midnightblue'}}>검색 섹션</b>
                                 <div className="search-container">
@@ -514,8 +515,9 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                             </div>
                         </div>
 
-                        <div className="question-suggestion-container junghun">
-                            <b style={{color: 'midnightblue'}}>질문추천 섹션</b>
+
+                        <div className="question-suggestion-container junghun" style={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
+                            <b style={{color: 'midnightblue' }}>질문추천 섹션</b>
                             {recommendedQuestions.map((subtitle, index) => (
                                 <div key={index}>
                                     {subtitle.CONTENT}
@@ -525,7 +527,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                     </>
                 )}
 
-                <div className='mrts'>
+                <div className='mrts' style={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                     <div className={`buttons-containerpp ${!showSubtitles ? "buttons-hidden-subtitles" : ""}`}>
                         <button onClick={toggleRecording}
                                 className={`${isRecording ? "recording-active" : ""} ${isTurningOff ? "tuof" : ""}`}
@@ -553,8 +555,8 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
             {isModalOpen && (
                 <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                    <h2 className="modal-title">알림</h2>
-                    <div className="modal-body">
+                    <h2 className="modal-title" style={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>알림</h2>
+                    <div className="modal-body" style={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                         <p>5분이 지났습니다. 메인 화면으로 돌아갑니다.</p>
                         <p>지정된 시간이 초과되었습니다. 메인 화면으로 돌아가서 다시 시작하세요.</p>
                         <p>현재 진행 시간: {formatTime(timeSpent)}</p>
@@ -570,6 +572,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
 
             {isModal2Open && (
                 <ModalResult isOpen={isModal2Open} onClose={() => setIsModal2Open(false)}>
+
                     <h2 className="modal-title">대화 종료</h2>
                     <div className="modal-body">
                         <p>대화가 종료되었습니다.</p>
@@ -584,6 +587,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
             )}
 
             <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
+
                 <div className="speechModalCenter">
                     <img src={loginImg} alt='로그인 이미지' className="speechLoginImg"/>
                     <h4>로그인 후 이용해 주세요</h4>
@@ -592,6 +596,7 @@ function Speaking({selectedItem, selectedAiRole, selectedMyRole}) {
                     </button>
                 </div>
             </Modal>
+
         </div>
     );
 }

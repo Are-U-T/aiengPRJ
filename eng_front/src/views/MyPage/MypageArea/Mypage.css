@@ -20,6 +20,26 @@
     background: #f8f8f8;
 }
 
+.friendRemoveBtn {
+    font-family: "Noto Sans KR Medium", "sans-serif";
+    font-size: 15px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    background: #1D2B64;
+    color: white;
+    padding: 3px 10px;
+    border: none;
+}.friendRemoveBtn {
+     font-family: "Noto Sans KR Medium", "sans-serif";
+     font-size: 15px;
+     margin-bottom: 5px;
+     border-radius: 4px;
+     background: #1D2B64;
+     color: white;
+     padding: 3px 10px;
+     border: none;
+ }
+
 .MypageContainer p {
     font-family: "Noto Sans KR Medium", "sans-serif";
     text-align: center;

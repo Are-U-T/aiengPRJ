@@ -211,9 +211,9 @@ function Speech() {
 
             <div style={{marginTop: '30px'}}></div>
 
-            <div className="container">
+            <div className="container" >
                 <div className="column">
-                    <h3 className="styledpodo">STEP 1 상황 선택</h3>
+                    <h3 className="styledpodo" style={{fontFamily: "Noto Sans KR Medium"}}>STEP 1 상황 선택</h3>
                     <div className="scroll-container tx">
                         {items.map((item, index) => (
                             <div
@@ -228,7 +228,7 @@ function Speech() {
                 </div>
 
                 <div className="column">
-                    <h3 className="styledpodo">STEP 2 나의 역할</h3>
+                    <h3 className="styledpodo" style={{fontFamily: "Noto Sans KR Medium"}}>STEP 2 나의 역할</h3>
                     <div className="scroll-container tx">
                         {availableRoles.map((role, index) => (
                             <div
@@ -244,7 +244,7 @@ function Speech() {
 
 
                 <div className="column">
-                    <h3 className="styledpodo">STEP 3 발음 선택</h3>
+                    <h3 className="styledpodo" style={{fontFamily: "Noto Sans KR Medium"}}>STEP 3 발음 선택</h3>
                     <div className="scroll-container">
                         <div className={`item ${selectedCountry === '미국' ? 'coselected' : ''}`}
                              onClick={() => handleCountryClick('미국')}>
@@ -272,12 +272,12 @@ function Speech() {
 
 
                 <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                    <div style={{textAlign: 'center', maxWidth: '500px', margin: 'auto'}}>
-                        <h3 style={{color: 'darkblue', fontWeight: 'bold', fontSize: '30px', margin: '20px 0'}}>선택
+                    <div style={{textAlign: 'center', maxWidth: '500px', margin: 'auto' , fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
+                        <h3 style={{color: 'darkblue', fontWeight: 'bold', fontSize: '30px', margin: '20px 0', fontFamily: "'NotoSansKR-Medium', sans-serif"}}>선택
                             결과</h3>
 
                         <div
-                            style={{margin: '20px 0', padding: '10px', border: '1px solid #ccc', borderRadius: '10px'}}>
+                            style={{margin: '20px 0', padding: '10px', border: '1px solid #ccc', borderRadius: '10px', fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                             <strong>선택한 상황</strong> <p style={{fontSize: '18px', margin: '10px 0'}}>{selectedItem}</p>
                             <strong>AI의 역할</strong>  <p
                             style={{fontSize: '18px', margin: '10px 0'}}>{selectedAirole}</p>
@@ -287,11 +287,11 @@ function Speech() {
                         </div>
 
 
-                        <div className="difficulty-selector">
-                            <h5>난이도 조절 선택하기</h5>
+                        <div className="difficulty-selector" style={{ fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
+                            <h5 style={{ fontFamily: "'NotoSansKR-Medium', sans-serif"}}>난이도 조절 선택하기</h5>
                             <div className="controls">
                                 <img src={left} alt='레벨 다운' onClick={decreaseLevel}/>
-                                <span>레벨 {selectedLv}</span>
+                                <span style={{ fontFamily: "'NotoSansKR-Medium', sans-serif"}}>레벨 {selectedLv}</span>
                                 <img src={right} alt='레벨 업' onClick={increaseLevel}/>
                             </div>
                         </div>
@@ -321,7 +321,7 @@ function Speech() {
 
                 <Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
 
-                    <div className="speechModalCenter">
+                    <div className="speechModalCenter" style={{fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                         <img src={loginImg} alt='로그인 이미지' className="speechLoginImg"/>
                         <h4>로그인 후 이용해 주세요</h4>
                         <button onClick={closeModalAndNavigate} className="modal-custom-button">

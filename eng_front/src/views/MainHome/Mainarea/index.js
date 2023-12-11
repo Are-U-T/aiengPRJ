@@ -22,6 +22,7 @@ import nationalexam from "./images/nationalexam.png";
 import './exam.css';
 import hugi from '../Mainarea/images/후기.png';
 
+
 const item = {
   display: 'flex',
   flexDirection: 'column',
@@ -35,7 +36,7 @@ const customItem = {
   alignItems: 'center',
   borderRight: '1px solid #ccc', // 오른쪽 테두리만 추가
   padding: '10px',
-  margin: '10px',
+  margin: '10px'
 };
 
 const customImage = {
@@ -52,9 +53,9 @@ export default function Mainarea(){
 
           <div style={{marginTop : '150px'}}/>
 
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '280px', marginBottom : '10px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '10px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
-            <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>학습 효과</h5>
+            <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650', fontFamily: "Noto Sans KR Medium" }}>학습 효과</h5>
           </div>
 
           <section className="page-section" id="portfolio" style={{ marginTop: '-120px',  cursor: 'default' }}>
@@ -92,11 +93,9 @@ export default function Mainarea(){
           </section>
 
 
-
-
-          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '280px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '180px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
-            <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>사용 대상</h5>
+            <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650', fontFamily: "Noto Sans KR Medium" }}>사용 대상</h5>
           </div>
 
           <Box
@@ -115,14 +114,15 @@ export default function Mainarea(){
                         alt="suitcase"
                         sx={{ height: 320 }}
                     />
-                    <Typography variant="h6" sx={{ my: 2, fontWeight: 'bold', fontSize: '1.5rem' }}>
+                    <Typography variant="h6" sx={{ my: 2, fontWeight: 'bold', fontSize: '1.5rem', fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                       어린이
                     </Typography>
 
-                    <Typography variant="h6" sx={{ mt: 2, className: 'fontMedium'}}>
+                    <Typography variant="h6" sx={{ mt: 2 , fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                       {
                         '유아기부터 영어 경쟁력을 키울 수 있도록 모국어 환경에서 맞춤형 1:1 행복한 학습'
                       }
+
                     </Typography>
                   </Box>
 
@@ -136,12 +136,12 @@ export default function Mainarea(){
                         alt="graph"
                         sx={{ height: 320 }}
                     />
-                    <Typography variant="h6" sx={{ my: 2, fontWeight: 'bold', fontSize: '1.5rem' }}>
+                    <Typography variant="h6" sx={{ my: 2, fontWeight: 'bold', fontSize: '1.5rem', fontFamily: "'NotoSansKR-Medium', sans-serif" }}>
                       직장인
                     </Typography>
-                    <Typography variant="h6" sx={{ mt: 2}}>
+                    <Typography variant="h6" sx={{ mt: 2 , fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                       {
-                        '성공적으로 언어 경쟁력 향상,급여 인상, 전직, 관심을 가지고 공부하고 자유롭게 목표 달성'
+                        '성공적으로 언어 경쟁력 향상,급여 인상, 전직, 관심을 가지고 공부하여 목표 달성'
                       }
                     </Typography>
                   </Box>
@@ -154,12 +154,12 @@ export default function Mainarea(){
                         component="img"
                         src={student}
                         alt="clock"
-                        sx={{ height: 320 }}
+                        sx={{ height: 320 , fontFamily: "'NotoSansKR-Medium', sans-serif"}}
                     />
-                    <Typography variant="h6" sx={{ my: 2, fontWeight: 'bold', fontSize: '1.5rem' }}>
+                    <Typography variant="h6" sx={{ my: 2, fontWeight: 'bold', fontSize: '1.5rem' , fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                       학생
                     </Typography>
-                    <Typography variant="h6" sx={{ mt: 2}}>
+                    <Typography variant="h6" sx={{ mt: 2 , fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                       {
                         '유학시 약점, 시험, 쉬운 합격을 바탕으로 한 특별한 준비'
                       }
@@ -170,9 +170,12 @@ export default function Mainarea(){
             </Container>
           </Box>
 
-          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '280px'}}>
+
+
+
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '180px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
-            <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}>사용하는 이유</h5>
+            <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650', fontFamily: "Noto Sans KR Medium" }}>사용하는 이유</h5>
           </div>
           <div style={{marginTop : '-30px'}}></div>
           <Container
@@ -183,6 +186,7 @@ export default function Mainarea(){
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
+                fontFamily: "'NotoSansKR-Medium', sans-serif"
               }}
           >
             <Grid container spacing={{ xs: 4, md: 8 }}>
@@ -197,7 +201,7 @@ export default function Mainarea(){
                   </Grid>
                   <Grid item xs={6}>
                     <Box sx={{ ...customItem, borderRight: 'none' }}>
-                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}>
+                      <Typography variant="h5" align="center" style={{ fontSize: '0.9rem', fontWeight: 'bold', marginTop: '30px' , fontFamily: "'NotoSansKR-Medium', sans-serif" }}>
                         언제 어디서나 마음 껏 자유롭게!
                       </Typography>
                     </Box>
@@ -216,8 +220,8 @@ export default function Mainarea(){
                     />
                   </Grid>
                   <Grid item xs={6}>
-                    <Box sx={{ ...customItem, borderRight: 'none' }}> {/* 여기서는 경계선 제거 */}
-                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}>
+                    <Box sx={{ ...customItem, borderRight: 'none' }}>
+                      <Typography variant="h5" align="center" style={{ fontSize: '0.88rem', fontWeight: 'bold', marginTop: '30px', fontFamily: "'NotoSansKR-Medium', sans-serif" }}>
                        능력에 따른 효과적이고 맞춤형 학습
                       </Typography>
                     </Box>
@@ -225,7 +229,6 @@ export default function Mainarea(){
                 </Grid>
               </Grid>
 
-              {/* 두 개의 추가 그리드 아이템 */}
               <Grid item xs={12} md={6}>
                 <Grid container spacing={0}>
                   <Grid item xs={6} style={{ borderRight: '1px solid #ccc', padding: '0', margin: '0' }}>
@@ -236,8 +239,8 @@ export default function Mainarea(){
                     />
                   </Grid>
                   <Grid item xs={6}>
-                    <Box sx={{ ...customItem, borderRight: 'none' }}> {/* 여기서는 경계선 제거 */}
-                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}>
+                    <Box sx={{ ...customItem, borderRight: 'none' }}>
+                      <Typography variant="h5" align="center" style={{ fontSize: '0.9rem', fontWeight: 'bold', marginTop: '30px' , fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                         무료로 인한 부담감 제로!
                       </Typography>
                     </Box>
@@ -255,8 +258,8 @@ export default function Mainarea(){
                     />
                   </Grid>
                   <Grid item xs={6}>
-                    <Box sx={{ ...customItem, borderRight: 'none' }}> {/* 여기서는 경계선 제거 */}
-                      <Typography variant="h5" align="center" style={{ fontSize: '1rem', fontWeight: 'bold', marginTop: '30px' }}>
+                    <Box sx={{ ...customItem, borderRight: 'none' }}>
+                      <Typography variant="h5" align="center" style={{ fontSize: '0.9rem', fontWeight: 'bold', marginTop: '30px',fontFamily: "'NotoSansKR-Medium', sans-serif"}}>
                         모두가 좋아하는 편한 디자인!
                       </Typography>
                     </Box>
@@ -268,11 +271,10 @@ export default function Mainarea(){
 
           <div style={{marginTop : '150px'}}/>
 
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '280px', marginBottom : '10px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '40px', marginLeft: '180px', marginBottom : '10px'}}>
             <img src={logo} alt="..." style={{ marginRight: '1px', width: '80px', height: '80px' }} />
-            <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650' }}> 시험 정보, 알고 계셨나요?</h5>
+            <h5 id="study" style={{ fontWeight: 'bold', fontSize: '26px', color: '#132650', fontFamily: "Noto Sans KR Medium" }}> 시험 정보, 알고 계셨나요?</h5>
           </div>
-
 
           <div className="im">
             <a href="https://www.opic.or.kr/opics/jsp/senior/index.jsp">
@@ -282,16 +284,8 @@ export default function Mainarea(){
               <img src={nationalexam} alt="국가시험" className="ei"/>
             </a>
           </div>
-
-
-
-
           <div style={{marginTop : '150px'}}/>
           <img src={hugi} alt="후기" style={{ maxWidth: '100%', height: 'auto' }} />
-
-
-
-
 </div>
         </>
     )

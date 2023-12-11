@@ -118,6 +118,7 @@ export default function SignInSide() {
     }
 
     // 사용자가 입력한 인증번호와 서버에서 받은 인증번호를 비교
+    // 사용자가 입력한 인증번호와 서버에서 받은 인증번호를 비교
     function confirmNum() {
 
         const number = document.querySelector("input[id=number]");

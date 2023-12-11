@@ -14,7 +14,7 @@ function Question({question, onAnswer}) {
         <div className='App'>
             <div key={id} style={{textAlign: 'center'}}>
                 <div style={{textAlign: 'center', marginBottom: '70px'}}>
-                    <h3 style={{fontSize: '20px'}}>{questionText}</h3>
+                    <h3 style={{fontSize: '20px', fontFamily: "'NotoSansKR-Medium', sans-serif"}}>{questionText}</h3>
                 </div>
                 <ul style={{listStyle: 'none', padding: 0}}>
                     {options.map((option) => (
