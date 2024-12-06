@@ -4,13 +4,11 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="delegatedBuild" value="false" />
-        <option name="testRunner" value="PLATFORM" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/eng_back" />
-        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Program Files/gradle-8.2.1" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/eng_back" />
+            <option value="$USER_HOME$/몰입형/aiengPRJ/eng_back" />
           </set>
         </option>
       </GradleProjectSettings>
