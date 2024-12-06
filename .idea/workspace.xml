@@ -7,15 +7,8 @@
     <list default="true" id="b2faa664-9df8-40fa-aee5-4b324b060fae" name="Changes" comment="login and sign up test done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eng_back/src/main/java/com/project/eng_back/Config/ChatGptConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/eng_back/src/main/java/com/project/eng_back/Config/ChatGptConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eng_back/src/main/java/com/project/eng_back/Controller/ChatGptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/eng_back/src/main/java/com/project/eng_back/Controller/ChatGptController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eng_back/src/main/java/com/project/eng_back/Controller/ChattingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/eng_back/src/main/java/com/project/eng_back/Controller/ChattingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eng_back/src/main/java/com/project/eng_back/Mapper/ChatGPTMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/eng_back/src/main/java/com/project/eng_back/Mapper/ChatGPTMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eng_back/src/main/java/com/project/eng_back/Service/ChatGptService.java" beforeDir="false" afterPath="$PROJECT_DIR$/eng_back/src/main/java/com/project/eng_back/Service/ChatGptService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eng_back/src/main/java/com/project/eng_back/Service/ChattingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/eng_back/src/main/java/com/project/eng_back/Service/ChattingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eng_front/src/views/MyPage/MypageArea/Mypage.css" beforeDir="false" afterPath="$PROJECT_DIR$/eng_front/src/views/MyPage/MypageArea/Mypage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eng_front/src/views/MyPage/MypageArea/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/eng_front/src/views/MyPage/MypageArea/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eng_front/src/views/MyPage/MypageArea/index2.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eng_front/src/views/SignIn/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/eng_front/src/views/SignIn/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eng_back/src/main/java/com/project/eng_back/Service/NaverPapagoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/eng_back/src/main/java/com/project/eng_back/Service/NaverPapagoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eng_back/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/eng_back/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +67,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "hee",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/82105/Documents/GitHub/aiengPRJ/eng_front/src/views/Speaking",
+    "last_opened_file_path": "C:/Users/82105/Documents/GitHub/aiengPRJ-2",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -121,6 +114,23 @@
       <workItem from="1700721964916" duration="12328000" />
       <workItem from="1700740244403" duration="12659000" />
       <workItem from="1700826974129" duration="577000" />
+      <workItem from="1702039437855" duration="997000" />
+      <workItem from="1702256328440" duration="1076000" />
+      <workItem from="1702259254963" duration="3374000" />
+      <workItem from="1702296056255" duration="1357000" />
+      <workItem from="1702369817763" duration="638000" />
+      <workItem from="1702518486309" duration="1856000" />
+      <workItem from="1702622711930" duration="1179000" />
+      <workItem from="1703587549517" duration="1108000" />
+      <workItem from="1704079945953" duration="822000" />
+      <workItem from="1704528636012" duration="7000" />
+      <workItem from="1704528662214" duration="28000" />
+      <workItem from="1705034865275" duration="614000" />
+      <workItem from="1705123101482" duration="1000" />
+      <workItem from="1705129658591" duration="599000" />
+      <workItem from="1706162528945" duration="621000" />
+      <workItem from="1706172742104" duration="65000" />
+      <workItem from="1733390178946" duration="916000" />
     </task>
     <task id="LOCAL-00001" summary="login and sign up test done">
       <option name="closed" value="true" />
@@ -154,7 +164,39 @@
       <option name="project" value="LOCAL" />
       <updated>1701589614505</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="final">
+      <option name="closed" value="true" />
+      <created>1702259340556</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1702259340556</updated>
+    </task>
+    <task id="LOCAL-00006" summary="final">
+      <option name="closed" value="true" />
+      <created>1702259519472</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1702259519472</updated>
+    </task>
+    <task id="LOCAL-00007" summary="final merge">
+      <option name="closed" value="true" />
+      <created>1702259648586</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1702259648586</updated>
+    </task>
+    <task id="LOCAL-00008" summary="찐 병합">
+      <option name="closed" value="true" />
+      <created>1702297061588</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1702297061588</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,9 +204,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="서윤, 경희, 장령, 정훈 merge (11/27)" />
-    <MESSAGE value="login and sign up test done" />
     <MESSAGE value="12/03 병합 (경희, 서윤, 장령)&#10;마이페이지, 레벨업 자동화" />
-    <option name="LAST_COMMIT_MESSAGE" value="12/03 병합 (경희, 서윤, 장령)&#10;마이페이지, 레벨업 자동화" />
+    <MESSAGE value="final" />
+    <MESSAGE value="final merge" />
+    <MESSAGE value="login and sign up test done" />
+    <MESSAGE value="찐 병합" />
+    <option name="LAST_COMMIT_MESSAGE" value="찐 병합" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -180,7 +225,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/eng_front/src/views/MyPage/MypageArea/index.js</url>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
